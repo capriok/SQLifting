@@ -1,0 +1,54 @@
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.App{
+  @include flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.head{
+  @include flex;
+  width: 80vh;
+  height: 50px;
+  .center{
+    @include flex;
+    justify-content: space-between;
+    div{
+      padding: 0 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}
+
+.main{
+  @include flex;
+  flex-wrap: wrap;
+  min-height: 60vh;
+  height: fit-content;
+  width: 80vh;
+  border: 1px solid black;
+  background-color: rgb(209, 209, 209);
+  .database, .workouts{
+    @include flex;
+    align-items: flex-start;
+    flex: 1;
+    height: 100%;
+    padding: 20px;
+  }
+  .database{border-right: 2px solid black;}
+  .workouts{
+    @include flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .accordian{
+    width: 100%;
+    background-color: rgb(190, 190, 190);
+  }
+}
+

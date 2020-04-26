@@ -1,0 +1,99 @@
+.accordion {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  .accordion__item + .accordion__item {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+.accordion__button {
+  background-color: #f4f4f4;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  padding: 15px 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+}
+.accordion__button:hover {
+  background-color: #ddd;
+}
+.accordion__button:before {
+  display: inline-block;
+  content: '';
+  height: 10px;
+  width: 10px;
+  margin-right: 12px;
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+.accordion__button[aria-expanded='true']::before,
+.accordion__button[aria-selected='true']::before {
+  transform: rotate(45deg);
+}
+.accordion__panel {
+  padding: 20px;
+  animation: fadein 0.35s ease-in;
+  .form{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    input{flex: 1;}
+    input::placeholder{user-select: none;}
+  }
+  .listing{
+    padding-bottom: 10px;
+    .list-item{
+      display: flex;
+      justify-content: space-between;
+      .x{
+        user-select: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.numberSetter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .inc, .dec{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    font-size: 60px;
+    img{
+      width: 17px;
+      padding: 5px;
+      box-sizing: content-box;
+      cursor: pointer;
+    }
+  }
+  .dec{
+    transform: rotate(180deg);
+  }
+  .field{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    margin: 0 10px;
+    width: 50px;
+    background: white;
+  }
+}
+
+@keyframes fadein {
+  0% {
+      opacity: 0;
+  }
+
+  100% {
+      opacity: 1;
+  }
+}
