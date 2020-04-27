@@ -8,6 +8,7 @@
   @include flex;
   flex-direction: column;
   height: 100vh;
+  background-color: grey;
 }
 
 .head{
@@ -16,8 +17,11 @@
   height: 50px;
   .center{
     @include flex;
-    justify-content: space-between;
-    div{
+    width: 100%;
+    justify-content: flex-start;
+    a{
+      text-decoration: none;
+      color: black;
       padding: 0 20px;
       cursor: pointer;
       user-select: none;
@@ -25,7 +29,7 @@
   }
 }
 
-.main{
+.builder{
   @include flex;
   flex-wrap: wrap;
   min-height: 60vh;
@@ -33,15 +37,25 @@
   width: 80vh;
   border: 1px solid black;
   background-color: rgb(209, 209, 209);
-  .database, .workouts{
+  .left, .right{
     @include flex;
     align-items: flex-start;
+    justify-content: flex-start;
     flex: 1;
     height: 100%;
     padding: 20px;
+    .form{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      margin-top: 10px;
+      input{flex: 1;}
+      input::placeholder{user-select: none;}
+    }
   }
-  .database{border-right: 2px solid black;}
-  .workouts{
+  .left{border-right: 2px solid black;}
+  .right{
     @include flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -49,6 +63,70 @@
   .accordian{
     width: 100%;
     background-color: rgb(190, 190, 190);
+  }
+}
+
+.number-setter{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  user-select: none;
+  .field{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    margin: 0 10px;
+    padding: 0px 40px;
+  }
+  .inc{margin-left: -35px;}
+  .dec{margin-right: -35px;}
+  .inc, .dec{
+    @include flex;
+    z-index: 10;
+    img{
+      width: 15px;
+      padding: 5px;
+      box-sizing: content-box;
+      cursor: pointer;
+      &:active{
+        transform: scale(.93);
+      }
+    }
+  }
+}
+
+.database-entry{
+  @include flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.build{
+  flex:1;
+  @include flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px 0;
+  .workout-build{
+    @include flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    .setters{
+      .reps, .sets{
+      @include flex;
+      justify-content: space-between;
+        span{padding-right: 10px;}
+      }
+    }
+    *{padding-top: 10;}
   }
 }
 

@@ -8,20 +8,14 @@ import './Index.scss';
 export default function Index() {
 
   let initialState = {
-    workouts: [{
-      id: 1,
-      name: 'foo'
-    }, {
-      id: 2,
-      name: 'bar'
-    }, {
-      id: 3,
-      name: 'baz'
-    }],
+    exercises: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
+    workouts: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
     data: {
-      muscles: [],
-      exercises: [],
-      equipment: []
+      muscles: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
+      exercises: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
+      equipment: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
+      reps: [{ id: 1, count: 1 }, { id: 2, count: 4 }, { id: 3, count: 8 },],
+      sets: [{ id: 1, count: 1 }, { id: 2, count: 2 }, { id: 3, count: 4 },]
     }
   }
 
@@ -37,14 +31,15 @@ export default function Index() {
           ...state,
           workouts: action.workouts
         };
+      case "EXaction":
+        return {
+          ...state,
+          exercises: action.exercises
+        };
       default:
         return state;
     }
   }
-
-  useEffect(() => {
-    console.log(initialState.data)
-  }, [initialState.data])
 
   return (
     <>
