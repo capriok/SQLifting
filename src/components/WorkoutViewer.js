@@ -1,39 +1,45 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import Button from 'godspeed/build/Button'
-import NumberSetter from './numberSetter'
+import NumberSetter from './NumberSetter'
 
 const WorkoutViewer = ({ build, setBuild }) => {
   const [{ workouts }, dispatch] = useStateValue()
 
   const submitBuild = () => {
-
-    console.log(build);
+    dispatch({
+      type: 'WOaction',
+      workouts: [
+        ...workouts,
+        { ...build }
+      ]
+    })
+    setBuild({
+      name: undefined,
+      workout: []
+    })
   }
 
   const increment = (i, type) => {
-    console.log(build);
-    const copy = [...build]
+    const copy = { ...build.workout }
     copy[i][type] = copy[i][type] + 1
-    setBuild(copy)
+    setBuild({ ...build })
   }
 
   const decrement = (i, type) => {
-    if (build[i][type] === 1) return
-    const copy = [...build]
+    if (build.workout[i][type] === 1) return
+    const copy = { ...build.workout }
     copy[i][type] = copy[i][type] - 1
-    setBuild(copy)
+    setBuild({ ...build })
   }
 
-  useEffect(() => {
-    console.log(workouts)
-  }, [workouts])
+  useEffect(() => { console.log(workouts); }, [workouts])
 
   return (
     <>
-      <h1>Viewer</h1>
       <div className="build">
-        {build.map((build, i) => (
+        <h1>{build.name}</h1>
+        {build.workout.map((build, i) => (
           <div className="workout-build" key={i}>
             <div className="name">{build.exercise}</div>
             <div className="setters">

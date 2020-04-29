@@ -8,14 +8,43 @@ import './Index.scss';
 export default function Index() {
 
   let initialState = {
-    exercises: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
-    workouts: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
+    exercises: [{
+      id: undefined,
+      name: undefined,
+      muscles: undefined,
+      exercise: undefined,
+      equipment: undefined
+    }],
+    workouts: [{
+      name: undefined,
+      workout: [{
+        id: undefined,
+        exercise: undefined,
+        reps: undefined,
+        sets: undefined
+      }]
+    }],
     data: {
-      muscles: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
-      exercises: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
-      equipment: [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }, { id: 3, name: 'baz' }],
-      reps: [{ id: 1, count: 1 }, { id: 2, count: 4 }, { id: 3, count: 8 },],
-      sets: [{ id: 1, count: 1 }, { id: 2, count: 2 }, { id: 3, count: 4 },]
+      muscles: [{
+        id: undefined,
+        name: undefined
+      }],
+      exercises: [{
+        id: undefined,
+        name: undefined
+      }],
+      equipment: [{
+        id: undefined,
+        name: undefined
+      }],
+      reps: [{
+        id: undefined,
+        name: undefined
+      }],
+      sets: [{
+        id: undefined,
+        name: undefined
+      }]
     }
   }
 
@@ -52,3 +81,4 @@ export default function Index() {
 
 
 ReactDOM.render(<Index />, document.getElementById('root'))
+

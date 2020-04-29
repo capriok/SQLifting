@@ -11,13 +11,19 @@ const Database = () => {
   const [exercise, setExercise] = useState('')
   const [equipment, setEquipment] = useState('')
 
+  useEffect(() => {
+    console.log(data.muscles);
+  }, [data.muscles])
+
   return (
     <>
       <div className="left">
         <div className="database-entry">
           <form className="form" onSubmit={(e) => {
             e.preventDefault()
-            muscle && dispatch({
+            let isDupe = false
+            data.muscles.forEach(m => { if (m.name === muscle) isDupe = true });
+            (muscle && !isDupe) && dispatch({
               type: 'DBaction', data: {
                 ...data,
                 muscles: [...data.muscles, {
@@ -26,7 +32,7 @@ const Database = () => {
                 }]
               }
             })
-            setMuscle("")
+            !isDupe && setMuscle("")
           }}>
             <Input placeholder="Add Muscle"
               onChange={e => { setMuscle(e.target.value) }} value={muscle} />
@@ -34,7 +40,9 @@ const Database = () => {
           </form>
           <form className="form" onSubmit={(e) => {
             e.preventDefault();
-            exercise && dispatch({
+            let isDupe = false
+            data.exercises.forEach(e => { if (e.name === exercise) isDupe = true });
+            (exercise && !isDupe) && dispatch({
               type: 'DBaction', data: {
                 ...data, exercises: [...data.exercises, {
                   id: data.exercises.length + 1,
@@ -42,7 +50,7 @@ const Database = () => {
                 }]
               }
             })
-            setExercise("")
+            !isDupe && setExercise("")
           }}>
             <Input placeholder="Add Exercise"
               onChange={e => { setExercise(e.target.value) }} value={exercise} />
@@ -50,7 +58,9 @@ const Database = () => {
           </form>
           <form className="form" onSubmit={(e) => {
             e.preventDefault();
-            equipment && dispatch({
+            let isDupe = false
+            data.equipment.forEach(e => { if (e.name === equipment) isDupe = true });
+            (equipment && !isDupe) && dispatch({
               type: 'DBaction', data: {
                 ...data, equipment: [...data.equipment, {
                   id: data.equipment.length + 1,
@@ -58,7 +68,7 @@ const Database = () => {
                 }]
               }
             })
-            setEquipment("")
+            !isDupe && setEquipment("")
           }}>
             <Input placeholder="Add Equipment"
               onChange={e => { setEquipment(e.target.value) }} value={equipment} />
@@ -72,7 +82,7 @@ const Database = () => {
             <AccordionItemHeading>
               <AccordionItemButton>
                 Muscles
-          </AccordionItemButton>
+              </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
               <div className="listing">
@@ -87,12 +97,11 @@ const Database = () => {
             </AccordionItemPanel>
           </AccordionItem>
           {/*/////////////////////////////////////////////////////*/}
-
           <AccordionItem>
             <AccordionItemHeading>
               <AccordionItemButton>
                 Exercises
-          </AccordionItemButton>
+              </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
               <div className="listing">
@@ -112,7 +121,7 @@ const Database = () => {
             <AccordionItemHeading>
               <AccordionItemButton>
                 Equipment
-          </AccordionItemButton>
+              </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
               <div className="listing">

@@ -6,13 +6,13 @@ import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, Ac
 import Viewer from '../ExerciseViewer'
 
 const Builder = ({ build, setBuild }) => {
-  const [{ data, workouts }, dispatch] = useStateValue()
+  const [{ data, exercises },] = useStateValue()
   const [name, setName] = useState('')
 
   const sendOver = (name, payload) => {
     setBuild({
       ...build,
-      category: 'exercises',
+      id: exercises.length + 1,
       [name]: payload
     })
   }
@@ -30,7 +30,7 @@ const Builder = ({ build, setBuild }) => {
             <AccordionItemPanel>
               <form onSubmit={(e) => {
                 e.preventDefault()
-                setBuild({ ...build, category: 'exercises', name })
+                setBuild({ ...build, name })
                 setName("")
               }} className="form">
                 <Input placeholder="Exercise Name"

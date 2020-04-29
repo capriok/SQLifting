@@ -4,27 +4,43 @@
   align-items: center;
 }
 
+$app: grey;
+$build: darkgrey;
+$accent: steelblue;
+
 .App{
   @include flex;
   flex-direction: column;
   height: 100vh;
-  background-color: grey;
+  background-color: $app;
 }
 
 .head{
   @include flex;
   width: 80vh;
   height: 50px;
+  border: 1px solid black;
+  border-bottom: 0px solid black;
+  background-color: $build;
   .center{
     @include flex;
     width: 100%;
+    height: 100%;
     justify-content: flex-start;
-    a{
+    .item{
+      display: flex;
+      align-items: center;
       text-decoration: none;
       color: black;
+      height: 100%;
       padding: 0 20px;
       cursor: pointer;
       user-select: none;
+      transition: .2s;
+      &:hover{
+      transition: .2s;
+      background-color: opacify($color: $accent, $amount: 1);
+      }
     }
   }
 }
@@ -36,11 +52,12 @@
   height: fit-content;
   width: 80vh;
   border: 1px solid black;
-  background-color: rgb(209, 209, 209);
+  background-color: $build;
   .left, .right{
     @include flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
+    flex-direction: column;
     flex: 1;
     height: 100%;
     padding: 20px;
@@ -55,11 +72,6 @@
     }
   }
   .left{border-right: 2px solid black;}
-  .right{
-    @include flex;
-    justify-content: flex-start;
-    flex-direction: column;
-  }
   .accordian{
     width: 100%;
     background-color: rgb(190, 190, 190);
