@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../../state'
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
-import Viewer from '../WorkoutViewer'
+import Viewer from '../viewers/workoutviewer'
 import Input from 'godspeed/build/Input/Input';
 import Button from 'godspeed/build/Button'
 
@@ -9,7 +9,7 @@ const Builder = ({ build, setBuild }) => {
   const [{ exercises, workouts },] = useStateValue()
   const [name, setName] = useState('')
 
-  const sendOver = (i, name, payload) => {
+  const sendOver = (name, payload) => {
     let isDupe = false
     build.workout.forEach(item => {
       if (item.exercise === payload) isDupe = true
@@ -29,7 +29,6 @@ const Builder = ({ build, setBuild }) => {
       }
     )
   }
-  useEffect(() => { console.log(build); }, [build])
 
   return (
     <>
@@ -38,7 +37,7 @@ const Builder = ({ build, setBuild }) => {
           <AccordionItem>
             <AccordionItemHeading>
               <AccordionItemButton>
-                Name this workout
+                Name This Workout
             </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
@@ -67,7 +66,7 @@ const Builder = ({ build, setBuild }) => {
                   <div className="list-item" key={i}>
                     <span className="item">{item.name}</span>
                     <span className="x" title="exercise"
-                      onClick={e => sendOver(i, e.target.title, item.name)
+                      onClick={e => sendOver(e.target.title, item.name)
                       }>-></span>
                   </div>))}
               </div>

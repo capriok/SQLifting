@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { useStateValue } from './state'
+import axios from 'axios'
 import Navbar from 'godspeed/build/Navbar'
-import Database from './components/builders/database'
-import ExerciseBuilder from './components/builders/exercise'
-import WorkoutBuilder from './components/builders/workout'
-import BuiltWorkouts from './components/BuiltWorkouts'
+import Database from './components/builders/databasebuilder'
+import ExerciseBuilder from './components/builders/exercisebuilder'
+import WorkoutBuilder from './components/builders/workoutbuilder'
+import BuiltWorkouts from './components/viewers/builtworkouts'
 import './components/accordian.scss'
 
 function App() {
+  const [{ data, exercises, workouts },] = useStateValue()
 
   const [exerciseBuild, setExerciseBuild] = useState({
     id: undefined,
@@ -21,6 +24,18 @@ function App() {
     name: undefined,
     workout: []
   })
+
+  const retrieveFromDatabase = (type) => {
+    axios
+      .get(`http://localhost:9000/.netlify/functions/server/api/get/${type}`)
+      .then(res => console.log(res.data.map(data => Object.values(data)[0])))
+  }
+
+  useEffect(() => { data.muscles.length > 0 && console.log(data.muscles) }, [data.muscles])
+  useEffect(() => { data.exercises.length > 0 && console.log(data.exercises) }, [data.exercises])
+  useEffect(() => { data.equipment.length > 0 && console.log(data.equipment) }, [data.equipment])
+  useEffect(() => { exercises.length > 0 && console.log(exercises) }, [exercises])
+  useEffect(() => { workouts.length > 0 && console.log(workouts) }, [workouts])
 
   return (
     <>
@@ -41,7 +56,7 @@ function App() {
               <h1>SQLifting</h1>
             )} />
             <Route path="/database" render={() => (
-              <Database />
+              <Database retrieveFromDatabase={retrieveFromDatabase} />
             )} />
             <Route path="/exercise" render={() => (
               <ExerciseBuilder build={exerciseBuild} setBuild={setExerciseBuild} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../../state'
 import Button from 'godspeed/build/Button'
-import NumberSetter from './NumberSetter'
+import QuantitySetter from '../quantitysetter'
 
 const WorkoutViewer = ({ build, setBuild }) => {
   const [{ workouts }, dispatch] = useStateValue()
@@ -33,8 +33,6 @@ const WorkoutViewer = ({ build, setBuild }) => {
     setBuild({ ...build })
   }
 
-  useEffect(() => { console.log(workouts); }, [workouts])
-
   return (
     <>
       <div className="build">
@@ -45,7 +43,7 @@ const WorkoutViewer = ({ build, setBuild }) => {
             <div className="setters">
               <div className="reps">
                 <span>Reps</span>
-                <NumberSetter
+                <QuantitySetter
                   count={build.reps}
                   incrementer={e => increment(i, 'reps')}
                   decrementer={e => decrement(i, 'reps')}
@@ -53,7 +51,7 @@ const WorkoutViewer = ({ build, setBuild }) => {
               </div>
               <div className="sets">
                 <span>Sets</span>
-                <NumberSetter
+                <QuantitySetter
                   count={build.sets}
                   incrementer={e => increment(i, 'sets')}
                   decrementer={e => decrement(i, 'sets')}

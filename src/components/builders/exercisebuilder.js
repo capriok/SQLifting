@@ -3,7 +3,7 @@ import { useStateValue } from '../../state'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
-import Viewer from '../ExerciseViewer'
+import Viewer from '../viewers/exerciseviewer'
 
 const Builder = ({ build, setBuild }) => {
   const [{ data, exercises },] = useStateValue()

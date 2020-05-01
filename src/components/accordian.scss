@@ -43,6 +43,7 @@
     .list-item{
       display: flex;
       justify-content: space-between;
+      .item{text-transform: capitalize;}
       .x{
         user-select: none;
         cursor: pointer;

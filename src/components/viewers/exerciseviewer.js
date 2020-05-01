@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../../state'
 import Button from 'godspeed/build/Button'
 
 const ExerciseViewer = ({ build }) => {
@@ -11,7 +11,6 @@ const ExerciseViewer = ({ build }) => {
     buildValues.forEach((v) => {
       if (v === undefined) hasUndefined = true
     })
-    console.log(hasUndefined);
     if (!hasUndefined) {
       dispatch({
         type: 'EXaction',
@@ -27,12 +26,7 @@ const ExerciseViewer = ({ build }) => {
         ]
       })
     }
-    console.log(build);
   }
-
-  useEffect(() => {
-    console.log(exercises)
-  }, [exercises])
 
   return (
     <>

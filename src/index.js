@@ -8,43 +8,12 @@ import './Index.scss';
 export default function Index() {
 
   let initialState = {
-    exercises: [{
-      id: undefined,
-      name: undefined,
-      muscles: undefined,
-      exercise: undefined,
-      equipment: undefined
-    }],
-    workouts: [{
-      name: undefined,
-      workout: [{
-        id: undefined,
-        exercise: undefined,
-        reps: undefined,
-        sets: undefined
-      }]
-    }],
+    exercises: [],
+    workouts: [],
     data: {
-      muscles: [{
-        id: undefined,
-        name: undefined
-      }],
-      exercises: [{
-        id: undefined,
-        name: undefined
-      }],
-      equipment: [{
-        id: undefined,
-        name: undefined
-      }],
-      reps: [{
-        id: undefined,
-        name: undefined
-      }],
-      sets: [{
-        id: undefined,
-        name: undefined
-      }]
+      muscles: [],
+      exercises: [],
+      equipment: []
     }
   }
 

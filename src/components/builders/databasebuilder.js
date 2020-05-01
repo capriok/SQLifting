@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../../state'
+import axios from 'axios'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
 
-const Database = () => {
+const Database = ({ retrieveFromDatabase }) => {
   const [{ data }, dispatch] = useStateValue()
 
   const [muscle, setMuscle] = useState('')
   const [exercise, setExercise] = useState('')
   const [equipment, setEquipment] = useState('')
 
-  useEffect(() => {
-    console.log(data.muscles);
-  }, [data.muscles])
+  const injectToDatabase = (type, payload) => {
+    axios
+      .post(`http://localhost:9000/.netlify/functions/server/api/post/${type}`,
+        { [type]: payload })
+      .then(res => console.log(res))
+  }
+
+
 
   return (
     <>
@@ -22,6 +28,7 @@ const Database = () => {
           <form className="form" onSubmit={(e) => {
             e.preventDefault()
             let isDupe = false
+            injectToDatabase('muscle', muscle)
             data.muscles.forEach(m => { if (m.name === muscle) isDupe = true });
             (muscle && !isDupe) && dispatch({
               type: 'DBaction', data: {
@@ -41,6 +48,7 @@ const Database = () => {
           <form className="form" onSubmit={(e) => {
             e.preventDefault();
             let isDupe = false
+            injectToDatabase('exercise', exercise)
             data.exercises.forEach(e => { if (e.name === exercise) isDupe = true });
             (exercise && !isDupe) && dispatch({
               type: 'DBaction', data: {
@@ -59,6 +67,7 @@ const Database = () => {
           <form className="form" onSubmit={(e) => {
             e.preventDefault();
             let isDupe = false
+            injectToDatabase('equipment', equipment)
             data.equipment.forEach(e => { if (e.name === equipment) isDupe = true });
             (equipment && !isDupe) && dispatch({
               type: 'DBaction', data: {
@@ -78,8 +87,8 @@ const Database = () => {
       </div>
       <div className="right">
         <Accordion className="accordian" allowZeroExpanded >
-          <AccordionItem>
-            <AccordionItemHeading>
+          <AccordionItem >
+            <AccordionItemHeading onClick={() => retrieveFromDatabase('muscle')}>
               <AccordionItemButton>
                 Muscles
               </AccordionItemButton>
