@@ -2,6 +2,7 @@ import React from 'react'
 import { useStateValue } from '../../state'
 import Button from 'godspeed/build/Button'
 import QuantitySetter from '../quantitysetter'
+import axios from 'axios'
 
 const WorkoutViewer = ({ build, setBuild }) => {
   const [{ workouts }, dispatch] = useStateValue()
@@ -9,6 +10,13 @@ const WorkoutViewer = ({ build, setBuild }) => {
   const submitBuild = (e) => {
     e.preventDefault()
     if (build.name) {
+      axios
+        .post(`${process.env.REACT_APP_POST_URL}/builtworkouts`, {
+          name: build.name,
+          workout: build.workout
+        })
+        .then(res => console.log(res.data))
+        .catch(e => console.log(e))
       dispatch({
         type: 'WOaction',
         workouts: [
