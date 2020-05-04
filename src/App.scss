@@ -117,13 +117,15 @@ $accent: steelblue;
 }
 
 .build{
-  flex:1;
+  flex: 1;
   @include flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
   padding: 20px 0;
+  p, .workout-name{text-transform: capitalize;}
+  .workout-name{padding-bottom: 20px;}
   .workout-build{
     @include flex;
     justify-content: space-between;

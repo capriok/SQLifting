@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useStateValue } from '../../state'
 import Button from 'godspeed/build/Button'
 import QuantitySetter from '../quantitysetter'
@@ -6,18 +6,21 @@ import QuantitySetter from '../quantitysetter'
 const WorkoutViewer = ({ build, setBuild }) => {
   const [{ workouts }, dispatch] = useStateValue()
 
-  const submitBuild = () => {
-    dispatch({
-      type: 'WOaction',
-      workouts: [
-        ...workouts,
-        { ...build }
-      ]
-    })
-    setBuild({
-      name: undefined,
-      workout: []
-    })
+  const submitBuild = (e) => {
+    e.preventDefault()
+    if (build.name) {
+      dispatch({
+        type: 'WOaction',
+        workouts: [
+          ...workouts,
+          { ...build }
+        ]
+      })
+      setBuild({
+        name: undefined,
+        workout: []
+      })
+    } else alert('Name this workout.')
   }
 
   const increment = (i, type) => {
@@ -36,10 +39,10 @@ const WorkoutViewer = ({ build, setBuild }) => {
   return (
     <>
       <div className="build">
-        <h1>{build.name}</h1>
+        <h1 className="workout-name">{build.name}</h1>
         {build.workout.map((build, i) => (
           <div className="workout-build" key={i}>
-            <div className="name">{build.exercise}</div>
+            <p className="name">{build.exercise}</p>
             <div className="setters">
               <div className="reps">
                 <span>Reps</span>
@@ -61,10 +64,7 @@ const WorkoutViewer = ({ build, setBuild }) => {
           </div>
         ))}
       </div>
-      <form onSubmit={e => {
-        e.preventDefault()
-        submitBuild()
-      }}>
+      <form onSubmit={e => submitBuild(e)}>
         <Button text="Submit"></Button>
       </form>
     </>

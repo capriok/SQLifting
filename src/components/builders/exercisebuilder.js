@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useStateValue } from '../../state'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
 import Viewer from '../viewers/exerciseviewer'
 
-const Builder = ({ build, setBuild }) => {
+const ExerciseBuilder = ({ build, setBuild }) => {
   const [{ data, exercises },] = useStateValue()
   const [name, setName] = useState('')
 
@@ -25,7 +25,7 @@ const Builder = ({ build, setBuild }) => {
             <AccordionItemHeading>
               <AccordionItemButton>
                 Name This Exercise
-          </AccordionItemButton>
+            </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
               <form onSubmit={(e) => {
@@ -43,8 +43,26 @@ const Builder = ({ build, setBuild }) => {
           <AccordionItem>
             <AccordionItemHeading>
               <AccordionItemButton>
+                Equipment
+            </AccordionItemButton>
+            </AccordionItemHeading>
+            <AccordionItemPanel>
+              <div className="listing">
+                {data.equipment.map((item, i) => (
+                  <div className="list-item" key={i}>
+                    <span className="item">{item.name}</span>
+                    <span className="x" onClick={e => sendOver(e.target.title, item.name)} title="equipment">-></span>
+                  </div>
+                ))}
+              </div>
+            </AccordionItemPanel>
+          </AccordionItem>
+          {/*/////////////////////////////////////////////////////*/}
+          <AccordionItem>
+            <AccordionItemHeading>
+              <AccordionItemButton>
                 Muscle
-          </AccordionItemButton>
+            </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
               <div className="listing">
@@ -61,7 +79,7 @@ const Builder = ({ build, setBuild }) => {
             <AccordionItemHeading>
               <AccordionItemButton>
                 Exercise
-          </AccordionItemButton>
+            </AccordionItemButton>
             </AccordionItemHeading>
             <AccordionItemPanel>
               <div className="listing">
@@ -74,57 +92,6 @@ const Builder = ({ build, setBuild }) => {
               </div>
             </AccordionItemPanel>
           </AccordionItem>
-          {/*/////////////////////////////////////////////////////*/}
-          <AccordionItem>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                Equipment
-          </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="listing">
-                {data.equipment.map((item, i) => (
-                  <div className="list-item" key={i}>
-                    <span className="item" onClick={() => sendOver(item.name)}>{item.name}</span>
-                    <span className="x" onClick={e => sendOver(e.target.title, item.name)} title="equipment">-></span>
-                  </div>))}
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem>
-          {/*/////////////////////////////////////////////////////*/}
-          {/* <AccordionItem>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                Reps
-          </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="listing">
-                {data.reps.map((item, i) => (
-                  <div className="list-item" key={i}>
-                    <span className="item" onClick={() => sendOver(item.count)}>{item.count}</span>
-                    <span className="x" onClick={e => sendOver(e.target.title, item.count)} title="reps">-></span>
-                  </div>))}
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem> */}
-          {/*/////////////////////////////////////////////////////*/}
-          {/* <AccordionItem>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                Sets
-          </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="listing">
-                {data.sets.map((item, i) => (
-                  <div className="list-item" key={i}>
-                    <span className="item" onClick={() => sendOver(item.count)}>{item.count}</span>
-                    <span className="x" onClick={e => sendOver(e.target.title, item.count)} title="sets">-></span>
-                  </div>))}
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem> */}
         </Accordion>
       </div>
       <div className="right">
@@ -134,4 +101,4 @@ const Builder = ({ build, setBuild }) => {
   )
 }
 
-export default Builder
+export default ExerciseBuilder

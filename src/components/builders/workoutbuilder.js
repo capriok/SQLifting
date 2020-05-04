@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useStateValue } from '../../state'
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
 import Viewer from '../viewers/workoutviewer'
 import Input from 'godspeed/build/Input/Input';
 import Button from 'godspeed/build/Button'
 
-const Builder = ({ build, setBuild }) => {
+const WorkoutBuilder = ({ build, setBuild }) => {
   const [{ exercises, workouts },] = useStateValue()
   const [name, setName] = useState('')
 
@@ -14,8 +14,8 @@ const Builder = ({ build, setBuild }) => {
     build.workout.forEach(item => {
       if (item.exercise === payload) isDupe = true
     });
-    !isDupe && setBuild(
-      {
+    if (!isDupe && name) {
+      setBuild({
         ...build,
         workout: [
           ...build.workout,
@@ -26,8 +26,8 @@ const Builder = ({ build, setBuild }) => {
             sets: 1
           }
         ]
-      }
-    )
+      })
+    }
   }
 
   return (
@@ -43,7 +43,7 @@ const Builder = ({ build, setBuild }) => {
             <AccordionItemPanel>
               <form onSubmit={(e) => {
                 e.preventDefault()
-                setBuild({
+                name && setBuild({
                   ...build, name
                 })
                 setName("")
@@ -81,4 +81,4 @@ const Builder = ({ build, setBuild }) => {
   )
 }
 
-export default Builder
+export default WorkoutBuilder

@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useStateValue } from './state'
 import axios from 'axios'
 import Navbar from 'godspeed/build/Navbar'
-import Database from './components/builders/databasebuilder'
+import DatabaseBuilder from './components/builders/databasebuilder'
 import ExerciseBuilder from './components/builders/exercisebuilder'
 import WorkoutBuilder from './components/builders/workoutbuilder'
 import BuiltWorkouts from './components/viewers/builtworkouts'
 import './components/accordian.scss'
 
 function App() {
-  const [{ data, exercises, workouts },] = useStateValue()
+  const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
   const [exerciseBuild, setExerciseBuild] = useState({
     id: undefined,
@@ -25,17 +25,76 @@ function App() {
     workout: []
   })
 
-  const retrieveFromDatabase = (type) => {
-    axios
-      .get(`http://localhost:9000/.netlify/functions/server/api/get/${type}`)
-      .then(res => console.log(res.data.map(data => Object.values(data)[0])))
+  useEffect(() => { data.muscles.length > 0 && console.log('Data.Muscles', data.muscles) }, [data.muscles])
+  useEffect(() => { data.exercises.length > 0 && console.log('Data.Exercises', data.exercises) }, [data.exercises])
+  useEffect(() => { data.equipment.length > 0 && console.log('Data.Equipment', data.equipment) }, [data.equipment])
+  useEffect(() => { exercises.length > 0 && console.log('Built Exercises', exercises) }, [exercises])
+  useEffect(() => { workouts.length > 0 && console.log('Built Workouts', workouts) }, [workouts])
+  useEffect(() => { workoutBuild.workout.length > 0 && console.log('Workout Build', workoutBuild) }, [workoutBuild])
+
+  const populateData = async () => {
+    const data = {}
+    await axios
+      .all([
+        axios.get(`${process.env.REACT_APP_GET_URL}/muscles`),
+        axios.get(`${process.env.REACT_APP_GET_URL}/exercises`),
+        axios.get(`${process.env.REACT_APP_GET_URL}/equipment`)
+      ])
+      .then(
+        axios.spread((...res) => {
+          data.muscles = res[0].data
+          data.exercises = res[1].data
+          data.equipment = res[2].data
+        })
+      )
+      .catch(e => console.error(e.message))
+    dispatch({
+      type: 'DBaction',
+      data: {
+        muscles: data.muscles,
+        exercises: data.exercises,
+        equipment: data.equipment
+      }
+    })
   }
 
-  useEffect(() => { data.muscles.length > 0 && console.log(data.muscles) }, [data.muscles])
-  useEffect(() => { data.exercises.length > 0 && console.log(data.exercises) }, [data.exercises])
-  useEffect(() => { data.equipment.length > 0 && console.log(data.equipment) }, [data.equipment])
-  useEffect(() => { exercises.length > 0 && console.log(exercises) }, [exercises])
-  useEffect(() => { workouts.length > 0 && console.log(workouts) }, [workouts])
+  const populateExercises = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_GET_URL}/builtexercises`)
+      .then(res => {
+        dispatch({
+          type: 'EXaction',
+          exercises: res.data
+        })
+      }
+      )
+      .catch(e => console.error(e.message))
+  }
+
+  const populateWorkouts = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_GET_URL}/builtworkouts`)
+      .then(res => {
+        dispatch({
+          type: 'WOaction',
+          workouts: res.data
+        })
+      }
+      )
+      .catch(e => console.error(e.message))
+  }
+
+  useEffect(() => {
+    populateData()
+    populateExercises()
+    populateWorkouts()
+  }, [])
+
+  const updatePopulation = () => {
+    populateData()
+    populateExercises()
+    populateWorkouts()
+  }
 
   return (
     <>
@@ -56,7 +115,7 @@ function App() {
               <h1>SQLifting</h1>
             )} />
             <Route path="/database" render={() => (
-              <Database retrieveFromDatabase={retrieveFromDatabase} />
+              <DatabaseBuilder updatePopulation={updatePopulation} />
             )} />
             <Route path="/exercise" render={() => (
               <ExerciseBuilder build={exerciseBuild} setBuild={setExerciseBuild} />

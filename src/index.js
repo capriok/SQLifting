@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { StateProvider } from "./state";
 import App from './App';
@@ -16,6 +16,8 @@ export default function Index() {
       equipment: []
     }
   }
+
+
 
   const reducer = (state, action) => {
     switch (action.type) {

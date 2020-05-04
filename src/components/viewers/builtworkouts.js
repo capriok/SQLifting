@@ -1,6 +1,5 @@
 import React from 'react'
 import { useStateValue } from '../../state'
-import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
 
 console.log();
 
