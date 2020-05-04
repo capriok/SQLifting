@@ -15,7 +15,7 @@ const WorkoutViewer = ({ build, setBuild }) => {
           name: build.name,
           workout: build.workout
         })
-        .then(res => console.log(res.data))
+        .then(res => console.log('Post Success!'))
         .catch(e => console.log(e))
       dispatch({
         type: 'WOaction',
@@ -50,7 +50,7 @@ const WorkoutViewer = ({ build, setBuild }) => {
         <h1 className="workout-name">{build.name}</h1>
         {build.workout.map((build, i) => (
           <div className="workout-build" key={i}>
-            <p className="name">{build.exercise}</p>
+            <p className="name">{build.name}</p>
             <div className="setters">
               <div className="reps">
                 <span>Reps</span>

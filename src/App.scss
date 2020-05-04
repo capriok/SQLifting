@@ -144,3 +144,24 @@ $accent: steelblue;
   }
 }
 
+.built-workout{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 15px;
+  box-shadow: 0px 0px 10px -5px black;
+  margin: 5px 0;
+  .title, p{text-transform: capitalize;}
+  .title, .sub-tittle{
+    padding-bottom: 10px;
+  }
+  .title{font-size: 1.6rem;}
+  .sub-title{font-weight: 600;}
+  p{
+    padding-bottom: 5px;
+  }
+  .li{
+    text-indent: 10px;
+  }
+}

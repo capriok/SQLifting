@@ -23,7 +23,7 @@ const ExerciseViewer = ({ build, setBuild }) => {
           muscle: build.muscle,
           exercise: build.exercise,
         })
-        .then(res => console.log(res))
+        .then(res => console.log('Post Success!'))
         .catch(e => console.log(e))
       dispatch({
         type: 'EXaction',

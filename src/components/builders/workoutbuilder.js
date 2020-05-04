@@ -21,7 +21,7 @@ const WorkoutBuilder = ({ build, setBuild }) => {
           ...build.workout,
           {
             id: workouts.length + 1,
-            [name]: payload,
+            name: payload,
             reps: 1,
             sets: 1
           }
