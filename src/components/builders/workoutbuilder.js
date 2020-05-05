@@ -9,10 +9,12 @@ const WorkoutBuilder = ({ build, setBuild }) => {
   const [{ exercises, workouts },] = useStateValue()
   const [name, setName] = useState('')
 
-  const sendOver = (name, payload) => {
+  const sendOver = (i, name, payload) => {
+    console.log(exercises[i]);
+
     let isDupe = false
     build.workout.forEach(item => {
-      if (item.exercise === payload) isDupe = true
+      if (item.name === payload) isDupe = true
     });
     if (!isDupe && name) {
       setBuild({
@@ -22,6 +24,7 @@ const WorkoutBuilder = ({ build, setBuild }) => {
           {
             id: workouts.length + 1,
             name: payload,
+            exercise: exercises[i],
             reps: 1,
             sets: 1
           }
@@ -66,7 +69,7 @@ const WorkoutBuilder = ({ build, setBuild }) => {
                   <div className="list-item" key={i}>
                     <span className="item">{item.name}</span>
                     <span className="x" title="exercise"
-                      onClick={e => sendOver(e.target.title, item.name)
+                      onClick={e => sendOver(i, e.target.title, item.name)
                       }>-></span>
                   </div>))}
               </div>

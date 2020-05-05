@@ -143,25 +143,32 @@ $accent: steelblue;
     *{padding-top: 10;}
   }
 }
-
-.built-workout{
+.exercise-viewer{
+  .item{
+    font-size: 1.1rem;
+    padding-bottom: 10px;
+  }
+}
+.workout-starter{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  padding: 15px;
-  box-shadow: 0px 0px 10px -5px black;
-  margin: 5px 0;
   .title, p{text-transform: capitalize;}
-  .title, .sub-tittle{
+  .title{
+    font-size: 1.5rem;
     padding-bottom: 10px;
   }
-  .title{font-size: 1.6rem;}
-  .sub-title{font-weight: 600;}
+  .sub-title{
+    font-weight: 600;
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
   p{
     padding-bottom: 5px;
   }
   .li{
+    list-style: none;
     text-indent: 10px;
   }
 }

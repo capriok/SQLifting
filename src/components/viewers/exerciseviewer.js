@@ -10,8 +10,6 @@ const ExerciseViewer = ({ build, setBuild }) => {
     e.preventDefault()
     const buildValues = Object.values(build)
     let hasUndefined = false
-    console.log(build);
-
     buildValues.forEach((v) => {
       if (v === undefined) hasUndefined = true
     })
@@ -44,11 +42,11 @@ const ExerciseViewer = ({ build, setBuild }) => {
 
   return (
     <>
-      <div className="build">
-        <p>Exercise Name: {build.name}</p>
-        <p>Equipment: {build.equipment}</p>
-        <p>Muscle: {build.muscle}</p>
-        <p>Exercise: {build.exercise}</p>
+      <div className="build exercise-viewer">
+        <p className="item">Exercise Name: {build.name}</p>
+        <p className="item">Equipment: {build.equipment}</p>
+        <p className="item">Muscle: {build.muscle}</p>
+        <p className="item">Exercise: {build.exercise}</p>
       </div>
       <form onSubmit={e => submitBuild(e)}>
         <Button text="Submit"></Button>

@@ -56,16 +56,16 @@ const WorkoutViewer = ({ build, setBuild }) => {
                 <span>Reps</span>
                 <QuantitySetter
                   count={build.reps}
-                  incrementer={e => increment(i, 'reps')}
-                  decrementer={e => decrement(i, 'reps')}
+                  incrementer={() => increment(i, 'reps')}
+                  decrementer={() => decrement(i, 'reps')}
                 />
               </div>
               <div className="sets">
                 <span>Sets</span>
                 <QuantitySetter
                   count={build.sets}
-                  incrementer={e => increment(i, 'sets')}
-                  decrementer={e => decrement(i, 'sets')}
+                  incrementer={() => increment(i, 'sets')}
+                  decrementer={() => decrement(i, 'sets')}
                 />
               </div>
             </div>

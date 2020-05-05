@@ -6,7 +6,7 @@ import Navbar from 'godspeed/build/Navbar'
 import DatabaseBuilder from './components/builders/databasebuilder'
 import ExerciseBuilder from './components/builders/exercisebuilder'
 import WorkoutBuilder from './components/builders/workoutbuilder'
-import BuiltWorkouts from './components/viewers/builtworkouts'
+import BuiltWorkouts from './components/builders/workoutpicker'
 import './components/accordian.scss'
 
 function App() {
@@ -21,6 +21,11 @@ function App() {
   })
 
   const [workoutBuild, setWorkoutBuild] = useState({
+    name: undefined,
+    workout: []
+  })
+
+  const [pickedWorkout, setPickedWorkout] = useState({
     name: undefined,
     workout: []
   })
@@ -124,7 +129,7 @@ function App() {
               <WorkoutBuilder build={workoutBuild} setBuild={setWorkoutBuild} />
             )} />
             <Route path="/workouts" render={() => (
-              <BuiltWorkouts />
+              <BuiltWorkouts workout={pickedWorkout} setWorkout={setPickedWorkout} />
             )} />
           </div>
         </div>

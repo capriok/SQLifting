@@ -3,7 +3,7 @@ import { useStateValue } from '../../state'
 import axios from 'axios'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
-import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
+import Viewer from '../viewers/databaseviewer'
 
 const DatabaseBuilder = ({ updatePopulation }) => {
   const [{ data }, dispatch] = useStateValue()
@@ -68,65 +68,7 @@ const DatabaseBuilder = ({ updatePopulation }) => {
         </div>
       </div>
       <div className="right">
-        <Accordion className="accordian" allowZeroExpanded>
-          {/*/////////////////////////////////////////////////////*/}
-          <AccordionItem>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                Equipment
-              </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="listing">
-                {data.equipment.map((item, i) => (
-                  <div className="list-item" key={i}>
-                    <span className="item">{item.name}</span>
-                    <span className="x" onClick={() => {
-                      dispatch({ type: 'DBaction', data: { ...data, equipment: data.equipment.filter(e => e.id !== item.id) } })
-                    }}>x</span>
-                  </div>))}
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem>
-          <AccordionItem>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                Muscles
-              </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="listing">
-                {data.muscles.map((item, i) => (
-                  <div className="list-item" key={i}>
-                    <span className="item" >{item.name}</span>
-                    <span className="x" onClick={() => {
-                      dispatch({ type: 'DBaction', data: { ...data, muscles: data.muscles.filter(m => m.id !== item.id) } })
-                    }}>x</span>
-                  </div>))}
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem>
-          {/*/////////////////////////////////////////////////////*/}
-          <AccordionItem>
-            <AccordionItemHeading>
-              <AccordionItemButton>
-                Exercises
-              </AccordionItemButton>
-            </AccordionItemHeading>
-            <AccordionItemPanel>
-              <div className="listing">
-                {data.exercises.map((item, i) => (
-                  <div className="list-item" key={i}>
-                    <span className="item">{item.name}</span>
-                    <span className="x" onClick={() => {
-                      dispatch({ type: 'DBaction', data: { ...data, exercises: data.exercises.filter(e => e.id !== item.id) } })
-                    }}>x</span>
-                  </div>
-                ))}
-              </div>
-            </AccordionItemPanel>
-          </AccordionItem>
-        </Accordion>
+        <Viewer data={data} />
       </div>
     </>
   )
