@@ -11,7 +11,7 @@ const WorkoutViewer = ({ build, setBuild }) => {
     e.preventDefault()
     if (build.name) {
       axios
-        .post(`${process.env.REACT_APP_POST_URL}/builtworkouts`, {
+        .post(`${process.env.REACT_APP_POST}/builtworkouts`, {
           name: build.name,
           workout: build.workout
         })

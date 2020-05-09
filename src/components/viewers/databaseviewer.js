@@ -7,7 +7,7 @@ const DatabaseViewer = ({ data }) => {
   const [, dispatch] = useStateValue()
 
   const deleteDataFromDatabase = (column, row) => {
-    axios.post(`${process.env.REACT_APP_DELETE_URL}/fromdatabase`, {
+    axios.post(`${process.env.REACT_APP_DELETE}/fromdatabase`, {
       column: column,
       row: row
     })
