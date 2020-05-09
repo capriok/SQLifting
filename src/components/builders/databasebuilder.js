@@ -14,7 +14,7 @@ const DatabaseBuilder = ({ updatePopulation }) => {
 
   const InsertIntoDatabase = (type, payload) => {
     axios
-      .post(`${process.env.REACT_APP_POST}/${type}data`,
+      .post(process.env.REACT_APP_POST + `/${type}data`,
         { [type]: payload })
       .then(res => {
         console.log(res)

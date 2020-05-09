@@ -41,9 +41,9 @@ function App() {
     const data = {}
     await axios
       .all([
-        axios.get(`${process.env.REACT_APP_GET}/muscles`),
-        axios.get(`${process.env.REACT_APP_GET}/exercises`),
-        axios.get(`${process.env.REACT_APP_GET}/equipment`)
+        axios.get(process.env.REACT_APP_GET + '/muscles'),
+        axios.get(process.env.REACT_APP_GET + '/exercises'),
+        axios.get(process.env.REACT_APP_GET + '/equipment')
       ])
       .then(
         axios.spread((...res) => {
@@ -65,7 +65,7 @@ function App() {
 
   const populateExercises = async () => {
     await axios
-      .get(`${process.env.REACT_APP_GET}/builtexercises`)
+      .get(process.env.REACT_APP_GET + '/builtexercises')
       .then(res => {
         dispatch({
           type: 'EXaction',
@@ -78,7 +78,7 @@ function App() {
 
   const populateWorkouts = async () => {
     await axios
-      .get(`${process.env.REACT_APP_GET}/builtworkouts`)
+      .get(process.env.REACT_APP_GET + '/builtworkouts')
       .then(res => {
         dispatch({
           type: 'WOaction',

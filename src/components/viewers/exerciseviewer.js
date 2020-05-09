@@ -15,7 +15,7 @@ const ExerciseViewer = ({ build, setBuild }) => {
     })
     if (!hasUndefined) {
       axios
-        .post(`${process.env.REACT_APP_POST}/builtexercise`, {
+        .post(process.env.REACT_APP_POST + '/builtexercise', {
           name: build.name,
           equipment: build.equipment,
           muscle: build.muscle,
