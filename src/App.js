@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useStateValue } from './state'
 import axios from 'axios'
 import Navbar from 'godspeed/build/Navbar'
-import DatabaseBuilder from './components/builders/databasebuilder'
-import ExerciseBuilder from './components/builders/exercisebuilder'
-import WorkoutBuilder from './components/builders/workoutbuilder'
-import BuiltWorkouts from './components/builders/workoutpicker'
+import DatabaseManager from './components/database-manager'
+import ExerciseBuilder from './components/exercisebuilder'
+import WorkoutBuilder from './components/workoutbuilder'
+import BuiltWorkouts from './components/builtworkouts'
 import './components/accordian.scss'
 
 function App() {
@@ -93,6 +93,7 @@ function App() {
     populateData()
     populateExercises()
     populateWorkouts()
+
   }, [])
 
   const updatePopulation = () => {
@@ -104,34 +105,29 @@ function App() {
   return (
     <>
       <Router>
-        <div className="App">
-          <Navbar title="SQLifting" titleWeight="300" to="/" shadow />
-          <div className="head">
-            <div className="center">
-              <Link className="item" to="/database">Database Builder</Link>
-              <Link className="item" to="/exercise">Exercise Builder</Link>
-              <Link className="item" to="/workout">Workout Builder</Link>
-              <Link className="item" to="/workouts">Built Workouts</Link>
-            </div>
+        <Navbar title="SQLifting" titleWeight="300" to="/" shadow />
+        <div className="app">
+          <div className="action-bar">
+            <Link className="item" to="/database">Database Manager</Link>
+            <Link className="item" to="/exercise-builder">Exercise Builder</Link>
+            <Link className="item" to="/workout-builder">Workout Builder</Link>
+            <Link className="item" to="/workouts">Built Workouts</Link>
           </div>
-          <div className="builder">
-            <Route exact path="/" render={() => (
-              // <Greeting />
-              <h1>SQLifting</h1>
-            )} />
-            <Route path="/database" render={() => (
-              <DatabaseBuilder updatePopulation={updatePopulation} />
-            )} />
-            <Route path="/exercise" render={() => (
-              <ExerciseBuilder build={exerciseBuild} setBuild={setExerciseBuild} />
-            )} />
-            <Route path="/workout" render={() => (
-              <WorkoutBuilder build={workoutBuild} setBuild={setWorkoutBuild} />
-            )} />
-            <Route path="/workouts" render={() => (
-              <BuiltWorkouts workout={pickedWorkout} setWorkout={setPickedWorkout} />
-            )} />
-          </div>
+          <Route exact path="/" render={() => (
+            <div className="greeting">Welcome to SQLifting</div>
+          )} />
+          <Route path="/database" render={() => (
+            <DatabaseManager updatePopulation={updatePopulation} />
+          )} />
+          <Route exact path="/exercise-builder" render={() => (
+            <ExerciseBuilder build={exerciseBuild} />
+          )} />
+          <Route exact path="/workout-builder" render={() => (
+            <WorkoutBuilder build={workoutBuild} />
+          )} />
+          <Route exact path="/workouts" render={() => (
+            <BuiltWorkouts />
+          )} />
         </div>
       </Router>
     </>
@@ -139,3 +135,4 @@ function App() {
 }
 
 export default App;
+

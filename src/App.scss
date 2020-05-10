@@ -4,77 +4,204 @@
   align-items: center;
 }
 
-$app: grey;
-$build: darkgrey;
+$body: rgb(221, 221, 221);
+$action: rgb(201, 201, 201);
 $accent: steelblue;
+$main-underline: steelblue;
+$sub-underline: rgb(145, 145, 145);
 
-.App{
-  @include flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: $app;
+body{
+  background-color: $body;
+  overflow-y: scroll;
 }
 
-.head{
+.app{
   @include flex;
-  width: 80vh;
+  justify-content:flex-start;
+  flex-direction: column;
+  margin: 0 auto;
+  min-height: 100vh;
+  max-width: 800px;
+  padding-bottom: 100px;
+}
+
+.action-bar{
+  @include flex;
+  justify-content: space-between;
+  margin-top: 100px;
+  width: 100%;
   height: 50px;
-  border: 1px solid black;
-  border-bottom: 0px solid black;
-  background-color: $build;
-  .center{
-    @include flex;
-    width: 100%;
+  margin-bottom: 20px;
+  .item{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
     height: 100%;
-    justify-content: flex-start;
-    .item{
+    padding: 0 20px;
+    margin: 0px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    background-color: $action;
+    transition: .2s;
+    border-bottom: 0px solid $accent;
+    &:hover{
+      transition: .2s;
+      background-color: $accent
+    }
+    &:active{
+    transition: .2s;
+    background-color: darken($color: $accent, $amount: 5%);
+    }
+    &:focus{
+    transition: .2s;
+    border-bottom: 3px solid darken($color: $accent, $amount: 20%);}
+  }
+}
+.action-sig{
+    transition: .2s;
+    border-bottom: 3px solid darken($color: $accent, $amount: 20%);
+}
+.greeting{
+  @include flex;
+  font-size: 2.5rem;
+  font-family: Alegreya Sans SC;  flex: 1;
+}
+
+.db-manager, .exercise-builder, .workout-builder, .built-workouts{width: 100%;}
+.db-title, .ex-title, .wo-title{
+  font-size: 2rem;
+  margin: 40px 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid $main-underline;
+}
+.type-title{
+  font-size: 1.4rem;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid $sub-underline;
+}
+
+.type-map{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+  .item{
+    @include flex;
+    flex:50%;
+    max-width: 50%;
+    .shift{
       display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: black;
-      height: 100%;
-      padding: 0 20px;
-      cursor: pointer;
-      user-select: none;
-      transition: .2s;
-      &:hover{
-      transition: .2s;
-      background-color: opacify($color: $accent, $amount: 1);
+      justify-content: flex-start;
+      width: 90%;
+      .label{
+        display: flex;
+        align-items: center;
+        user-select: none;
+        .input{margin-right: 10px;}
+        .item-name{text-transform: capitalize;padding: 3px 0;}
       }
     }
   }
 }
 
-.builder{
-  @include flex;
-  flex-wrap: wrap;
-  min-height: 60vh;
-  height: fit-content;
-  width: 80vh;
-  border: 1px solid black;
-  background-color: $build;
-  .left, .right{
+.db-manager{.db-title{span{font-size: 1rem;}}
+  .add-compositions{
+    width: 100%;
     @include flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-    padding: 20px;
-    .form{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    form{
       width: 100%;
-      margin-top: 10px;
-      input{flex: 1;}
-      input::placeholder{user-select: none;}
+      @include flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      input{width: 30%;}
+    }
+    button{margin-top: 20px;}
+  }
+  .type{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $sub-underline;
+    .type-title{
+      font-size: 1.4rem;
+      border-bottom: 0px solid transparent;
+      }
+    .type-action span:first-child{
+      margin-right: 10px;
+      
+    }
+    .type-action img{width: 20px;cursor: pointer;padding: 3px;box-sizing: content-box;}
+    .type-action img:first-child{
+      margin-right: 10px;
     }
   }
-  .left{border-right: 2px solid black;}
-  .accordian{
-    width: 100%;
-    background-color: rgb(190, 190, 190);
+}
+
+.exercise-builder{
+  .viewer{
+    @include flex;
+    flex-direction: column;
+    .ex-name{
+      padding: 20px 0 30px;
+    }
+    .view{
+      @include flex;
+      flex-direction: column;
+      width: 100%;
+      .view-types, .type-items, .view-items{
+        @include flex;
+        justify-content: space-around;
+        width: 100%;
+        .view-title{
+          @include flex;
+          width: 50%;
+          font-size: 1.4rem;
+          padding: 10px 0 20px 0;
+          margin-bottom: 10px;
+          border-bottom: 1px solid $sub-underline;
+        }
+        .type{
+          @include flex;
+          flex-direction: column;
+          border-bottom: 0px solid transparent;
+          width: 30%;
+          padding: 20px 0 40px 0;
+          text-transform: capitalize;
+        }
+      }
+    }
+    img{
+      width: 20px;
+      padding: 3px;
+      box-sizing: content-box;
+      cursor: pointer;
+    }
+  }
+  .ex-namer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    .type-title{
+      flex: 1;
+      border-bottom: 0px solid transparent;
+    }
+    form{
+      display: flex;
+      flex:1;
+      input{
+        width: 100%;
+        margin-right: 10px;
+      }
+    }
   }
 }
 
@@ -109,66 +236,54 @@ $accent: steelblue;
   }
 }
 
-.database-entry{
-  @include flex;
-  width: 100%;
-  justify-content: space-between;
-  flex-direction: column;
-}
-
-.build{
-  flex: 1;
-  @include flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  padding: 20px 0;
-  p, .workout-name{text-transform: capitalize;}
-  .workout-name{padding-bottom: 20px;}
-  .workout-build{
+.workout-builder{
+  .viewer{
     @include flex;
-    justify-content: space-between;
     width: 100%;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid black;
-    .setters{
-      .reps, .sets{
+    flex-direction: column;
+    .view-title{
+      text-transform: capitalize; 
+      padding: 20px 0 30px;
+    }
+    .view-item{
       @include flex;
+      width: 100%;
+      padding: 10px 0;
       justify-content: space-between;
-        span{padding-right: 10px;}
+      border-bottom: 1px solid $sub-underline;
+      .item-title{text-transform: capitalize; font-size: 1.4rem;}
+      .item-setter{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        img{width: 15px;}
+        .reps, .sets{
+          @include flex;
+          justify-content: space-between;
+          span{
+            padding-right: 10px;
+          }
+        }
       }
     }
-    *{padding-top: 10;}
   }
-}
-.exercise-viewer{
-  .item{
-    font-size: 1.1rem;
+  .type-title{}
+  .wo-namer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 10px;
-  }
-}
-.workout-starter{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-  .title, p{text-transform: capitalize;}
-  .title{
-    font-size: 1.5rem;
-    padding-bottom: 10px;
-  }
-  .sub-title{
-    font-weight: 600;
-    padding-top: 20px;
-    padding-bottom: 10px;
-  }
-  p{
-    padding-bottom: 5px;
-  }
-  .li{
-    list-style: none;
-    text-indent: 10px;
+    .type-title{
+      flex: 1;
+      border-bottom: 0px solid transparent;
+    }
+    form{
+      display: flex;
+      flex:1;
+      input{
+        width: 100%;
+        margin-right: 10px;
+      }
+    }
   }
 }
