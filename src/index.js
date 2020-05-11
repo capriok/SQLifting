@@ -11,15 +11,15 @@ export default function Index() {
     exercises: [],
     workouts: [],
     data: {
-      muscles: [],
+      equipment: [],
       exercises: [],
-      equipment: []
+      muscles: []
     }
   }
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case "DBaction":
+      case "DAaction":
         return {
           ...state,
           data: action.data

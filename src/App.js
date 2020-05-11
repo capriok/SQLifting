@@ -41,20 +41,23 @@ function App() {
     const data = {}
     await axios
       .all([
-        axios.get(process.env.REACT_APP_GET + '/muscles'),
+        axios.get(process.env.REACT_APP_GET + '/equipment'),
         axios.get(process.env.REACT_APP_GET + '/exercises'),
-        axios.get(process.env.REACT_APP_GET + '/equipment')
+        axios.get(process.env.REACT_APP_GET + '/muscles')
       ])
       .then(
         axios.spread((...res) => {
-          data.muscles = res[0].data
+          data.equipment = res[0].data
           data.exercises = res[1].data
-          data.equipment = res[2].data
+          data.muscles = res[2].data
+          data.equipment.forEach(item => item.checked = false);
+          data.exercises.forEach(item => item.checked = false);
+          data.muscles.forEach(item => item.checked = false);
         })
       )
       .catch(e => console.error(e.message))
     dispatch({
-      type: 'DBaction',
+      type: 'DAaction',
       data: {
         muscles: data.muscles,
         exercises: data.exercises,
@@ -67,6 +70,7 @@ function App() {
     await axios
       .get(process.env.REACT_APP_GET + '/builtexercises')
       .then(res => {
+        res.data.forEach(item => item.checked = false);
         dispatch({
           type: 'EXaction',
           exercises: res.data
@@ -80,6 +84,7 @@ function App() {
     await axios
       .get(process.env.REACT_APP_GET + '/builtworkouts')
       .then(res => {
+        res.data.forEach(item => item.checked = false);
         dispatch({
           type: 'WOaction',
           workouts: res.data
