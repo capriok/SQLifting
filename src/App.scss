@@ -79,16 +79,15 @@ body{
 .type-title{
   font-size: 1.4rem;
   padding: 10px 0;
-  margin-bottom: 10px;
-  border-bottom: 1px solid $sub-underline;
 }
-
 .type-map{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
   margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $sub-underline;
   .item{
     @include flex;
     flex:50%;
@@ -108,7 +107,7 @@ body{
   }
 }
 
-.db-manager{.db-title{span{font-size: 1rem;}}
+.db-manager{.db-title{padding-bottom: 9px; span{font-size: 1rem;}}
   .add-compositions{
     width: 100%;
     @include flex;
@@ -126,17 +125,20 @@ body{
   .type{
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 10px 0;
-    margin-bottom: 10px;
-    border-bottom: 1px solid $sub-underline;
     .type-title{
       font-size: 1.4rem;
       border-bottom: 0px solid transparent;
-      }
+    }
+    .type-action{
+      @include flex;
+      width: 100px;
+      padding-top: 5px;
+    }
     .type-action span:first-child{
       margin-right: 10px;
-      
     }
     .type-action img{width: 20px;cursor: pointer;padding: 3px;box-sizing: content-box;}
     .type-action img:first-child{
@@ -190,6 +192,8 @@ body{
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $sub-underline;
     .type-title{
       flex: 1;
       border-bottom: 0px solid transparent;
@@ -273,6 +277,8 @@ body{
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $sub-underline;
     .type-title{
       flex: 1;
       border-bottom: 0px solid transparent;

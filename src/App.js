@@ -98,8 +98,70 @@ function App() {
     populateData()
     populateExercises()
     populateWorkouts()
-
   }, [])
+
+  const controlCheckbox = (type, i, prop, setter) => {
+    console.log(type);
+    console.log(i);
+    console.log(prop);
+    console.log(setter);
+    const copy = [...data[prop]]
+    copy[i].checked = !copy[i].checked
+    dispatch({ type: 'DAaction', data: { ...data, copy } })
+    let selection = []
+    copy.map((item) => {
+      item.checked && selection.push(item.name)
+      setter(selection)
+    })
+  }
+
+  const controlRadio = (i, prop, name) => {
+    if (prop !== 'workout') {
+      const copy = [...data[prop]]
+      copy.forEach(item => item.checked = false);
+      copy[i].checked = true
+      dispatch({ type: 'DAaction', data: { ...data, copy } })
+      if (prop === 'equipment') {
+        setExerciseBuild({
+          ...exerciseBuild,
+          id: exercises.length + 1,
+          equipment: copy[i].name
+        })
+      } else if (prop === 'exercises') {
+        setExerciseBuild({
+          ...exerciseBuild,
+          id: exercises.length + 1,
+          exercise: copy[i].name
+        })
+      } else {
+        setExerciseBuild({
+          ...exerciseBuild,
+          id: exercises.length + 1,
+          muscle: copy[i].name
+        })
+      }
+    }
+    if (prop === 'workout') {
+      const copy = [...exercises]
+      console.log(copy);
+      copy.forEach(item => item.checked = false);
+      copy[i].checked = true
+      dispatch({ type: 'EXaction', exercises: [...copy] })
+      setWorkoutBuild({
+        ...workoutBuild,
+        workout: [
+          ...workoutBuild.workout,
+          {
+            id: workouts.length + 1,
+            name: name,
+            exercise: exercises[i],
+            reps: 1,
+            sets: 1
+          }
+        ]
+      })
+    }
+  }
 
   const updatePopulation = () => {
     populateData()
@@ -122,13 +184,13 @@ function App() {
             <div className="greeting">Welcome to SQLifting</div>
           )} />
           <Route path="/database" render={() => (
-            <DatabaseManager updatePopulation={updatePopulation} />
+            <DatabaseManager controlCheckbox={controlCheckbox} updatePopulation={updatePopulation} />
           )} />
           <Route exact path="/exercise-builder" render={() => (
-            <ExerciseBuilder build={exerciseBuild} />
+            <ExerciseBuilder controlRadio={controlRadio} updatePopulation={updatePopulation} build={exerciseBuild} setBuild={setExerciseBuild} />
           )} />
           <Route exact path="/workout-builder" render={() => (
-            <WorkoutBuilder build={workoutBuild} />
+            <WorkoutBuilder controlRadio={controlRadio} updatePopulation={updatePopulation} build={workoutBuild} setBuild={setWorkoutBuild} />
           )} />
           <Route exact path="/workouts" render={() => (
             <BuiltWorkouts />

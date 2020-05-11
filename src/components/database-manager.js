@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
@@ -7,7 +7,7 @@ import unselect from '../gallery/unselect.png'
 import trash from '../gallery/trash.png'
 import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
-const Manager = ({ updatePopulation }) => {
+const Manager = ({ updatePopulation, controlCheckbox }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
   const [muscle, setMuscle] = useState('')
@@ -20,6 +20,9 @@ const Manager = ({ updatePopulation }) => {
   const [ExerciseSelection, setExerciseSelection] = useState([])
   const [WorkoutSelection, setWorkoutSelection] = useState([])
 
+  useEffect(() => {
+    updatePopulation()
+  }, [])
 
   const InsertIntoDatabase = (type, payload) => {
     axios
@@ -57,46 +60,13 @@ const Manager = ({ updatePopulation }) => {
       }
     }
   }
-  const controlDACheckox = (i, type, setter) => {
-    const copy = [...data[type]]
-    copy[i].checked = !copy[i].checked
-    dispatch({ type: 'DAaction', data: { ...data, copy } })
-    let selection = []
-    copy.map((item) => {
-      item.checked && selection.push(item.name)
-      setter(selection)
-    })
-  }
-  const controlEXCheckox = (i) => {
-    const copy = [...exercises]
-    copy[i].checked = !copy[i].checked
-    dispatch({ type: 'EXaction', exercises: copy })
-    let selection = []
-    copy.map((item) => {
-      item.checked && selection.push(item.name)
-      setExerciseSelection(selection)
-    })
-  }
-  const controlWOCheckox = (i) => {
-    const copy = [...workouts]
-    copy[i].checked = !copy[i].checked
-    dispatch({ type: 'WOaction', workouts: copy })
-    let selection = []
-    copy.map((item) => {
-      item.checked && selection.push(item.name)
-      setWorkoutSelection(selection)
-    })
-  }
-  const deleteDataFromDatabase = (path, column, row) => {
-    console.log(column);
 
+  const deleteDataFromDatabase = (path, column, row) => {
     row.forEach(async item => {
-      console.log(item);
       await axios.post(process.env.REACT_APP_DELETE + path, {
         column: column, row: item
       })
         .then(res => {
-          console.log(res)
           updatePopulation()
         })
         .catch(e => console.log(e))
@@ -149,7 +119,7 @@ const Manager = ({ updatePopulation }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDACheckox(i, 'equipment', setEQSelection)} />
+                    onChange={() => controlCheckbox('data', i, 'equipment', setEQSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -186,7 +156,7 @@ const Manager = ({ updatePopulation }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDACheckox(i, 'exercises', setEXSelection)} />
+                    onChange={() => controlCheckbox('data', i, 'exercises', setEXSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -223,7 +193,7 @@ const Manager = ({ updatePopulation }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDACheckox(i, 'muscles', setMUSelection)} />
+                    onChange={() => controlCheckbox('data', i, 'muscles', setMUSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -261,7 +231,7 @@ const Manager = ({ updatePopulation }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlEXCheckox(i, 'exercises')} />
+                    onChange={() => controlCheckbox('exercises', i, 'exercises', setExerciseSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -298,7 +268,7 @@ const Manager = ({ updatePopulation }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlWOCheckox(i, 'workouts')} />
+                    onChange={() => controlCheckbox('workouts', i, 'woruts', setWorkoutSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
