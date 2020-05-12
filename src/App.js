@@ -101,62 +101,67 @@ function App() {
 
   const controlDBCheckbox = (i, type, prop, setter) => {
     console.log(`index of '${i}', type of '${type}', prop of '${prop}'`);
-    if (type === 'data') {
-      const copy = [...data[prop]]
-      copy[i].checked = !copy[i].checked
-      dispatch({ type: 'DBaction', data: { ...data, copy } })
-      let selection = []
-      copy.map((item) => {
-        item.checked && selection.push(item.name)
-        setter(selection)
-      })
-    } else if (type === 'exercises') {
-      const copy = [...exercises]
-      copy[i].checked = !copy[i].checked
-      dispatch({ type: 'EXaction', exercises: copy })
-      let selection = []
-      copy.map((item) => {
-        item.checked && selection.push(item.name)
-        setter(selection)
-      })
-    } else if (type === 'workouts') {
-      const copy = [...workouts]
-      copy[i].checked = !copy[i].checked
-      dispatch({ type: 'WOaction', workouts: copy })
-      let selection = []
-      copy.map((item) => {
-        item.checked && selection.push(item.name)
-        setter(selection)
-      })
+    let copy
+    const flipbox = () => copy[i].checked = !copy[i].checked
+    switch (type) {
+      case 'data':
+        copy = [...data[prop]]
+        flipbox()
+        dispatch({ type: 'DBaction', data: { ...data, copy } })
+        return copy
+      case 'exercises':
+        copy = [...exercises]
+        flipbox()
+        dispatch({ type: 'EXaction', exercises: copy })
+        return copy
+      case 'workouts':
+
+        copy = [...workouts]
+        flipbox()
+        dispatch({ type: 'WOaction', workouts: copy })
+        return copy
+      default:
+        break;
     }
+    console.log(copy);
+
+    let selection = []
+    copy.map((item) => {
+      item.checked && selection.push(item.name)
+      setter(selection)
+    })
   }
 
   const controlEXRadio = (i, prop) => {
     console.log(`index of '${i}', prop of '${prop}'`);
-    if (prop !== 'workout') {
-      const copy = [...data[prop]]
-      copy.forEach(item => item.checked = false);
-      copy[i].checked = true
-      dispatch({ type: 'DBaction', data: { ...data, copy } })
-      if (prop === 'equipment') {
+    const copy = [...data[prop]]
+    copy.forEach(item => item.checked = false);
+    copy[i].checked = true
+    dispatch({ type: 'DBaction', data: { ...data, copy } })
+    switch (prop) {
+      case 'equipment':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
           equipment: copy[i].name
         })
-      } else if (prop === 'exercises') {
+        break;
+      case 'exercises':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
           exercise: copy[i].name
         })
-      } else {
+        break;
+      case 'muscles':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
           muscle: copy[i].name
         })
-      }
+        break;
+      default:
+        break;
     }
   }
 
