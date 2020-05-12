@@ -106,6 +106,17 @@ body{
     }
   }
 }
+.viewer-actions{
+  @include flex;
+  width: 100%;
+  img{
+    width: 20px;
+    padding: 3px;
+    margin: 0 10px;
+    box-sizing: content-box;
+    cursor: pointer;
+  }
+}
 
 .db-manager{.db-title{padding-bottom: 9px; span{font-size: 1rem;}}
   .add-compositions{
@@ -179,12 +190,6 @@ body{
           text-transform: capitalize;
         }
       }
-    }
-    img{
-      width: 20px;
-      padding: 3px;
-      box-sizing: content-box;
-      cursor: pointer;
     }
   }
   .ex-namer{
@@ -270,8 +275,8 @@ body{
         }
       }
     }
+    .viewer-actions{padding-top: 40px;}
   }
-  .type-title{}
   .wo-namer{
     display: flex;
     justify-content: space-between;

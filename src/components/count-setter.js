@@ -2,7 +2,7 @@ import React from 'react'
 import plus from '../gallery/plus.png'
 import minus from '../gallery/minus.png'
 
-const QuantitySetter = ({ count, incrementer, decrementer }) => {
+const CountSetter = ({ count, incrementer, decrementer }) => {
   return (
     <div className="number-setter">
       <div className="dec" onClick={decrementer}><img src={minus} alt="" /></div>
@@ -12,4 +12,4 @@ const QuantitySetter = ({ count, incrementer, decrementer }) => {
   )
 }
 
-export default QuantitySetter
+export default CountSetter

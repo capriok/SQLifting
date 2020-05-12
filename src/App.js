@@ -4,10 +4,9 @@ import { useStateValue } from './state'
 import axios from 'axios'
 import Navbar from 'godspeed/build/Navbar'
 import DatabaseManager from './components/database-manager'
-import ExerciseBuilder from './components/exercisebuilder'
-import WorkoutBuilder from './components/workoutbuilder'
-import BuiltWorkouts from './components/builtworkouts'
-import './components/accordian.scss'
+import ExerciseBuilder from './components/exercise-builder'
+import WorkoutBuilder from './components/workout-builder'
+import BuiltWorkouts from './components/built-workouts'
 
 function App() {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
@@ -57,7 +56,7 @@ function App() {
       )
       .catch(e => console.error(e.message))
     dispatch({
-      type: 'DAaction',
+      type: 'DBaction',
       data: {
         muscles: data.muscles,
         exercises: data.exercises,
@@ -100,27 +99,45 @@ function App() {
     populateWorkouts()
   }, [])
 
-  const controlCheckbox = (type, i, prop, setter) => {
-    console.log(type);
-    console.log(i);
-    console.log(prop);
-    console.log(setter);
-    const copy = [...data[prop]]
-    copy[i].checked = !copy[i].checked
-    dispatch({ type: 'DAaction', data: { ...data, copy } })
-    let selection = []
-    copy.map((item) => {
-      item.checked && selection.push(item.name)
-      setter(selection)
-    })
+  const controlDBCheckbox = (i, type, prop, setter) => {
+    console.log(`index of '${i}', type of '${type}', prop of '${prop}'`);
+    if (type === 'data') {
+      const copy = [...data[prop]]
+      copy[i].checked = !copy[i].checked
+      dispatch({ type: 'DBaction', data: { ...data, copy } })
+      let selection = []
+      copy.map((item) => {
+        item.checked && selection.push(item.name)
+        setter(selection)
+      })
+    } else if (type === 'exercises') {
+      const copy = [...exercises]
+      copy[i].checked = !copy[i].checked
+      dispatch({ type: 'EXaction', exercises: copy })
+      let selection = []
+      copy.map((item) => {
+        item.checked && selection.push(item.name)
+        setter(selection)
+      })
+    } else if (type === 'workouts') {
+      const copy = [...workouts]
+      copy[i].checked = !copy[i].checked
+      dispatch({ type: 'WOaction', workouts: copy })
+      let selection = []
+      copy.map((item) => {
+        item.checked && selection.push(item.name)
+        setter(selection)
+      })
+    }
   }
 
-  const controlRadio = (i, prop, name) => {
+  const controlEXRadio = (i, prop) => {
+    console.log(`index of '${i}', prop of '${prop}'`);
     if (prop !== 'workout') {
       const copy = [...data[prop]]
       copy.forEach(item => item.checked = false);
       copy[i].checked = true
-      dispatch({ type: 'DAaction', data: { ...data, copy } })
+      dispatch({ type: 'DBaction', data: { ...data, copy } })
       if (prop === 'equipment') {
         setExerciseBuild({
           ...exerciseBuild,
@@ -141,12 +158,28 @@ function App() {
         })
       }
     }
-    if (prop === 'workout') {
-      const copy = [...exercises]
-      console.log(copy);
-      copy.forEach(item => item.checked = false);
-      copy[i].checked = true
-      dispatch({ type: 'EXaction', exercises: [...copy] })
+  }
+
+  const controlWOCheckbox = (i, type, name) => {
+    console.log(`index of '${i}', type of '${type}', name of '${name}'`);
+    const copy = [...exercises]
+    let isDupe = false
+    workoutBuild.workout.forEach(item => {
+      if (item.name === name) isDupe = true
+    });
+    if (copy[i].checked) {
+      let filteredWorkout = workoutBuild.workout.filter(item => {
+        return item.name !== name
+      })
+      copy[i].checked = !copy[i].checked
+      setWorkoutBuild({
+        ...workoutBuild,
+        workout: filteredWorkout
+      })
+      return
+    }
+    if (!isDupe && name) {
+      copy[i].checked = !copy[i].checked
       setWorkoutBuild({
         ...workoutBuild,
         workout: [
@@ -184,13 +217,23 @@ function App() {
             <div className="greeting">Welcome to SQLifting</div>
           )} />
           <Route path="/database" render={() => (
-            <DatabaseManager controlCheckbox={controlCheckbox} updatePopulation={updatePopulation} />
+            <DatabaseManager
+              controlDBCheckbox={controlDBCheckbox}
+              updatePopulation={updatePopulation} />
           )} />
           <Route exact path="/exercise-builder" render={() => (
-            <ExerciseBuilder controlRadio={controlRadio} updatePopulation={updatePopulation} build={exerciseBuild} setBuild={setExerciseBuild} />
+            <ExerciseBuilder
+              controlEXRadio={controlEXRadio}
+              updatePopulation={updatePopulation}
+              build={exerciseBuild}
+              setBuild={setExerciseBuild} />
           )} />
           <Route exact path="/workout-builder" render={() => (
-            <WorkoutBuilder controlRadio={controlRadio} updatePopulation={updatePopulation} build={workoutBuild} setBuild={setWorkoutBuild} />
+            <WorkoutBuilder
+              controlWOCheckbox={controlWOCheckbox}
+              updatePopulation={updatePopulation}
+              build={workoutBuild}
+              setBuild={setWorkoutBuild} />
           )} />
           <Route exact path="/workouts" render={() => (
             <BuiltWorkouts />

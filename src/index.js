@@ -19,7 +19,7 @@ export default function Index() {
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case "DAaction":
+      case "DBaction":
         return {
           ...state,
           data: action.data

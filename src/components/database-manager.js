@@ -7,7 +7,7 @@ import unselect from '../gallery/unselect.png'
 import trash from '../gallery/trash.png'
 import 'react-tippy/dist/tippy.css'
 import { Tooltip } from 'react-tippy'
-const Manager = ({ updatePopulation, controlCheckbox }) => {
+const Manager = ({ updatePopulation, controlDBCheckbox }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
   const [muscle, setMuscle] = useState('')
@@ -119,7 +119,7 @@ const Manager = ({ updatePopulation, controlCheckbox }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlCheckbox('data', i, 'equipment', setEQSelection)} />
+                    onChange={() => controlDBCheckbox(i, 'data', 'equipment', setEQSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -156,7 +156,7 @@ const Manager = ({ updatePopulation, controlCheckbox }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlCheckbox('data', i, 'exercises', setEXSelection)} />
+                    onChange={() => controlDBCheckbox(i, 'data', 'exercises', setEXSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -193,7 +193,7 @@ const Manager = ({ updatePopulation, controlCheckbox }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlCheckbox('data', i, 'muscles', setMUSelection)} />
+                    onChange={() => controlDBCheckbox(i, 'data', 'muscles', setMUSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -231,7 +231,7 @@ const Manager = ({ updatePopulation, controlCheckbox }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlCheckbox('exercises', i, 'exercises', setExerciseSelection)} />
+                    onChange={() => controlDBCheckbox(i, 'exercises', 'exercises', setExerciseSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
@@ -268,7 +268,7 @@ const Manager = ({ updatePopulation, controlCheckbox }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlCheckbox('workouts', i, 'woruts', setWorkoutSelection)} />
+                    onChange={() => controlDBCheckbox(i, 'workouts', 'workouts', setWorkoutSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>
