@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const InProgress = ({ workout }) => {
+const InProgress = ({ resetAllBoxes, workout }) => {
+
   return (
     <>
       <h1>In Progress</h1>

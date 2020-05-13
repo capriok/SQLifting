@@ -233,13 +233,28 @@ function App() {
   }
 
   const resetAllBoxes = () => {
-    console.log(data.equipment);
-    console.log(data.exercises);
-    console.log(data.muscles);
-    console.log(exercises);
-    console.log(workouts);
+    let { equipment: dataEQ, exercises: dataEX, muscles: dataMU } = data
+    let WO = workouts
+    let EX = exercises
+    const reset = data => {
+      data.forEach(data => data.checked = false)
+    }
+    reset(dataEQ)
+    reset(dataEX)
+    reset(dataMU)
+    reset(EX)
+    reset(WO)
+    dispatch({
+      type: 'DBaction',
+      data: {
+        equipment: dataEQ,
+        exercises: dataEX,
+        muscles: dataMU
+      }
+    })
+    dispatch({ type: 'EXaction', exercises: EX })
+    dispatch({ type: 'WOaction', workouts: WO })
   }
-
 
   const updatePopulation = () => {
     populateData()
@@ -264,12 +279,15 @@ function App() {
           <Route path="/database" render={() => (
             <DatabaseManager
               controlDBCheckbox={controlDBCheckbox}
-              updatePopulation={updatePopulation} />
+              updatePopulation={updatePopulation}
+              resetAllBoxes={resetAllBoxes}
+            />
           )} />
           <Route exact path="/exercise-builder" render={() => (
             <ExerciseBuilder
               controlEXRadio={controlEXRadio}
               updatePopulation={updatePopulation}
+              resetAllBoxes={resetAllBoxes}
               build={exerciseBuild}
               setBuild={setExerciseBuild} />
           )} />
@@ -277,18 +295,21 @@ function App() {
             <WorkoutBuilder
               controlWOCheckbox={controlWOCheckbox}
               updatePopulation={updatePopulation}
+              resetAllBoxes={resetAllBoxes}
               build={workoutBuild}
               setBuild={setWorkoutBuild} />
           )} />
           <Route exact path="/workouts" render={() => (
             <BuiltWorkouts
-              updatePopulation={updatePopulation}
               controlBWRadio={controlBWRadio}
+              updatePopulation={updatePopulation}
+              resetAllBoxes={resetAllBoxes}
               workout={pickedWorkout} />
           )} />
           <Route exact path="/workout-in-progress" render={() => (
             <InProgress
-              workout={pickedWorkout} />
+              workout={pickedWorkout}
+              resetAllBoxes={resetAllBoxes} />
           )} />
         </div>
       </Router>

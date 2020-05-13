@@ -7,12 +7,19 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
-const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) => {
+const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, build, setBuild }) => {
   const [{ data, exercises }, dispatch] = useStateValue()
   const [name, setName] = useState('')
 
   useEffect(() => {
-    updatePopulation()
+    resetAllBoxes()
+    setBuild({
+      id: undefined,
+      name: undefined,
+      muscle: undefined,
+      exercise: undefined,
+      equipment: undefined,
+    })
   }, [])
 
   const resetBuild = () => {

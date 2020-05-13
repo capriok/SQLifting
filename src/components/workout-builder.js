@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
@@ -9,9 +9,17 @@ import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
 
-const WorkoutBuilder = ({ build, setBuild, controlWOCheckbox, updatePopulation }) => {
+const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, build, setBuild }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
   const [name, setName] = useState('')
+
+  useEffect(() => {
+    resetAllBoxes()
+    setBuild({
+      name: undefined,
+      workout: []
+    })
+  }, [])
 
   const submitBuild = (e) => {
     e.preventDefault()

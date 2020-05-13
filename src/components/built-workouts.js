@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../state'
 import Input from 'godspeed/build/Input'
@@ -6,8 +6,12 @@ import Button from 'godspeed/build/Button'
 import { Tooltip } from 'react-tippy'
 import start from '../gallery/start.png'
 
-const BuiltWorkouts = ({ updatePopulation, controlBWRadio, workout }) => {
+const BuiltWorkouts = ({ updatePopulation, resetAllBoxes, controlBWRadio, workout }) => {
   const [{ workouts }, dispatch] = useStateValue()
+
+  useEffect(() => {
+    resetAllBoxes()
+  }, [])
 
   return (
     <>

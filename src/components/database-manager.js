@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tippy'
 import unselect from '../gallery/unselect.png'
 import trash from '../gallery/trash.png'
 
-const Manager = ({ updatePopulation, controlDBCheckbox }) => {
+const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
   const [muscle, setMuscle] = useState('')
@@ -21,7 +21,7 @@ const Manager = ({ updatePopulation, controlDBCheckbox }) => {
   const [WorkoutSelection, setWorkoutSelection] = useState([])
 
   useEffect(() => {
-    updatePopulation()
+    resetAllBoxes()
   }, [])
 
   const InsertIntoDatabase = (type, payload) => {
@@ -62,11 +62,6 @@ const Manager = ({ updatePopulation, controlDBCheckbox }) => {
   }
 
   const deleteDataFromDatabase = (path, column, row) => {
-    console.log(path);
-    console.log(column);
-    console.log(row);
-
-
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {
         column: column, row: item
