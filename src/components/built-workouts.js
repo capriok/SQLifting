@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useStateValue } from '../state'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
@@ -7,9 +8,6 @@ import start from '../gallery/start.png'
 
 const BuiltWorkouts = ({ updatePopulation, controlBWRadio, workout }) => {
   const [{ workouts }, dispatch] = useStateValue()
-
-  const startWorkout = () => { }
-
 
   return (
     <>
@@ -40,7 +38,7 @@ const BuiltWorkouts = ({ updatePopulation, controlBWRadio, workout }) => {
                 title="Start Workout"
                 position="bottom"
                 trigger="mouseenter">
-                <img src={start} alt="" onClick={(e) => startWorkout(e)} />
+                <Link to="/workout-in-progress"><img src={start} alt="" /></Link>
               </Tooltip>
             </div>
           </div>

@@ -7,6 +7,7 @@ import DatabaseManager from './components/database-manager'
 import ExerciseBuilder from './components/exercise-builder'
 import WorkoutBuilder from './components/workout-builder'
 import BuiltWorkouts from './components/built-workouts'
+import InProgress from './components/in-progress'
 
 function App() {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
@@ -231,6 +232,15 @@ function App() {
     setPickedWorkout(item)
   }
 
+  const resetAllBoxes = () => {
+    console.log(data.equipment);
+    console.log(data.exercises);
+    console.log(data.muscles);
+    console.log(exercises);
+    console.log(workouts);
+  }
+
+
   const updatePopulation = () => {
     populateData()
     populateExercises()
@@ -274,6 +284,10 @@ function App() {
             <BuiltWorkouts
               updatePopulation={updatePopulation}
               controlBWRadio={controlBWRadio}
+              workout={pickedWorkout} />
+          )} />
+          <Route exact path="/workout-in-progress" render={() => (
+            <InProgress
               workout={pickedWorkout} />
           )} />
         </div>

@@ -9,12 +9,12 @@ import 'react-tippy/dist/tippy.css'
 export default function Index() {
 
   let initialState = {
-    exercises: [{}],
-    workouts: [{}],
+    exercises: [],
+    workouts: [],
     data: {
-      equipment: [{}],
-      exercises: [{}],
-      muscles: [{}]
+      equipment: [],
+      exercises: [],
+      muscles: []
     }
   }
 

@@ -328,7 +328,8 @@ body{
           flex:1;
         }
         .item-counts{
-          
+          display: flex;
+          justify-content: flex-start;
         }
       }
     }
