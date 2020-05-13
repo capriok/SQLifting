@@ -4,16 +4,17 @@ import { StateProvider } from "./state";
 import App from './App';
 import './App.scss';
 import './Index.scss';
+import 'react-tippy/dist/tippy.css'
 
 export default function Index() {
 
   let initialState = {
-    exercises: [],
-    workouts: [],
+    exercises: [{}],
+    workouts: [{}],
     data: {
-      equipment: [],
-      exercises: [],
-      muscles: []
+      equipment: [{}],
+      exercises: [{}],
+      muscles: [{}]
     }
   }
 

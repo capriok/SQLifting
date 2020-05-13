@@ -1,17 +1,41 @@
 import React, { useState } from 'react'
 import { useStateValue } from '../state'
+import axios from 'axios'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
 import CountSetter from './count-setter'
+import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
-import 'react-tippy/dist/tippy.css'
-import { Tooltip } from 'react-tippy'
 
 
 const WorkoutBuilder = ({ build, setBuild, controlWOCheckbox, updatePopulation }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
   const [name, setName] = useState('')
+
+  const submitBuild = (e) => {
+    e.preventDefault()
+    if (build.name) {
+      axios
+        .post(process.env.REACT_APP_POST + '/builtworkouts', {
+          name: build.name,
+          workout: build.workout
+        })
+        .then((res) => console.log('Post Success!'))
+        .catch(e => console.log(e))
+      dispatch({
+        type: 'WOaction',
+        workouts: [
+          ...workouts,
+          { ...build }
+        ]
+      })
+      setBuild({
+        name: undefined,
+        workout: []
+      })
+    } else alert('Name this workout.')
+  }
 
   const increment = (i, type) => {
     const copy = { ...build.workout }
@@ -76,7 +100,7 @@ const WorkoutBuilder = ({ build, setBuild, controlWOCheckbox, updatePopulation }
                 title="Submit build"
                 position="bottom"
                 trigger="mouseenter">
-                <img src={submit} alt="" onClick={() => { }} />
+                <img src={submit} alt="" onClick={(e) => submitBuild(e)} />
               </Tooltip>
             </div>
           </div>
@@ -101,7 +125,7 @@ const WorkoutBuilder = ({ build, setBuild, controlWOCheckbox, updatePopulation }
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlWOCheckbox(i, 'exercises', item.name)} />
+                    onChange={() => controlWOCheckbox(i, item.name)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>

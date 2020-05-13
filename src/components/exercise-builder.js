@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
+import axios from 'axios'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
+import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
-import 'react-tippy/dist/tippy.css'
-import { Tooltip } from 'react-tippy'
 
 const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) => {
   const [{ data, exercises }, dispatch] = useStateValue()
@@ -27,12 +27,47 @@ const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) 
     })
   }
 
+  const submitBuild = (e) => {
+    e.preventDefault()
+    const buildValues = Object.values(build)
+    let hasUndefined = false
+    buildValues.forEach((v) => {
+      if (v === undefined) hasUndefined = true
+    })
+    if (!hasUndefined) {
+      axios
+        .post(process.env.REACT_APP_POST + '/builtexercise', {
+          name: build.name,
+          equipment: build.equipment,
+          muscle: build.muscle,
+          exercise: build.exercise,
+        })
+        .then(res => console.log('Post Success!'))
+        .catch(e => console.log(e))
+      console.log('axios posted');
+      dispatch({
+        type: 'EXaction',
+        exercises: [
+          ...exercises,
+          {
+            id: exercises.length + 1,
+            name: build.name,
+            muscles: build.muscle,
+            exercises: build.exercise,
+            equipment: build.equipment,
+          }
+        ]
+      })
+      setBuild({})
+    } else alert('All fields required.')
+  }
+
   return (
     <>
       <div className="exercise-builder">
-        {(build.id || build.name) && <>
-          <h1 className="ex-title">Exercise Viewer</h1>
+        {(build.id || build.name) &&
           <div className="viewer">
+            <h1 className="ex-title">Exercise Viewer</h1>
             <h1 className="ex-name">{build.name}</h1>
             <div className="view">
               <div className="view-types">
@@ -57,11 +92,11 @@ const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) 
                 title="Submit build"
                 position="bottom"
                 trigger="mouseenter">
-                <img src={submit} alt="" onClick={() => { }} />
+                <img src={submit} alt="" onClick={(e) => submitBuild(e)} />
               </Tooltip>
             </div>
           </div>
-        </>}
+        }
         <h1 className="ex-title">Build exercise</h1>
         <div className="ex-namer">
           <h1 className="type-title">Name this exercise</h1>
@@ -80,7 +115,7 @@ const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) 
           {data.equipment.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
-                <label className="label" key={i}>
+                <label className="label">
                   <Input className="input" type="radio" checked={item.checked}
                     onChange={() => controlEXRadio(i, 'equipment')} />
                   <div className="item-name">{item.name}</div>
@@ -94,7 +129,7 @@ const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) 
           {data.exercises.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
-                <label className="label" key={i}>
+                <label className="label" >
                   <Input className="input" type="radio" checked={item.checked}
                     onChange={() => controlEXRadio(i, 'exercises')} />
                   <div className="item-name">{item.name}</div>
@@ -108,7 +143,7 @@ const ExerciseBuilder = ({ updatePopulation, controlEXRadio, build, setBuild }) 
           {data.muscles.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
-                <label className="label" key={i}>
+                <label className="label" >
                   <Input className="input" type="radio" checked={item.checked}
                     onChange={() => controlEXRadio(i, 'muscles')} />
                   <div className="item-name">{item.name}</div>

@@ -70,7 +70,7 @@ body{
 }
 
 .db-manager, .exercise-builder, .workout-builder, .built-workouts{width: 100%;}
-.db-title, .ex-title, .wo-title{
+.db-title, .ex-title, .wo-title, .bw-title{
   font-size: 2rem;
   margin: 40px 0 20px 0;
   padding-bottom: 15px;
@@ -163,7 +163,12 @@ body{
     @include flex;
     flex-direction: column;
     .ex-name{
+      text-transform: capitalize;
       padding: 20px 0 30px;
+    }
+    .ex-title{
+      width: 100%;
+      align-self: start;
     }
     .view{
       @include flex;
@@ -294,6 +299,37 @@ body{
       input{
         width: 100%;
         margin-right: 10px;
+      }
+    }
+  }
+}
+
+.built-workouts{
+  .viewer{
+      text-transform: capitalize;
+      .type-title{
+        font-size: 1.5rem;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $sub-underline;
+  }
+    .workout-item{
+      .item-title{
+        font-size: 1.2rem;
+        padding-bottom: 10px;
+      }
+      .item{
+        display: flex;
+        justify-content: flex-start;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $sub-underline;
+        .item-details{
+          flex:1;
+        }
+        .item-counts{
+          
+        }
       }
     }
   }

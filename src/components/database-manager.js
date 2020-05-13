@@ -3,10 +3,10 @@ import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
+import { Tooltip } from 'react-tippy'
 import unselect from '../gallery/unselect.png'
 import trash from '../gallery/trash.png'
-import 'react-tippy/dist/tippy.css'
-import { Tooltip } from 'react-tippy'
+
 const Manager = ({ updatePopulation, controlDBCheckbox }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
@@ -62,6 +62,11 @@ const Manager = ({ updatePopulation, controlDBCheckbox }) => {
   }
 
   const deleteDataFromDatabase = (path, column, row) => {
+    console.log(path);
+    console.log(column);
+    console.log(row);
+
+
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {
         column: column, row: item
@@ -239,7 +244,7 @@ const Manager = ({ updatePopulation, controlDBCheckbox }) => {
           ))}
         </div>
         <div className="type">
-          <span className="type-title">Equipment</span>
+          <span className="type-title">Workouts</span>
           <span className="type-action">
             <Tooltip
               title="Cancel selection"

@@ -34,63 +34,77 @@ function App() {
   useEffect(() => { data.equipment.length > 0 && console.log('Data.Equipment', data.equipment) }, [data.equipment])
   useEffect(() => { exercises.length > 0 && console.log('Built Exercises', exercises) }, [exercises])
   useEffect(() => { workouts.length > 0 && console.log('Built Workouts', workouts) }, [workouts])
+  useEffect(() => { exerciseBuild.name && console.log('Exercise Build', exerciseBuild) }, [exerciseBuild])
   useEffect(() => { workoutBuild.workout.length > 0 && console.log('Workout Build', workoutBuild) }, [workoutBuild])
 
   const populateData = async () => {
-    const data = {}
-    await axios
-      .all([
-        axios.get(process.env.REACT_APP_GET + '/equipment'),
-        axios.get(process.env.REACT_APP_GET + '/exercises'),
-        axios.get(process.env.REACT_APP_GET + '/muscles')
-      ])
-      .then(
-        axios.spread((...res) => {
-          data.equipment = res[0].data
-          data.exercises = res[1].data
-          data.muscles = res[2].data
-          data.equipment.forEach(item => item.checked = false);
-          data.exercises.forEach(item => item.checked = false);
-          data.muscles.forEach(item => item.checked = false);
-        })
-      )
-      .catch(e => console.error(e.message))
-    dispatch({
-      type: 'DBaction',
-      data: {
-        muscles: data.muscles,
-        exercises: data.exercises,
-        equipment: data.equipment
-      }
-    })
+    try {
+      const data = {}
+      await axios
+        .all([
+          axios.get(process.env.REACT_APP_GET + '/equipment'),
+          axios.get(process.env.REACT_APP_GET + '/exercises'),
+          axios.get(process.env.REACT_APP_GET + '/muscles')
+        ])
+        .then(
+          axios.spread((...res) => {
+            data.equipment = res[0].data
+            data.exercises = res[1].data
+            data.muscles = res[2].data
+            data.equipment.forEach(item => item.checked = false);
+            data.exercises.forEach(item => item.checked = false);
+            data.muscles.forEach(item => item.checked = false);
+            dispatch({
+              type: 'DBaction',
+              data: {
+                muscles: data.muscles,
+                exercises: data.exercises,
+                equipment: data.equipment
+              }
+            })
+          }))
+        .catch(e => console.error(e.message))
+
+    }
+    catch (error) {
+      console.log(error, 'Could not populate data');
+    }
   }
 
   const populateExercises = async () => {
-    await axios
-      .get(process.env.REACT_APP_GET + '/builtexercises')
-      .then(res => {
-        res.data.forEach(item => item.checked = false);
-        dispatch({
-          type: 'EXaction',
-          exercises: res.data
-        })
-      }
-      )
-      .catch(e => console.error(e.message))
+    try {
+      await axios
+        .get(process.env.REACT_APP_GET + '/builtexercises')
+        .then(res => {
+          res.data.forEach(item => item.checked = false);
+          dispatch({
+            type: 'EXaction',
+            exercises: res.data
+          })
+        }
+        )
+        .catch(e => console.error(e.message))
+    } catch (error) {
+      console.log(error, 'Could not populate data');
+    }
   }
 
   const populateWorkouts = async () => {
-    await axios
-      .get(process.env.REACT_APP_GET + '/builtworkouts')
-      .then(res => {
-        res.data.forEach(item => item.checked = false);
-        dispatch({
-          type: 'WOaction',
-          workouts: res.data
-        })
-      }
-      )
-      .catch(e => console.error(e.message))
+    try {
+      await axios
+        .get(process.env.REACT_APP_GET + '/builtworkouts')
+        .then(res => {
+          res.data.forEach(item => item.checked = false);
+          dispatch({
+            type: 'WOaction',
+            workouts: res.data
+          })
+        }
+        )
+        .catch(e => console.error(e.message))
+    } catch (error) {
+      console.log(error, 'Could not populate data');
+    }
   }
 
   useEffect(() => {
@@ -103,33 +117,38 @@ function App() {
     console.log(`index of '${i}', type of '${type}', prop of '${prop}'`);
     let copy
     const flipbox = () => copy[i].checked = !copy[i].checked
+    let selection = []
     switch (type) {
       case 'data':
         copy = [...data[prop]]
         flipbox()
         dispatch({ type: 'DBaction', data: { ...data, copy } })
-        return copy
+        copy.map((item) => {
+          item.checked && selection.push(item.name)
+          setter(selection)
+        })
+        break;
       case 'exercises':
         copy = [...exercises]
         flipbox()
         dispatch({ type: 'EXaction', exercises: copy })
-        return copy
+        copy.map((item) => {
+          item.checked && selection.push(item.name)
+          setter(selection)
+        })
+        break;
       case 'workouts':
-
         copy = [...workouts]
         flipbox()
         dispatch({ type: 'WOaction', workouts: copy })
-        return copy
+        copy.map((item) => {
+          item.checked && selection.push(item.name)
+          setter(selection)
+        })
+        break;
       default:
         break;
     }
-    console.log(copy);
-
-    let selection = []
-    copy.map((item) => {
-      item.checked && selection.push(item.name)
-      setter(selection)
-    })
   }
 
   const controlEXRadio = (i, prop) => {
@@ -165,8 +184,8 @@ function App() {
     }
   }
 
-  const controlWOCheckbox = (i, type, name) => {
-    console.log(`index of '${i}', type of '${type}', name of '${name}'`);
+  const controlWOCheckbox = (i, name) => {
+    console.log(`index of '${i}', name of '${name}'`);
     const copy = [...exercises]
     let isDupe = false
     workoutBuild.workout.forEach(item => {
@@ -199,6 +218,17 @@ function App() {
         ]
       })
     }
+  }
+
+  const controlBWRadio = (i, item) => {
+    console.log(`index of '${i}'`);
+    console.log(item);
+
+    const copy = [...workouts]
+    copy.forEach(item => item.checked = false);
+    copy[i].checked = true
+    dispatch({ type: 'WOaction', workouts: copy })
+    setPickedWorkout(item)
   }
 
   const updatePopulation = () => {
@@ -241,7 +271,10 @@ function App() {
               setBuild={setWorkoutBuild} />
           )} />
           <Route exact path="/workouts" render={() => (
-            <BuiltWorkouts />
+            <BuiltWorkouts
+              updatePopulation={updatePopulation}
+              controlBWRadio={controlBWRadio}
+              workout={pickedWorkout} />
           )} />
         </div>
       </Router>
