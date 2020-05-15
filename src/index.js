@@ -13,8 +13,8 @@ export default function Index() {
     workouts: [],
     data: {
       equipment: [],
-      exercises: [],
-      muscles: []
+      muscles: [],
+      exercises: []
     }
   }
 

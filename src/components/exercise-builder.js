@@ -16,9 +16,9 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
     setBuild({
       id: undefined,
       name: undefined,
-      muscle: undefined,
-      exercise: undefined,
       equipment: undefined,
+      muscle: undefined,
+      exercise: undefined
     })
   }, [])
 
@@ -28,9 +28,9 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
     setBuild({
       id: undefined,
       name: undefined,
-      muscle: undefined,
-      exercise: undefined,
       equipment: undefined,
+      muscle: undefined,
+      exercise: undefined
     })
   }
 
@@ -47,7 +47,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
           name: build.name,
           equipment: build.equipment,
           muscle: build.muscle,
-          exercise: build.exercise,
+          exercise: build.exercise
         })
         .then(res => console.log('Post Success!'))
         .catch(e => console.log(e))
@@ -59,9 +59,9 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
           {
             id: exercises.length + 1,
             name: build.name,
-            muscles: build.muscle,
-            exercises: build.exercise,
             equipment: build.equipment,
+            muscles: build.muscle,
+            exercises: build.exercise
           }
         ]
       })
@@ -79,13 +79,13 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
             <div className="view">
               <div className="view-types">
                 <p className="view-title">Equipment</p>
-                <p className="view-title">Exercise</p>
                 <p className="view-title">Muscle</p>
+                <p className="view-title">Exercise</p>
               </div>
               <div className="type-items">
                 <p className="type">{build.equipment}</p>
-                <p className="type">{build.exercise}</p>
                 <p className="type">{build.muscle}</p>
+                <p className="type">{build.exercise}</p>
               </div>
             </div>
             <div className="viewer-actions">
@@ -111,7 +111,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
             e.preventDefault()
             name && setBuild({ ...build, name: name })
             setName("")
-          }} >
+          }}>
             <Input placeholder="Enter name" autoFocus
               onChange={e => setName(e.target.value)} value={name} />
             <Button text="Submit" />
@@ -131,20 +131,6 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
             </div>
           ))}
         </div>
-        <h1 className="type-title">Choose Exercise</h1>
-        <div className="type-map">
-          {data.exercises.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label" >
-                  <Input className="input" type="radio" checked={item.checked}
-                    onChange={() => controlEXRadio(i, 'exercises')} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
         <h1 className="type-title">Choose Muscle</h1>
         <div className="type-map">
           {data.muscles.map((item, i) => (
@@ -153,6 +139,20 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
                 <label className="label" >
                   <Input className="input" type="radio" checked={item.checked}
                     onChange={() => controlEXRadio(i, 'muscles')} />
+                  <div className="item-name">{item.name}</div>
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+        <h1 className="type-title">Choose Exercise</h1>
+        <div className="type-map">
+          {data.exercises.map((item, i) => (
+            <div className="item" key={i}>
+              <div className="shift">
+                <label className="label" >
+                  <Input className="input" type="radio" checked={item.checked}
+                    onChange={() => controlEXRadio(i, 'exercises')} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>

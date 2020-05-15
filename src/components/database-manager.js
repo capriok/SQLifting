@@ -10,13 +10,13 @@ import trash from '../gallery/trash.png'
 const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
+  const [equipment, setEquipment] = useState('')
   const [muscle, setMuscle] = useState('')
   const [exercise, setExercise] = useState('')
-  const [equipment, setEquipment] = useState('')
 
   const [EQSelection, setEQSelection] = useState([])
-  const [EXSelection, setEXSelection] = useState([])
   const [MUSelection, setMUSelection] = useState([])
+  const [EXSelection, setEXSelection] = useState([])
   const [ExerciseSelection, setExerciseSelection] = useState([])
   const [WorkoutSelection, setWorkoutSelection] = useState([])
 
@@ -32,6 +32,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
         console.log(res)
         updatePopulation()
       })
+      .catch(err => console.log(err))
   }
 
   const formSubmit = e => {
@@ -46,17 +47,17 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
         InsertIntoDatabase('equipment', equipment)
         setEquipment("")
       }
-    } else if (exercise) {
-      data.exercises.forEach(e => { if (e.name === exercise) isDupe = true });
-      if (exercise && !isDupe) {
-        InsertIntoDatabase('exercise', exercise)
-        setExercise("")
-      }
-    } else {
+    } else if (muscle) {
       data.muscles.forEach(m => { if (m.name === muscle) isDupe = true });
       if (muscle && !isDupe) {
         InsertIntoDatabase('muscle', muscle)
         setMuscle("")
+      }
+    } else {
+      data.exercises.forEach(e => { if (e.name === exercise) isDupe = true });
+      if (exercise && !isDupe) {
+        InsertIntoDatabase('exercise', exercise)
+        setExercise("")
       }
     }
   }
@@ -81,10 +82,10 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
           <form id="add-composition-form" onSubmit={e => (formSubmit(e))}>
             <Input placeholder="Add Equipment" value={equipment}
               onChange={e => { (!exercise && !muscle) && setEquipment(e.target.value) }} />
-            <Input placeholder="Add Exercise" value={exercise}
-              onChange={e => { (!equipment && !muscle) && setExercise(e.target.value) }} />
             <Input placeholder="Add Muscle" value={muscle}
               onChange={e => { (!equipment && !exercise) && setMuscle(e.target.value) }} />
+            <Input placeholder="Add Exercise" value={exercise}
+              onChange={e => { (!equipment && !muscle) && setExercise(e.target.value) }} />
           </form>
           <Button text="Submit" type="submit" form="add-composition-form" />
         </div>
@@ -127,43 +128,6 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
           ))}
         </div>
         <div className="type">
-          <span className="type-title">Exercises</span>
-          <span className="type-action">
-            <Tooltip
-              title="Cancel selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={unselect} alt=""
-                onClick={() => {
-                  let copy = [...data.exercises]
-                  copy.forEach(item => item.checked = false);
-                  dispatch({ type: 'DAaction', data: { ...data, copy } })
-                  setEXSelection([])
-                }} />
-            </Tooltip>
-            <Tooltip
-              title="Delete Selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={trash} alt=""
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection)} />
-            </Tooltip>
-          </span>
-        </div>
-        <div className="type-map">
-          {data.exercises.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDBCheckbox(i, 'data', 'exercises', setEXSelection)} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="type">
           <span className="type-title">Muscles</span>
           <span className="type-action">
             <Tooltip
@@ -194,6 +158,43 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
                 <label className="label">
                   <Input className="input" type="checkbox" checked={item.checked}
                     onChange={() => controlDBCheckbox(i, 'data', 'muscles', setMUSelection)} />
+                  <div className="item-name">{item.name}</div>
+                </label>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="type">
+          <span className="type-title">Exercises</span>
+          <span className="type-action">
+            <Tooltip
+              title="Cancel selection"
+              position="bottom"
+              trigger="mouseenter">
+              <img src={unselect} alt=""
+                onClick={() => {
+                  let copy = [...data.exercises]
+                  copy.forEach(item => item.checked = false);
+                  dispatch({ type: 'DAaction', data: { ...data, copy } })
+                  setEXSelection([])
+                }} />
+            </Tooltip>
+            <Tooltip
+              title="Delete Selection"
+              position="bottom"
+              trigger="mouseenter">
+              <img src={trash} alt=""
+                onClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection)} />
+            </Tooltip>
+          </span>
+        </div>
+        <div className="type-map">
+          {data.exercises.map((item, i) => (
+            <div className="item" key={i}>
+              <div className="shift">
+                <label className="label">
+                  <Input className="input" type="checkbox" checked={item.checked}
+                    onChange={() => controlDBCheckbox(i, 'data', 'exercises', setEXSelection)} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>

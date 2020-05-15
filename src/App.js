@@ -15,9 +15,9 @@ function App() {
   const [exerciseBuild, setExerciseBuild] = useState({
     id: undefined,
     name: undefined,
-    muscle: undefined,
-    exercise: undefined,
     equipment: undefined,
+    muscle: undefined,
+    exercise: undefined
   })
 
   const [workoutBuild, setWorkoutBuild] = useState({
@@ -30,9 +30,9 @@ function App() {
     workout: []
   })
 
+  useEffect(() => { data.equipment.length > 0 && console.log('Data.Equipment', data.equipment) }, [data.equipment])
   useEffect(() => { data.muscles.length > 0 && console.log('Data.Muscles', data.muscles) }, [data.muscles])
   useEffect(() => { data.exercises.length > 0 && console.log('Data.Exercises', data.exercises) }, [data.exercises])
-  useEffect(() => { data.equipment.length > 0 && console.log('Data.Equipment', data.equipment) }, [data.equipment])
   useEffect(() => { exercises.length > 0 && console.log('Built Exercises', exercises) }, [exercises])
   useEffect(() => { workouts.length > 0 && console.log('Built Workouts', workouts) }, [workouts])
   useEffect(() => { exerciseBuild.name && console.log('Exercise Build', exerciseBuild) }, [exerciseBuild])
@@ -44,23 +44,23 @@ function App() {
       await axios
         .all([
           axios.get(process.env.REACT_APP_GET + '/equipment'),
-          axios.get(process.env.REACT_APP_GET + '/exercises'),
-          axios.get(process.env.REACT_APP_GET + '/muscles')
+          axios.get(process.env.REACT_APP_GET + '/muscles'),
+          axios.get(process.env.REACT_APP_GET + '/exercises')
         ])
         .then(
           axios.spread((...res) => {
             data.equipment = res[0].data
-            data.exercises = res[1].data
-            data.muscles = res[2].data
+            data.muscles = res[1].data
+            data.exercises = res[2].data
             data.equipment.forEach(item => item.checked = false);
-            data.exercises.forEach(item => item.checked = false);
             data.muscles.forEach(item => item.checked = false);
+            data.exercises.forEach(item => item.checked = false);
             dispatch({
               type: 'DBaction',
               data: {
                 muscles: data.muscles,
-                exercises: data.exercises,
-                equipment: data.equipment
+                equipment: data.equipment,
+                exercises: data.exercises
               }
             })
           }))
@@ -129,19 +129,19 @@ function App() {
           setter(selection)
         })
         break;
-      case 'exercises':
-        copy = [...exercises]
+      case 'workouts':
+        copy = [...workouts]
         flipbox()
-        dispatch({ type: 'EXaction', exercises: copy })
+        dispatch({ type: 'WOaction', workouts: copy })
         copy.map((item) => {
           item.checked && selection.push(item.name)
           setter(selection)
         })
         break;
-      case 'workouts':
-        copy = [...workouts]
+      case 'exercises':
+        copy = [...exercises]
         flipbox()
-        dispatch({ type: 'WOaction', workouts: copy })
+        dispatch({ type: 'EXaction', exercises: copy })
         copy.map((item) => {
           item.checked && selection.push(item.name)
           setter(selection)
@@ -166,18 +166,18 @@ function App() {
           equipment: copy[i].name
         })
         break;
-      case 'exercises':
-        setExerciseBuild({
-          ...exerciseBuild,
-          id: exercises.length + 1,
-          exercise: copy[i].name
-        })
-        break;
       case 'muscles':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
           muscle: copy[i].name
+        })
+        break;
+      case 'exercises':
+        setExerciseBuild({
+          ...exerciseBuild,
+          id: exercises.length + 1,
+          exercise: copy[i].name
         })
         break;
       default:
@@ -233,23 +233,23 @@ function App() {
   }
 
   const resetAllBoxes = () => {
-    let { equipment: dataEQ, exercises: dataEX, muscles: dataMU } = data
+    let { equipment: dataEQ, muscles: dataMU, exercises: dataEX } = data
     let WO = workouts
     let EX = exercises
     const reset = data => {
       data.forEach(data => data.checked = false)
     }
     reset(dataEQ)
-    reset(dataEX)
     reset(dataMU)
+    reset(dataEX)
     reset(EX)
     reset(WO)
     dispatch({
       type: 'DBaction',
       data: {
         equipment: dataEQ,
-        exercises: dataEX,
-        muscles: dataMU
+        muscles: dataMU,
+        exercises: dataEX
       }
     })
     dispatch({ type: 'EXaction', exercises: EX })

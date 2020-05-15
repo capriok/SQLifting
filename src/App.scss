@@ -12,7 +12,6 @@ $sub-underline: rgb(145, 145, 145);
 
 body{
   background-color: $body;
-  overflow-y: scroll;
 }
 
 .app{
@@ -20,6 +19,7 @@ body{
   justify-content:flex-start;
   flex-direction: column;
   margin: 0 auto;
+  width: 100%;
   min-height: 100vh;
   max-width: 800px;
   padding-bottom: 100px;
@@ -69,7 +69,7 @@ body{
   font-family: Alegreya Sans SC;  flex: 1;
 }
 
-.db-manager, .exercise-builder, .workout-builder, .built-workouts{width: 100%;}
+.db-manager, .exercise-builder, .workout-builder, .built-workouts, .in-progress{width: 100%;}
 .db-title, .ex-title, .wo-title, .bw-title{
   font-size: 2rem;
   margin: 40px 0 20px 0;
@@ -330,6 +330,108 @@ body{
           justify-content: flex-start;
         }
       }
+    }
+  }
+}
+
+.in-progress{
+  text-transform: capitalize;
+  .header{
+    @include flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 40px 0 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid $main-underline;
+    .ip-timer{*{font-size: 2rem;}}
+  }
+  .item-title{
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .item{
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid $sub-underline;
+    .item-details{
+      display: flex;
+      align-items: center;
+      flex:1;
+      label{
+        display: flex;
+        align-items: center;
+        height: 100%;
+        input{
+          width: 15px;
+          height: 15px;
+          margin-right: 20px;
+        }
+      }
+    }
+    .item-count{
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      div{
+        span:first-child{padding-right: 20px;}
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+  .footer{
+    @include flex;
+    width: 100%;
+  }
+}
+
+// MEDIA
+
+@media (max-width: 600px){
+  .app{
+    width: 90vw;
+    padding-bottom: 0px;
+  }
+  .db-title, .ex-title, .wo-title, .bw-title{
+    font-size: 1.7rem;
+  }
+  .action-bar{
+    .item{
+      text-align: center;
+      padding: 0;
+      width: 20%;
+      font-size: .8rem;
+    }
+  }
+  .greeting{
+    font-size: 1.5rem;
+  }
+  .db-title{
+    display: flex;
+    flex-direction: column;
+    span{
+      padding-top: 10px;
+    }
+  }
+  .add-compositions{
+    form{
+      flex-direction: column;
+      input:not(:first-child){margin-top: 10px;}
+      input{
+        width: 100% !important;
+      }
+    }
+  }
+  .ex-namer, .wo-namer{
+    flex-direction: column;
+    .type-title{width: 100%;}
+    form{
+      width: 100%;
+      input{width: 60%;}
+      button{width: 40%;}
     }
   }
 }
