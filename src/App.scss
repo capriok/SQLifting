@@ -69,8 +69,17 @@ body{
   font-family: Alegreya Sans SC;  flex: 1;
 }
 
-.db-manager, .exercise-builder, .workout-builder, .built-workouts, .in-progress{width: 100%;}
-.db-title, .ex-title, .wo-title, .bw-title{
+.db-manager, 
+.exercise-builder, 
+.workout-builder, 
+.built-workouts, 
+.in-progress{
+  width: 100%;
+}
+.db-title, 
+.ex-title, 
+.wo-title, 
+.bw-title{
   font-size: 2rem;
   margin: 40px 0 20px 0;
   padding-bottom: 15px;
@@ -118,7 +127,8 @@ body{
   }
 }
 
-.db-manager{.db-title{padding-bottom: 9px; span{font-size: 1rem;}}
+.db-manager{
+  .db-title{padding-bottom: 9px; span{font-size: 1rem;}}
   .add-compositions{
     width: 100%;
     @include flex;
@@ -151,7 +161,12 @@ body{
     .type-action span:first-child{
       margin-right: 10px;
     }
-    .type-action img{width: 20px;cursor: pointer;padding: 3px;box-sizing: content-box;}
+    .type-action img{
+      width: 20px;
+      cursor: pointer;
+      padding: 3px;
+      box-sizing: content-box;
+    }
     .type-action img:first-child{
       margin-right: 10px;
     }
@@ -402,7 +417,8 @@ body{
     .item{
       text-align: center;
       padding: 0;
-      width: 20%;
+      margin: 0 2px;
+      width: 100%;
       font-size: .8rem;
     }
   }
@@ -416,12 +432,36 @@ body{
       padding-top: 10px;
     }
   }
+  .viewer-actions{
+    img{width: 17px !important;}
+  }
+  .type{
+    .type-action img{
+      width: 17px !important;
+    }
+  }
   .add-compositions{
     form{
       flex-direction: column;
       input:not(:first-child){margin-top: 10px;}
       input{
         width: 100% !important;
+      }
+    }
+  }
+  .exercise-builder{
+    .ex-name{font-size: 1.6rem;}
+    .view{
+      text-align: center;
+      .view-title{font-size: 1.4rem !important;}
+    }
+  }
+  .workout-builder{
+    .viewer{
+      .view-item{
+        .item-title{
+          font-size: 1.2rem;
+        }
       }
     }
   }
