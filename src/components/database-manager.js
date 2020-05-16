@@ -8,7 +8,8 @@ import unselect from '../gallery/unselect.png'
 import trash from '../gallery/trash.png'
 
 const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
-  const [{ data, exercises, workouts }, dispatch] = useStateValue()
+  const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const user_id = user.details.user_id
 
   const [equipment, setEquipment] = useState('')
   const [muscle, setMuscle] = useState('')
@@ -27,7 +28,10 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
   const InsertIntoDatabase = (type, payload) => {
     axios
       .post(process.env.REACT_APP_POST + `/${type}data`,
-        { [type]: payload })
+        {
+          user_id: user.details.user_id,
+          [type]: payload
+        })
       .then(res => {
         console.log(res)
         updatePopulation(type)
@@ -65,7 +69,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
   const deleteDataFromDatabase = (path, column, row, type) => {
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {
-        column: column, row: item
+        user_id: user_id, column: column, row: item
       })
         .then(res => {
           updatePopulation(type)

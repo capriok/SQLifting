@@ -8,7 +8,8 @@ import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
 const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, build, setBuild }) => {
-  const [{ data, exercises }, dispatch] = useStateValue()
+  const [{ user, data, exercises }, dispatch] = useStateValue()
+  const user_id = user.details.user_id
   const [name, setName] = useState('')
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
     if (!hasUndefined) {
       axios
         .post(process.env.REACT_APP_POST + '/builtexercise', {
+          user_id: user_id,
           name: build.name,
           equipment: build.equipment,
           muscle: build.muscle,

@@ -3,15 +3,22 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useStateValue } from './state'
 import axios from 'axios'
 import Navbar from 'godspeed/build/Navbar'
+import NavLink from 'godspeed/build/NavLink'
+import Modal from 'godspeed/build/Modal'
 import DatabaseManager from './components/database-manager'
 import ExerciseBuilder from './components/exercise-builder'
 import WorkoutBuilder from './components/workout-builder'
 import BuiltWorkouts from './components/built-workouts'
 import InProgress from './components/in-progress'
+import ModalContent from './components/modal-content'
 
 function App() {
-  const [{ data, exercises, workouts }, dispatch] = useStateValue()
-  console.log = () => { }
+  if (process.env.NODE_ENV !== 'development') console.log = () => { }
+  const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const queryParams = { params: { user_id: user.details.user_id } }
+
+  const [logModalOpen, openLogModal] = useState(false)
+
   const [exerciseBuild, setExerciseBuild] = useState({
     id: undefined,
     name: undefined,
@@ -45,9 +52,9 @@ function App() {
           const data = {}
           await axios
             .all([
-              axios.get(process.env.REACT_APP_GET + '/equipment'),
-              axios.get(process.env.REACT_APP_GET + '/muscles'),
-              axios.get(process.env.REACT_APP_GET + '/exercises')
+              axios.get(process.env.REACT_APP_GET + '/equipment', queryParams),
+              axios.get(process.env.REACT_APP_GET + '/muscles', queryParams),
+              axios.get(process.env.REACT_APP_GET + '/exercises', queryParams)
             ])
             .then(
               axios.spread((...res) => {
@@ -71,11 +78,11 @@ function App() {
         catch (error) {
           console.log(error, 'Could not populate data');
         }
-        console.log('type', undefined);
+        if (type !== undefined) console.log('type', undefined);
         break;
       case 'equipment':
         axios
-          .get(process.env.REACT_APP_GET + '/equipment')
+          .get(process.env.REACT_APP_GET + '/equipment', queryParams)
           .then(res => {
             data.equipment = res.data
             data.equipment.forEach(item => item.checked = false)
@@ -85,11 +92,10 @@ function App() {
             })
           })
           .catch(e => console.error(e.message))
-        console.log('type', 'equipment');
         break;
       case 'muscles':
         axios
-          .get(process.env.REACT_APP_GET + '/muscles')
+          .get(process.env.REACT_APP_GET + '/muscles', queryParams)
           .then(res => {
             data.muscles = res.data
             data.muscles.forEach(item => item.checked = false)
@@ -99,11 +105,10 @@ function App() {
             })
           })
           .catch(e => console.error(e.message))
-        console.log('type', 'muscles');
         break;
       case 'exercises':
         axios
-          .get(process.env.REACT_APP_GET + '/exercises')
+          .get(process.env.REACT_APP_GET + '/exercises', queryParams)
           .then(res => {
             data.exercises = res.data
             data.exercises.forEach(item => item.checked = false)
@@ -113,18 +118,16 @@ function App() {
             })
           })
           .catch(e => console.error(e.message))
-        console.log('type', 'exercises');
         break;
       default:
         break;
     }
-
   }
 
   const populateExercises = async () => {
     try {
       await axios
-        .get(process.env.REACT_APP_GET + '/builtexercises')
+        .get(process.env.REACT_APP_GET + '/builtexercises', queryParams)
         .then(res => {
           res.data.forEach(item => item.checked = false);
           dispatch({
@@ -142,7 +145,7 @@ function App() {
   const populateWorkouts = async () => {
     try {
       await axios
-        .get(process.env.REACT_APP_GET + '/builtworkouts')
+        .get(process.env.REACT_APP_GET + '/builtworkouts', queryParams)
         .then(res => {
           res.data.forEach(item => item.checked = false);
           dispatch({
@@ -337,57 +340,74 @@ function App() {
     }
   }
 
+  const accountAction = async () => {
+    if (user.isAuthenticated) {
+      await dispatch({ type: 'logout' })
+      localStorage.removeItem('SQLifting-token')
+      window.location.pathname = '/'
+    } else {
+      openLogModal(true)
+    }
+  }
+
   return (
     <>
       <Router>
-        <Navbar title="SQLifting" titleWeight="300" to="/" shadow />
+        <Navbar title="SQLifting" titleWeight="300" to="/" shadow>
+          <NavLink hover="steelblue" onClick={() => accountAction()}>
+            {user.isAuthenticated ? 'Logout' : "Login"}
+          </NavLink>
+        </Navbar>
         <div className="app">
-          <div className="action-bar">
+          {user.isAuthenticated && <div className="action-bar">
             <Link className="item" to="/database">Database Manager</Link>
             <Link className="item" to="/exercise-builder">Exercise Builder</Link>
             <Link className="item" to="/workout-builder">Workout Builder</Link>
             <Link className="item" to="/workouts">Built Workouts</Link>
-          </div>
+          </div>}
           <Route exact path="/" render={() => (
             <div className="greeting">Welcome to SQLifting</div>
           )} />
-          <Route path="/database" render={() => (
+          {user.isAuthenticated && <> <Route path="/database" render={() => (
             <DatabaseManager
               controlDBCheckbox={controlDBCheckbox}
               updatePopulation={updatePopulation}
               resetAllBoxes={resetAllBoxes}
             />
           )} />
-          <Route exact path="/exercise-builder" render={() => (
-            <ExerciseBuilder
-              controlEXRadio={controlEXRadio}
-              updatePopulation={updatePopulation}
-              resetAllBoxes={resetAllBoxes}
-              build={exerciseBuild}
-              setBuild={setExerciseBuild} />
-          )} />
-          <Route exact path="/workout-builder" render={() => (
-            <WorkoutBuilder
-              controlWOCheckbox={controlWOCheckbox}
-              updatePopulation={updatePopulation}
-              resetAllBoxes={resetAllBoxes}
-              build={workoutBuild}
-              setBuild={setWorkoutBuild} />
-          )} />
-          <Route exact path="/workouts" render={() => (
-            <BuiltWorkouts
-              controlBWRadio={controlBWRadio}
-              updatePopulation={updatePopulation}
-              resetAllBoxes={resetAllBoxes}
-              workout={pickedWorkout} />
-          )} />
-          <Route exact path="/workout-in-progress" render={() => (
-            <InProgress
-              workout={pickedWorkout}
-              resetAllBoxes={resetAllBoxes} />
-          )} />
+            <Route exact path="/exercise-builder" render={() => (
+              <ExerciseBuilder
+                controlEXRadio={controlEXRadio}
+                updatePopulation={updatePopulation}
+                resetAllBoxes={resetAllBoxes}
+                build={exerciseBuild}
+                setBuild={setExerciseBuild} />
+            )} />
+            <Route exact path="/workout-builder" render={() => (
+              <WorkoutBuilder
+                controlWOCheckbox={controlWOCheckbox}
+                updatePopulation={updatePopulation}
+                resetAllBoxes={resetAllBoxes}
+                build={workoutBuild}
+                setBuild={setWorkoutBuild} />
+            )} />
+            <Route exact path="/workouts" render={() => (
+              <BuiltWorkouts
+                controlBWRadio={controlBWRadio}
+                updatePopulation={updatePopulation}
+                resetAllBoxes={resetAllBoxes}
+                workout={pickedWorkout} />
+            )} />
+            <Route exact path="/workout-in-progress" render={() => (
+              <InProgress
+                workout={pickedWorkout}
+                resetAllBoxes={resetAllBoxes} />
+            )} /></>}
         </div>
       </Router>
+      <Modal onClick={() => openLogModal(!logModalOpen)} open={logModalOpen}>
+        <ModalContent openLogModal={openLogModal} />
+      </Modal>
     </>
   );
 }

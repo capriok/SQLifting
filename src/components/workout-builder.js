@@ -10,7 +10,8 @@ import reset from '../gallery/reset.png'
 
 
 const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, build, setBuild }) => {
-  const [{ data, exercises, workouts }, dispatch] = useStateValue()
+  const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const user_id = user.details.user_id
   const [name, setName] = useState('')
 
   useEffect(() => {
@@ -48,6 +49,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
     if (build.name) {
       axios
         .post(process.env.REACT_APP_POST + '/builtworkouts', {
+          user_id: user_id,
           name: build.name,
           workout: build.workout
         })

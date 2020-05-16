@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tippy'
 import start from '../gallery/start.png'
 
 const BuiltWorkouts = ({ updatePopulation, resetAllBoxes, controlBWRadio, workout }) => {
-  const [{ workouts }, dispatch] = useStateValue()
+  const [{ user, workouts }, dispatch] = useStateValue()
 
   useEffect(() => {
     resetAllBoxes()
