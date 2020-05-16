@@ -11,7 +11,7 @@ import InProgress from './components/in-progress'
 
 function App() {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
-
+  console.log = () => { }
   const [exerciseBuild, setExerciseBuild] = useState({
     id: undefined,
     name: undefined,

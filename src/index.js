@@ -40,6 +40,8 @@ export default function Index() {
     }
   }
 
+  console.log('Welcome to SQLifting');
+
   return (
     <>
       <StateProvider initialState={initialState} reducer={reducer}>
