@@ -161,9 +161,11 @@ function App() {
   }
 
   useEffect(() => {
-    populateData()
-    populateExercises()
-    populateWorkouts()
+    if (user.isAuthenticated) {
+      populateData()
+      populateExercises()
+      populateWorkouts()
+    }
   }, [])
 
   const controlDBCheckbox = (i, type, prop, setter) => {
