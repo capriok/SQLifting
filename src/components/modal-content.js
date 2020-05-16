@@ -9,7 +9,7 @@ const ModalContent = ({ openLogModal }) => {
   const [register, setRegister] = useState(false)
   const [formTitle, setTitle] = useState("Login")
   const [form, setForm] = useState({
-    username: 'tooky', password: 'admin'
+    username: '', password: ''
   })
 
   const login = () => {
