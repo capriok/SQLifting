@@ -1,14 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { Prompt } from 'react-router'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
 import Timer from './timer'
 
 const InProgress = ({ workout }) => {
   const [wo, setWo] = useState(workout)
+
+  const promptLeave = () => {
+    if (window.confirm("Are you sure you want to leave, progress will not be saved.")) {
+      window.location.pathname = '/workouts'
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      promptLeave()
+    };
+  }, [])
+
   useEffect(() => {
     const copy = wo
     copy.workout.forEach(ex => ex.strike = false);
     setWo(copy)
+
   }, [])
 
   useEffect(() => { console.log(workout) }, [workout])
@@ -53,8 +68,7 @@ const InProgress = ({ workout }) => {
       <div className="footer">
         <Button text="Cancel Workouts"
           size="xsm"
-          to="/workouts"
-          onClick={() => { }} />
+          onClick={() => promptLeave()} />
       </div>
     </div>
   )
