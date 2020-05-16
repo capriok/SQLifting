@@ -17,6 +17,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "cd.. && cd k-server && cd src && npm run dev",
+    "dev": "concurrently \"npm start\" \"npm run server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -37,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^5.2.0",
     "node-sass": "^4.13.1"
   }
 }

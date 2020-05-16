@@ -38,38 +38,87 @@ function App() {
   useEffect(() => { exerciseBuild.name && console.log('Exercise Build', exerciseBuild) }, [exerciseBuild])
   useEffect(() => { workoutBuild.workout.length > 0 && console.log('Workout Build', workoutBuild) }, [workoutBuild])
 
-  const populateData = async () => {
-    try {
-      const data = {}
-      await axios
-        .all([
-          axios.get(process.env.REACT_APP_GET + '/equipment'),
-          axios.get(process.env.REACT_APP_GET + '/muscles'),
-          axios.get(process.env.REACT_APP_GET + '/exercises')
-        ])
-        .then(
-          axios.spread((...res) => {
-            data.equipment = res[0].data
-            data.muscles = res[1].data
-            data.exercises = res[2].data
-            data.equipment.forEach(item => item.checked = false);
-            data.muscles.forEach(item => item.checked = false);
-            data.exercises.forEach(item => item.checked = false);
+  const populateData = async (type) => {
+    switch (type) {
+      case undefined:
+        try {
+          const data = {}
+          await axios
+            .all([
+              axios.get(process.env.REACT_APP_GET + '/equipment'),
+              axios.get(process.env.REACT_APP_GET + '/muscles'),
+              axios.get(process.env.REACT_APP_GET + '/exercises')
+            ])
+            .then(
+              axios.spread((...res) => {
+                data.equipment = res[0].data
+                data.muscles = res[1].data
+                data.exercises = res[2].data
+                data.equipment.forEach(item => item.checked = false);
+                data.muscles.forEach(item => item.checked = false);
+                data.exercises.forEach(item => item.checked = false);
+                dispatch({
+                  type: 'DBaction',
+                  data: {
+                    muscles: data.muscles,
+                    equipment: data.equipment,
+                    exercises: data.exercises
+                  }
+                })
+              }))
+            .catch(e => console.error(e.message))
+        }
+        catch (error) {
+          console.log(error, 'Could not populate data');
+        }
+        console.log('type', undefined);
+        break;
+      case 'equipment':
+        axios
+          .get(process.env.REACT_APP_GET + '/equipment')
+          .then(res => {
+            data.equipment = res.data
+            data.equipment.forEach(item => item.checked = false)
             dispatch({
               type: 'DBaction',
-              data: {
-                muscles: data.muscles,
-                equipment: data.equipment,
-                exercises: data.exercises
-              }
+              data: { ...data, equipment: data.equipment }
             })
-          }))
-        .catch(e => console.error(e.message))
+          })
+          .catch(e => console.error(e.message))
+        console.log('type', 'equipment');
+        break;
+      case 'muscles':
+        axios
+          .get(process.env.REACT_APP_GET + '/muscles')
+          .then(res => {
+            data.muscles = res.data
+            data.muscles.forEach(item => item.checked = false)
+            dispatch({
+              type: 'DBaction',
+              data: { ...data, muscles: data.muscles }
+            })
+          })
+          .catch(e => console.error(e.message))
+        console.log('type', 'muscles');
+        break;
+      case 'exercises':
+        axios
+          .get(process.env.REACT_APP_GET + '/exercises')
+          .then(res => {
+            data.exercises = res.data
+            data.exercises.forEach(item => item.checked = false)
+            dispatch({
+              type: 'DBaction',
+              data: { ...data, exercises: data.exercises }
+            })
+          })
+          .catch(e => console.error(e.message))
+        console.log('type', 'exercises');
+        break;
+      default:
+        break;
+    }
 
-    }
-    catch (error) {
-      console.log(error, 'Could not populate data');
-    }
   }
 
   const populateExercises = async () => {
@@ -256,10 +305,36 @@ function App() {
     dispatch({ type: 'WOaction', workouts: WO })
   }
 
-  const updatePopulation = () => {
-    populateData()
-    populateExercises()
-    populateWorkouts()
+  const updatePopulation = (type) => {
+    switch (type) {
+      case undefined:
+        populateData()
+        populateExercises()
+        populateWorkouts()
+        break;
+      case 'equipment':
+        populateData('equipment')
+        console.log('type', 'equipment');
+        break;
+      case 'muscle':
+        populateData('muscles')
+        console.log('type', 'muscle');
+        break;
+      case 'exercise':
+        populateData('exercises')
+        console.log('type', 'exercise');
+        break;
+      case 'exercises':
+        populateExercises()
+        console.log('type', 'exercises');
+        break;
+      case 'workouts':
+        populateWorkouts()
+        console.log('type', 'workouts');
+        break;
+      default:
+        break;
+    }
   }
 
   return (

@@ -21,30 +21,6 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
     })
   }, [])
 
-  const submitBuild = (e) => {
-    e.preventDefault()
-    if (build.name) {
-      axios
-        .post(process.env.REACT_APP_POST + '/builtworkouts', {
-          name: build.name,
-          workout: build.workout
-        })
-        .then((res) => console.log('Post Success!'))
-        .catch(e => console.log(e))
-      dispatch({
-        type: 'WOaction',
-        workouts: [
-          ...workouts,
-          { ...build }
-        ]
-      })
-      setBuild({
-        name: undefined,
-        workout: []
-      })
-    } else alert('Name this workout.')
-  }
-
   const increment = (i, type) => {
     const copy = { ...build.workout }
     copy[i][type] = copy[i][type] + 1
@@ -59,7 +35,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
   }
 
   const resetBuild = () => {
-    updatePopulation()
+    resetAllBoxes()
     setName('')
     setBuild({
       name: undefined,
@@ -67,10 +43,38 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
     })
   }
 
+  const submitBuild = (e) => {
+    e.preventDefault()
+    if (build.name) {
+      axios
+        .post(process.env.REACT_APP_POST + '/builtworkouts', {
+          name: build.name,
+          workout: build.workout
+        })
+        .then((res) => {
+          console.log('Post Success!')
+          updatePopulation('workouts')
+        })
+        .catch(e => console.log(e))
+      dispatch({
+        type: 'WOaction',
+        workouts: [
+          ...workouts,
+          { ...build }
+        ]
+      })
+      setBuild({
+        name: undefined,
+        workout: []
+      })
+      resetAllBoxes()
+    } else alert('Name this workout.')
+  }
+
   return (
     <>
       <div className="workout-builder">
-        {build.workout.length > 0 && <>
+        {(build.workout.length > 0 || build.name) && <>
           <div className="wo-title">Workout Viewer</div>
           <div className="viewer">
             <h1 className="view-title">{build.name}</h1>
@@ -121,7 +125,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
             name && setBuild({ ...build, name: name })
             setName("")
           }} >
-            <Input placeholder="Enter name" autoFocus
+            <Input placeholder="Enter name"
               onChange={e => setName(e.target.value)} value={name} />
             <Button text="Submit" />
           </form>

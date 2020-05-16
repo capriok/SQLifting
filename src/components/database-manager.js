@@ -30,7 +30,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
         { [type]: payload })
       .then(res => {
         console.log(res)
-        updatePopulation()
+        updatePopulation(type)
       })
       .catch(err => console.log(err))
   }
@@ -62,13 +62,13 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
     }
   }
 
-  const deleteDataFromDatabase = (path, column, row) => {
+  const deleteDataFromDatabase = (path, column, row, type) => {
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {
         column: column, row: item
       })
         .then(res => {
-          updatePopulation()
+          updatePopulation(type)
         })
         .catch(e => console.log(e))
     });
@@ -110,7 +110,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               position="bottom"
               trigger="mouseenter">
               <img src={trash} alt=""
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection)} />
+                onClick={() => deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection, 'equipment')} />
             </Tooltip>
           </span>
         </div>
@@ -147,7 +147,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               position="bottom"
               trigger="mouseenter">
               <img src={trash} alt=""
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection)} />
+                onClick={() => deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection, 'muscle')} />
             </Tooltip>
           </span>
         </div>
@@ -184,7 +184,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               position="bottom"
               trigger="mouseenter">
               <img src={trash} alt=""
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection)} />
+                onClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection, 'exercise')} />
             </Tooltip>
           </span>
         </div>
@@ -222,7 +222,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               position="bottom"
               trigger="mouseenter">
               <img src={trash} alt=""
-                onClick={() => deleteDataFromDatabase('/frombuiltexercises', 'name', ExerciseSelection)} />
+                onClick={() => deleteDataFromDatabase('/frombuiltexercises', 'name', ExerciseSelection, 'exercises')} />
             </Tooltip>
           </span>
         </div>
@@ -259,7 +259,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               position="bottom"
               trigger="mouseenter">
               <img src={trash} alt=""
-                onClick={() => deleteDataFromDatabase('/frombuiltworkouts', 'name', WorkoutSelection)} />
+                onClick={() => deleteDataFromDatabase('/frombuiltworkouts', 'name', WorkoutSelection, 'workouts')} />
             </Tooltip>
           </span>
         </div>

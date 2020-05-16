@@ -23,7 +23,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
   }, [])
 
   const resetBuild = () => {
-    updatePopulation()
+    resetAllBoxes()
     setName('')
     setBuild({
       id: undefined,
@@ -49,7 +49,10 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
           muscle: build.muscle,
           exercise: build.exercise
         })
-        .then(res => console.log('Post Success!'))
+        .then(res => {
+          console.log('Post Success!')
+          updatePopulation('exercises')
+        })
         .catch(e => console.log(e))
       console.log('axios posted');
       dispatch({
@@ -66,6 +69,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
         ]
       })
       setBuild({})
+      resetAllBoxes()
     } else alert('All fields required.')
   }
 
@@ -112,7 +116,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
             name && setBuild({ ...build, name: name })
             setName("")
           }}>
-            <Input placeholder="Enter name" autoFocus
+            <Input placeholder="Enter name"
               onChange={e => setName(e.target.value)} value={name} />
             <Button text="Submit" />
           </form>

@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
 import Timer from './timer'
-const InProgress = ({ resetAllBoxes, workout }) => {
+
+const InProgress = ({ workout }) => {
+  const [wo, setWo] = useState(workout)
+  useEffect(() => {
+    const copy = wo
+    copy.workout.forEach(ex => ex.strike = false);
+    setWo(copy)
+  }, [])
+
+  useEffect(() => { console.log(workout) }, [workout])
+
+  const strikeExercise = (i) => {
+    const copy = wo.workout
+    copy[i].strike = !copy[i].strike
+    setWo({
+      ...wo,
+      workout: copy
+    })
+  }
 
   return (
     <div className="in-progress">
@@ -10,23 +28,23 @@ const InProgress = ({ resetAllBoxes, workout }) => {
         <h1 className="ip-title">In Progress</h1>
         <div className="ip-timer"><Timer /></div>
       </div>
-      {workout.workout.map((workout, i) => (
+      {wo.workout.map((ex, i) => (
         <>
           <div className="workout-item" key={i}>
-            <p className="item-title">{workout.name}</p>
+            <p className={ex.strike ? "item-title strike" : "item-title"}>{ex.name}</p>
             <div className="item">
               <div className="item-details">
                 <label>
-                  <Input type="checkbox" />
+                  <Input type="checkbox" onChange={() => strikeExercise(i)} />
                 </label>
                 <div>
-                  <p>Equipment: {workout.exercise.equipment}</p>
-                  <p>Movement: {workout.exercise.exercise}</p>
+                  <p>Equipment: {ex.exercise.equipment}</p>
+                  <p>Movement: {ex.exercise.exercise}</p>
                 </div>
               </div>
               <div className="item-count">
-                <div><span>Reps: </span><span>{workout.reps}</span></div>
-                <div><span>Sets: </span><span>{workout.sets}</span></div>
+                <div><span>Reps: </span><span>{ex.reps}</span></div>
+                <div><span>Sets: </span><span>{ex.sets}</span></div>
               </div>
             </div>
           </div>

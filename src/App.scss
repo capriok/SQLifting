@@ -346,9 +346,9 @@ body{
         }
       }
     }
+    .viewer-actions img{width: 25px;}
   }
 }
-
 .in-progress{
   text-transform: capitalize;
   .header{
@@ -360,6 +360,7 @@ body{
     border-bottom: 2px solid $main-underline;
     .ip-timer{*{font-size: 2rem;}}
   }
+  .strike{text-decoration: line-through;}
   .item-title{
     font-size: 1.4rem;
     margin-bottom: 10px;
