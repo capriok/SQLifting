@@ -17,11 +17,10 @@ const ModalContent = ({ openLogModal }) => {
       username: form.username,
       password: form.password
     })
-      .then(res => {
-        openLogModal(false)
+      .then(async res => {
         localStorage.setItem('SQLifting-token', res.data.token)
         localStorage.setItem('SQLifting-user', JSON.stringify(res.data.user))
-        dispatch({
+        await dispatch({
           type: 'auth',
           user: {
             isAuthenticated: true,
@@ -29,8 +28,8 @@ const ModalContent = ({ openLogModal }) => {
             details: res.data.user
           }
         })
-        window.location.pathname = '/database'
       })
+      .then(() => window.location.pathname = '/database')
       .catch(error => {
         console.log(error);
         setTitle('Invalid Credentials')
@@ -45,7 +44,7 @@ const ModalContent = ({ openLogModal }) => {
       .then(res => {
         setTitle(res.data)
         setRegister(false)
-        setTimeout(() => login(), 1000);
+        setTimeout(() => login(), 500);
       })
       .catch(error => {
         console.log(error);
@@ -55,10 +54,12 @@ const ModalContent = ({ openLogModal }) => {
 
   const formSubmit = e => {
     e.preventDefault()
-    if (!register) {
-      login()
-    } else {
-      signUp()
+    if (form.username && form.password) {
+      if (!register) {
+        login()
+      } else {
+        signUp()
+      }
     }
   }
 
