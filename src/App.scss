@@ -25,49 +25,51 @@ body{
   padding-bottom: 100px;
 }
 
-.log-modal{
-  header{
-    h1{
-      font-size: 1.3rem;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid $accent;
+.modal{
+  .log-modal{
+    header{
+      h1{
+        font-size: 1.3rem;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid $accent;
+      }
     }
-  }
-  section{
-    *{font-size: 1rem;}
-    form{
-      @include flex;
+    section{
+      *{font-size: 1rem;}
+      form{
+        @include flex;
         div{
           @include flex;
           flex-direction: column;
-        input{
-          padding-left: 10px;
-          margin-right: 10px; 
-          background-color: rgb(230, 230, 230);
+          input{
+            padding-left: 10px;
+            margin-right: 10px; 
+            background-color: rgb(230, 230, 230);
+          }
+          input:first-child{margin-bottom: 10px;}
+          input::placeholder{
+            color: black;
+          }
         }
-        input:first-child{margin-bottom: 10px;}
-        input::placeholder{
-          color: black;
+        div{
+          @include flex;
+          button{
+            height: 100%;
+          }
         }
       }
-      div{
-        @include flex;
-        button{
-          height: 100%;
-        }
+      p{
+        width: fit-content;
+        margin-top: 20px;
+        border-bottom: 1px solid $accent;;
+        cursor: pointer;
       }
-    }
-    p{
-      width: fit-content;
-      margin-top: 20px;
-      border-bottom: 1px solid $accent;;
-      cursor: pointer;
     }
   }
 }
-
-.action-bar{
+  
+  .action-bar{
   @include flex;
   justify-content: space-between;
   margin-top: 100px;
@@ -453,41 +455,45 @@ body{
     width: 90vw;
     padding-bottom: 0px;
   }
-  .log-modal{
-    header{
-      h1{
-        font-size: 1.3rem;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        border-bottom: 2px solid $accent;
+  .modal{
+    width: 90vw;
+    .log-modal{
+      header{
+        h1{
+          font-size: 1.3rem;
+          padding-bottom: 10px;
+          margin-bottom: 20px;
+          border-bottom: 2px solid $accent;
+        }
       }
-    }
-    section{
-      form{
-        @include flex;
-        flex-direction: column;
+      section{
+        form{
+          @include flex;
+          flex-direction: column;
           div{
-          input{
-            margin-bottom: 10px;
-            margin-right: 0px; 
+            input{
+              width: 100%;
+              margin-bottom: 10px;
+              margin-right: 0px; 
+            }
           }
-        }
-        div{
-          width: 100%;
-          button{
+          div{
             width: 100%;
-            height: 100%;
+            button{
+              width: 100%;
+              height: 100%;
+            }
           }
         }
-      }
-      p{
-        width: fit-content;
-        border-bottom: 1px solid $accent;;
-        cursor: pointer;
+        p{
+          width: fit-content;
+          border-bottom: 1px solid $accent;;
+          cursor: pointer;
+        }
       }
     }
   }
-  .db-title, .ex-title, .wo-title, .bw-title{
+    .db-title, .ex-title, .wo-title, .bw-title{
     font-size: 1.7rem;
   }
   .action-bar{

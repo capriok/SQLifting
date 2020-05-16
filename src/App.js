@@ -407,7 +407,7 @@ function App() {
             )} /></>}
         </div>
       </Router>
-      <Modal onClick={() => openLogModal(!logModalOpen)} open={logModalOpen}>
+      <Modal className="modal" onClick={() => openLogModal(!logModalOpen)} open={logModalOpen}>
         <ModalContent openLogModal={openLogModal} />
       </Modal>
     </>
