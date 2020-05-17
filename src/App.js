@@ -10,7 +10,7 @@ import ExerciseBuilder from './components/exercise-builder'
 import WorkoutBuilder from './components/workout-builder'
 import BuiltWorkouts from './components/built-workouts'
 import InProgress from './components/in-progress'
-import ModalContent from './components/modal-content'
+import LogBox from './components/log-box'
 
 function App() {
   if (process.env.NODE_ENV !== 'development') console.log = () => { }
@@ -21,7 +21,7 @@ function App() {
 
   const [exerciseBuild, setExerciseBuild] = useState({
     id: undefined,
-    name: undefined,
+    name: '',
     equipment: undefined,
     muscle: undefined,
     exercise: undefined
@@ -61,15 +61,27 @@ function App() {
                 data.equipment = res[0].data
                 data.muscles = res[1].data
                 data.exercises = res[2].data
-                data.equipment.forEach(item => item.checked = false);
-                data.muscles.forEach(item => item.checked = false);
-                data.exercises.forEach(item => item.checked = false);
+                data.equipment.forEach(item => {
+                  item.checked = false
+                  item.name = item.name.toLowerCase()
+                });
+                data.muscles.forEach(item => {
+                  item.checked = false
+                  item.name = item.name.toLowerCase()
+                });
+                data.exercises.forEach(item => {
+                  item.checked = false
+                  item.name = item.name.toLowerCase()
+                });
+
+
+
                 dispatch({
                   type: 'DBaction',
                   data: {
-                    muscles: data.muscles,
-                    equipment: data.equipment,
-                    exercises: data.exercises
+                    equipment: data.equipment.sort((a, b) => (a.name > b.name) ? 1 : -1),
+                    muscles: data.muscles.sort((a, b) => (a.name > b.name) ? 1 : -1),
+                    exercises: data.exercises.sort((a, b) => (a.name > b.name) ? 1 : -1)
                   }
                 })
               }))
@@ -85,10 +97,13 @@ function App() {
           .get(process.env.REACT_APP_GET + '/equipment', queryParams)
           .then(res => {
             data.equipment = res.data
-            data.equipment.forEach(item => item.checked = false)
+            data.equipment.forEach(item => {
+              item.checked = false
+              item.name = item.name.toLowerCase()
+            })
             dispatch({
               type: 'DBaction',
-              data: { ...data, equipment: data.equipment }
+              data: { ...data, equipment: data.equipment.sort((a, b) => (a.name > b.name) ? 1 : -1) }
             })
           })
           .catch(e => console.error(e.message))
@@ -98,10 +113,13 @@ function App() {
           .get(process.env.REACT_APP_GET + '/muscles', queryParams)
           .then(res => {
             data.muscles = res.data
-            data.muscles.forEach(item => item.checked = false)
+            data.muscles.forEach(item => {
+              item.checked = false
+              item.name = item.name.toLowerCase()
+            })
             dispatch({
               type: 'DBaction',
-              data: { ...data, muscles: data.muscles }
+              data: { ...data, muscles: data.muscles.sort((a, b) => (a.name > b.name) ? 1 : -1) }
             })
           })
           .catch(e => console.error(e.message))
@@ -111,10 +129,13 @@ function App() {
           .get(process.env.REACT_APP_GET + '/exercises', queryParams)
           .then(res => {
             data.exercises = res.data
-            data.exercises.forEach(item => item.checked = false)
+            data.exercises.forEach(item => {
+              item.checked = false
+              item.name = item.name.toLowerCase()
+            })
             dispatch({
               type: 'DBaction',
-              data: { ...data, exercises: data.exercises }
+              data: { ...data, exercises: data.exercises.sort((a, b) => (a.name > b.name) ? 1 : -1) }
             })
           })
           .catch(e => console.error(e.message))
@@ -129,10 +150,13 @@ function App() {
       await axios
         .get(process.env.REACT_APP_GET + '/builtexercises', queryParams)
         .then(res => {
-          res.data.forEach(item => item.checked = false);
+          res.data.forEach(item => {
+            item.checked = false
+            item.name = item.name.toLowerCase()
+          });
           dispatch({
             type: 'EXaction',
-            exercises: res.data
+            exercises: res.data.sort((a, b) => (a.name > b.name) ? 1 : -1)
           })
         }
         )
@@ -147,10 +171,13 @@ function App() {
       await axios
         .get(process.env.REACT_APP_GET + '/builtworkouts', queryParams)
         .then(res => {
-          res.data.forEach(item => item.checked = false);
+          res.data.forEach(item => {
+            item.checked = false
+            item.name = item.name.toLowerCase()
+          });
           dispatch({
             type: 'WOaction',
-            workouts: res.data
+            workouts: res.data.sort((a, b) => (a.name > b.name) ? 1 : -1)
           })
         }
         )
@@ -355,61 +382,68 @@ function App() {
   return (
     <>
       <Router>
-        <Navbar title="SQLifting" titleWeight="300" to="/" shadow>
-          <NavLink hover="steelblue" onClick={() => accountAction()}>
-            {user.isAuthenticated ? 'Logout' : "Login"}
+        <Navbar title="SQLifting" titleWeight="300" shadow>
+          {user.isAuthenticated &&
+            <NavLink hover="steelblue" onClick={() => accountAction()}>
+              Logout
           </NavLink>
+          }
         </Navbar>
         <div className="app">
-          {user.isAuthenticated && <div className="action-bar">
-            <Link className="item" to="/database">Database Manager</Link>
-            <Link className="item" to="/exercise-builder">Exercise Builder</Link>
-            <Link className="item" to="/workout-builder">Workout Builder</Link>
-            <Link className="item" to="/workouts">Built Workouts</Link>
-          </div>}
-          <Route exact path="/" render={() => (
-            <div className="greeting">Welcome to SQLifting</div>
-          )} />
-          {user.isAuthenticated && <> <Route path="/database" render={() => (
-            <DatabaseManager
-              controlDBCheckbox={controlDBCheckbox}
-              updatePopulation={updatePopulation}
-              resetAllBoxes={resetAllBoxes}
-            />
-          )} />
-            <Route exact path="/exercise-builder" render={() => (
-              <ExerciseBuilder
-                controlEXRadio={controlEXRadio}
-                updatePopulation={updatePopulation}
-                resetAllBoxes={resetAllBoxes}
-                build={exerciseBuild}
-                setBuild={setExerciseBuild} />
-            )} />
-            <Route exact path="/workout-builder" render={() => (
-              <WorkoutBuilder
-                controlWOCheckbox={controlWOCheckbox}
-                updatePopulation={updatePopulation}
-                resetAllBoxes={resetAllBoxes}
-                build={workoutBuild}
-                setBuild={setWorkoutBuild} />
-            )} />
-            <Route exact path="/workouts" render={() => (
-              <BuiltWorkouts
-                controlBWRadio={controlBWRadio}
-                updatePopulation={updatePopulation}
-                resetAllBoxes={resetAllBoxes}
-                workout={pickedWorkout} />
-            )} />
-            <Route exact path="/workout-in-progress" render={() => (
-              <InProgress
-                workout={pickedWorkout}
-                resetAllBoxes={resetAllBoxes} />
-            )} /></>}
+          <div className="action-bar">
+            {user.isAuthenticated
+              ? <>
+                <Link className="item" to="/database">Database Manager</Link>
+                <Link className="item" to="/exercise-builder">Exercise Builder</Link>
+                <Link className="item" to="/workout-builder">Workout Builder</Link>
+                <Link className="item" to="/workouts">Built Workouts</Link>
+              </>
+              : <div className="greeting">Welcome to SQLifting</div>
+            }
+          </div>
+          {user.isAuthenticated
+            ? <>
+              <Route path="/database" render={() => (
+                <DatabaseManager
+                  controlDBCheckbox={controlDBCheckbox}
+                  updatePopulation={updatePopulation}
+                  resetAllBoxes={resetAllBoxes}
+                />
+              )} />
+              <Route exact path="/exercise-builder" render={() => (
+                <ExerciseBuilder
+                  controlEXRadio={controlEXRadio}
+                  updatePopulation={updatePopulation}
+                  resetAllBoxes={resetAllBoxes}
+                  build={exerciseBuild}
+                  setBuild={setExerciseBuild} />
+              )} />
+              <Route exact path="/workout-builder" render={() => (
+                <WorkoutBuilder
+                  controlWOCheckbox={controlWOCheckbox}
+                  updatePopulation={updatePopulation}
+                  resetAllBoxes={resetAllBoxes}
+                  build={workoutBuild}
+                  setBuild={setWorkoutBuild} />
+              )} />
+              <Route exact path="/workouts" render={() => (
+                <BuiltWorkouts
+                  controlBWRadio={controlBWRadio}
+                  updatePopulation={updatePopulation}
+                  resetAllBoxes={resetAllBoxes}
+                  workout={pickedWorkout}
+                  setWorkout={setPickedWorkout} />
+              )} />
+              <Route exact path="/workout-in-progress" render={() => (
+                <InProgress
+                  workout={pickedWorkout}
+                  resetAllBoxes={resetAllBoxes} />
+              )} />
+            </>
+            : <LogBox />
+          }
         </div>
       </Router>
-      <Modal className="modal" onClick={() => openLogModal(!logModalOpen)} open={logModalOpen}>
-        <ModalContent openLogModal={openLogModal} />
-      </Modal>
     </>
   );
 }

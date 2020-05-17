@@ -4,15 +4,27 @@
   align-items: center;
 }
 
+@mixin placeholderAnim{
+  animation-duration: 1.7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+
+@keyframes nameAnim {
+  to {background-color: #87abc9;}
+}
+@keyframes altAnim {
+  to {background-color: #b1b1b1;}
+}
+
 $body: rgb(221, 221, 221);
 $action: rgb(201, 201, 201);
 $accent: steelblue;
 $main-underline: steelblue;
 $sub-underline: rgb(145, 145, 145);
 
-body{
-  background-color: $body;
-}
+body{background-color: $body;}
 
 .app{
   @include flex;
@@ -25,51 +37,8 @@ body{
   padding-bottom: 100px;
 }
 
-.modal{
-  .log-modal{
-    header{
-      h1{
-        font-size: 1.3rem;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        border-bottom: 2px solid $accent;
-      }
-    }
-    section{
-      *{font-size: 1rem;}
-      form{
-        @include flex;
-        div{
-          @include flex;
-          flex-direction: column;
-          input{
-            padding-left: 10px;
-            margin-right: 10px; 
-            background-color: rgb(230, 230, 230);
-          }
-          input:first-child{margin-bottom: 10px;}
-          input::placeholder{
-            color: black;
-          }
-        }
-        div{
-          @include flex;
-          button{
-            height: 100%;
-          }
-        }
-      }
-      p{
-        width: fit-content;
-        margin-top: 20px;
-        border-bottom: 1px solid $accent;;
-        cursor: pointer;
-      }
-    }
-  }
-}
   
-  .action-bar{
+.action-bar{
   @include flex;
   justify-content: space-between;
   margin-top: 100px;
@@ -94,13 +63,6 @@ body{
       transition: .2s;
       background-color: $accent
     }
-    &:active{
-    transition: .2s;
-    background-color: darken($color: $accent, $amount: 5%);
-    }
-    &:focus{
-    transition: .2s;
-    border-bottom: 3px solid darken($color: $accent, $amount: 20%);}
   }
 }
 .action-sig{
@@ -111,6 +73,54 @@ body{
   @include flex;
   font-size: 2.5rem;
   font-family: Alegreya Sans SC;  flex: 1;
+}
+
+.log-box{
+  margin: auto 0;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: white;
+  header{
+    h1{
+      font-size: 1.3rem;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid $accent;
+    }
+  }
+  section{
+    *{font-size: 1rem;}
+    form{
+      @include flex;
+      div{
+        @include flex;
+        flex-direction: column;
+        input{
+          padding-left: 10px;
+          margin-right: 10px; 
+          background-color: rgb(230, 230, 230);
+          border: 1px solid rgb(175, 175, 175);
+        }
+        input:first-child{margin-bottom: 10px;}
+        input::placeholder{
+          color: grey;
+        }
+      }
+      div{
+        @include flex;
+        button{
+          height: 100%;
+        }
+      }
+    }
+    p{
+      width: fit-content;
+      margin-top: 20px;
+      border-bottom: 1px solid $accent;;
+      cursor: pointer;
+    }
+  }
 }
 
 .db-manager, 
@@ -223,7 +233,29 @@ body{
     flex-direction: column;
     .ex-name{
       text-transform: capitalize;
-      padding: 20px 0 30px;
+      margin: 20px 0 30px;
+    }
+    .name-placeholder{
+      width: 25%;
+      height: 15px;
+      margin: 20px 0 39px;
+      border-radius: 5px;
+      @include placeholderAnim;
+      background-color: #b1b1b1;
+      animation-name: nameAnim;
+    }
+    .type-placeholder-wrapper{
+      @include flex;
+      width: 30%;
+      .type-placeholder{
+        width: 60%;
+        height: 15px;
+        margin: 25px 0 45px;
+        border-radius: 5px;
+        @include placeholderAnim;
+        background-color: #87abc9;
+        animation-name: altAnim;
+      }
     }
     .ex-title{
       width: 100%;
@@ -267,9 +299,8 @@ body{
       flex: 1;
       border-bottom: 0px solid transparent;
     }
-    form{
-      display: flex;
-      flex:1;
+    div{
+      flex: 1;
       input{
         width: 100%;
         margin-right: 10px;
@@ -314,9 +345,52 @@ body{
     @include flex;
     width: 100%;
     flex-direction: column;
+    .name-placeholder{
+      width: 25%;
+      height: 15px;
+      margin: 20px 0 39px;
+      border-radius: 5px;
+      @include placeholderAnim;
+      background-color: #b1b1b1;
+      animation-name: nameAnim;
+    }
     .view-title{
       text-transform: capitalize; 
       padding: 20px 0 30px;
+    }
+    .view-item-placeholder{
+      @include flex;
+      width: 100%;
+      padding: 10px 0;
+      justify-content: space-between;
+      border-bottom: 1px solid $sub-underline;
+      .item-title-placeholder{
+        width: 25%;
+        height: 15px;
+        margin: 15px 0 15px;
+        border-radius: 5px;
+        @include placeholderAnim;
+        background-color: #87abc9;
+        animation-name: altAnim;
+      }
+      .item-setter-placeholder{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        .reps-placeholder, .sets-placeholder{
+          @include flex;
+          justify-content: space-between;
+          span{
+            width: 100px;
+            height: 15px;
+            margin: 5px 0 5px;
+            border-radius: 5px;
+            @include placeholderAnim;
+            background-color: #97b9d4;
+            animation-name: altAnim;
+          }
+        }
+      }
     }
     .view-item{
       @include flex;
@@ -352,8 +426,7 @@ body{
       flex: 1;
       border-bottom: 0px solid transparent;
     }
-    form{
-      display: flex;
+    div{
       flex:1;
       input{
         width: 100%;
@@ -452,37 +525,56 @@ body{
 
 @media (max-width: 600px){
   .app{
-    width: 90vw;
+    width: 100vw;
     padding-bottom: 0px;
   }
-  .modal{
+  .db-manager, 
+  .exercise-builder, 
+  .workout-builder, 
+  .built-workouts, 
+  .in-progress{
+    width: 90%;
+  }
+  .action-bar{
+    width: 90%;
+    .item{
+      text-align: center;
+      padding: 0 5px;
+      margin: 0 3px;
+      width: 100%;
+      font-size: .8rem;
+    }
+  }
+  .greeting{
+    font-size: 1.5rem;
+  }
+  .log-box{
     width: 90vw;
-    .log-modal{
-      header{
-        h1{
-          font-size: 1.3rem;
-          padding-bottom: 10px;
-          margin-bottom: 20px;
-          border-bottom: 2px solid $accent;
-        }
+    header{
+      h1{
+        font-size: 1.3rem;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid $accent;
       }
-      section{
-        form{
-          @include flex;
-          flex-direction: column;
-          div{
-            input{
-              width: 100%;
-              margin-bottom: 10px;
-              margin-right: 0px; 
-            }
-          }
-          div{
+    }
+    section{
+      form{
+        @include flex;
+        flex-direction: column;
+        div{
+          input{
             width: 100%;
-            button{
-              width: 100%;
-              height: 100%;
-            }
+            margin-bottom: 10px;
+            margin-right: 0px; 
+          }
+        }
+        div{
+          width: 100%;
+          button{
+            width: 100%;
+            height: 100%;
+          }
           }
         }
         p{
@@ -492,21 +584,8 @@ body{
         }
       }
     }
-  }
     .db-title, .ex-title, .wo-title, .bw-title{
     font-size: 1.7rem;
-  }
-  .action-bar{
-    .item{
-      text-align: center;
-      padding: 0;
-      margin: 0 2px;
-      width: 100%;
-      font-size: .8rem;
-    }
-  }
-  .greeting{
-    font-size: 1.5rem;
   }
   .db-title{
     display: flex;
@@ -515,14 +594,10 @@ body{
       padding-top: 10px;
     }
   }
-  .viewer-actions{
-    img{width: 20px !important;}
-  }
-  .type{
-    .type-action img{
-      width: 20px !important;
-    }
-  }
+  .type-action-img{width: 20px !important;}
+  .viewer-action-img{width: 20px !important;}
+  .viewer-action-play-img{width: 25px !important;}
+
   .add-compositions{
     form{
       flex-direction: column;
@@ -534,13 +609,46 @@ body{
   }
   .exercise-builder{
     .ex-name{font-size: 1.6rem;}
-    .view{
-      text-align: center;
-      .view-title{font-size: 1.4rem !important;}
+    .viewer{
+      .name-placeholder{
+        width: 50%;
+        height: 15px;
+      }
+      .type-placeholder-wrapper{
+        @include flex;
+        width: 30%;
+        .type-placeholder{
+          width: 80%;
+          height: 15px;
+        }
+      }
+      .view{
+        text-align: center;
+        .view-title{font-size: 1.4rem !important;}
+      }
     }
   }
   .workout-builder{
     .viewer{
+      .name-placeholder{
+      width: 50%;
+      height: 15px;
+    }
+    .view-item-placeholder{
+      width: 100%;
+      .item-title-placeholder{
+        width: 45%;
+        height: 15px;
+      }
+      .item-setter-placeholder{
+        .reps-placeholder, .sets-placeholder{
+          span{
+            width: 75px;
+            height: 15px;
+          }
+        }
+      }
+    }
       .view-item{
         .item-title{
           font-size: 1.2rem;
@@ -551,7 +659,7 @@ body{
   .ex-namer, .wo-namer{
     flex-direction: column;
     .type-title{width: 100%;}
-    form{
+    div{
       width: 100%;
       input{width: 60%;}
       button{width: 40%;}

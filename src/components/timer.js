@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useTimer } from 'use-timer';
 
 const Timer = () => {
-  const { time, start, pause, reset, isRunning } = useTimer({ initialTime: 0 })
+  // const { time, start, pause, reset, isRunning } = useTimer({ initialTime: 0 })
+  const { time, start, reset } = useTimer({ initialTime: 0 })
   const [min, setMin] = useState(0)
   const [sec, setSec] = useState(0)
 

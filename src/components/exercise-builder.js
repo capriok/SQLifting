@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
-import Button from 'godspeed/build/Button'
 import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
@@ -10,7 +9,6 @@ import reset from '../gallery/reset.png'
 const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, build, setBuild }) => {
   const [{ user, data, exercises }, dispatch] = useStateValue()
   const user_id = user.details.user_id
-  const [name, setName] = useState('')
 
   useEffect(() => {
     resetAllBoxes()
@@ -25,7 +23,6 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
 
   const resetBuild = () => {
     resetAllBoxes()
-    setName('')
     setBuild({
       id: undefined,
       name: undefined,
@@ -78,50 +75,63 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
   return (
     <>
       <div className="exercise-builder">
-        {(build.id || build.name) &&
-          <div className="viewer">
-            <h1 className="ex-title">Exercise Viewer</h1>
-            <h1 className="ex-name">{build.name}</h1>
-            <div className="view">
-              <div className="view-types">
-                <p className="view-title">Equipment</p>
-                <p className="view-title">Muscle</p>
-                <p className="view-title">Exercise</p>
-              </div>
-              <div className="type-items">
-                <p className="type">{build.equipment}</p>
-                <p className="type">{build.muscle}</p>
-                <p className="type">{build.exercise}</p>
-              </div>
+        <div className="viewer">
+          <h1 className="ex-title">Exercise Viewer</h1>
+          {build.name
+            ? <h1 className="ex-name">{build.name}</h1>
+            : <div className="name-placeholder"></div>
+          }
+          <div className="view">
+            <div className="view-types">
+              <p className="view-title">Equipment</p>
+              <p className="view-title">Muscle</p>
+              <p className="view-title">Exercise</p>
             </div>
-            <div className="viewer-actions">
-              <Tooltip
-                title="Reset build"
-                position="bottom"
-                trigger="mouseenter">
-                <img src={reset} alt="" onClick={() => resetBuild()} />
-              </Tooltip>
-              <Tooltip
-                title="Submit build"
-                position="bottom"
-                trigger="mouseenter">
-                <img src={submit} alt="" onClick={(e) => submitBuild(e)} />
-              </Tooltip>
+            <div className="type-items">
+              {
+                build.equipment !== undefined
+                  ? <p className="type">{build.equipment}</p>
+                  : <div className="type-placeholder-wrapper">
+                    <div className="type-placeholder"></div>
+                  </div>
+              }
+              {
+                build.muscle !== undefined
+                  ? <p className="type">{build.muscle}</p>
+                  : <div className="type-placeholder-wrapper"><div className="type-placeholder"
+                    style={{ animationName: 'nameAnim', backgroundColor: '#b1b1b1' }}></div></div>
+              }
+              {
+                build.exercise !== undefined
+                  ? <p className="type">{build.exercise}</p>
+                  : <div className="type-placeholder-wrapper">
+                    <div className="type-placeholder"></div>
+                  </div>
+              }
             </div>
           </div>
-        }
+          <div className="viewer-actions">
+            <Tooltip
+              title="Reset build"
+              position="bottom"
+              trigger="mouseenter">
+              <img src={reset} alt="" className="viewer-action-img" onClick={() => resetBuild()} />
+            </Tooltip>
+            <Tooltip
+              title="Submit build"
+              position="bottom"
+              trigger="mouseenter">
+              <img src={submit} alt="" className="viewer-action-img" onClick={(e) => submitBuild(e)} />
+            </Tooltip>
+          </div>
+        </div>
         <h1 className="ex-title">Build exercise</h1>
         <div className="ex-namer">
           <h1 className="type-title">Name this exercise</h1>
-          <form onSubmit={(e) => {
-            e.preventDefault()
-            name && setBuild({ ...build, name: name })
-            setName("")
-          }}>
+          <div>
             <Input placeholder="Enter name"
-              onChange={e => setName(e.target.value)} value={name} />
-            <Button text="Submit" />
-          </form>
+              onChange={e => { setBuild({ ...build, name: e.target.value }) }} />
+          </div>
         </div>
         <h1 className="type-title">Choose Equipment</h1>
         <div className="type-map">

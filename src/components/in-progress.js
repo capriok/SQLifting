@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Prompt } from 'react-router'
 import Button from 'godspeed/build/Button'
 import Input from 'godspeed/build/Input'
 import Timer from './timer'
@@ -14,16 +13,14 @@ const InProgress = ({ workout }) => {
   }
 
   useEffect(() => {
-    return () => {
-      promptLeave()
-    };
+    window.scrollTo(0, 0)
+    return () => promptLeave()
   }, [])
 
   useEffect(() => {
     const copy = wo
     copy.workout.forEach(ex => ex.strike = false);
     setWo(copy)
-
   }, [])
 
   useEffect(() => { console.log(workout) }, [workout])

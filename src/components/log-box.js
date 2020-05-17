@@ -4,10 +4,10 @@ import axios from 'axios'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
 
-const ModalContent = ({ openLogModal }) => {
-  const [{ user }, dispatch] = useStateValue()
+const LogBox = () => {
+  const [, dispatch] = useStateValue()
   const [register, setRegister] = useState(false)
-  const [formTitle, setTitle] = useState("Login")
+  const [formTitle, setTitle] = useState('Login')
   const [form, setForm] = useState({
     username: '', password: ''
   })
@@ -65,7 +65,7 @@ const ModalContent = ({ openLogModal }) => {
 
   return (
     <>
-      <div className="log-modal">
+      <div className="log-box">
         <header><h1>{formTitle}</h1></header>
         <section>
           <form onSubmit={(e) => formSubmit(e)}>
@@ -88,4 +88,4 @@ const ModalContent = ({ openLogModal }) => {
   )
 }
 
-export default ModalContent
+export default LogBox

@@ -101,7 +101,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Cancel selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={unselect} alt=""
+              <img src={unselect} alt="" className="type-action-img"
                 onClick={() => {
                   let copy = [...data.equipment]
                   copy.forEach(item => item.checked = false);
@@ -113,7 +113,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Delete Selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={trash} alt=""
+              <img src={trash} alt="" className="type-action-img"
                 onClick={() => deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection, 'equipment')} />
             </Tooltip>
           </span>
@@ -138,7 +138,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Cancel selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={unselect} alt=""
+              <img src={unselect} alt="" className="type-action-img"
                 onClick={() => {
                   let copy = [...data.muscles]
                   copy.forEach(item => item.checked = false);
@@ -150,7 +150,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Delete Selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={trash} alt=""
+              <img src={trash} alt="" className="type-action-img"
                 onClick={() => deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection, 'muscle')} />
             </Tooltip>
           </span>
@@ -175,7 +175,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Cancel selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={unselect} alt=""
+              <img src={unselect} alt="" className="type-action-img"
                 onClick={() => {
                   let copy = [...data.exercises]
                   copy.forEach(item => item.checked = false);
@@ -187,7 +187,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Delete Selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={trash} alt=""
+              <img src={trash} alt="" className="type-action-img"
                 onClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection, 'exercise')} />
             </Tooltip>
           </span>
@@ -213,7 +213,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Cancel selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={unselect} alt=""
+              <img src={unselect} alt="" className="type-action-img"
                 onClick={() => {
                   let copy = [...exercises]
                   copy.forEach(item => item.checked = false);
@@ -225,7 +225,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Delete Selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={trash} alt=""
+              <img src={trash} alt="" className="type-action-img"
                 onClick={() => deleteDataFromDatabase('/frombuiltexercises', 'name', ExerciseSelection, 'exercises')} />
             </Tooltip>
           </span>
@@ -250,7 +250,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Cancel selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={unselect} alt=""
+              <img src={unselect} alt="" className="type-action-img"
                 onClick={() => {
                   let copy = [...workouts]
                   copy.forEach(item => item.checked = false);
@@ -262,7 +262,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
               title="Delete Selection"
               position="bottom"
               trigger="mouseenter">
-              <img src={trash} alt=""
+              <img src={trash} alt="" className="type-action-img"
                 onClick={() => deleteDataFromDatabase('/frombuiltworkouts', 'name', WorkoutSelection, 'workouts')} />
             </Tooltip>
           </span>

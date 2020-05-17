@@ -2,12 +2,20 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../state'
 import Input from 'godspeed/build/Input'
-import Button from 'godspeed/build/Button'
 import { Tooltip } from 'react-tippy'
 import start from '../gallery/start.png'
 
-const BuiltWorkouts = ({ updatePopulation, resetAllBoxes, controlBWRadio, workout }) => {
-  const [{ user, workouts }, dispatch] = useStateValue()
+const BuiltWorkouts = ({ resetAllBoxes, controlBWRadio, workout, setWorkout }) => {
+  const [{ workouts },] = useStateValue()
+
+  useEffect(() => {
+    return () => {
+      setWorkout({
+        name: undefined,
+        workout: []
+      })
+    };
+  }, [])
 
   useEffect(() => {
     resetAllBoxes()
@@ -42,7 +50,9 @@ const BuiltWorkouts = ({ updatePopulation, resetAllBoxes, controlBWRadio, workou
                 title="Start Workout"
                 position="bottom"
                 trigger="mouseenter">
-                <Link to="/workout-in-progress"><img src={start} alt="" /></Link>
+                <Link to="/workout-in-progress">
+                  <img src={start} alt="" className="viewer-action-play-img" />
+                </Link>
               </Tooltip>
             </div>
           </div>

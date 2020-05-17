@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
-import Button from 'godspeed/build/Button'
 import CountSetter from './count-setter'
 import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
@@ -10,9 +9,8 @@ import reset from '../gallery/reset.png'
 
 
 const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, build, setBuild }) => {
-  const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const [{ user, exercises, workouts }, dispatch] = useStateValue()
   const user_id = user.details.user_id
-  const [name, setName] = useState('')
 
   useEffect(() => {
     resetAllBoxes()
@@ -37,7 +35,6 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
 
   const resetBuild = () => {
     resetAllBoxes()
-    setName('')
     setBuild({
       name: undefined,
       workout: []
@@ -46,7 +43,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
 
   const submitBuild = (e) => {
     e.preventDefault()
-    if (build.name) {
+    if (build.name && build.workout.length > 0) {
       axios
         .post(process.env.REACT_APP_POST + '/builtworkouts', {
           user_id: user_id,
@@ -70,67 +67,77 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
         workout: []
       })
       resetAllBoxes()
-    } else alert('Name this workout.')
+    } else alert('Somethings missing.')
   }
 
   return (
     <>
       <div className="workout-builder">
-        {(build.workout.length > 0 || build.name) && <>
-          <div className="wo-title">Workout Viewer</div>
-          <div className="viewer">
-            <h1 className="view-title">{build.name}</h1>
-            {build.workout.map((build, i) => (
-              <div className="view-item" key={i}>
-                <div className="item-title">{build.exercise.name}</div>
-                <div className="item-setter">
-                  <div className="reps">
-                    <span>Reps</span>
-                    <CountSetter
-                      count={build.reps}
-                      incrementer={() => increment(i, 'reps')}
-                      decrementer={() => decrement(i, 'reps')}
-                    />
+        <div className="wo-title">Workout Viewer</div>
+        <div className="viewer">
+          {build.name
+            ? <h1 className="view-title">{build.name}</h1>
+            : <div className="name-placeholder"></div>
+          }
+          {
+            build.workout.length > 0
+              ? build.workout.map((build, i) => (
+                <div className="view-item" key={i}>
+                  <div className="item-title">{build.exercise.name}</div>
+                  <div className="item-setter">
+                    <div className="reps">
+                      <span>Reps</span>
+                      <CountSetter
+                        count={build.reps}
+                        incrementer={() => increment(i, 'reps')}
+                        decrementer={() => decrement(i, 'reps')}
+                      />
+                    </div>
+                    <div className="sets">
+                      <span>Sets</span>
+                      <CountSetter
+                        count={build.sets}
+                        incrementer={() => increment(i, 'sets')}
+                        decrementer={() => decrement(i, 'sets')}
+                      />
+                    </div>
                   </div>
-                  <div className="sets">
-                    <span>Sets</span>
-                    <CountSetter
-                      count={build.sets}
-                      incrementer={() => increment(i, 'sets')}
-                      decrementer={() => decrement(i, 'sets')}
-                    />
+                </div>
+              ))
+              : <div className="view-item-placeholder">
+                <div className="item-title-placeholder"></div>
+                <div className="item-setter-placeholder">
+                  <div className="reps-placeholder">
+                    <span></span>
+                  </div>
+                  <div className="sets-placeholder">
+                    <span></span>
                   </div>
                 </div>
               </div>
-            ))}
-            <div className="viewer-actions">
-              <Tooltip
-                title="Reset build"
-                position="bottom"
-                trigger="mouseenter">
-                <img src={reset} alt="" onClick={() => resetBuild()} />
-              </Tooltip>
-              <Tooltip
-                title="Submit build"
-                position="bottom"
-                trigger="mouseenter">
-                <img src={submit} alt="" onClick={(e) => submitBuild(e)} />
-              </Tooltip>
-            </div>
+          }
+          <div className="viewer-actions">
+            <Tooltip
+              title="Reset build"
+              position="bottom"
+              trigger="mouseenter">
+              <img src={reset} alt="" className="viewer-action-img" onClick={() => resetBuild()} />
+            </Tooltip>
+            <Tooltip
+              title="Submit build"
+              position="bottom"
+              trigger="mouseenter">
+              <img src={submit} alt="" className="viewer-action-img" onClick={(e) => submitBuild(e)} />
+            </Tooltip>
           </div>
-        </>}
+        </div>
         <div className="wo-title">Build Workout</div>
         <div className="wo-namer">
           <h1 className="type-title">Name this workout</h1>
-          <form onSubmit={(e) => {
-            e.preventDefault()
-            name && setBuild({ ...build, name: name })
-            setName("")
-          }} >
+          <div>
             <Input placeholder="Enter name"
-              onChange={e => setName(e.target.value)} value={name} />
-            <Button text="Submit" />
-          </form>
+              onChange={e => setBuild({ ...build, name: e.target.value })} />
+          </div>
         </div>
         <div className="type-title">Exercises</div>
         <div className="type-map">
