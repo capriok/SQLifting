@@ -71,7 +71,7 @@ body{background-color: $body;}
 }
 .greeting{
   @include flex;
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-family: Alegreya Sans SC;  flex: 1;
 }
 
@@ -534,6 +534,9 @@ body{background-color: $body;}
   .built-workouts, 
   .in-progress{
     width: 90%;
+  }
+  .navbar{
+    height: 45px;
   }
   .action-bar{
     width: 90%;

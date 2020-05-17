@@ -371,7 +371,7 @@ function App() {
   return (
     <>
       <Router>
-        <Navbar title="SQLifting" titleWeight="300" shadow>
+        <Navbar className="navbar" title="SQLifting" titleWeight="300" shadow>
           {user.isAuthenticated &&
             <NavLink hover="steelblue" onClick={() => accountAction()}>
               Logout
