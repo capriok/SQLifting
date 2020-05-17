@@ -9,7 +9,7 @@ const InProgress = ({ workout }) => {
   const promptLeave = () => {
     if (window.confirm("Are you sure you want to leave, progress will not be saved.")) {
       window.location.pathname = '/workouts'
-    }
+    } else { return }
   }
 
   useEffect(() => {

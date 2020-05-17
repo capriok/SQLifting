@@ -196,7 +196,6 @@ function App() {
   }, [])
 
   const controlDBCheckbox = (i, type, prop, setter) => {
-    console.log(`index of '${i}', type of '${type}', prop of '${prop}'`);
     let copy
     const flipbox = () => copy[i].checked = !copy[i].checked
     let selection = []
@@ -234,7 +233,6 @@ function App() {
   }
 
   const controlEXRadio = (i, prop) => {
-    console.log(`index of '${i}', prop of '${prop}'`);
     const copy = [...data[prop]]
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
@@ -267,7 +265,6 @@ function App() {
   }
 
   const controlWOCheckbox = (i, name) => {
-    console.log(`index of '${i}', name of '${name}'`);
     const copy = [...exercises]
     let isDupe = false
     workoutBuild.workout.forEach(item => {
@@ -303,9 +300,6 @@ function App() {
   }
 
   const controlBWRadio = (i, item) => {
-    console.log(`index of '${i}'`);
-    console.log(item);
-
     const copy = [...workouts]
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
@@ -346,23 +340,18 @@ function App() {
         break;
       case 'equipment':
         populateData('equipment')
-        console.log('type', 'equipment');
         break;
       case 'muscle':
         populateData('muscles')
-        console.log('type', 'muscle');
         break;
       case 'exercise':
         populateData('exercises')
-        console.log('type', 'exercise');
         break;
       case 'exercises':
         populateExercises()
-        console.log('type', 'exercises');
         break;
       case 'workouts':
         populateWorkouts()
-        console.log('type', 'workouts');
         break;
       default:
         break;
