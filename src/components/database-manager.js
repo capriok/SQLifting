@@ -84,11 +84,11 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
         <h1 className="db-title">Add Compositions <span>One at a time</span></h1>
         <div className="add-compositions">
           <form id="add-composition-form" onSubmit={e => (formSubmit(e))}>
-            <Input placeholder="Add Equipment" value={equipment}
+            <Input placeholder="Add Equipment" value={equipment.toLowerCase()}
               onChange={e => { (!exercise && !muscle) && setEquipment(e.target.value) }} />
-            <Input placeholder="Add Muscle" value={muscle}
+            <Input placeholder="Add Muscle" value={muscle.toLowerCase()}
               onChange={e => { (!equipment && !exercise) && setMuscle(e.target.value) }} />
-            <Input placeholder="Add Exercise" value={exercise}
+            <Input placeholder="Add Exercise" value={exercise.toLowerCase()}
               onChange={e => { (!equipment && !muscle) && setExercise(e.target.value) }} />
           </form>
           <Button text="Submit" type="submit" form="add-composition-form" />
