@@ -73,7 +73,7 @@ const LogBox = () => {
               <Input placeholder="Username" value={form.username}
                 onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^a-z]/ig, '').toLowerCase() })} />
               <Input placeholder="Password" value={form.password} type="password"
-                onChange={(e) => setForm({ ...form, password: e.target.value.replace(/[^a-z]/ig, '').toLowerCase() })} />
+                onChange={(e) => setForm({ ...form, password: e.target.value.replace(/[^a-z0-9]/ig, '').toLowerCase() })} />
             </div>
             <div>
               <Button text={!register ? 'Login' : 'Register'} onClick={() => { }} />

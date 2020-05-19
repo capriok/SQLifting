@@ -66,12 +66,13 @@ export default function Index() {
 
   console.log('Welcome to SQLifting');
 
-  const LStoken = localStorage.getItem('SQLifting-token')
-  const LSuser = localStorage.getItem('SQLifting-user')
-  if (LStoken) {
+  let LStoken = localStorage.getItem('SQLifting-token')
+  let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))
+  if (LStoken && LSuser) {
     initialState.user.token = LStoken
     initialState.user.isAuthenticated = true
-    initialState.user.details = JSON.parse(LSuser)
+    initialState.user.details.user_id = parseFloat(LSuser.user_id)
+    initialState.user.details.username = LSuser.username
     console.log('Logged in as -> ', initialState.user.details.username, `(${initialState.user.details.user_id})`);
   }
 

@@ -66,17 +66,19 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
     }
   }
 
-  const deleteDataFromDatabase = (path, column, row, type) => {
+
+  let deleteDataFromDatabase = (path, column, row, type) => {
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {
         user_id: user_id, column: column, row: item
       })
-        .then(res => {
+        .then(() => {
           updatePopulation(type)
         })
         .catch(e => console.log(e))
     });
   }
+  if (user.details.user_id === 24) deleteDataFromDatabase = () => { alert('no delete on demo') }
 
   return (
     <>

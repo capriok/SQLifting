@@ -358,14 +358,11 @@ function App() {
     }
   }
 
-  const accountAction = async () => {
-    if (user.isAuthenticated) {
-      await dispatch({ type: 'logout' })
-      localStorage.removeItem('SQLifting-token')
-      window.location.pathname = '/'
-    } else {
-      openLogModal(true)
-    }
+  const logoutActions = async () => {
+    await dispatch({ type: 'logout' })
+    localStorage.removeItem('SQLifting-token')
+    localStorage.removeItem('SQLifting-user')
+    window.location.pathname = '/'
   }
 
   return (
@@ -373,7 +370,7 @@ function App() {
       <Router>
         <Navbar className="navbar" title="SQLifting" titleWeight="300" shadow>
           {user.isAuthenticated &&
-            <NavLink hover="steelblue" onClick={() => accountAction()}>
+            <NavLink hover="steelblue" onClick={() => logoutActions()}>
               Logout
           </NavLink>
           }
