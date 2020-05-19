@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
@@ -9,6 +9,7 @@ import reset from '../gallery/reset.png'
 const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, build, setBuild }) => {
   const [{ user, data, exercises }, dispatch] = useStateValue()
   const user_id = user.details.user_id
+  const inputRef = useRef()
 
   useEffect(() => {
     resetAllBoxes()
@@ -48,12 +49,11 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
           muscle: build.muscle,
           exercise: build.exercise
         })
-        .then(res => {
+        .then(() => {
           console.log('Post Success!')
           updatePopulation('exercises')
         })
         .catch(e => console.log(e))
-      console.log('axios posted');
       dispatch({
         type: 'EXaction',
         exercises: [
@@ -69,6 +69,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
       })
       setBuild({})
       resetAllBoxes()
+      inputRef.current = ''
     } else alert('All fields required.')
   }
 
@@ -129,8 +130,11 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
         <div className="ex-namer">
           <h1 className="type-title">Name this exercise</h1>
           <div>
-            <Input placeholder="Enter name"
-              onChange={e => { setBuild({ ...build, name: e.target.value }) }} />
+            <Input placeholder="Enter name" value={inputRef.current}
+              onChange={e => {
+                inputRef.current = e.target.value
+                setBuild({ ...build, name: inputRef.current })
+              }} />
           </div>
         </div>
         <h1 className="type-title">Choose Equipment</h1>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
@@ -12,6 +12,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
   const [{ user, exercises, workouts }, dispatch] = useStateValue()
   const user_id = user.details.user_id
 
+  const inputRef = useRef('')
   useEffect(() => {
     resetAllBoxes()
     setBuild({
@@ -50,7 +51,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
           name: build.name,
           workout: build.workout
         })
-        .then((res) => {
+        .then(() => {
           console.log('Post Success!')
           updatePopulation('workouts')
         })
@@ -67,6 +68,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
         workout: []
       })
       resetAllBoxes()
+      inputRef.current = ''
     } else alert('Somethings missing.')
   }
 
@@ -135,8 +137,11 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
         <div className="wo-namer">
           <h1 className="type-title">Name this workout</h1>
           <div>
-            <Input placeholder="Enter name"
-              onChange={e => setBuild({ ...build, name: e.target.value })} />
+            <Input placeholder="Enter name" value={inputRef.current}
+              onChange={e => {
+                inputRef.current = e.target.value
+                setBuild({ ...build, name: inputRef.current })
+              }} />
           </div>
         </div>
         <div className="type-title">Exercises</div>
