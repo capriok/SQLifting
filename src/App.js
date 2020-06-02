@@ -73,9 +73,6 @@ function App() {
                   item.checked = false
                   item.name = item.name.toLowerCase()
                 });
-
-
-
                 dispatch({
                   type: 'DBaction',
                   data: {
