@@ -7,14 +7,25 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
+import useBoxControl from '../hooks/useBoxControl';
+import useUpdatePopulation from '../hooks/useUpdatePopulation';
+import useReset from '../hooks/useReset';
 
-const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, build, setBuild }) => {
+const WorkoutBuilder = () => {
   const [{ user, exercises, workouts }, dispatch] = useStateValue()
+  const [build, setBuild] = useState({
+    name: undefined,
+    workout: []
+  })
+  const updatePopulation = useUpdatePopulation()
+  const { controlWOCheckbox } = useBoxControl(build, setBuild)
+  const resetAll = useReset()
+
   const user_id = user.details.user_id
 
   const inputRef = useRef('')
   useEffect(() => {
-    resetAllBoxes()
+    resetAll()
     setBuild({
       name: undefined,
       workout: []
@@ -35,7 +46,7 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
   }
 
   const resetBuild = () => {
-    resetAllBoxes()
+    resetAll()
     setBuild({
       name: undefined,
       workout: []
@@ -67,10 +78,12 @@ const WorkoutBuilder = ({ controlWOCheckbox, updatePopulation, resetAllBoxes, bu
         name: undefined,
         workout: []
       })
-      resetAllBoxes()
+      resetAll()
       inputRef.current = ''
     } else alert('Somethings missing.')
   }
+
+  useEffect(() => { build.workout.length > 0 && console.log('Workout Build', build) }, [build])
 
   return (
     <>

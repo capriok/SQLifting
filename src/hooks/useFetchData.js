@@ -1,14 +1,11 @@
 import { useStateValue } from '../state'
 import axios from 'axios'
-import LogBox from '../components/log-box'
 
 const useFetchData = () => {
   const [{ user, data }, dispatch] = useStateValue()
   const queryParams = { params: { user_id: user.details.user_id } }
 
   const populateData = async (type) => {
-    console.log(type);
-
     switch (type) {
       case undefined:
         try {

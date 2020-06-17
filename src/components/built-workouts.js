@@ -2,11 +2,18 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../state'
 import Input from 'godspeed/build/Input'
-import { Tooltip } from 'react-tippy'
 import start from '../gallery/start.png'
 
-const BuiltWorkouts = ({ resetAllBoxes, controlBWRadio, workout, setWorkout }) => {
+import { Tooltip } from 'react-tippy'
+import DraggableArray from 'react-draggable-array'
+
+import useRadioControl from '../hooks/useRadioControl';
+import useReset from '../hooks/useReset';
+
+const BuiltWorkouts = ({ workout, setWorkout }) => {
   const [{ workouts },] = useStateValue()
+  const { controlBWRadio } = useRadioControl(undefined, undefined, setWorkout)
+  const resetAll = useReset()
 
   useEffect(() => {
     return () => {
@@ -18,7 +25,7 @@ const BuiltWorkouts = ({ resetAllBoxes, controlBWRadio, workout, setWorkout }) =
   }, [])
 
   useEffect(() => {
-    resetAllBoxes()
+    resetAll()
   }, [])
 
   return (
@@ -28,23 +35,23 @@ const BuiltWorkouts = ({ resetAllBoxes, controlBWRadio, workout, setWorkout }) =
           <div className="viewer">
             <h1 className="bw-title">Workout Viewer</h1>
             <h1 className="type-title">{workout.name}</h1>
+            {/* <DraggableArray col className="draggable-cont"> */}
             {workout.workout.map((workout, i) => (
-              <>
-                <div className="workout-item" key={i}>
-                  <p className="item-title">{workout.name}</p>
-                  <div className="item">
-                    <div className="item-details">
-                      <p>Equipment: {workout.exercise.equipment}</p>
-                      <p>Movement: {workout.exercise.exercise}</p>
-                    </div>
-                    <div className="item-count">
-                      <p>Reps: {workout.reps}</p>
-                      <p>Sets: {workout.sets}</p>
-                    </div>
+              <div className="workout-item" key={i}>
+                <p className="item-title">{workout.name}</p>
+                <div className="item">
+                  <div className="item-details">
+                    <p>Equipment: {workout.exercise.equipment}</p>
+                    <p>Movement: {workout.exercise.exercise}</p>
+                  </div>
+                  <div className="item-count">
+                    <p>Reps: {workout.reps}</p>
+                    <p>Sets: {workout.sets}</p>
                   </div>
                 </div>
-              </>
+              </div>
             ))}
+            {/* </DraggableArray> */}
             <div className="viewer-actions">
               <Tooltip
                 title="Start Workout"

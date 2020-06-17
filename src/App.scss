@@ -498,30 +498,30 @@ body {
       margin-bottom: 20px;
       border-bottom: 1px solid $sub-underline;
     }
-    .draggable-cont {
-      width: 100%;
-      align-items: stretch;
-      .workout-item {
-        .item-title {
-          font-size: 1.2rem;
-          padding-bottom: 10px;
+    // .draggable-cont {
+    //   width: 100%;
+    //   align-items: stretch;
+    .workout-item {
+      .item-title {
+        font-size: 1.2rem;
+        padding-bottom: 10px;
+      }
+      .item {
+        display: flex;
+        justify-content: flex-start;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid $sub-underline;
+        .item-details {
+          flex: 1;
         }
-        .item {
+        .item-counts {
           display: flex;
           justify-content: flex-start;
-          padding-bottom: 10px;
-          margin-bottom: 20px;
-          border-bottom: 1px solid $sub-underline;
-          .item-details {
-            flex: 1;
-          }
-          .item-counts {
-            display: flex;
-            justify-content: flex-start;
-          }
         }
       }
     }
+    // }
     .viewer-actions img {
       width: 25px;
     }

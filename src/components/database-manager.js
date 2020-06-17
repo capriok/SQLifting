@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
+import { Tooltip } from 'react-tippy'
 import axios from 'axios'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
-import { Tooltip } from 'react-tippy'
 import unselect from '../gallery/unselect.png'
 import trash from '../gallery/trash.png'
 
-const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
+import useBoxControl from '../hooks/useBoxControl';
+import useUpdatePopulation from '../hooks/useUpdatePopulation';
+import useReset from '../hooks/useReset';
+
+const Manager = () => {
   const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const updatePopulation = useUpdatePopulation()
+  const { controlDBCheckbox } = useBoxControl()
+  const resetAll = useReset()
+
   const user_id = user.details.user_id
 
   const [equipment, setEquipment] = useState('')
@@ -22,7 +30,7 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
   const [WorkoutSelection, setWorkoutSelection] = useState([])
 
   useEffect(() => {
-    resetAllBoxes()
+    resetAll()
   }, [])
 
   const InsertIntoDatabase = (type, payload) => {

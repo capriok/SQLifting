@@ -23,7 +23,10 @@ const InProgress = ({ workout }) => {
     setWo(copy)
   }, [])
 
-  useEffect(() => { console.log(workout) }, [workout])
+  useEffect(() => {
+    console.log(wo)
+    if (wo.workout.length === 0) window.location.href = '/workouts'
+  }, [workout])
 
   const strikeExercise = (i) => {
     const copy = wo.workout
@@ -63,8 +66,8 @@ const InProgress = ({ workout }) => {
         </>
       ))}
       <div className="footer">
-        <Button text="Cancel Workouts"
-          size="xsm"
+        <Button text="Abort Workout"
+          size="sm"
           onClick={() => promptLeave()} />
       </div>
     </div>

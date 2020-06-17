@@ -1,10 +1,6 @@
 import { useStateValue } from '../state'
 
-const useRadioControl = (
-  exerciseBuild,
-  setExerciseBuild,
-  setPickedWorkout
-) => {
+const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
   const [{ data, exercises, workouts }, dispatch] = useStateValue()
 
   const controlEXRadio = (i, prop) => {

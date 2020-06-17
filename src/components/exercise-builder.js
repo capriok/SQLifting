@@ -6,13 +6,29 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
-const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, build, setBuild }) => {
+import useRadioControl from '../hooks/useRadioControl';
+import useUpdatePopulation from '../hooks/useUpdatePopulation';
+import useReset from '../hooks/useReset';
+
+const ExerciseBuilder = () => {
   const [{ user, data, exercises }, dispatch] = useStateValue()
-  const user_id = user.details.user_id
+  const [build, setBuild] = useState({
+    id: undefined,
+    name: '',
+    equipment: undefined,
+    muscle: undefined,
+    exercise: undefined
+  })
+  const updatePopulation = useUpdatePopulation()
+  const { controlEXRadio } = useRadioControl(build, setBuild)
+  const resetAll = useReset()
+
   const inputRef = useRef()
 
+  const user_id = user.details.user_id
+
   useEffect(() => {
-    resetAllBoxes()
+    resetAll()
     setBuild({
       id: undefined,
       name: undefined,
@@ -23,7 +39,7 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
   }, [])
 
   const resetBuild = () => {
-    resetAllBoxes()
+    resetAll()
     setBuild({
       id: undefined,
       name: undefined,
@@ -68,10 +84,12 @@ const ExerciseBuilder = ({ updatePopulation, resetAllBoxes, controlEXRadio, buil
         ]
       })
       setBuild({})
-      resetAllBoxes()
+      resetAll()
       inputRef.current = ''
     } else alert('All fields required.')
   }
+
+  useEffect(() => { build.name && console.log('Exercise Build', build) }, [build])
 
   return (
     <>
