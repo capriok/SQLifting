@@ -490,6 +490,7 @@ body {
 
 .built-workouts {
   .viewer {
+    width: 100%;
     text-transform: capitalize;
     .type-title {
       font-size: 1.5rem;
@@ -497,23 +498,27 @@ body {
       margin-bottom: 20px;
       border-bottom: 1px solid $sub-underline;
     }
-    .workout-item {
-      .item-title {
-        font-size: 1.2rem;
-        padding-bottom: 10px;
-      }
-      .item {
-        display: flex;
-        justify-content: flex-start;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid $sub-underline;
-        .item-details {
-          flex: 1;
+    .draggable-cont {
+      width: 100%;
+      align-items: stretch;
+      .workout-item {
+        .item-title {
+          font-size: 1.2rem;
+          padding-bottom: 10px;
         }
-        .item-counts {
+        .item {
           display: flex;
           justify-content: flex-start;
+          padding-bottom: 10px;
+          margin-bottom: 20px;
+          border-bottom: 1px solid $sub-underline;
+          .item-details {
+            flex: 1;
+          }
+          .item-counts {
+            display: flex;
+            justify-content: flex-start;
+          }
         }
       }
     }

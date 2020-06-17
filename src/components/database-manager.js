@@ -66,7 +66,6 @@ const Manager = ({ updatePopulation, resetAllBoxes, controlDBCheckbox }) => {
     }
   }
 
-
   let deleteDataFromDatabase = (path, column, row, type) => {
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {

@@ -4,7 +4,9 @@ import { StateProvider } from "./state";
 import App from './App';
 import './App.scss';
 import './Index.scss';
+
 import 'react-tippy/dist/tippy.css'
+import 'react-draggable-array/dist/index.css'
 
 export default function Index() {
   let initialState = {
