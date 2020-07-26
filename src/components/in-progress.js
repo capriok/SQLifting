@@ -41,26 +41,24 @@ const InProgress = ({ workout }) => {
         <div className="ip-timer"><Timer /></div>
       </div>
       {wo.workout.map((ex, i) => (
-        <>
-          <div className="workout-item" key={i}>
-            <p className={ex.strike ? "item-title strike" : "item-title"}>{ex.name}</p>
-            <div className="item">
-              <div className="item-details">
-                <label>
-                  <Input type="checkbox" onChange={() => strikeExercise(i)} />
-                </label>
-                <div>
-                  <p>Equipment: {ex.exercise.equipment}</p>
-                  <p>Movement: {ex.exercise.exercise}</p>
-                </div>
-              </div>
-              <div className="item-count">
-                <div><span>Reps: </span><span>{ex.reps}</span></div>
-                <div><span>Sets: </span><span>{ex.sets}</span></div>
+        <div className="workout-item" key={i}>
+          <p className={ex.strike ? "item-title strike" : "item-title"}>{ex.name}</p>
+          <div className="item">
+            <div className="item-details">
+              <label>
+                <Input type="checkbox" onChange={() => strikeExercise(i)} />
+              </label>
+              <div>
+                <p>Equipment: {ex.exercise.equipment}</p>
+                <p>Movement: {ex.exercise.exercise}</p>
               </div>
             </div>
+            <div className="item-count">
+              <div><span>Reps: </span><span>{ex.reps}</span></div>
+              <div><span>Sets: </span><span>{ex.sets}</span></div>
+            </div>
           </div>
-        </>
+        </div>
       ))}
       <div className="footer">
         <Button text="Cancel Workouts"

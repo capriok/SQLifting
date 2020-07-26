@@ -17,3 +17,5 @@ yarn-error.log*
 
 /src/components/builders
 /src/components/viewers
+
+/db
