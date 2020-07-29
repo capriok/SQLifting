@@ -9,7 +9,6 @@ const useFetchData = () => {
     switch (type) {
       case undefined:
         try {
-          const data = {}
           await axios
             .all([
               axios.get(process.env.REACT_APP_GET + '/equipment', queryParams),
