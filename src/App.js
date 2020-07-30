@@ -46,13 +46,15 @@ function App() {
     window.location.pathname = '/'
   }
 
-  useEffect(() => { console.log('Equipment', equipments.length) }, [equipments])
-  useEffect(() => { console.log('Muscles', muscles.length) }, [muscles])
-  useEffect(() => { console.log('Exercises', exercises.length) }, [exercises])
-  useEffect(() => { console.log('Movements', movements.length) }, [movements])
-  useEffect(() => { console.log('Excos', excos.length) }, [excos])
-  useEffect(() => { console.log('Wocos', wocos.length) }, [wocos])
-  useEffect(() => { console.log('Circs', circos.length) }, [circos])
+  const log = (message, arg) => arg.length > 0 && console.log(message, arg)
+
+  useEffect(() => { log('Equipment', equipments.length) }, [equipments])
+  useEffect(() => { log('Muscles', muscles.length) }, [muscles])
+  useEffect(() => { log('Exercises', exercises.length) }, [exercises])
+  useEffect(() => { log('Movements', movements.length) }, [movements])
+  useEffect(() => { log('Excos', excos.length) }, [excos])
+  useEffect(() => { log('Wocos', wocos.length) }, [wocos])
+  useEffect(() => { log('Circs', circos.length) }, [circos])
 
   return (
     <>

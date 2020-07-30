@@ -5,8 +5,7 @@ import { DATA_API, installProps } from '../api/sqlifting'
 
 const useFetchData = () => {
   const [{ user }, dispatch] = useStateValue()
-  // const queryParams = { params: { uid: user.details.user_id } }
-  const queryParams = { params: { uid: 1 } }
+  const queryParams = { params: { uid: user.details.uid } }
 
   const populateCompositions = async () => {
     DATA_API.get('/compositions', queryParams)

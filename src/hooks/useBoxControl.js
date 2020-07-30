@@ -2,40 +2,37 @@
 import { useStateValue } from '../state'
 
 const useFetchData = (workoutBuild, setWorkoutBuild) => {
-  const [{ data, exercises, workouts }, dispatch] = useStateValue()
+  const [{ compositions, composites }, dispatch] = useStateValue()
 
 
   const controlDBCheckbox = (i, type, prop, setter) => {
     let copy
     const flipbox = () => copy[i].checked = !copy[i].checked
+    const setSelection = (setter) => {
+      copy.map((item) => {
+        item.checked && selection.push(item.name)
+      })
+      setter(selection)
+    }
     let selection = []
     switch (type) {
-      case 'data':
-        copy = [...data[prop]]
+      case 'COMPOSITION_ACTION':
+        copy = [...compositions[prop]]
         flipbox()
-        dispatch({ type: 'DBaction', data: { ...data, copy } })
-        copy.map((item) => {
-          item.checked && selection.push(item.name)
-          setter(selection)
+        dispatch({
+          type: type,
+          compositions: { ...compositions, copy }
         })
+        setSelection(setter)
         break;
-      case 'workouts':
-        copy = [...workouts]
+      case 'COMPOSITE_ACTION':
+        copy = [...composites[prop]]
         flipbox()
-        dispatch({ type: 'WOaction', workouts: copy })
-        copy.map((item) => {
-          item.checked && selection.push(item.name)
-          setter(selection)
+        dispatch({
+          type: type,
+          composites: { ...composites, copy }
         })
-        break;
-      case 'exercises':
-        copy = [...exercises]
-        flipbox()
-        dispatch({ type: 'EXaction', exercises: copy })
-        copy.map((item) => {
-          item.checked && selection.push(item.name)
-          setter(selection)
-        })
+        setSelection(setter)
         break;
       default:
         break;
@@ -43,38 +40,38 @@ const useFetchData = (workoutBuild, setWorkoutBuild) => {
   }
 
   const controlWOCheckbox = (i, name) => {
-    const copy = [...exercises]
-    let isDupe = false
-    workoutBuild.workout.forEach(item => {
-      if (item.name === name) isDupe = true
-    });
-    if (copy[i].checked) {
-      let filteredWorkout = workoutBuild.workout.filter(item => {
-        return item.name !== name
-      })
-      copy[i].checked = !copy[i].checked
-      setWorkoutBuild({
-        ...workoutBuild,
-        workout: filteredWorkout
-      })
-      return
-    }
-    if (!isDupe && name) {
-      copy[i].checked = !copy[i].checked
-      setWorkoutBuild({
-        ...workoutBuild,
-        workout: [
-          ...workoutBuild.workout,
-          {
-            id: workouts.length + 1,
-            name: name,
-            exercise: exercises[i],
-            reps: 1,
-            sets: 1
-          }
-        ]
-      })
-    }
+    // const copy = [...exercises]
+    // let isDupe = false
+    // workoutBuild.workout.forEach(item => {
+    //   if (item.name === name) isDupe = true
+    // });
+    // if (copy[i].checked) {
+    //   let filteredWorkout = workoutBuild.workout.filter(item => {
+    //     return item.name !== name
+    //   })
+    //   copy[i].checked = !copy[i].checked
+    //   setWorkoutBuild({
+    //     ...workoutBuild,
+    //     workout: filteredWorkout
+    //   })
+    //   return
+    // }
+    // if (!isDupe && name) {
+    //   copy[i].checked = !copy[i].checked
+    //   setWorkoutBuild({
+    //     ...workoutBuild,
+    //     workout: [
+    //       ...workoutBuild.workout,
+    //       {
+    //         id: workouts.length + 1,
+    //         name: name,
+    //         exercise: exercises[i],
+    //         reps: 1,
+    //         sets: 1
+    //       }
+    //     ]
+    //   })
+    // }
   }
 
 

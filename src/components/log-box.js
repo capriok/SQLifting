@@ -10,7 +10,7 @@ const LogBox = () => {
   const [register, setRegister] = useState(false)
   const [formTitle, setTitle] = useState('Login')
   const [form, setForm] = useState({
-    username: 'kyle', password: 'admin'
+    username: '', password: ''
   })
 
   const login = () => {

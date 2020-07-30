@@ -10,10 +10,13 @@ import Button from 'godspeed/build/Button'
 import useBoxControl from '../hooks/useBoxControl';
 import useUpdatePopulation from '../hooks/useUpdatePopulation';
 import useReset from '../hooks/useReset';
+import TypeSection from './assembly/type-section'
 
 const Manager = () => {
   const [{
     user,
+    compositions,
+    composites,
     compositions: {
       equipments,
       muscles,
@@ -35,12 +38,15 @@ const Manager = () => {
   const [equipment, setEquipment] = useState('')
   const [muscle, setMuscle] = useState('')
   const [exercise, setExercise] = useState('')
+  const [circuit, setCircuit] = useState('')
 
   const [EQSelection, setEQSelection] = useState([])
   const [MUSelection, setMUSelection] = useState([])
   const [EXSelection, setEXSelection] = useState([])
-  const [ExerciseSelection, setExerciseSelection] = useState([])
-  const [WorkoutSelection, setWorkoutSelection] = useState([])
+  const [MOSelection, setMOSelection] = useState([])
+  const [ExcoSelection, setExcoSelection] = useState([])
+  const [WocoSelection, setWocoSelection] = useState([])
+  const [CircoSelection, setCircoSelection] = useState([])
 
   useEffect(() => {
     resetAll()
@@ -87,7 +93,32 @@ const Manager = () => {
     }
   }
 
-  let deleteDataFromDatabase = (path, column, row, type) => {
+  const createMap = (arr, type, prop, setter) => (
+    <div className="type-map">
+      {arr.length > 0 ? arr.map((item, i) => (
+        <div className="item" key={i}>
+          <div className="shift">
+            <label className="label">
+              <Input className="input" type="checkbox" checked={item.checked}
+                onChange={() => controlDBCheckbox(i, type, prop, setter)} />
+              <div className="item-name">{item.name}</div>
+            </label>
+          </div>
+        </div>
+      ))
+        :
+        <p className="item"><p className="shift" style={{ marginLeft: 45 }}>No Results</p></p>}
+    </div>
+  )
+
+  const unSelect = (parent, child, type, setter) => {
+    let copy = [...child]
+    copy.forEach(item => item.checked = false);
+    dispatch({ type: type, [parent]: { ...parent, [child]: copy } })
+    setter([])
+  }
+
+  const deleteDataFromDatabase = (path, column, row, type) => {
     row.forEach(async item => {
       await axios.post(process.env.REACT_APP_DELETE + path, {
         user_id: user_id, column: column, row: item
@@ -116,152 +147,60 @@ const Manager = () => {
           <Button text="Submit" type="submit" form="add-composition-form" />
         </div>
         <h1 className="db-title">Compositions</h1>
-        <div className="type">
-          <span className="type-title">Equipment</span>
-          <span className="type-action">
-            <SelectionButtons
-              cancelClick={() => {
-                let copy = [...equipment]
-                copy.forEach(item => item.checked = false);
-                // dispatch({ type: 'DAaction', data: { ...data, copy } })
-                setEQSelection([])
-              }}
-              submitClick={() => {
-                deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection, 'equipment')
-              }
-              } />
-
-          </span>
-        </div>
-        <div className="type-map">
-          {equipments.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDBCheckbox(i, 'data', 'equipment', setEQSelection)} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="type">
-          <span className="type-title">Muscles</span>
-          <span className="type-action">
-            <SelectionButtons
-              cancelClick={() => {
-                let copy = [...muscles]
-                copy.forEach(item => item.checked = false);
-                // dispatch({ type: 'DAaction', data: { ...data, copy } })
-                setMUSelection([])
-              }}
-              submitClick={() => {
-                deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection, 'muscle')
-              }} />
-          </span>
-        </div>
-        <div className="type-map">
-          {muscles.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDBCheckbox(i, 'data', 'muscles', setMUSelection)} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="type">
-          <span className="type-title">Exercises</span>
-          <span className="type-action">
-            <SelectionButtons
-              cancelClick={() => {
-                let copy = [...exercises]
-                copy.forEach(item => item.checked = false);
-                // dispatch({ type: 'DAaction', data: { ...data, copy } })
-                setEXSelection([])
-              }}
-              submitClick={() => {
-                deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection, 'exercise')
-              }} />
-          </span>
-        </div>
-        <div className="type-map">
-          {exercises.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDBCheckbox(i, 'data', 'exercises', setEXSelection)} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* ---------------------- Equipment section ----------------------*/}
+        <TypeSection title="Equipment">
+          <SelectionButtons
+            cancelClick={() => unSelect(compositions, equipments, 'COMPOPSITION_ACTION', setEQSelection)}
+            submitClick={() => deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection, 'equipment')} />
+        </TypeSection>
+        {createMap(equipments, 'COMPOSITION_ACTION', 'equipments', setEQSelection)}
+        {/* ---------------------- Muscles section ----------------------*/}
+        <TypeSection title="Muscles">
+          <SelectionButtons
+            cancelClick={() => unSelect(compositions, muscles, 'COMPOPSITION_ACTION', setMUSelection)}
+            submitClick={() => deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection, 'muscle')} />
+        </TypeSection>
+        {createMap(muscles, 'COMPOSITION_ACTION', 'muscles', setMUSelection)}
+        {/* ---------------------- Exercises Section ----------------------*/}
+        <TypeSection title="Exercises">
+          <SelectionButtons
+            cancelClick={() => unSelect(compositions, exercises, 'COMPOPSITION_ACTION', setEXSelection)}
+            submitClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection, 'exercise')} />
+        </TypeSection>
+        {createMap(exercises, 'COMPOSITION_ACTION', 'exercises', setEXSelection)}
+        {/* ---------------------- Movements Section ----------------------*/}
+        <TypeSection title="Movements">
+          <SelectionButtons
+            cancelClick={() => unSelect(compositions, movements, 'COMPOPSITION_ACTION', setMOSelection)}
+            submitClick={() => deleteDataFromDatabase('/fromdatabase', 'movement', MOSelection, 'movement')} />
+        </TypeSection>
+        {createMap(movements, 'COMPOSITION_ACTION', 'movements', setMOSelection)}
+        {/* ---------------------- Circuits Section ----------------------*/}
         <h1 className="db-title">Composites</h1>
-        <div className="type">
-          <span className="type-title">Exercises</span>
-          <span className="type-action">
-            <SelectionButtons
-              cancelClick={() => {
-                let copy = [...exercises]
-                copy.forEach(item => item.checked = false);
-                // dispatch({ type: 'EXaction', exercises: copy })
-                setExerciseSelection([])
-              }}
-              submitClick={() => {
-                deleteDataFromDatabase('/frombuiltexercises', 'name', ExerciseSelection, 'exercises')
-              }} />
-          </span>
-        </div>
-        <div className="type-map">
-          {excos.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDBCheckbox(i, 'exercises', 'exercises', setExerciseSelection)} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="type">
-          <span className="type-title">Workouts</span>
-          <span className="type-action">
-            <SelectionButtons
-              cancelClick={() => {
-                let copy = [...wocos]
-                copy.forEach(item => item.checked = false);
-                // dispatch({ type: 'WOaction', workouts: copy })
-                setWorkoutSelection([])
-              }}
-              submitClick={() => {
-                deleteDataFromDatabase('/frombuiltworkouts', 'name', WorkoutSelection, 'workouts')
-              }} />
-          </span>
-        </div>
-        <div className="type-map">
-          {wocos.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
-                    onChange={() => controlDBCheckbox(i, 'workouts', 'workouts', setWorkoutSelection)} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
+        <TypeSection title="Circuits">
+          <SelectionButtons
+            cancelClick={() => unSelect(composites, circos, 'COMPOPSITE_ACTION', setCircoSelection)}
+            submitClick={() => deleteDataFromDatabase('/frombuiltworkouts', 'name', CircoSelection, 'circuits')} />
+        </TypeSection>
+        {createMap(circos, 'COMPOSITE_ACTION', 'circos', setCircoSelection)}
+        {/* ---------------------- Exercises Section ----------------------*/}
+        <TypeSection title="Exercises">
+          <SelectionButtons
+            cancelClick={() => unSelect(composites, excos, 'COMPOPSITE_ACTION', setWocoSelection)}
+            submitClick={() => deleteDataFromDatabase('/frombuiltexercises', 'name', ExcoSelection, 'exercises')} />
+        </TypeSection>
+        {createMap(excos, 'COMPOSITE_ACTION', 'excos', setExcoSelection)}
+        {/* ---------------------- Workouts Section ----------------------*/}
+        <TypeSection title="Workouts">
+          <SelectionButtons
+            cancelClick={() => unSelect(composites, wocos, 'COMPOPSITE_ACTION', setWocoSelection)}
+            submitClick={() => deleteDataFromDatabase('/frombuiltworkouts', 'name', WocoSelection, 'workouts')} />
+        </TypeSection>
+        {createMap(wocos, 'COMPOSITE_ACTION', 'wocos', setWocoSelection)}
       </div>
     </>
   )
 }
+
 
 export default Manager
