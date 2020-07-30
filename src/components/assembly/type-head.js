@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TypeSection = ({ children, title }) => {
+const TypeHead = ({ children, title }) => {
   return (
     <>
       <div className="type">
@@ -13,4 +13,4 @@ const TypeSection = ({ children, title }) => {
   )
 }
 
-export default TypeSection 
+export default TypeHead 

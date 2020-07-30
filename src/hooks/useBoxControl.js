@@ -8,9 +8,9 @@ const useFetchData = (workoutBuild, setWorkoutBuild) => {
   const controlDBCheckbox = (i, type, prop, setter) => {
     let copy
     const flipbox = () => copy[i].checked = !copy[i].checked
-    const setSelection = (setter) => {
+    const setSelection = () => {
       copy.map((item) => {
-        item.checked && selection.push(item.name)
+        item.checked && selection.push(item.id)
       })
       setter(selection)
     }
@@ -23,7 +23,7 @@ const useFetchData = (workoutBuild, setWorkoutBuild) => {
           type: type,
           compositions: { ...compositions, copy }
         })
-        setSelection(setter)
+        setSelection()
         break;
       case 'COMPOSITE_ACTION':
         copy = [...composites[prop]]
@@ -32,7 +32,7 @@ const useFetchData = (workoutBuild, setWorkoutBuild) => {
           type: type,
           composites: { ...composites, copy }
         })
-        setSelection(setter)
+        setSelection()
         break;
       default:
         break;

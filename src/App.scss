@@ -150,6 +150,7 @@ body {
   border-bottom: 2px solid $main-underline;
 }
 .type-title {
+  user-select: none;
   font-size: 1.4rem;
   padding: 10px 0;
 }
@@ -162,6 +163,7 @@ body {
   padding-bottom: 20px;
   border-bottom: 1px solid $sub-underline;
   .item {
+    user-select: none;
     @include flex;
     flex: 50%;
     max-width: 50%;
@@ -172,7 +174,6 @@ body {
       .label {
         display: flex;
         align-items: center;
-        user-select: none;
         .input {
           margin-right: 10px;
         }
@@ -182,12 +183,16 @@ body {
         }
       }
     }
+    .no-res {
+      margin-left: 45px;
+    }
   }
 }
 .viewer-actions {
   @include flex;
   width: 100%;
   img {
+    user-select: none;
     width: 20px;
     padding: 3px;
     margin: 0 10px;
@@ -198,6 +203,7 @@ body {
 
 .db-manager {
   .db-title {
+    user-select: none;
     padding-bottom: 9px;
     span {
       font-size: 1rem;
@@ -237,6 +243,7 @@ body {
     }
     .type-action {
       @include flex;
+      user-select: none;
       width: 100px;
       padding-top: 5px;
     }
