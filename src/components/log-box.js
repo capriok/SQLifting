@@ -1,27 +1,29 @@
 import React, { useState } from 'react'
 import { useStateValue } from '../state'
-import axios from 'axios'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
+
+import { ACCOUNT_API } from '../api/sqlifting'
 
 const LogBox = () => {
   const [, dispatch] = useStateValue()
   const [register, setRegister] = useState(false)
   const [formTitle, setTitle] = useState('Login')
   const [form, setForm] = useState({
-    username: '', password: ''
+    username: 'kyle', password: 'admin'
   })
 
   const login = () => {
-    axios.post(process.env.REACT_APP_ACCOUNT + '/login', {
+    ACCOUNT_API.post('/login', {
       username: form.username,
       password: form.password
     })
       .then(async res => {
+        console.log(res);
         localStorage.setItem('SQLifting-token', res.data.token)
         localStorage.setItem('SQLifting-user', JSON.stringify(res.data.user))
         await dispatch({
-          type: 'auth',
+          type: 'AUTHORIZATION',
           user: {
             isAuthenticated: true,
             token: res.data.token,
@@ -37,7 +39,7 @@ const LogBox = () => {
   }
 
   const signUp = () => {
-    axios.post(process.env.REACT_APP_ACCOUNT + '/register', {
+    ACCOUNT_API.post('/register', {
       username: form.username,
       password: form.password
     })

@@ -26,7 +26,7 @@ function App() {
   }, [])
 
   const logoutActions = async () => {
-    await dispatch({ type: 'logout' })
+    await dispatch({ type: 'LOGOUT' })
     localStorage.removeItem('SQLifting-token')
     localStorage.removeItem('SQLifting-user')
     window.location.pathname = '/'

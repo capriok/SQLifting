@@ -1,29 +1,19 @@
 import useFetchData from './useFetchData'
 
 const useUpdatePopulation = () => {
-  const { populateData, populateExercises, populateWorkouts } = useFetchData()
+  const { populateCompositions, populateComposites } = useFetchData()
 
   const updatePopulation = (type) => {
     switch (type) {
       case undefined:
-        populateData()
-        populateExercises()
-        populateWorkouts()
+        populateCompositions()
+        populateComposites()
         break;
-      case 'equipment':
-        populateData('equipment')
+      case 'compositions':
+        populateCompositions()
         break;
-      case 'muscle':
-        populateData('muscles')
-        break;
-      case 'exercise':
-        populateData('exercises')
-        break;
-      case 'exercises':
-        populateExercises()
-        break;
-      case 'workouts':
-        populateWorkouts()
+      case 'composites':
+        populateComposites()
         break;
       default:
         break;

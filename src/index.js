@@ -14,9 +14,20 @@ export default function Index() {
       isAuthenticated: false,
       token: '',
       details: {
-        user_id: '',
-        username: ''
+        uid: '',
+        name: ''
       }
+    },
+    compositions: {
+      equipments: [],
+      muscles: [],
+      exercises: [],
+      movements: []
+    },
+    composites: {
+      exercises: [],
+      workouts: [],
+      circuits: []
     },
     exercises: [],
     workouts: [],
@@ -29,12 +40,12 @@ export default function Index() {
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case "auth":
+      case "AUTHORIZATION":
         return {
           ...state,
           user: action.user
         };
-      case "logout":
+      case "LOGOUT":
         return {
           ...state,
           user: {
@@ -45,6 +56,16 @@ export default function Index() {
               username: ''
             }
           }
+        };
+      case "COMPOSITION_ACTION":
+        return {
+          ...state,
+          compositions: action.compositions
+        };
+      case "COMPOSITE_ACTION":
+        return {
+          ...state,
+          composites: action.composites
         };
       case "DBaction":
         return {
@@ -73,11 +94,10 @@ export default function Index() {
   if (LStoken && LSuser) {
     initialState.user.token = LStoken
     initialState.user.isAuthenticated = true
-    initialState.user.details.user_id = parseFloat(LSuser.user_id)
-    initialState.user.details.username = LSuser.username
-    console.log('Logged in as -> ', initialState.user.details.username, `(${initialState.user.details.user_id})`);
+    initialState.user.details.uid = parseFloat(LSuser.uid)
+    initialState.user.details.name = LSuser.name
+    console.log('Logged in as -> ', initialState.user.details.name, `(${initialState.user.details.uid})`);
   }
-
 
   return (
     <>
