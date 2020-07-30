@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: "off"*/
+/*eslint react-hooks/exhaustive-deps: "off"*/
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../state'

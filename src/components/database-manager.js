@@ -1,18 +1,31 @@
+/*eslint no-unused-vars: "off"*/
+/*eslint react-hooks/exhaustive-deps: "off"*/
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
-import { Tooltip } from 'react-tippy'
 import axios from 'axios'
+import SelectionButtons from './assembly/selection-buttons'
 import Input from 'godspeed/build/Input'
 import Button from 'godspeed/build/Button'
-import unselect from '../gallery/unselect.png'
-import trash from '../gallery/trash.png'
 
 import useBoxControl from '../hooks/useBoxControl';
 import useUpdatePopulation from '../hooks/useUpdatePopulation';
 import useReset from '../hooks/useReset';
 
 const Manager = () => {
-  const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const [{
+    user,
+    compositions: {
+      equipments,
+      muscles,
+      exercises,
+      movements
+    },
+    composites: {
+      excos,
+      wocos,
+      circos
+    } },
+    dispatch] = useStateValue()
   const updatePopulation = useUpdatePopulation()
   const { controlDBCheckbox } = useBoxControl()
   const resetAll = useReset()
@@ -54,19 +67,19 @@ const Manager = () => {
     }
     let isDupe = false
     if (equipment) {
-      data.equipment.forEach(e => { if (e.name === equipment) isDupe = true });
+      equipment.forEach(e => { if (e.name === equipment) isDupe = true });
       if (equipment && !isDupe) {
         InsertIntoDatabase('equipment', equipment)
         setEquipment("")
       }
     } else if (muscle) {
-      data.muscles.forEach(m => { if (m.name === muscle) isDupe = true });
+      muscles.forEach(m => { if (m.name === muscle) isDupe = true });
       if (muscle && !isDupe) {
         InsertIntoDatabase('muscle', muscle)
         setMuscle("")
       }
     } else {
-      data.exercises.forEach(e => { if (e.name === exercise) isDupe = true });
+      exercises.forEach(e => { if (e.name === exercise) isDupe = true });
       if (exercise && !isDupe) {
         InsertIntoDatabase('exercise', exercise)
         setExercise("")
@@ -106,29 +119,22 @@ const Manager = () => {
         <div className="type">
           <span className="type-title">Equipment</span>
           <span className="type-action">
-            <Tooltip
-              title="Cancel selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={unselect} alt="" className="type-action-img"
-                onClick={() => {
-                  let copy = [...data.equipment]
-                  copy.forEach(item => item.checked = false);
-                  dispatch({ type: 'DAaction', data: { ...data, copy } })
-                  setEQSelection([])
-                }} />
-            </Tooltip>
-            <Tooltip
-              title="Delete Selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={trash} alt="" className="type-action-img"
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection, 'equipment')} />
-            </Tooltip>
+            <SelectionButtons
+              cancelClick={() => {
+                let copy = [...equipment]
+                copy.forEach(item => item.checked = false);
+                // dispatch({ type: 'DAaction', data: { ...data, copy } })
+                setEQSelection([])
+              }}
+              submitClick={() => {
+                deleteDataFromDatabase('/fromdatabase', 'equipment', EQSelection, 'equipment')
+              }
+              } />
+
           </span>
         </div>
         <div className="type-map">
-          {data.equipment.map((item, i) => (
+          {equipments.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">
@@ -143,29 +149,20 @@ const Manager = () => {
         <div className="type">
           <span className="type-title">Muscles</span>
           <span className="type-action">
-            <Tooltip
-              title="Cancel selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={unselect} alt="" className="type-action-img"
-                onClick={() => {
-                  let copy = [...data.muscles]
-                  copy.forEach(item => item.checked = false);
-                  dispatch({ type: 'DAaction', data: { ...data, copy } })
-                  setMUSelection([])
-                }} />
-            </Tooltip>
-            <Tooltip
-              title="Delete Selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={trash} alt="" className="type-action-img"
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection, 'muscle')} />
-            </Tooltip>
+            <SelectionButtons
+              cancelClick={() => {
+                let copy = [...muscles]
+                copy.forEach(item => item.checked = false);
+                // dispatch({ type: 'DAaction', data: { ...data, copy } })
+                setMUSelection([])
+              }}
+              submitClick={() => {
+                deleteDataFromDatabase('/fromdatabase', 'muscle', MUSelection, 'muscle')
+              }} />
           </span>
         </div>
         <div className="type-map">
-          {data.muscles.map((item, i) => (
+          {muscles.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">
@@ -180,29 +177,20 @@ const Manager = () => {
         <div className="type">
           <span className="type-title">Exercises</span>
           <span className="type-action">
-            <Tooltip
-              title="Cancel selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={unselect} alt="" className="type-action-img"
-                onClick={() => {
-                  let copy = [...data.exercises]
-                  copy.forEach(item => item.checked = false);
-                  dispatch({ type: 'DAaction', data: { ...data, copy } })
-                  setEXSelection([])
-                }} />
-            </Tooltip>
-            <Tooltip
-              title="Delete Selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={trash} alt="" className="type-action-img"
-                onClick={() => deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection, 'exercise')} />
-            </Tooltip>
+            <SelectionButtons
+              cancelClick={() => {
+                let copy = [...exercises]
+                copy.forEach(item => item.checked = false);
+                // dispatch({ type: 'DAaction', data: { ...data, copy } })
+                setEXSelection([])
+              }}
+              submitClick={() => {
+                deleteDataFromDatabase('/fromdatabase', 'exercise', EXSelection, 'exercise')
+              }} />
           </span>
         </div>
         <div className="type-map">
-          {data.exercises.map((item, i) => (
+          {exercises.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">
@@ -218,29 +206,20 @@ const Manager = () => {
         <div className="type">
           <span className="type-title">Exercises</span>
           <span className="type-action">
-            <Tooltip
-              title="Cancel selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={unselect} alt="" className="type-action-img"
-                onClick={() => {
-                  let copy = [...exercises]
-                  copy.forEach(item => item.checked = false);
-                  dispatch({ type: 'EXaction', exercises: copy })
-                  setExerciseSelection([])
-                }} />
-            </Tooltip>
-            <Tooltip
-              title="Delete Selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={trash} alt="" className="type-action-img"
-                onClick={() => deleteDataFromDatabase('/frombuiltexercises', 'name', ExerciseSelection, 'exercises')} />
-            </Tooltip>
+            <SelectionButtons
+              cancelClick={() => {
+                let copy = [...exercises]
+                copy.forEach(item => item.checked = false);
+                // dispatch({ type: 'EXaction', exercises: copy })
+                setExerciseSelection([])
+              }}
+              submitClick={() => {
+                deleteDataFromDatabase('/frombuiltexercises', 'name', ExerciseSelection, 'exercises')
+              }} />
           </span>
         </div>
         <div className="type-map">
-          {exercises.map((item, i) => (
+          {excos.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">
@@ -255,29 +234,20 @@ const Manager = () => {
         <div className="type">
           <span className="type-title">Workouts</span>
           <span className="type-action">
-            <Tooltip
-              title="Cancel selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={unselect} alt="" className="type-action-img"
-                onClick={() => {
-                  let copy = [...workouts]
-                  copy.forEach(item => item.checked = false);
-                  dispatch({ type: 'WOaction', workouts: copy })
-                  setWorkoutSelection([])
-                }} />
-            </Tooltip>
-            <Tooltip
-              title="Delete Selection"
-              position="bottom"
-              trigger="mouseenter">
-              <img src={trash} alt="" className="type-action-img"
-                onClick={() => deleteDataFromDatabase('/frombuiltworkouts', 'name', WorkoutSelection, 'workouts')} />
-            </Tooltip>
+            <SelectionButtons
+              cancelClick={() => {
+                let copy = [...wocos]
+                copy.forEach(item => item.checked = false);
+                // dispatch({ type: 'WOaction', workouts: copy })
+                setWorkoutSelection([])
+              }}
+              submitClick={() => {
+                deleteDataFromDatabase('/frombuiltworkouts', 'name', WorkoutSelection, 'workouts')
+              }} />
           </span>
         </div>
         <div className="type-map">
-          {workouts.map((item, i) => (
+          {wocos.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">

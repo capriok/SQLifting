@@ -1,7 +1,7 @@
 import Axios from 'axios'
 
 const BASE_GET = process.env.REACT_APP_GET
-const BASE_POST = process.env.REACT_APP_POST
+// const BASE_POST = process.env.REACT_APP_POST
 const BASE_ACC = process.env.REACT_APP_ACCOUNT
 
 export const installProps = (res) => {

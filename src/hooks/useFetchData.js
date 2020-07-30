@@ -1,9 +1,10 @@
+/*eslint no-unused-vars: "off"*/
 import { useStateValue } from '../state'
 
 import { DATA_API, installProps } from '../api/sqlifting'
 
 const useFetchData = () => {
-  const [{ user, data }, dispatch] = useStateValue()
+  const [{ user }, dispatch] = useStateValue()
   // const queryParams = { params: { uid: user.details.user_id } }
   const queryParams = { params: { uid: 1 } }
 
@@ -17,7 +18,8 @@ const useFetchData = () => {
           compositions: {
             equipments: final.equipments,
             muscles: final.muscles,
-            exercises: final.exercises
+            exercises: final.exercises,
+            movements: final.movements
           }
         })
       })
@@ -32,9 +34,9 @@ const useFetchData = () => {
         dispatch({
           type: 'COMPOSITE_ACTION',
           composites: {
-            exercises: final.exercises,
-            workouts: final.workouts,
-            circuits: final.circuits
+            excos: final.exercises,
+            wocos: final.workouts,
+            circos: final.circuits
           }
         })
       })

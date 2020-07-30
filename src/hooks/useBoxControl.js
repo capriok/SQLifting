@@ -1,3 +1,4 @@
+/*eslint array-callback-return: "off"*/
 import { useStateValue } from '../state'
 
 const useFetchData = (workoutBuild, setWorkoutBuild) => {

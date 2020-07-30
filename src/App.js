@@ -1,3 +1,4 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useStateValue } from './state'
@@ -13,7 +14,20 @@ import useUpdatePopulation from './hooks/useUpdatePopulation';
 
 function App() {
   if (process.env.NODE_ENV !== 'development') console.log = () => { }
-  const [{ user, data, exercises, workouts }, dispatch] = useStateValue()
+  const [{
+    user,
+    compositions: {
+      equipments,
+      muscles,
+      exercises,
+      movements
+    },
+    composites: {
+      excos,
+      wocos,
+      circos
+    }
+  }, dispatch] = useStateValue()
   const updatePopulation = useUpdatePopulation()
 
   const [pickedWorkout, setPickedWorkout] = useState({
@@ -32,11 +46,13 @@ function App() {
     window.location.pathname = '/'
   }
 
-  useEffect(() => { data.equipment.length > 0 && console.log('Data.Equipment', data.equipment) }, [data.equipment])
-  useEffect(() => { data.muscles.length > 0 && console.log('Data.Muscles', data.muscles) }, [data.muscles])
-  useEffect(() => { data.exercises.length > 0 && console.log('Data.Exercises', data.exercises) }, [data.exercises])
-  useEffect(() => { exercises.length > 0 && console.log('Built Exercises', exercises) }, [exercises])
-  useEffect(() => { workouts.length > 0 && console.log('Built Workouts', workouts) }, [workouts])
+  useEffect(() => { console.log('Equipment', equipments.length) }, [equipments])
+  useEffect(() => { console.log('Muscles', muscles.length) }, [muscles])
+  useEffect(() => { console.log('Exercises', exercises.length) }, [exercises])
+  useEffect(() => { console.log('Movements', movements.length) }, [movements])
+  useEffect(() => { console.log('Excos', excos.length) }, [excos])
+  useEffect(() => { console.log('Wocos', wocos.length) }, [wocos])
+  useEffect(() => { console.log('Circs', circos.length) }, [circos])
 
   return (
     <>

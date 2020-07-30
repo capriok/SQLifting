@@ -1,3 +1,5 @@
+/*eslint no-unused-vars: "off"*/
+/*eslint react-hooks/exhaustive-deps: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'

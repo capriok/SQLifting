@@ -25,9 +25,9 @@ export default function Index() {
       movements: []
     },
     composites: {
-      exercises: [],
-      workouts: [],
-      circuits: []
+      excos: [],
+      wocos: [],
+      circos: []
     },
     exercises: [],
     workouts: [],
