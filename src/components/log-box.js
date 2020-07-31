@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useStateValue } from '../state'
-import Input from 'godspeed/build/Input'
-import Button from 'godspeed/build/Button'
+import { Button, Input } from 'godspeed'
 
 import { ACCOUNT_API } from '../api/sqlifting'
 

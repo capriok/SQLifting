@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
-import Input from 'godspeed/build/Input'
+import { Input } from 'godspeed'
 import CountSetter from './count-setter'
 import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'

@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useStateValue } from './state'
-import Navbar from 'godspeed/build/Navbar'
-import NavLink from 'godspeed/build/NavLink'
+import { Navbar, NavLink } from 'godspeed'
 import DatabaseManager from './components/database-manager'
 import ExerciseBuilder from './components/exercise-builder'
 import WorkoutBuilder from './components/workout-builder'

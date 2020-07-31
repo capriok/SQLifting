@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
-import Input from 'godspeed/build/Input'
+import { Input } from 'godspeed'
 import { Tooltip } from 'react-tippy'
+
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
@@ -13,7 +14,7 @@ import useUpdatePopulation from '../hooks/useUpdatePopulation';
 import useReset from '../hooks/useReset';
 
 const ExerciseBuilder = () => {
-  const [{ user, data, exercises }, dispatch] = useStateValue()
+  const [{ user, compositions: { equipments, muscles, exercises }, composites: { excos } }, dispatch] = useStateValue()
   const [build, setBuild] = useState({
     id: undefined,
     name: '',
@@ -27,7 +28,7 @@ const ExerciseBuilder = () => {
 
   const inputRef = useRef()
 
-  const user_id = user.details.user_id
+  const uid = user.details.uid
 
   useEffect(() => {
     resetAll()
@@ -45,7 +46,7 @@ const ExerciseBuilder = () => {
     setBuild({
       id: undefined,
       name: undefined,
-      equipment: undefined,
+      equipments: undefined,
       muscle: undefined,
       exercise: undefined
     })
@@ -61,7 +62,7 @@ const ExerciseBuilder = () => {
     if (!hasUndefined) {
       axios
         .post(process.env.REACT_APP_POST + '/builtexercise', {
-          user_id: user_id,
+          uid: uid,
           name: build.name,
           equipment: build.equipment,
           muscle: build.muscle,
@@ -93,6 +94,27 @@ const ExerciseBuilder = () => {
 
   useEffect(() => { build.name && console.log('Exercise Build', build) }, [build])
 
+  const createMap = (arr, type) => (
+    <div className="type-map">
+      {arr.length > 0
+        ? arr.map((item, i) => (
+          <div className="item" key={i}>
+            <div className="shift">
+              <label className="label">
+                <Input className="input" type="radio" checked={item.checked}
+                  onChange={() => controlEXRadio(i, type)} />
+                <div className="item-name">{item.name}</div>
+              </label>
+            </div>
+          </div>
+        ))
+        : <div className="item">
+          <p className="shift no-res">No Results</p>
+        </div>
+      }
+    </div>
+  )
+
   return (
     <>
       <div className="exercise-builder">
@@ -111,20 +133,20 @@ const ExerciseBuilder = () => {
             <div className="type-items">
               {
                 build.equipment !== undefined
-                  ? <p className="type">{build.equipment}</p>
+                  ? <p className="type">{build.equipment.name}</p>
                   : <div className="type-placeholder-wrapper">
                     <div className="type-placeholder"></div>
                   </div>
               }
               {
                 build.muscle !== undefined
-                  ? <p className="type">{build.muscle}</p>
+                  ? <p className="type">{build.muscle.name}</p>
                   : <div className="type-placeholder-wrapper"><div className="type-placeholder"
                     style={{ animationName: 'nameAnim', backgroundColor: '#b1b1b1' }}></div></div>
               }
               {
                 build.exercise !== undefined
-                  ? <p className="type">{build.exercise}</p>
+                  ? <p className="type">{build.exercise.name}</p>
                   : <div className="type-placeholder-wrapper">
                     <div className="type-placeholder"></div>
                   </div>
@@ -158,47 +180,11 @@ const ExerciseBuilder = () => {
           </div>
         </div>
         <h1 className="type-title">Choose Equipment</h1>
-        <div className="type-map">
-          {data.equipment.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label">
-                  <Input className="input" type="radio" checked={item.checked}
-                    onChange={() => controlEXRadio(i, 'equipment')} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
+        {createMap(equipments, 'equipments')}
         <h1 className="type-title">Choose Muscle</h1>
-        <div className="type-map">
-          {data.muscles.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label" >
-                  <Input className="input" type="radio" checked={item.checked}
-                    onChange={() => controlEXRadio(i, 'muscles')} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
+        {createMap(muscles, 'muscles')}
         <h1 className="type-title">Choose Exercise</h1>
-        <div className="type-map">
-          {data.exercises.map((item, i) => (
-            <div className="item" key={i}>
-              <div className="shift">
-                <label className="label" >
-                  <Input className="input" type="radio" checked={item.checked}
-                    onChange={() => controlEXRadio(i, 'exercises')} />
-                  <div className="item-name">{item.name}</div>
-                </label>
-              </div>
-            </div>
-          ))}
-        </div>
+        {createMap(exercises, 'exercises')}
       </div>
     </>
   )

@@ -3,14 +3,13 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import axios from 'axios'
-import Button from 'godspeed/build/Button'
-import Input from 'godspeed/build/Input'
+import { Button, Input } from 'godspeed'
 
 import SelectionButtons from './assembly/selection-buttons'
-import TypeMap from './assembly/type-map'
 import TypeHead from './assembly/type-head'
 
 import useUpdatePopulation from '../hooks/useUpdatePopulation';
+import useBoxControl from '../hooks/useBoxControl'
 import useReset from '../hooks/useReset';
 
 const Manager = () => {
@@ -31,6 +30,7 @@ const Manager = () => {
     } },
     dispatch] = useStateValue()
   const updatePopulation = useUpdatePopulation()
+  const { controlDBCheckbox } = useBoxControl()
   const resetAll = useReset()
 
   const user_id = user.details.user_id
@@ -115,6 +115,27 @@ const Manager = () => {
     });
   }
 
+  const createMap = (arr, type, prop, setter) => (
+    <div className="type-map">
+      {arr.length > 0
+        ? arr.map((item, i) => (
+          <div className="item" key={i}>
+            <div className="shift">
+              <label className="label">
+                <Input className="input" type="checkbox" checked={item.checked}
+                  onChange={() => controlDBCheckbox(i, type, prop, setter)} />
+                <div className="item-name">{item.name}</div>
+              </label>
+            </div>
+          </div>
+        ))
+        : <div className="item">
+          <p className="shift no-res">No Results</p>
+        </div>
+      }
+    </div>
+  )
+
   return (
     <>
       <div className="db-manager">
@@ -137,50 +158,50 @@ const Manager = () => {
             cancelClick={() => unSelect(compositions, equipments, 'COMPOPSITION_ACTION', setEQSelection)}
             submitClick={() => deleteRecord(EQSelection, 'equipment')} />
         </TypeHead>
-        <TypeMap arr={equipments} type="COMPOSITION_ACTION" prop="equipments" setter={setEQSelection} />
+        {createMap(equipments, 'COMPOSITION_ACTION', 'equipments', setEQSelection)}
         {/* ---------------------- Muscles section ----------------------*/}
         <TypeHead title="Muscles">
           <SelectionButtons
             cancelClick={() => unSelect(compositions, muscles, 'COMPOPSITION_ACTION', setMUSelection)}
             submitClick={() => deleteRecord(MUSelection, 'muscle')} />
         </TypeHead>
-        <TypeMap arr={muscles} type="COMPOSITION_ACTION" prop="muscles" setter={setMUSelection} />
+        {createMap(muscles, 'COMPOSITION_ACTION', 'muscles', setMUSelection)}
         {/* ---------------------- Exercises Section ----------------------*/}
         <TypeHead title="Exercises">
           <SelectionButtons
             cancelClick={() => unSelect(compositions, exercises, 'COMPOPSITION_ACTION', setEXSelection)}
-            submitClick={() => deleteRecord(EXSelection, 'exercise',)} />
+            submitClick={() => deleteRecord(EXSelection, 'exercise')} />
         </TypeHead>
-        <TypeMap arr={exercises} type="COMPOSITION_ACTION" prop="exercises" setter={setEXSelection} />
+        {createMap(exercises, 'COMPOSITION_ACTION', 'exercises', setEXSelection)}
         {/* ---------------------- Movements Section ----------------------*/}
-        {/* <TypeSection title="Movements">
+        <TypeHead title="Movements">
           <SelectionButtons
             cancelClick={() => unSelect(compositions, movements, 'COMPOPSITION_ACTION', setMOSelection)}
-            submitClick={() => deleteDataFromDatabase())} />
-        </TypeSection>
-        <TypeMap arr={movements} type="COMPOSITION_ACTION" prop="movements" setter={setMOSelection} /> */}
+            submitClick={() => deleteRecord(MOSelection, 'movements')} />
+        </TypeHead>
+        {createMap(movements, 'COMPOSITION_ACTION', 'movements', setMOSelection)}
         <h1 className="db-title">Composites</h1>
         {/* ---------------------- Circuits Section ----------------------*/}
-        {/* <TypeSection title="Circuits">
+        <TypeHead title="Circuits">
           <SelectionButtons
             cancelClick={() => unSelect(composites, circos, 'COMPOPSITE_ACTION', setCircoSelection)}
-            submitClick={() => deleteDataFromDatabase() 'circuits')} />
-        </TypeSection>
-        <TypeMap arr={circos} type="COMPOSITE_ACTION" prop="circos" setter={setCircoSelection} /> */}
+            submitClick={() => deleteRecord(CircoSelection, 'circuits')} />
+        </TypeHead>
+        {createMap(circos, 'COMPOSITION_ACTION', 'circos', setCircoSelection)}
         {/* ---------------------- Exercises Section ----------------------*/}
         <TypeHead title="Exercises">
           <SelectionButtons
             cancelClick={() => unSelect(composites, excos, 'COMPOPSITE_ACTION', setWocoSelection)}
-            submitClick={() => deleteRecord()} />
+            submitClick={() => deleteRecord(ExcoSelection)} />
         </TypeHead>
-        <TypeMap arr={excos} type="COMPOSITE_ACTION" prop="excos" setter={setExcoSelection} />
+        {createMap(excos, 'COMPOSITION_ACTION', 'excos', setExcoSelection)}
         {/* ---------------------- Workouts Section ----------------------*/}
         <TypeHead title="Workouts">
           <SelectionButtons
             cancelClick={() => unSelect(composites, wocos, 'COMPOPSITE_ACTION', setWocoSelection)}
-            submitClick={() => deleteRecord()} />
+            submitClick={() => deleteRecord(WocoSelection)} />
         </TypeHead>
-        <TypeMap arr={wocos} type="COMPOSITE_ACTION" prop="wocos" setter={setWocoSelection} />
+        {createMap(wocos, 'COMPOSITION_ACTION', 'wocos', setWocoSelection)}
       </div>
     </>
   )

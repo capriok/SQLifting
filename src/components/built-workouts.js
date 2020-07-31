@@ -3,11 +3,11 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../state'
-import Input from 'godspeed/build/Input'
+import { Input } from 'godspeed'
 import start from '../gallery/start.png'
 
 import { Tooltip } from 'react-tippy'
-import DraggableArray from 'react-draggable-array'
+// import DraggableArray from 'react-draggable-array'
 
 import useRadioControl from '../hooks/useRadioControl';
 import useReset from '../hooks/useReset';

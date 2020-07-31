@@ -1,8 +1,7 @@
 /*eslint no-unused-vars: "off"*/
 /*eslint react-hooks/exhaustive-deps: "off"*/
 import React, { useState, useEffect } from 'react'
-import Button from 'godspeed/build/Button'
-import Input from 'godspeed/build/Input'
+import { Button, Input } from 'godspeed'
 import Timer from './timer'
 
 const InProgress = ({ workout }) => {

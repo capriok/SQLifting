@@ -1,33 +1,36 @@
 import { useStateValue } from '../state'
 
 const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
-  const [{ data, exercises, workouts }, dispatch] = useStateValue()
+  const [{ compositions, compositions: { exercises }, workouts }, dispatch] = useStateValue()
 
   const controlEXRadio = (i, prop) => {
-    const copy = [...data[prop]]
+    const copy = [...compositions[prop]]
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
-    dispatch({ type: 'DBaction', data: { ...data, copy } })
+    dispatch({
+      type: 'COMPOSITION_ACTION',
+      compositions: { ...compositions, [prop]: copy }
+    })
     switch (prop) {
-      case 'equipment':
+      case 'equipments':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
-          equipment: copy[i].name
+          equipment: { id: copy[i].id, name: copy[i].name }
         })
         break;
       case 'muscles':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
-          muscle: copy[i].name
+          muscle: { id: copy[i].id, name: copy[i].name }
         })
         break;
       case 'exercises':
         setExerciseBuild({
           ...exerciseBuild,
           id: exercises.length + 1,
-          exercise: copy[i].name
+          exercise: { id: copy[i].id, name: copy[i].name }
         })
         break;
       default:

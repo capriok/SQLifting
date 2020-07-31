@@ -1,31 +1,49 @@
 import { useStateValue } from '../state'
 
 const useReset = () => {
+  const [{
+    compositions: {
+      equipments,
+      muscles,
+      exercises,
+      movements
+    },
+    composites: {
+      circos,
+      excos,
+      wocos
+    }
+  }, dispatch] = useStateValue()
 
-  const [{ data, exercises, workouts }, dispatch] = useStateValue()
-
-  const resetAll = () => {
-    let { equipment: dataEQ, muscles: dataMU, exercises: dataEX } = data
-    let WO = workouts
-    let EX = exercises
+  const resetAll = async () => {
     const reset = data => {
       data.forEach(data => data.checked = false)
     }
-    reset(dataEQ)
-    reset(dataMU)
-    reset(dataEX)
-    reset(EX)
-    reset(WO)
+    reset(equipments)
+    reset(muscles)
+    reset(exercises)
+    reset(movements)
+    reset(circos)
+    reset(excos)
+    reset(wocos)
     dispatch({
-      type: 'DBaction',
-      data: {
-        equipment: dataEQ,
-        muscles: dataMU,
-        exercises: dataEX
+      type: 'COMPOSITION_ACTION',
+      compositions: {
+        equipments,
+        muscles,
+        exercises,
+        movements
       }
     })
-    dispatch({ type: 'EXaction', exercises: EX })
-    dispatch({ type: 'WOaction', workouts: WO })
+    dispatch({
+      type: 'COMPOSITE_ACTION',
+      composites: {
+        circos,
+        excos,
+        wocos
+      }
+    })
+
   }
 
   return resetAll
