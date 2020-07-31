@@ -27,14 +27,7 @@ export default function Index() {
     composites: {
       excos: [],
       wocos: [],
-      circos: []
-    },
-    exercises: [],
-    workouts: [],
-    data: {
-      equipment: [],
-      muscles: [],
-      exercises: []
+      circs: []
     }
   }
 

@@ -9,25 +9,16 @@ import WorkoutBuilder from './components/workout-builder'
 import BuiltWorkouts from './components/built-workouts'
 import InProgress from './components/in-progress'
 import LogBox from './components/log-box'
-import useUpdatePopulation from './hooks/useUpdatePopulation';
+import usePopulator from './hooks/usePopulator';
 
 function App() {
   if (process.env.NODE_ENV !== 'development') console.log = () => { }
   const [{
-    user,
-    compositions: {
-      equipments,
-      muscles,
-      exercises,
-      movements
-    },
-    composites: {
-      excos,
-      wocos,
-      circos
-    }
+    user: { isAuthenticated },
+    compositions: { equipments, muscles, exercises, movements },
+    composites: { excos, wocos, circs }
   }, dispatch] = useStateValue()
-  const updatePopulation = useUpdatePopulation()
+  const updatePopulation = usePopulator()
 
   const [pickedWorkout, setPickedWorkout] = useState({
     name: undefined,
@@ -35,7 +26,7 @@ function App() {
   })
 
   useEffect(() => {
-    if (user.isAuthenticated) updatePopulation()
+    if (isAuthenticated) updatePopulation()
   }, [])
 
   const logoutActions = async () => {
@@ -45,21 +36,20 @@ function App() {
     window.location.pathname = '/'
   }
 
-  const log = (message, arg) => arg.length > 0 && console.log(message, arg)
-
-  useEffect(() => { log('Equipment', equipments.length) }, [equipments])
-  useEffect(() => { log('Muscles', muscles.length) }, [muscles])
-  useEffect(() => { log('Exercises', exercises.length) }, [exercises])
-  useEffect(() => { log('Movements', movements.length) }, [movements])
-  useEffect(() => { log('Excos', excos.length) }, [excos])
-  useEffect(() => { log('Wocos', wocos.length) }, [wocos])
-  useEffect(() => { log('Circs', circos.length) }, [circos])
+  const log = (message, arg) => arg.length > 0 && console.log(message, arg.length)
+  useEffect(() => { log('Equipment', equipments) }, [equipments])
+  useEffect(() => { log('Muscles', muscles) }, [muscles])
+  useEffect(() => { log('Exercises', exercises) }, [exercises])
+  useEffect(() => { log('Movements', movements) }, [movements])
+  useEffect(() => { log('Excos', excos) }, [excos])
+  useEffect(() => { log('Wocos', wocos) }, [wocos])
+  useEffect(() => { log('Circs', circs) }, [circs])
 
   return (
     <>
       <Router>
         <Navbar className="navbar" title="SQLifting" titleWeight="300" shadow>
-          {user.isAuthenticated &&
+          {isAuthenticated &&
             <NavLink hover="steelblue" onClick={() => logoutActions()}>
               Logout
           </NavLink>
@@ -67,7 +57,7 @@ function App() {
         </Navbar>
         <div className="app">
           <div className="action-bar">
-            {user.isAuthenticated
+            {isAuthenticated
               ? <>
                 <Link className="item" to="/database">Database Manager</Link>
                 <Link className="item" to="/exercise-builder">Exercise Builder</Link>
@@ -77,7 +67,7 @@ function App() {
               : <div className="greeting">Welcome to SQLifting</div>
             }
           </div>
-          {user.isAuthenticated
+          {isAuthenticated
             ? <>
               <Route path="/database" render={() => (
                 <DatabaseManager />

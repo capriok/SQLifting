@@ -2,7 +2,7 @@
 import { useStateValue } from '../state'
 
 const useFetchData = (workoutBuild, setWorkoutBuild) => {
-  const [{ compositions, composites }, dispatch] = useStateValue()
+  const [{ compositions, composites, composites: { excos, wocos } }, dispatch] = useStateValue()
 
 
   const controlDBCheckbox = (i, type, prop, setter) => {
@@ -40,38 +40,41 @@ const useFetchData = (workoutBuild, setWorkoutBuild) => {
   }
 
   const controlWOCheckbox = (i, name) => {
-    // const copy = [...exercises]
-    // let isDupe = false
-    // workoutBuild.workout.forEach(item => {
-    //   if (item.name === name) isDupe = true
-    // });
-    // if (copy[i].checked) {
-    //   let filteredWorkout = workoutBuild.workout.filter(item => {
-    //     return item.name !== name
-    //   })
-    //   copy[i].checked = !copy[i].checked
-    //   setWorkoutBuild({
-    //     ...workoutBuild,
-    //     workout: filteredWorkout
-    //   })
-    //   return
-    // }
-    // if (!isDupe && name) {
-    //   copy[i].checked = !copy[i].checked
-    //   setWorkoutBuild({
-    //     ...workoutBuild,
-    //     workout: [
-    //       ...workoutBuild.workout,
-    //       {
-    //         id: workouts.length + 1,
-    //         name: name,
-    //         exercise: exercises[i],
-    //         reps: 1,
-    //         sets: 1
-    //       }
-    //     ]
-    //   })
-    // }
+    console.log(excos);
+    console.log(i);
+    console.log(name);
+    const copy = [...excos]
+    let isDupe = false
+    workoutBuild.workout.forEach(item => {
+      if (item.name === name) isDupe = true
+    });
+    if (copy[i].checked) {
+      let filteredWorkout = workoutBuild.workout.filter(item => {
+        return item.name !== name
+      })
+      copy[i].checked = !copy[i].checked
+      setWorkoutBuild({
+        ...workoutBuild,
+        workout: filteredWorkout
+      })
+      return
+    }
+    if (!isDupe && name) {
+      copy[i].checked = !copy[i].checked
+      setWorkoutBuild({
+        ...workoutBuild,
+        workout: [
+          ...workoutBuild.workout,
+          {
+            id: wocos.length + 1,
+            name: name,
+            exercise: excos[i],
+            reps: 1,
+            sets: 1
+          }
+        ]
+      })
+    }
   }
 
 

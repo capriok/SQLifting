@@ -9,12 +9,16 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
+import usePopulator from '../hooks/usePopulator';
 import useRadioControl from '../hooks/useRadioControl';
-import useUpdatePopulation from '../hooks/useUpdatePopulation';
 import useReset from '../hooks/useReset';
 
 const ExerciseBuilder = () => {
-  const [{ user, compositions: { equipments, muscles, exercises }, composites: { excos } }, dispatch] = useStateValue()
+  const [{
+    user: { details: { uid } },
+    compositions: { equipments, muscles, exercises }
+  },] = useStateValue()
+
   const [build, setBuild] = useState({
     id: undefined,
     name: '',
@@ -22,13 +26,11 @@ const ExerciseBuilder = () => {
     muscle: undefined,
     exercise: undefined
   })
-  const updatePopulation = useUpdatePopulation()
+  const updatePopulation = usePopulator()
   const { controlEXRadio } = useRadioControl(build, setBuild)
   const resetAll = useReset()
 
   const inputRef = useRef()
-
-  const uid = user.details.uid
 
   useEffect(() => {
     resetAll()
@@ -61,40 +63,25 @@ const ExerciseBuilder = () => {
     })
     if (!hasUndefined) {
       axios
-        .post(process.env.REACT_APP_POST + '/builtexercise', {
-          uid: uid,
+        .post(process.env.REACT_APP_POST + '/exco', {
           name: build.name,
-          equipment: build.equipment,
-          muscle: build.muscle,
-          exercise: build.exercise
+          uid: uid,
+          eq_id: build.equipment.id,
+          mu_id: build.muscle.id,
+          ex_id: build.exercise.id
         })
         .then(() => {
           console.log('Post Success!')
-          updatePopulation('exercises')
+          updatePopulation('composites', ['excos'])
         })
         .catch(e => console.log(e))
-      dispatch({
-        type: 'EXaction',
-        exercises: [
-          ...exercises,
-          {
-            id: exercises.length + 1,
-            name: build.name,
-            equipment: build.equipment,
-            muscles: build.muscle,
-            exercises: build.exercise
-          }
-        ]
-      })
       setBuild({})
       resetAll()
       inputRef.current = ''
     } else alert('All fields required.')
   }
 
-  useEffect(() => { build.name && console.log('Exercise Build', build) }, [build])
-
-  const createMap = (arr, type) => (
+  const createMap = (arr, prop) => (
     <div className="type-map">
       {arr.length > 0
         ? arr.map((item, i) => (
@@ -102,7 +89,7 @@ const ExerciseBuilder = () => {
             <div className="shift">
               <label className="label">
                 <Input className="input" type="radio" checked={item.checked}
-                  onChange={() => controlEXRadio(i, type)} />
+                  onChange={() => controlEXRadio(i, prop)} />
                 <div className="item-name">{item.name}</div>
               </label>
             </div>
@@ -114,6 +101,8 @@ const ExerciseBuilder = () => {
       }
     </div>
   )
+
+  useEffect(() => { build.name && console.log(build) }, [build])
 
   return (
     <>
@@ -172,7 +161,7 @@ const ExerciseBuilder = () => {
         <div className="ex-namer">
           <h1 className="type-title">Name this exercise</h1>
           <div>
-            <Input placeholder="Enter name" value={inputRef.current}
+            <Input placeholder="Enter name"
               onChange={e => {
                 inputRef.current = e.target.value
                 setBuild({ ...build, name: inputRef.current })

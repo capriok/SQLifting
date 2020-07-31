@@ -9,7 +9,7 @@ const useReset = () => {
       movements
     },
     composites: {
-      circos,
+      circs,
       excos,
       wocos
     }
@@ -23,7 +23,7 @@ const useReset = () => {
     reset(muscles)
     reset(exercises)
     reset(movements)
-    reset(circos)
+    reset(circs)
     reset(excos)
     reset(wocos)
     dispatch({
@@ -38,7 +38,7 @@ const useReset = () => {
     dispatch({
       type: 'COMPOSITE_ACTION',
       composites: {
-        circos,
+        circs,
         excos,
         wocos
       }
