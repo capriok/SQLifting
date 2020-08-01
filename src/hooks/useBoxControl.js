@@ -40,6 +40,7 @@ const useFetchData = (build, setBuild) => {
   }
 
   const controlWOCheckbox = (i, name) => {
+    console.log(wocos);
     let nextId = 0
     wocos.forEach(({ id }) => {
       return id > nextId ? nextId = id + 1 : nextId

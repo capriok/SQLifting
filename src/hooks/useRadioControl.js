@@ -2,7 +2,7 @@
 import { useStateValue } from '../state'
 
 const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
-  const [{ compositions, composites: { excos, wocos } }, dispatch] = useStateValue()
+  const [{ composites, compositions, composites: { excos, wocos } }, dispatch] = useStateValue()
   const controlEXRadio = (i, prop) => {
     let nextId = 0;
     excos.forEach(({ id }) => {
@@ -43,11 +43,11 @@ const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
   }
 
   const controlBWRadio = (i, item) => {
-    // const copy = [...workouts]
-    // copy.forEach(item => item.checked = false);
-    // copy[i].checked = true
-    // dispatch({ type: 'WOaction', workouts: copy })
-    // setPickedWorkout(item)
+    const copy = [...wocos]
+    copy.forEach(item => item.checked = false);
+    copy[i].checked = true
+    dispatch({ type: 'COMPOSITE_ACTION', composites: { ...composites, wocos: copy } })
+    setPickedWorkout(item)
   }
 
 

@@ -21,8 +21,9 @@ function App() {
   const updatePopulation = usePopulator()
 
   const [pickedWorkout, setPickedWorkout] = useState({
+    id: undefined,
     name: undefined,
-    workout: []
+    woco_excos: []
   })
 
   useEffect(() => {

@@ -13,15 +13,16 @@ import useRadioControl from '../hooks/useRadioControl';
 import useReset from '../hooks/useReset';
 
 const BuiltWorkouts = ({ workout, setWorkout }) => {
-  const [{ composites: { wocos } },] = useStateValue()
+  const [{ user: { details: { uid } }, composites: { wocos } },] = useStateValue()
   const { controlBWRadio } = useRadioControl(undefined, undefined, setWorkout)
   const resetAll = useReset()
 
   useEffect(() => {
     return () => {
       setWorkout({
+        id: undefined,
         name: undefined,
-        workout: []
+        woco_excos: []
       })
     };
   }, [])
@@ -30,15 +31,18 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
     resetAll()
   }, [])
 
+  console.log(wocos);
+
   return (
     <>
+      {/* <DraggableArray col className="draggable-cont"> */}
+      {/* </DraggableArray> */}
       <div className="built-workouts">
         {workout.woco_excos.length > 0 &&
           <div className="viewer">
             <h1 className="bw-title">Workout Viewer</h1>
             <h1 className="type-title">{workout.name}</h1>
-            {/* <DraggableArray col className="draggable-cont"> */}
-            {workout.workout.map((workout, i) => (
+            {workout.woco_excos.map((workout, i) => (
               <div className="workout-item" key={i}>
                 <p className="item-title">{workout.name}</p>
                 <div className="item">
@@ -53,7 +57,6 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
                 </div>
               </div>
             ))}
-            {/* </DraggableArray> */}
             <div className="viewer-actions">
               <Tooltip
                 title="Start Workout"
