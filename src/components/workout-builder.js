@@ -22,7 +22,7 @@ const WorkoutBuilder = () => {
 
   const [build, setBuild] = useState({
     name: undefined,
-    workout: []
+    woco_excos: []
   })
 
   const updatePopulation = usePopulator()
@@ -34,20 +34,25 @@ const WorkoutBuilder = () => {
     resetAll()
     setBuild({
       name: undefined,
-      workout: []
+      woco_excos: []
     })
   }, [])
 
   const increment = (i, type) => {
-    const copy = { ...build.workout }
-    copy[i][type] = copy[i][type] + 1
+    let count
+    type === 'weight' ? count = 5 : count = 1
+    const copy = { ...build.woco_excos }
+    copy[i][type] = copy[i][type] + count
     setBuild({ ...build })
   }
 
   const decrement = (i, type) => {
-    if (build.workout[i][type] === 1) return
-    const copy = { ...build.workout }
-    copy[i][type] = copy[i][type] - 1
+    let count
+    type === 'weight' ? count = 5 : count = 1
+    if (build.woco_excos[i][type] === 1) return
+    if (type === 'weight' && build.woco_excos[i][type] === 5) return
+    const copy = { ...build.woco_excos }
+    copy[i][type] = copy[i][type] - count
     setBuild({ ...build })
   }
 
@@ -55,37 +60,31 @@ const WorkoutBuilder = () => {
     resetAll()
     setBuild({
       name: undefined,
-      workout: []
+      woco_excos: []
     })
   }
 
   const submitBuild = (e) => {
     e.preventDefault()
-    if (build.name && build.workout.length > 0) {
+    if (build.name && build.woco_excos.length > 0) {
       axios
-        .post(process.env.REACT_APP_POST + '/builtworkouts', {
+        .post(process.env.REACT_APP_POST + '/woco', {
           uid: uid,
+          woco_id: build.id,
           name: build.name,
-          workout: build.workout
+          woco_excos: build.woco_excos
         })
         .then(() => {
           console.log('Post Success!')
           updatePopulation('composites', ['wocos'])
         })
         .catch(e => console.log(e))
-      dispatch({
-        type: 'WOaction',
-        workouts: [
-          ...wocos,
-          { ...build }
-        ]
-      })
-      setBuild({
-        name: undefined,
-        workout: []
-      })
-      resetAll()
-      inputRef.current = ''
+      // setBuild({
+      //   name: undefined,
+      //   woco_excos: []
+      // })
+      // resetAll()
+      // inputRef.current = ''
     } else alert('Somethings missing.')
   }
 
@@ -101,11 +100,19 @@ const WorkoutBuilder = () => {
             : <div className="name-placeholder"></div>
           }
           {
-            build.workout.length > 0
-              ? build.workout.map((build, i) => (
+            build.woco_excos.length > 0
+              ? build.woco_excos.map((build, i) => (
                 <div className="view-item" key={i}>
-                  <div className="item-title">{build.exercise.name}</div>
+                  <div className="item-title">{build.name}</div>
                   <div className="item-setter">
+                    <div className="sets">
+                      <span>Sets</span>
+                      <CountSetter
+                        count={build.sets}
+                        incrementer={() => increment(i, 'sets')}
+                        decrementer={() => decrement(i, 'sets')}
+                      />
+                    </div>
                     <div className="reps">
                       <span>Reps</span>
                       <CountSetter
@@ -114,12 +121,12 @@ const WorkoutBuilder = () => {
                         decrementer={() => decrement(i, 'reps')}
                       />
                     </div>
-                    <div className="sets">
-                      <span>Sets</span>
+                    <div className="weight">
+                      <span>Weight</span>
                       <CountSetter
-                        count={build.sets}
-                        incrementer={() => increment(i, 'sets')}
-                        decrementer={() => decrement(i, 'sets')}
+                        count={build.weight}
+                        incrementer={() => increment(i, 'weight')}
+                        decrementer={() => decrement(i, 'weight')}
                       />
                     </div>
                   </div>
@@ -129,6 +136,9 @@ const WorkoutBuilder = () => {
                 <div className="item-title-placeholder"></div>
                 <div className="item-setter-placeholder">
                   <div className="reps-placeholder">
+                    <span></span>
+                  </div>
+                  <div className="sets-placeholder">
                     <span></span>
                   </div>
                   <div className="sets-placeholder">
@@ -165,11 +175,11 @@ const WorkoutBuilder = () => {
         </div>
         <div className="type-title">Exercises</div>
         <div className="type-map">
-          {exercises.map((item, i) => (
+          {excos.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">
-                  <Input className="input" type="checkbox" checked={item.checked}
+                  <Input className="input" type="checkbox" checked={item.checked} value={inputRef}
                     onChange={() => controlWOCheckbox(i, item.name)} />
                   <div className="item-name">{item.name}</div>
                 </label>

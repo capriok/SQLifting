@@ -13,7 +13,7 @@ import useRadioControl from '../hooks/useRadioControl';
 import useReset from '../hooks/useReset';
 
 const BuiltWorkouts = ({ workout, setWorkout }) => {
-  const [{ workouts },] = useStateValue()
+  const [{ composites: { wocos } },] = useStateValue()
   const { controlBWRadio } = useRadioControl(undefined, undefined, setWorkout)
   const resetAll = useReset()
 
@@ -33,7 +33,7 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
   return (
     <>
       <div className="built-workouts">
-        {workout.workout.length > 0 &&
+        {workout.woco_excos.length > 0 &&
           <div className="viewer">
             <h1 className="bw-title">Workout Viewer</h1>
             <h1 className="type-title">{workout.name}</h1>
@@ -69,7 +69,7 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
         <h1 className="bw-title">Choose a workout</h1>
         <h1 className="type-title">Built Workouts</h1>
         <div className="type-map">
-          {workouts.map((item, i) => (
+          {wocos.map((item, i) => (
             <div className="item" key={i}>
               <div className="shift">
                 <label className="label">

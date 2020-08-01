@@ -360,9 +360,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 17px;
+    font-size: 16px;
     margin: 0 10px;
-    padding: 0px 40px;
+    padding: 0px 50px;
+    min-width: 150px;
   }
   .inc {
     margin-left: -35px;
@@ -457,7 +458,8 @@ body {
           width: 15px;
         }
         .reps,
-        .sets {
+        .sets,
+        .weight {
           @include flex;
           justify-content: space-between;
           span {

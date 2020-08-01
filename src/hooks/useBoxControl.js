@@ -1,7 +1,7 @@
 /*eslint array-callback-return: "off"*/
 import { useStateValue } from '../state'
 
-const useFetchData = (workoutBuild, setWorkoutBuild) => {
+const useFetchData = (build, setBuild) => {
   const [{ compositions, composites, composites: { excos, wocos } }, dispatch] = useStateValue()
 
 
@@ -40,37 +40,39 @@ const useFetchData = (workoutBuild, setWorkoutBuild) => {
   }
 
   const controlWOCheckbox = (i, name) => {
-    console.log(excos);
-    console.log(i);
-    console.log(name);
+    let nextId = 0
+    wocos.forEach(({ id }) => {
+      return id > nextId ? nextId = id + 1 : nextId
+    })
     const copy = [...excos]
     let isDupe = false
-    workoutBuild.workout.forEach(item => {
+    build.woco_excos.forEach(item => {
       if (item.name === name) isDupe = true
     });
     if (copy[i].checked) {
-      let filteredWorkout = workoutBuild.workout.filter(item => {
+      let filteredWorkout = build.woco_excos.filter(item => {
         return item.name !== name
       })
       copy[i].checked = !copy[i].checked
-      setWorkoutBuild({
-        ...workoutBuild,
-        workout: filteredWorkout
+      setBuild({
+        ...build,
+        woco_excos: filteredWorkout
       })
       return
     }
     if (!isDupe && name) {
       copy[i].checked = !copy[i].checked
-      setWorkoutBuild({
-        ...workoutBuild,
-        workout: [
-          ...workoutBuild.workout,
+      setBuild({
+        ...build,
+        id: nextId,
+        woco_excos: [
+          ...build.woco_excos,
           {
-            id: wocos.length + 1,
+            id: excos[i].id,
             name: name,
-            exercise: excos[i],
+            sets: 1,
             reps: 1,
-            sets: 1
+            weight: 10
           }
         ]
       })
