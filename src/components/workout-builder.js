@@ -16,9 +16,8 @@ import useReset from '../hooks/useReset';
 const WorkoutBuilder = () => {
   const [{
     user: { details: { uid } },
-    compositions: { equipments, muscles, exercises, movements },
-    composites: { excos, wocos, circs }
-  }, dispatch] = useStateValue()
+    composites: { excos }
+  },] = useStateValue()
 
   const [build, setBuild] = useState({
     name: undefined,
@@ -33,6 +32,7 @@ const WorkoutBuilder = () => {
   useEffect(() => {
     resetAll()
     setBuild({
+      id: undefined,
       name: undefined,
       woco_excos: []
     })
@@ -59,6 +59,7 @@ const WorkoutBuilder = () => {
   const resetBuild = () => {
     resetAll()
     setBuild({
+      id: undefined,
       name: undefined,
       woco_excos: []
     })
@@ -77,14 +78,15 @@ const WorkoutBuilder = () => {
         .then(() => {
           console.log('Post Success!')
           updatePopulation('composites', ['wocos'])
+          setBuild({
+            id: undefined,
+            name: undefined,
+            woco_excos: []
+          })
+          resetAll()
+          inputRef.current = ''
         })
         .catch(e => console.log(e))
-      // setBuild({
-      //   name: undefined,
-      //   woco_excos: []
-      // })
-      // resetAll()
-      // inputRef.current = ''
     } else alert('Somethings missing.')
   }
 

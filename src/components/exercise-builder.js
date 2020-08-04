@@ -73,11 +73,11 @@ const ExerciseBuilder = () => {
         .then(() => {
           console.log('Post Success!')
           updatePopulation('composites', ['excos'])
+          setBuild({})
+          resetAll()
+          inputRef.current = ''
         })
         .catch(e => console.log(e))
-      setBuild({})
-      resetAll()
-      inputRef.current = ''
     } else alert('All fields required.')
   }
 

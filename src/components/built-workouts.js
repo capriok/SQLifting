@@ -42,17 +42,18 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
           <div className="viewer">
             <h1 className="bw-title">Workout Viewer</h1>
             <h1 className="type-title">{workout.name}</h1>
-            {workout.woco_excos.map((workout, i) => (
+            {workout.woco_excos.map((exercise, i) => (
               <div className="workout-item" key={i}>
-                <p className="item-title">{workout.name}</p>
+                <p className="item-title">{exercise.name}</p>
                 <div className="item">
                   <div className="item-details">
-                    <p>Equipment: {workout.exercise.equipment}</p>
-                    <p>Movement: {workout.exercise.exercise}</p>
+                    {/* <p>Equipment: {exercise.exercise.equipment}</p>
+                    <p>Movement: {workout.exercise.exercise}</p> */}
                   </div>
                   <div className="item-count">
-                    <p>Reps: {workout.reps}</p>
-                    <p>Sets: {workout.sets}</p>
+                    <p>Reps: {exercise.reps}</p>
+                    <p>Sets: {exercise.sets}</p>
+                    <p>Weight: {exercise.weight}</p>
                   </div>
                 </div>
               </div>

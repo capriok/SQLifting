@@ -5,22 +5,23 @@ import { DATA_API, installProps } from '../api/sqlifting'
 const usePopulator = () => {
   const [{ user: { details: { uid } }, compositions, composites }, dispatch] = useStateValue()
 
-  let compositionsTable = ['equipments', 'muscles', 'exercises', 'movements']
-  let compositesTable = ['circs', 'excos', 'wocos']
+  let compositionsTables = ['equipments', 'muscles', 'exercises', 'movements']
+  let compositesTables = ['circs', 'excos', 'wocos']
 
   const updatePopulation = (type, tables) => {
+    let tempTables = tables
     switch (type) {
       case undefined:
-        populateCompositions()
-        populateComposites()
+        populateCompositions(compositionsTables)
+        populateComposites(compositesTables)
         break;
       case 'compositions':
-        if (tables === undefined) tables = compositionsTable
-        populateCompositions(tables)
+        tables === undefined ? tempTables = compositionsTables : tempTables = []
+        populateCompositions(tempTables)
         break;
       case 'composites':
-        if (tables === undefined) tables = compositesTable
-        populateComposites(tables)
+        tables === undefined ? tempTables = compositesTables : tempTables = []
+        populateComposites(tempTables)
         break;
       default:
         break;
@@ -44,33 +45,31 @@ const usePopulator = () => {
     DATA_API.get('/composites', { params: { uid, tables } })
       .then(res => {
         const semiFinal = installProps(res)
-        console.log('Composites', semiFinal)
-        fetchwocoDeps(semiFinal)
+        if (tables.includes('wocos')) {
+          fetchWocoDeps(semiFinal)
+        } else {
+          console.log('Composites', semiFinal)
+          dispatch({
+            type: 'COMPOSITE_ACTION',
+            composites: { ...composites, ...semiFinal }
+          })
+        }
       })
       .catch(err => console.log(err))
   }
 
-
-  // wocos comes out as the last foreach obj not the whole arr.
-
-  const fetchwocoDeps = (semiFinal) => {
-    console.log(semiFinal);
-    semiFinal.wocos.forEach(({ id }, i) => {
-      DATA_API.get('/woco_excos', { params: { uid, id } })
+  const fetchWocoDeps = (semiFinal) => {
+    const final = { ...semiFinal }
+    semiFinal.wocos.forEach((item, i) => {
+      DATA_API.get('/woco_excos', { params: { uid, id: item.id } })
         .then((res) => {
-          const final = {
-            ...semiFinal,
-            wocos: {
-              ...semiFinal.wocos[i],
-              woco_excos: res.data
-            }
-          }
-          dispatch({
-            type: 'COMPOSITE_ACTION',
-            composites: { ...composites, ...final }
-          })
+          final.wocos[i].woco_excos = res.data
         })
         .catch(err => console.log(err))
+    })
+    dispatch({
+      type: 'COMPOSITE_ACTION',
+      composites: { ...composites, ...final }
     })
   }
 

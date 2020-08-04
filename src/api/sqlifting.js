@@ -6,13 +6,13 @@ const BASE_ACC = process.env.REACT_APP_ACCOUNT
 
 export const installProps = (res) => {
   let final = {}
-  for (let i = 0; i < Object.keys(res.data).length; i++) {
-    const keys = Object.keys(res.data)
+  const keys = Object.keys(res.data)
+  for (let i = 0; i < keys.length; i++) {
     let key = res.data[keys[i]]
     key.forEach(item => {
       item.checked = false
     })
-    final[keys[i]] = key
+    final[keys[i]] = key.sort((a, b) => (a.name > b.name) ? 1 : -1)
   }
   return final
 }

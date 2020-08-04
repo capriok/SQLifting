@@ -6,7 +6,7 @@ const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
   const controlEXRadio = (i, prop) => {
     let nextId = 0;
     excos.forEach(({ id }) => {
-      return id > nextId ? nextId = id + 1 : nextId
+      return id >= nextId ? nextId = id + 1 : nextId
     })
     const copy = [...compositions[prop]]
     copy.forEach(item => item.checked = false);
@@ -44,12 +44,12 @@ const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
 
   const controlBWRadio = (i, item) => {
     const copy = [...wocos]
+    console.log(copy);
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
     dispatch({ type: 'COMPOSITE_ACTION', composites: { ...composites, wocos: copy } })
     setPickedWorkout(item)
   }
-
 
   return {
     controlEXRadio,
