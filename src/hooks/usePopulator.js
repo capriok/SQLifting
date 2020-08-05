@@ -2,6 +2,14 @@
 import { useStateValue } from '../state'
 import { DATA_API, installProps } from '../api/sqlifting'
 
+
+// Need to seriously re think the way we fetch data
+// current method not scalable
+// usePopulate > getWocos, getExcos, getExercises, etc.
+// reform logic grouping arcitecture
+// updatepopulation, 2/5 solution
+
+
 const usePopulator = () => {
   const [{ user: { details: { uid } }, compositions, composites }, dispatch] = useStateValue()
 
@@ -9,19 +17,18 @@ const usePopulator = () => {
   let compositesTables = ['circs', 'excos', 'wocos']
 
   const updatePopulation = (type, tables) => {
-    let tempTables = tables
     switch (type) {
       case undefined:
         populateCompositions(compositionsTables)
         populateComposites(compositesTables)
         break;
       case 'compositions':
-        tables === undefined ? tempTables = compositionsTables : tempTables = []
-        populateCompositions(tempTables)
+        if (tables === undefined) tables = compositionsTables
+        populateCompositions(tables)
         break;
       case 'composites':
-        tables === undefined ? tempTables = compositesTables : tempTables = []
-        populateComposites(tempTables)
+        if (tables === undefined) tables = compositesTables
+        populateComposites(tables)
         break;
       default:
         break;

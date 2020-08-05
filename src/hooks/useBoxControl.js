@@ -4,7 +4,6 @@ import { useStateValue } from '../state'
 const useFetchData = (build, setBuild) => {
   const [{ compositions, composites, composites: { excos, wocos } }, dispatch] = useStateValue()
 
-
   const controlDBCheckbox = (i, type, prop, setter) => {
     let copy
     const flipbox = () => copy[i].checked = !copy[i].checked
@@ -39,8 +38,9 @@ const useFetchData = (build, setBuild) => {
     }
   }
 
-  // logs in foreach not read
-  // ultimately, nextId is 0 if its first woco being made
+  // next id still bugged
+  // must know current highest pk
+  // repeat in radioControl   
 
   const controlWOCheckbox = (i, name) => {
     let nextId = wocos.length + 1

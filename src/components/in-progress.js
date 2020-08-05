@@ -38,7 +38,7 @@ const InProgress = (/*take in id*/) => {
   return (
     <div className="in-progress">
       <div className="header">
-        <h1 className="ip-title">In Progress</h1>
+        <h1 className="ip-title">Uh oh, no worky</h1>
         <div className="ip-timer"><Timer /></div>
       </div>
       {wo.woco_excos.map((ex, i) => (
