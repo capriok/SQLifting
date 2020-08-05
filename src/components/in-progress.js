@@ -4,8 +4,10 @@ import React, { useState, useEffect } from 'react'
 import { Button, Input } from 'godspeed'
 import Timer from './timer'
 
-const InProgress = ({ workout }) => {
-  const [wo, setWo] = useState(workout)
+const InProgress = (/*take in id*/) => {
+  const [wo, setWo] = useState({ woco_excos: [] }) // delete this
+
+  /*fetch woco and woco_excos/circs based on query id in path*/
 
   const promptLeave = () => {
     if (window.confirm("Are you sure you want to leave, progress will not be saved.")) {
@@ -23,11 +25,6 @@ const InProgress = ({ workout }) => {
     copy.woco_excos.forEach(ex => ex.strike = false);
     setWo(copy)
   }, [])
-
-  useEffect(() => {
-    console.log(wo)
-    if (wo.woco_excos.length === 0) window.location.href = '/workouts'
-  }, [workout])
 
   const strikeExercise = (i) => {
     const copy = wo.woco_excos

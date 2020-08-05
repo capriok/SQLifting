@@ -77,7 +77,7 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
               <div className="shift">
                 <label className="label">
                   <Input className="input" type="radio" checked={item.checked}
-                    onChange={() => controlBWRadio(i, item)} />
+                    onChange={() => { controlBWRadio(i, item); console.log(item); }} />
                   <div className="item-name">{item.name}</div>
                 </label>
               </div>

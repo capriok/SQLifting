@@ -85,8 +85,7 @@ function App() {
                   setWorkout={setPickedWorkout} />
               )} />
               <Route exact path="/workout-in-progress" render={() => (
-                <InProgress
-                  workout={pickedWorkout} />
+                <InProgress />
               )} />
             </>
             : <LogBox />

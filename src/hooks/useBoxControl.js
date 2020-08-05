@@ -43,13 +43,8 @@ const useFetchData = (build, setBuild) => {
   // ultimately, nextId is 0 if its first woco being made
 
   const controlWOCheckbox = (i, name) => {
-    let nextId = 0
-    console.log(wocos);
-    wocos.forEach(({ id }) => {
-      console.log('this id', id);
-      console.log('next id', nextId);
-      return id >= nextId ? nextId = id + 1 : nextId
-    })
+    let nextId = wocos.length + 1
+    console.log('next id', nextId);
     const copy = [...excos]
     let isDupe = false
     build.woco_excos.forEach(item => {

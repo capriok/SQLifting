@@ -4,10 +4,7 @@ import { useStateValue } from '../state'
 const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
   const [{ composites, compositions, composites: { excos, wocos } }, dispatch] = useStateValue()
   const controlEXRadio = (i, prop) => {
-    let nextId = 0;
-    excos.forEach(({ id }) => {
-      return id >= nextId ? nextId = id + 1 : nextId
-    })
+    let nextId = excos.length + 1
     const copy = [...compositions[prop]]
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
