@@ -31,8 +31,6 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
     resetAll()
   }, [])
 
-  console.log(wocos);
-
   return (
     <>
       {/* <DraggableArray col className="draggable-cont"> */}
@@ -47,8 +45,9 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
                 <p className="item-title">{exercise.name}</p>
                 <div className="item">
                   <div className="item-details">
-                    {/* <p>Equipment: {exercise.exercise.equipment}</p>
-                    <p>Movement: {workout.exercise.exercise}</p> */}
+                    <p>Equipment: {exercise.equipment}</p>
+                    <p>Movement: {exercise.exercise}</p>
+                    <p>Muscle: {exercise.muscle}</p>
                   </div>
                   <div className="item-count">
                     <p>Reps: {exercise.reps}</p>

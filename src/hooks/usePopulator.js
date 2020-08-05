@@ -67,6 +67,7 @@ const usePopulator = () => {
         })
         .catch(err => console.log(err))
     })
+    console.log('Composites', semiFinal)
     dispatch({
       type: 'COMPOSITE_ACTION',
       composites: { ...composites, ...final }
