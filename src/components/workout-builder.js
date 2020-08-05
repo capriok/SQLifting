@@ -20,6 +20,7 @@ const WorkoutBuilder = () => {
   },] = useStateValue()
 
   const [build, setBuild] = useState({
+    id: undefined,
     name: undefined,
     woco_excos: []
   })
@@ -90,7 +91,7 @@ const WorkoutBuilder = () => {
     } else alert('Somethings missing.')
   }
 
-  useEffect(() => { console.log('Workout Build', build) }, [build])
+  useEffect(() => { (build.name && build.woco_excos.length > 0) && console.log('Workout Build', build) }, [build])
 
   return (
     <>

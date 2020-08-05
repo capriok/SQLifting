@@ -113,7 +113,7 @@ const Manager = () => {
             <div className="shift">
               <label className="label">
                 <Input className="input" type="checkbox" checked={item.checked}
-                  onChange={() => controlDBCheckbox(i, type, prop, setter)} />
+                  onChange={() => { controlDBCheckbox(i, type, prop, setter); console.log(item); }} />
                 <div className="item-name">{item.name}</div>
               </label>
             </div>

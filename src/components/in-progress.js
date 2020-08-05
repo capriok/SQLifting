@@ -20,17 +20,17 @@ const InProgress = ({ workout }) => {
 
   useEffect(() => {
     const copy = wo
-    copy.workout.forEach(ex => ex.strike = false);
+    copy.woco_excos.forEach(ex => ex.strike = false);
     setWo(copy)
   }, [])
 
   useEffect(() => {
     console.log(wo)
-    if (wo.workout.length === 0) window.location.href = '/workouts'
+    if (wo.woco_excos.length === 0) window.location.href = '/workouts'
   }, [workout])
 
   const strikeExercise = (i) => {
-    const copy = wo.workout
+    const copy = wo.woco_excos
     copy[i].strike = !copy[i].strike
     setWo({
       ...wo,
@@ -44,7 +44,7 @@ const InProgress = ({ workout }) => {
         <h1 className="ip-title">In Progress</h1>
         <div className="ip-timer"><Timer /></div>
       </div>
-      {wo.workout.map((ex, i) => (
+      {wo.woco_excos.map((ex, i) => (
         <div className="workout-item" key={i}>
           <p className={ex.strike ? "item-title strike" : "item-title"}>{ex.name}</p>
           <div className="item">
@@ -53,8 +53,9 @@ const InProgress = ({ workout }) => {
                 <Input type="checkbox" onChange={() => strikeExercise(i)} />
               </label>
               <div>
-                <p>Equipment: {ex.exercise.equipment}</p>
-                <p>Movement: {ex.exercise.exercise}</p>
+                <p>Equipment: {ex.equipment}</p>
+                <p>Exercise: {ex.exercise}</p>
+                <p>Muscle: {ex.muscle}</p>
               </div>
             </div>
             <div className="item-count">

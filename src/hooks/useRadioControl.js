@@ -44,7 +44,6 @@ const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
 
   const controlBWRadio = (i, item) => {
     const copy = [...wocos]
-    console.log(copy);
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
     dispatch({ type: 'COMPOSITE_ACTION', composites: { ...composites, wocos: copy } })

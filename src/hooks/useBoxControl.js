@@ -39,9 +39,15 @@ const useFetchData = (build, setBuild) => {
     }
   }
 
+  // logs in foreach not read
+  // ultimately, nextId is 0 if its first woco being made
+
   const controlWOCheckbox = (i, name) => {
     let nextId = 0
+    console.log(wocos);
     wocos.forEach(({ id }) => {
+      console.log('this id', id);
+      console.log('next id', nextId);
       return id >= nextId ? nextId = id + 1 : nextId
     })
     const copy = [...excos]
