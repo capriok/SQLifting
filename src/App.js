@@ -9,7 +9,7 @@ import WorkoutBuilder from './components/workout-builder'
 import BuiltWorkouts from './components/built-workouts'
 import InProgress from './components/in-progress'
 import LogBox from './components/log-box'
-import usePopulator from './hooks/usePopulator';
+import useUpdate from './hooks/useUpdate';
 
 function App() {
   if (process.env.NODE_ENV !== 'development') console.log = () => { }
@@ -18,7 +18,7 @@ function App() {
     compositions: { equipments, muscles, exercises, movements },
     composites: { excos, wocos, circs }
   }, dispatch] = useStateValue()
-  const updatePopulation = usePopulator()
+  const update = useUpdate()
 
   const [pickedWorkout, setPickedWorkout] = useState({
     id: undefined,
@@ -27,7 +27,7 @@ function App() {
   })
 
   useEffect(() => {
-    if (isAuthenticated) updatePopulation()
+    if (isAuthenticated) update('all')
   }, [])
 
   const logoutActions = async () => {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useStateValue } from '../state'
 import { Button, Input } from 'godspeed'
 
-import { ACCOUNT_API } from '../api/sqlifting'
+import { SQLiftingAcc } from '../api/sqlifting'
 
 const LogBox = () => {
   const [, dispatch] = useStateValue()
@@ -13,7 +13,7 @@ const LogBox = () => {
   })
 
   const login = () => {
-    ACCOUNT_API.post('/login', {
+    SQLiftingAcc.post('/login', {
       username: form.username,
       password: form.password
     })
@@ -38,7 +38,7 @@ const LogBox = () => {
   }
 
   const signUp = () => {
-    ACCOUNT_API.post('/register', {
+    SQLiftingAcc.post('/register', {
       username: form.username,
       password: form.password
     })

@@ -10,7 +10,7 @@ import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
 import useBoxControl from '../hooks/useBoxControl';
-import usePopulator from '../hooks/usePopulator';
+// import useUpdate from '../hooks/useUpdate';
 import useReset from '../hooks/useReset';
 
 const WorkoutBuilder = () => {
@@ -25,7 +25,7 @@ const WorkoutBuilder = () => {
     woco_excos: []
   })
 
-  const updatePopulation = usePopulator()
+  // const update = useUpdate()
   const { controlWOCheckbox } = useBoxControl(build, setBuild)
   const resetAll = useReset()
   const inputRef = useRef('')
@@ -78,7 +78,7 @@ const WorkoutBuilder = () => {
         })
         .then(() => {
           console.log('Post Success!')
-          updatePopulation('composites', ['wocos'])
+          // updatePopulation('composites', ['wocos'])
           setBuild({
             id: undefined,
             name: undefined,

@@ -25,9 +25,9 @@ export default function Index() {
       movements: []
     },
     composites: {
+      circs: [],
       excos: [],
-      wocos: [],
-      circs: []
+      wocos: []
     }
   }
 
@@ -59,21 +59,6 @@ export default function Index() {
         return {
           ...state,
           composites: action.composites
-        };
-      case "DBaction":
-        return {
-          ...state,
-          data: action.data
-        };
-      case "WOaction":
-        return {
-          ...state,
-          workouts: action.workouts
-        };
-      case "EXaction":
-        return {
-          ...state,
-          exercises: action.exercises
         };
       default:
         return state;

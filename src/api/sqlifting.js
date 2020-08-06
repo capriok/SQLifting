@@ -18,10 +18,10 @@ export const installProps = (res) => {
 }
 
 
-export const ACCOUNT_API = Axios.create({
+export const SQLiftingAcc = Axios.create({
   baseURL: BASE_ACC
 })
 
-export const DATA_API = Axios.create({
+export const SQLifting = Axios.create({
   baseURL: BASE_GET
 })

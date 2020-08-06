@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
-import usePopulator from '../hooks/usePopulator';
+// import useUpdate from '../hooks/useUpdate.js';
 import useRadioControl from '../hooks/useRadioControl';
 import useReset from '../hooks/useReset';
 
@@ -26,7 +26,7 @@ const ExerciseBuilder = () => {
     muscle: undefined,
     exercise: undefined
   })
-  const updatePopulation = usePopulator()
+  // const update = useUpdate()
   const { controlEXRadio } = useRadioControl(build, setBuild)
   const resetAll = useReset()
 
@@ -72,7 +72,7 @@ const ExerciseBuilder = () => {
         })
         .then(() => {
           console.log('Post Success!')
-          updatePopulation('composites', ['excos'])
+          // updatePopulation('composites', ['excos'])
           setBuild({})
           resetAll()
           inputRef.current = ''

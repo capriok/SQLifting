@@ -8,7 +8,7 @@ import { Button, Input } from 'godspeed'
 import SelectionButtons from './assembly/selection-buttons'
 import TypeHead from './assembly/type-head'
 
-import usePopulator from '../hooks/usePopulator';
+// import useUpdate from '../hooks/useUpdate.js';
 import useBoxControl from '../hooks/useBoxControl'
 import useReset from '../hooks/useReset';
 
@@ -21,7 +21,7 @@ const Manager = () => {
     composites: { circs, excos, wocos }
   }, dispatch] = useStateValue()
 
-  const updatePopulation = usePopulator()
+  // const update = useUpdate()
   const { controlDBCheckbox } = useBoxControl()
   const resetAll = useReset()
 
@@ -86,7 +86,7 @@ const Manager = () => {
         })
       .then(() => {
         console.log('Post Success!')
-        updatePopulation('compositions', [table + 's'])
+        // updatePopulation('compositions', [table + 's'])
       })
       .catch(err => console.log(err))
   }
@@ -99,7 +99,7 @@ const Manager = () => {
       })
         .then(() => {
           console.log('Delete Success!')
-          updatePopulation(type, [table + 's'])
+          // updatePopulation(type, [table + 's'])
         })
         .catch(e => console.log(e))
     });
