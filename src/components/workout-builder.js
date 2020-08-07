@@ -72,7 +72,7 @@ const WorkoutBuilder = () => {
       axios
         .post(process.env.REACT_APP_POST + '/woco', {
           uid: uid,
-          woco_id: build.id,
+          id: build.id,
           name: build.name,
           woco_excos: build.woco_excos
         })

@@ -27,7 +27,11 @@ function App() {
   })
 
   useEffect(() => {
-    if (isAuthenticated) update('all')
+    // if (isAuthenticated) update('all')
+    if (isAuthenticated) {
+      update('compositions', ['equipments', 'muscles', 'exercises', 'movements'])
+      update('composites', ['circs', 'excos', 'wocos'])
+    }
   }, [])
 
   const logoutActions = async () => {
