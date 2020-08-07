@@ -41,7 +41,7 @@ const WorkoutBuilder = () => {
 
   const increment = (i, type) => {
     let count
-    type === 'weight' ? count = 5 : count = 1
+    type === 'weight' ? count = 5 : type === 'reps' ? count = 2 : count = 1
     const copy = { ...build.woco_excos }
     copy[i][type] = copy[i][type] + count
     setBuild({ ...build })
@@ -49,9 +49,10 @@ const WorkoutBuilder = () => {
 
   const decrement = (i, type) => {
     let count
-    type === 'weight' ? count = 5 : count = 1
+    type === 'weight' ? count = 5 : type === 'reps' ? count = 2 : count = 1
     if (build.woco_excos[i][type] === 1) return
     if (type === 'weight' && build.woco_excos[i][type] === 5) return
+    if (type === 'reps' && build.woco_excos[i][type] === 2) return
     const copy = { ...build.woco_excos }
     copy[i][type] = copy[i][type] - count
     setBuild({ ...build })

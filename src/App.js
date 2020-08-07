@@ -12,11 +12,8 @@ import LogBox from './components/log-box'
 import useUpdate from './hooks/useUpdate';
 
 function App() {
-  if (process.env.NODE_ENV !== 'development') console.log = () => { }
   const [{
-    user: { isAuthenticated },
-    compositions: { equipments, muscles, exercises, movements },
-    composites: { excos, wocos, circs }
+    user: { isAuthenticated }
   }, dispatch] = useStateValue()
   const update = useUpdate()
 
@@ -27,11 +24,7 @@ function App() {
   })
 
   useEffect(() => {
-    // if (isAuthenticated) update('all')
-    if (isAuthenticated) {
-      update('compositions', ['equipments', 'muscles', 'exercises', 'movements'])
-      update('composites', ['circs', 'excos', 'wocos'])
-    }
+    if (isAuthenticated) update('all')
   }, [])
 
   const logoutActions = async () => {
@@ -40,15 +33,6 @@ function App() {
     localStorage.removeItem('SQLifting-user')
     window.location.pathname = '/'
   }
-
-  const log = (message, arg) => arg.length > 0 && console.log(message, arg.length)
-  useEffect(() => { log('Equipment', equipments) }, [equipments])
-  useEffect(() => { log('Muscles', muscles) }, [muscles])
-  useEffect(() => { log('Exercises', exercises) }, [exercises])
-  useEffect(() => { log('Movements', movements) }, [movements])
-  useEffect(() => { log('Excos', excos) }, [excos])
-  useEffect(() => { log('Wocos', wocos) }, [wocos])
-  useEffect(() => { log('Circs', circs) }, [circs])
 
   return (
     <>

@@ -71,8 +71,8 @@ const useFetchData = (build, setBuild) => {
           {
             id: excos[i].id,
             name: name,
-            sets: 1,
-            reps: 1,
+            sets: 4,
+            reps: 10,
             weight: 10
           }
         ]
