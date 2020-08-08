@@ -96,10 +96,22 @@ const Manager = () => {
       SQLifting.post('/delete/byid', { table: table, id: record })
         .then(() => {
           console.log('Delete Success!')
+          if (table === 'circ') {
+            return deleteDependencies('circ_movs', record, type, ['circs'])
+          }
+          if (table === 'woco') {
+            return deleteDependencies('woco_excos', record, type, ['wocos'])
+          }
           update(type, [table + 's'])
         })
         .catch(e => console.log(e))
     });
+  }
+
+  const deleteDependencies = (table, id, type, requests) => {
+    SQLifting.post(`/delete/deps`, { table, id })
+      .then(res => update(type, requests))
+      .catch(err => console.log(err))
   }
 
   const createMap = (arr, type, prop, setter) => (
@@ -172,21 +184,21 @@ const Manager = () => {
         <TypeHead title="Circuits">
           <SelectionButtons
             cancelClick={() => unSelect(composites, circs, 'COMPOPSITE_ACTION', setCircSelection)}
-            submitClick={() => deleteRecord(CircSelection, 'circs', 'composites')} />
+            submitClick={() => deleteRecord(CircSelection, 'circ', 'composites')} />
         </TypeHead>
         {createMap(circs, 'COMPOSITE_ACTION', 'circs', setCircSelection)}
         {/* ---------------------- Exercises Section ----------------------*/}
         <TypeHead title="Exercises">
           <SelectionButtons
             cancelClick={() => unSelect(composites, excos, 'COMPOPSITE_ACTION', setWocoSelection)}
-            submitClick={() => deleteRecord(ExcoSelection, 'excos', 'composites')} />
+            submitClick={() => deleteRecord(ExcoSelection, 'exco', 'composites')} />
         </TypeHead>
         {createMap(excos, 'COMPOSITE_ACTION', 'excos', setExcoSelection)}
         {/* ---------------------- Workouts Section ----------------------*/}
         <TypeHead title="Workouts">
           <SelectionButtons
             cancelClick={() => unSelect(composites, wocos, 'COMPOPSITE_ACTION', setWocoSelection)}
-            submitClick={() => deleteRecord(WocoSelection, 'wocos', 'composites')} />
+            submitClick={() => deleteRecord(WocoSelection, 'woco', 'composites')} />
         </TypeHead>
         {createMap(wocos, 'COMPOSITE_ACTION', 'wocos', setWocoSelection)}
       </div>

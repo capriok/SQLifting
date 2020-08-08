@@ -10,7 +10,7 @@ import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
 import useBoxControl from '../hooks/useBoxControl';
-// import useUpdate from '../hooks/useUpdate';
+import useUpdate from '../hooks/useUpdate';
 import useReset from '../hooks/useReset';
 import { SQLifting } from '../api/sqlifting'
 
@@ -26,7 +26,7 @@ const WorkoutBuilder = () => {
     woco_excos: []
   })
 
-  // const update = useUpdate()
+  const update = useUpdate()
   const { controlWOCheckbox } = useBoxControl(build, setBuild)
   const resetAll = useReset()
   const inputRef = useRef('')
@@ -71,7 +71,7 @@ const WorkoutBuilder = () => {
   const submitBuild = (e) => {
     e.preventDefault()
     if (build.name && build.woco_excos.length > 0) {
-      SQLifting.post('/woco', {
+      SQLifting.post('/post/woco', {
         uid: uid,
         id: build.id,
         name: build.name,
@@ -79,7 +79,7 @@ const WorkoutBuilder = () => {
       })
         .then(() => {
           console.log('Post Success!')
-          // updatePopulation('composites', ['wocos'])
+          update('composites', ['wocos'])
           setBuild({
             id: undefined,
             name: undefined,

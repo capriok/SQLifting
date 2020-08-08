@@ -8,6 +8,7 @@ const useUpdate = () => {
   const [{ user: { details: { uid } }, composites, compositions
   }, dispatch] = useStateValue()
   const update = (type, requests) => {
+    console.log(`INCOMING REQUEST ${type} ${requests}`)
     const missingRequests = typeof requests !== 'object' && (type === 'compositions' || type === 'compositions')
     if (type === undefined) return console.log('Expecting a type')
     if (missingRequests) return console.log('Expecting requests array')
@@ -54,7 +55,6 @@ const useUpdate = () => {
     const hasCircs = (semiFinal.hasOwnProperty('circs') && semiFinal.circs.length > 0)
     const hasExcos = (semiFinal.hasOwnProperty('excos') && semiFinal.excos.length > 0)
     const hasWocos = (semiFinal.hasOwnProperty('wocos') && semiFinal.wocos.length > 0)
-    if (!hasExcos && !hasWocos) return log('Composites returned no dependencies', final)
     if (hasCircs) {
       semiFinal.circs.forEach((circ) => {
         let circ_id = circ.id
@@ -85,13 +85,14 @@ const useUpdate = () => {
           .catch(err => console.log(err))
       })
     }
-    log('Composites returned with dependencies', final)
     dispatch({
       type: "COMPOSITE_ACTION",
       composites: { ...composites, ...final }
     })
-  }
 
+    if (hasExcos || hasWocos || hasCircs) return log('Composites returned with dependencies', final)
+    if (!hasExcos && !hasWocos && !hasCircs) return log('Composites returned no dependencies', final)
+  }
 
   return update
 }
