@@ -8,9 +8,10 @@ import { Button, Input } from 'godspeed'
 import SelectionButtons from './assembly/selection-buttons'
 import TypeHead from './assembly/type-head'
 
-// import useUpdate from '../hooks/useUpdate.js';
+import useUpdate from '../hooks/useUpdate.js';
 import useBoxControl from '../hooks/useBoxControl'
 import useReset from '../hooks/useReset';
+import { SQLifting } from '../api/sqlifting'
 
 const Manager = () => {
   const [{
@@ -21,7 +22,7 @@ const Manager = () => {
     composites: { circs, excos, wocos }
   }, dispatch] = useStateValue()
 
-  // const update = useUpdate()
+  const update = useUpdate()
   const { controlDBCheckbox } = useBoxControl()
   const resetAll = useReset()
 
@@ -77,29 +78,25 @@ const Manager = () => {
   }
 
   const insertRecord = (table, payload) => {
-    axios
-      .post(process.env.REACT_APP_POST + `/composition`,
-        {
-          table: table,
-          name: payload,
-          uid: uid
-        })
+    SQLifting.post(`/post/composition`,
+      {
+        table: table,
+        name: payload,
+        uid: uid
+      })
       .then(() => {
         console.log('Post Success!')
-        // updatePopulation('compositions', [table + 's'])
+        update('compositions', [table + 's'])
       })
       .catch(err => console.log(err))
   }
 
   const deleteRecord = (selection, table, type) => {
     selection.forEach(async record => {
-      await axios.post(process.env.REACT_APP_DELETE + '/byid', {
-        table: table,
-        id: record
-      })
+      SQLifting.post('/delete/byid', { table: table, id: record })
         .then(() => {
           console.log('Delete Success!')
-          // updatePopulation(type, [table + 's'])
+          update(type, [table + 's'])
         })
         .catch(e => console.log(e))
     });
@@ -141,7 +138,7 @@ const Manager = () => {
           </form>
           <Button text="Submit" type="submit" form="add-composition-form" />
         </div>
-        <h1 className="db-title">Compositions</h1>
+        <h1 className="db-title"></h1>
         {/* ---------------------- Equipment section ----------------------*/}
         <TypeHead title="Equipment">
           <SelectionButtons
@@ -175,21 +172,21 @@ const Manager = () => {
         <TypeHead title="Circuits">
           <SelectionButtons
             cancelClick={() => unSelect(composites, circs, 'COMPOPSITE_ACTION', setCircSelection)}
-            submitClick={() => deleteRecord(CircSelection, 'circ', 'composites')} />
+            submitClick={() => deleteRecord(CircSelection, 'circs', 'composites')} />
         </TypeHead>
         {createMap(circs, 'COMPOSITE_ACTION', 'circs', setCircSelection)}
         {/* ---------------------- Exercises Section ----------------------*/}
         <TypeHead title="Exercises">
           <SelectionButtons
             cancelClick={() => unSelect(composites, excos, 'COMPOPSITE_ACTION', setWocoSelection)}
-            submitClick={() => deleteRecord(ExcoSelection, 'exco', 'composites')} />
+            submitClick={() => deleteRecord(ExcoSelection, 'excos', 'composites')} />
         </TypeHead>
         {createMap(excos, 'COMPOSITE_ACTION', 'excos', setExcoSelection)}
         {/* ---------------------- Workouts Section ----------------------*/}
         <TypeHead title="Workouts">
           <SelectionButtons
             cancelClick={() => unSelect(composites, wocos, 'COMPOPSITE_ACTION', setWocoSelection)}
-            submitClick={() => deleteRecord(WocoSelection, 'woco', 'composites')} />
+            submitClick={() => deleteRecord(WocoSelection, 'wocos', 'composites')} />
         </TypeHead>
         {createMap(wocos, 'COMPOSITE_ACTION', 'wocos', setWocoSelection)}
       </div>

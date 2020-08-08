@@ -1,7 +1,6 @@
 import Axios from 'axios'
 
-const BASE_GET = process.env.REACT_APP_GET
-// const BASE_POST = process.env.REACT_APP_POST
+const BASE_API = process.env.REACT_APP_API
 const BASE_ACC = process.env.REACT_APP_ACCOUNT
 
 export const installProps = (res) => {
@@ -23,5 +22,5 @@ export const SQLiftingAcc = Axios.create({
 })
 
 export const SQLifting = Axios.create({
-  baseURL: BASE_GET
+  baseURL: BASE_API
 })

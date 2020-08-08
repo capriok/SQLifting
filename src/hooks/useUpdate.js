@@ -1,14 +1,11 @@
 /*eslint no-unused-vars: "off"*/
-import { useEffect } from 'react'
 import { useStateValue } from '../state'
 import { SQLifting, installProps } from '../api/sqlifting'
 
 const log = (message, log) => console.log(`%c${message}`, 'color: lightskyblue', log)
 
 const useUpdate = () => {
-  const [{ user: { details: { uid } }, composites, compositions,
-    compositions: { equipments, muscles, exercises, movements },
-    composites: { excos, wocos, circs }
+  const [{ user: { details: { uid } }, composites, compositions
   }, dispatch] = useStateValue()
   const update = (type, requests) => {
     const missingRequests = typeof requests !== 'object' && (type === 'compositions' || type === 'compositions')
@@ -31,7 +28,7 @@ const useUpdate = () => {
   }
 
   const updateCompositions = (params) => {
-    SQLifting.get('/compositions', { params: params })
+    SQLifting.get('/get/compositions', { params: params })
       .then(res => {
         let final = installProps(res)
         log('Compositions returned', final)
@@ -44,7 +41,7 @@ const useUpdate = () => {
   }
 
   const updateComposites = (params) => {
-    SQLifting.get('/composites', { params: params })
+    SQLifting.get('/get/composites', { params: params })
       .then(res => {
         let final = installProps(res)
         attachDependencies(final)
@@ -54,13 +51,24 @@ const useUpdate = () => {
 
   const attachDependencies = (semiFinal) => {
     let final = { ...semiFinal }
+    const hasCircs = (semiFinal.hasOwnProperty('circs') && semiFinal.circs.length > 0)
     const hasExcos = (semiFinal.hasOwnProperty('excos') && semiFinal.excos.length > 0)
     const hasWocos = (semiFinal.hasOwnProperty('wocos') && semiFinal.wocos.length > 0)
     if (!hasExcos && !hasWocos) return log('Composites returned no dependencies', final)
+    if (hasCircs) {
+      semiFinal.circs.forEach((circ) => {
+        let circ_id = circ.id
+        SQLifting.get('/get/circ_deps', { params: { circ_id } })
+          .then(res => {
+            circ.deps = res.data
+          })
+          .catch(err => console.log(err))
+      })
+    }
     if (hasExcos) {
-      semiFinal.excos.forEach((exco, i) => {
+      semiFinal.excos.forEach((exco) => {
         let exco_id = exco.id
-        SQLifting.get('/exco_deps', { params: { exco_id } })
+        SQLifting.get('/get/exco_deps', { params: { exco_id } })
           .then(res => {
             exco.deps = res.data
           })
@@ -68,9 +76,9 @@ const useUpdate = () => {
       })
     }
     if (hasWocos) {
-      semiFinal.wocos.forEach((woco, i) => {
+      semiFinal.wocos.forEach((woco) => {
         let woco_id = woco.id
-        SQLifting.get('/woco_deps', { params: { woco_id } })
+        SQLifting.get('/get/woco_deps', { params: { woco_id } })
           .then(res => {
             woco.deps = res.data
           })
@@ -84,14 +92,6 @@ const useUpdate = () => {
     })
   }
 
-  const lengthLog = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 50);
-  useEffect(() => { lengthLog('Equipment', equipments) }, [equipments])
-  useEffect(() => { lengthLog('Muscles', muscles) }, [muscles])
-  useEffect(() => { lengthLog('Exercises', exercises) }, [exercises])
-  useEffect(() => { lengthLog('Movements', movements) }, [movements])
-  useEffect(() => { lengthLog('Excos', excos) }, [excos])
-  useEffect(() => { lengthLog('Wocos', wocos) }, [wocos])
-  useEffect(() => { lengthLog('Circs', circs) }, [circs])
 
   return update
 }

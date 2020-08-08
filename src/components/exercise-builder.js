@@ -9,9 +9,10 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
-// import useUpdate from '../hooks/useUpdate.js';
+import useUpdate from '../hooks/useUpdate.js';
 import useRadioControl from '../hooks/useRadioControl';
 import useReset from '../hooks/useReset';
+import { SQLifting } from '../api/sqlifting'
 
 const ExerciseBuilder = () => {
   const [{
@@ -26,7 +27,7 @@ const ExerciseBuilder = () => {
     muscle: undefined,
     exercise: undefined
   })
-  // const update = useUpdate()
+  const update = useUpdate()
   const { controlEXRadio } = useRadioControl(build, setBuild)
   const resetAll = useReset()
 
@@ -62,17 +63,16 @@ const ExerciseBuilder = () => {
       if (v === undefined) hasUndefined = true
     })
     if (!hasUndefined) {
-      axios
-        .post(process.env.REACT_APP_POST + '/exco', {
-          name: build.name,
-          uid: uid,
-          eq_id: build.equipment.id,
-          mu_id: build.muscle.id,
-          ex_id: build.exercise.id
-        })
+      SQLifting.post('/post/exco', {
+        name: build.name,
+        uid: uid,
+        eq_id: build.equipment.id,
+        mu_id: build.muscle.id,
+        ex_id: build.exercise.id
+      })
         .then(() => {
           console.log('Post Success!')
-          // updatePopulation('composites', ['excos'])
+          update('composites', ['excos'])
           setBuild({})
           resetAll()
           inputRef.current = ''

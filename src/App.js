@@ -13,7 +13,9 @@ import useUpdate from './hooks/useUpdate';
 
 function App() {
   const [{
-    user: { isAuthenticated }
+    user: { isAuthenticated },
+    compositions: { equipments, muscles, exercises, movements },
+    composites: { excos, wocos, circs }
   }, dispatch] = useStateValue()
   const update = useUpdate()
 
@@ -33,6 +35,15 @@ function App() {
     localStorage.removeItem('SQLifting-user')
     window.location.pathname = '/'
   }
+
+  const lengthLog = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 50);
+  useEffect(() => { lengthLog('Equipment', equipments) }, [equipments])
+  useEffect(() => { lengthLog('Muscles', muscles) }, [muscles])
+  useEffect(() => { lengthLog('Exercises', exercises) }, [exercises])
+  useEffect(() => { lengthLog('Movements', movements) }, [movements])
+  useEffect(() => { lengthLog('Excos', excos) }, [excos])
+  useEffect(() => { lengthLog('Wocos', wocos) }, [wocos])
+  useEffect(() => { lengthLog('Circs', circs) }, [circs])
 
   return (
     <>

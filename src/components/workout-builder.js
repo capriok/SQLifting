@@ -12,6 +12,7 @@ import reset from '../gallery/reset.png'
 import useBoxControl from '../hooks/useBoxControl';
 // import useUpdate from '../hooks/useUpdate';
 import useReset from '../hooks/useReset';
+import { SQLifting } from '../api/sqlifting'
 
 const WorkoutBuilder = () => {
   const [{
@@ -70,13 +71,12 @@ const WorkoutBuilder = () => {
   const submitBuild = (e) => {
     e.preventDefault()
     if (build.name && build.woco_excos.length > 0) {
-      axios
-        .post(process.env.REACT_APP_POST + '/woco', {
-          uid: uid,
-          id: build.id,
-          name: build.name,
-          woco_excos: build.woco_excos
-        })
+      SQLifting.post('/woco', {
+        uid: uid,
+        id: build.id,
+        name: build.name,
+        woco_excos: build.woco_excos
+      })
         .then(() => {
           console.log('Post Success!')
           // updatePopulation('composites', ['wocos'])

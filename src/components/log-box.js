@@ -12,6 +12,24 @@ const LogBox = () => {
     username: '', password: ''
   })
 
+  const signUp = () => {
+    SQLiftingAcc.post('/register', {
+      username: form.username,
+      password: form.password
+    })
+      .then(res => {
+        console.log(res);
+        if (res.data === 'Username taken') return setTitle(res.data)
+        setTitle(res.data)
+        setRegister(false)
+        setTimeout(() => login(), 500);
+      })
+      .catch(error => {
+        console.log(error);
+        setTitle('idk')
+      })
+  }
+
   const login = () => {
     SQLiftingAcc.post('/login', {
       username: form.username,
@@ -19,6 +37,7 @@ const LogBox = () => {
     })
       .then(async res => {
         console.log(res);
+        setTitle(`Welcome ${res.data.user.name.capitalize()}`)
         localStorage.setItem('SQLifting-token', res.data.token)
         localStorage.setItem('SQLifting-user', JSON.stringify(res.data.user))
         await dispatch({
@@ -34,22 +53,6 @@ const LogBox = () => {
       .catch(error => {
         console.log(error);
         setTitle('Invalid Credentials')
-      })
-  }
-
-  const signUp = () => {
-    SQLiftingAcc.post('/register', {
-      username: form.username,
-      password: form.password
-    })
-      .then(res => {
-        setTitle(res.data)
-        setRegister(false)
-        setTimeout(() => login(), 500);
-      })
-      .catch(error => {
-        console.log(error);
-        setTitle('Username already exists')
       })
   }
 
@@ -73,8 +76,8 @@ const LogBox = () => {
             <div>
               <Input placeholder="Username" value={form.username}
                 onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^a-z]/ig, '').toLowerCase() })} />
-              <Input placeholder="Password" value={form.password} type="password"
-                onChange={(e) => setForm({ ...form, password: e.target.value.replace(/[^a-z0-9]/ig, '').toLowerCase() })} />
+              <Input placeholder="Password" value={form.password} type="text"
+                onChange={(e) => setForm({ ...form, password: e.target.value.replace(/[^a-z0-9]/ig, '') })} />
             </div>
             <div>
               <Button text={!register ? 'Login' : 'Register'} onClick={() => { }} />
