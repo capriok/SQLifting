@@ -1,5 +1,6 @@
 /*eslint array-callback-return: "off"*/
 import { useStateValue } from '../state'
+import { SQLifting } from '../api/sqlifting'
 
 const useFetchData = (build, setBuild) => {
   const [{ compositions, composites, composites: { excos, wocos } }, dispatch] = useStateValue()
@@ -42,22 +43,23 @@ const useFetchData = (build, setBuild) => {
   // must know current highest pk
   // repeat in radioControl   
 
-  const controlWOCheckbox = (i, name) => {
-    let nextId = wocos.length + 1
+  const controlWOCheckbox = async (i, name) => {
+    const res = await SQLifting.get('/get/MAXpk', { params: { table: 'woco', id: 'woco_id' } })
+    let nextId = res.data + 1
     console.log('next id', nextId);
     const copy = [...excos]
     let isDupe = false
-    build.woco_excos.forEach(item => {
+    build.deps.forEach(item => {
       if (item.name === name) isDupe = true
     });
     if (copy[i].checked) {
-      let filteredWorkout = build.woco_excos.filter(item => {
+      let filteredWorkout = build.deps.filter(item => {
         return item.name !== name
       })
       copy[i].checked = !copy[i].checked
       setBuild({
         ...build,
-        woco_excos: filteredWorkout
+        deps: filteredWorkout
       })
       return
     }
@@ -66,8 +68,8 @@ const useFetchData = (build, setBuild) => {
       setBuild({
         ...build,
         id: nextId,
-        woco_excos: [
-          ...build.woco_excos,
+        deps: [
+          ...build.deps,
           {
             id: excos[i].id,
             name: name,

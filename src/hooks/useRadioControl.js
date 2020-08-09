@@ -1,11 +1,13 @@
 /*eslint no-unused-vars: "off"*/
 import { useStateValue } from '../state'
+import { SQLifting } from '../api/sqlifting'
 
 const useRadioControl = (exerciseBuild, setExerciseBuild, setPickedWorkout) => {
   const [{ composites, compositions, composites: { excos, wocos } }, dispatch] = useStateValue()
-  const controlEXRadio = (i, prop) => {
-    let nextId = excos.length + 1
-    const copy = [...compositions[prop]]
+  const controlEXRadio = async (i, prop) => {
+    const res = await SQLifting.get('/get/MAXpk', { params: { table: 'exco', id: 'exco_id' } })
+    let nextId = res.data + 1
+    console.log('next id', nextId); const copy = [...compositions[prop]]
     copy.forEach(item => item.checked = false);
     copy[i].checked = true
     dispatch({

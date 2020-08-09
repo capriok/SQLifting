@@ -22,7 +22,7 @@ function App() {
   const [pickedWorkout, setPickedWorkout] = useState({
     id: undefined,
     name: undefined,
-    woco_excos: []
+    deps: []
   })
 
   useEffect(() => {
