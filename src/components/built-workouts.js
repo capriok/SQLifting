@@ -22,7 +22,7 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
       setWorkout({
         id: undefined,
         name: undefined,
-        woco_excos: []
+        deps: []
       })
     };
   }, [])
@@ -36,11 +36,11 @@ const BuiltWorkouts = ({ workout, setWorkout }) => {
       {/* <DraggableArray col className="draggable-cont"> */}
       {/* </DraggableArray> */}
       <div className="built-workouts">
-        {workout.woco_excos.length > 0 &&
+        {workout.deps.length > 0 &&
           <div className="viewer">
             <h1 className="bw-title">Workout Viewer</h1>
             <h1 className="type-title">{workout.name}</h1>
-            {workout.woco_excos.map((exercise, i) => (
+            {workout.deps.excos.map((exercise, i) => (
               <div className="workout-item" key={i}>
                 <p className="item-title">{exercise.name}</p>
                 <div className="item">

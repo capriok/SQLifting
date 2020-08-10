@@ -23,7 +23,7 @@ const WorkoutBuilder = () => {
   const [build, setBuild] = useState({
     id: undefined,
     name: undefined,
-    woco_excos: []
+    deps: []
   })
 
   const update = useUpdate()
@@ -36,14 +36,14 @@ const WorkoutBuilder = () => {
     setBuild({
       id: undefined,
       name: undefined,
-      woco_excos: []
+      deps: []
     })
   }, [])
 
   const increment = (i, type) => {
     let count
     type === 'weight' ? count = 5 : type === 'reps' ? count = 2 : count = 1
-    const copy = { ...build.woco_excos }
+    const copy = { ...build.deps }
     copy[i][type] = copy[i][type] + count
     setBuild({ ...build })
   }
@@ -51,10 +51,10 @@ const WorkoutBuilder = () => {
   const decrement = (i, type) => {
     let count
     type === 'weight' ? count = 5 : type === 'reps' ? count = 2 : count = 1
-    if (build.woco_excos[i][type] === 1) return
-    if (type === 'weight' && build.woco_excos[i][type] === 5) return
-    if (type === 'reps' && build.woco_excos[i][type] === 2) return
-    const copy = { ...build.woco_excos }
+    if (build.deps[i][type] === 1) return
+    if (type === 'weight' && build.deps[i][type] === 5) return
+    if (type === 'reps' && build.deps[i][type] === 2) return
+    const copy = { ...build.deps }
     copy[i][type] = copy[i][type] - count
     setBuild({ ...build })
   }
@@ -64,18 +64,18 @@ const WorkoutBuilder = () => {
     setBuild({
       id: undefined,
       name: undefined,
-      woco_excos: []
+      deps: []
     })
   }
 
   const submitBuild = (e) => {
     e.preventDefault()
-    if (build.name && build.woco_excos.length > 0) {
+    if (build.name && build.deps.length > 0) {
       SQLifting.post('/post/woco', {
         uid: uid,
         id: build.id,
         name: build.name,
-        woco_excos: build.woco_excos
+        woco_excos: build.deps
       })
         .then(() => {
           console.log('Post Success!')
@@ -83,7 +83,7 @@ const WorkoutBuilder = () => {
           setBuild({
             id: undefined,
             name: undefined,
-            woco_excos: []
+            deps: []
           })
           resetAll()
           inputRef.current = ''
@@ -92,7 +92,7 @@ const WorkoutBuilder = () => {
     } else alert('Somethings missing.')
   }
 
-  useEffect(() => { (build.name && build.woco_excos.length > 0) && console.log('Workout Build', build) }, [build])
+  useEffect(() => { (build.name && build.deps.length > 0) && console.log('Workout Build', build) }, [build])
 
   return (
     <>
@@ -104,8 +104,8 @@ const WorkoutBuilder = () => {
             : <div className="name-placeholder"></div>
           }
           {
-            build.woco_excos.length > 0
-              ? build.woco_excos.map((build, i) => (
+            build.deps.length > 0
+              ? build.deps.map((build, i) => (
                 <div className="view-item" key={i}>
                   <div className="item-title">{build.name}</div>
                   <div className="item-setter">
