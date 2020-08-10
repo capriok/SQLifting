@@ -55,13 +55,45 @@ const useUpdate = () => {
     const hasExcos = (semiFinal.hasOwnProperty('excos') && semiFinal.excos.length > 0)
     const hasWocos = (semiFinal.hasOwnProperty('wocos') && semiFinal.wocos.length > 0)
     if (hasCircs) {
-      getCircDeps(final)
+      semiFinal.circs.forEach((circ) => {
+        let circ_id = circ.id
+        SQLifting.get('/get/circ_deps', { params: { circ_id } })
+          .then(res => {
+            circ.deps = res.data
+          })
+          .catch(err => console.log(err))
+      })
     }
     if (hasExcos) {
-      getExcoDeps(final)
+      semiFinal.excos.forEach((exco) => {
+        let exco_id = exco.id
+        SQLifting.get('/get/exco_deps', { params: { exco_id } })
+          .then(res => {
+            exco.deps = res.data
+          })
+          .catch(err => console.log(err))
+      })
     }
     if (hasWocos) {
-      getWocoDeps(final)
+      semiFinal.wocos.forEach((woco) => {
+        let woco_id = woco.id
+        SQLifting.get('/get/woco_deps', { params: { woco_id } })
+          .then(res => {
+            woco.exco = res.data[0]
+            woco.circ = res.data[1]
+            if (hasCircs) {
+              res.data[1].forEach((circ) => {
+                let circ_id = circ.id
+                SQLifting.get('/get/circ_deps', { params: { circ_id } })
+                  .then(res => {
+                    circ.deps = res.data
+                  })
+                  .catch(err => console.log(err))
+              })
+            }
+          })
+          .catch(err => console.log(err))
+      })
     }
     dispatch({
       type: "COMPOSITE_ACTION",
@@ -71,50 +103,6 @@ const useUpdate = () => {
     if (!hasExcos && !hasWocos && !hasCircs) return log('Composites returned no dependencies', final)
   }
 
-  const getCircDeps = (semiFinal) => {
-    semiFinal.circs.forEach((circ) => {
-      let circ_id = circ.id
-      SQLifting.get('/get/circ_deps', { params: { circ_id } })
-        .then(res => {
-          circ.deps = res.data
-        })
-        .catch(err => console.log(err))
-    })
-  }
-
-  const getExcoDeps = (semiFinal) => {
-    semiFinal.excos.forEach((exco) => {
-      let exco_id = exco.id
-      SQLifting.get('/get/exco_deps', { params: { exco_id } })
-        .then(res => {
-          exco.deps = res.data
-        })
-        .catch(err => console.log(err))
-    })
-  }
-
-  const getWocoDeps = (semiFinal) => {
-    const hasCircs = (semiFinal.hasOwnProperty('circs') && semiFinal.circs.length > 0)
-    semiFinal.wocos.forEach((woco) => {
-      let woco_id = woco.id
-      SQLifting.get('/get/woco_deps', { params: { woco_id } })
-        .then(res => {
-          woco.exco = res.data[0]
-          woco.circ = res.data[1]
-          if (hasCircs) {
-            res.data[1].forEach((circ) => {
-              let circ_id = circ.id
-              SQLifting.get('/get/circ_deps', { params: { circ_id } })
-                .then(res => {
-                  circ.deps = res.data
-                })
-                .catch(err => console.log(err))
-            })
-          }
-        })
-        .catch(err => console.log(err))
-    })
-  }
 
   return update
 }
