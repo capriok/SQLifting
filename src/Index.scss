@@ -23,9 +23,21 @@
   border-radius: 5px;
 }
 
-* {
+@mixin flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$max-width: 1400px;
+$body: rgb(221, 221, 221);
+
+body {
+  background-color: $body;
   margin: 0;
   padding: 0;
+}
+* {
   box-sizing: border-box;
   line-height: 1.5rem;
   font-family: roboto;
@@ -33,10 +45,15 @@
 html {
   scroll-behavior: smooth;
 }
+h1,
+h2,
+h3,
+h4 {
+  font-family: Alegreya Sans SC;
+  font-weight: 500;
+}
 h1 {
-  font-family: roboto;
   font-size: 1.8rem;
-  font-weight: 400;
   letter-spacing: 1px;
 }
 a {
