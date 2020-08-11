@@ -8,6 +8,7 @@ import useUpdate from './hooks/useUpdate';
 import Layout from './views/layout'
 import Keystone from './views/keystone';
 import Sidebar from './components/sidebar';
+import Navbar from './components/navbar'
 
 function App() {
   const [{
@@ -47,6 +48,7 @@ function App() {
     <>
       <Router>
         <Layout>
+          <Navbar />
           <Sidebar />
           <Keystone />
         </Layout>

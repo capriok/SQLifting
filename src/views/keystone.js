@@ -1,13 +1,24 @@
 import React from 'react'
-import views from './views.module.scss'
+import views from './styles/views.module.scss'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import Manager from './manager'
+import Assembly from './assembly'
+import Workout from './workout'
 
 const Keystone = () => {
 	const routes = [
 		{
 			path: "/manager",
 			component: Manager
+		},
+		{
+			path: "/assembly",
+			component: Assembly
+		},
+		{
+			path: "/workout",
+			component: Workout
 		},
 		// {
 		// 	path: "/",
@@ -33,7 +44,6 @@ const Keystone = () => {
 	return (
 		<>
 			<div className={views.keystone}>
-				<h1>Keystone</h1>
 				<Switch>
 					{routes.map((route, i) => (
 						<RouteWithSubRoutes key={i} {...route} />
