@@ -4,11 +4,15 @@ import { Navbar as Nav, NavLink } from 'godspeed'
 
 const Navbar = (props) => {
 	return (
-		<Nav className={styles.navbar} title="SQLifting">
-			<NavLink hover="steelblue" onClick={() => props.logoutActions()}>
-				Logout
-        </NavLink>
-		</Nav>
+		<>
+			<nav className={styles.nav} title="SQLifting">
+			</nav>
+			<Nav className={styles.navbar} title="SQLifting">
+				{/* <NavLink hover="steelblue" onClick={() => props.logoutActions()}>
+					Logout
+        </NavLink> */}
+			</Nav>
+		</>
 	)
 }
 
