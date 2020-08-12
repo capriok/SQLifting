@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles/manage.module.scss'
+import styles from '../styles/manage.module.scss'
 
 const Manage = () => {
 	return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import views from './styles/views.module.scss'
+import views from '../styles/views.module.scss'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Manage from './manage'

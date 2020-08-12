@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles/assemble.module.scss'
+import styles from '../styles/assemble.module.scss'
 
 const Assemble = () => {
 	return (

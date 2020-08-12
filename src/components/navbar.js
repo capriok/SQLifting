@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles/navbar.module.scss'
+import styles from '.././styles/navbar.module.scss'
 import { Navbar as Nav, NavLink } from 'godspeed'
 
 const Navbar = (props) => {

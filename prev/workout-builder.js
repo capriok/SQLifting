@@ -1,7 +1,7 @@
 /*eslint no-unused-vars: "off"*/
 /*eslint react-hooks/exhaustive-deps: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../src/state'
 import axios from 'axios'
 import { Input } from 'godspeed'
 import CountSetter from './count-setter'
@@ -9,10 +9,10 @@ import { Tooltip } from 'react-tippy'
 import submit from '../gallery/submit.png'
 import reset from '../gallery/reset.png'
 
-import useBoxControl from '../hooks/useBoxControl';
-import useUpdate from '../hooks/useUpdate';
-import useReset from '../hooks/useReset';
-import { SQLifting } from '../api/sqlifting'
+import useBoxControl from '../src/hooks/useBoxControl';
+import useUpdate from '../src/hooks/useUpdate';
+import useReset from '../src/hooks/useReset';
+import { SQLifting } from '../src/api/sqlifting'
 
 const WorkoutBuilder = () => {
   const [{

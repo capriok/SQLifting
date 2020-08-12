@@ -1,10 +1,11 @@
-@import "../../index.scss";
+@import "../index.scss";
 
 .main {
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%);
 	@include flex;
+	justify-content: flex-start;
 	align-items: flex-start;
 	width: 100vw;
 	padding: 0 20px;

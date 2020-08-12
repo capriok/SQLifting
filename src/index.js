@@ -72,7 +72,7 @@ export default function Index() {
   console.log('%cWelcome to SQLifting', 'color: white; font-family: Verdana; font-size: 1.5rem; border-bottom: 2px solid lightskyblue; margin: 20px 0');
 
   if (process.env.NODE_ENV === 'production') console.log = () => { }
-
+  console.log = () => { }
   log('-------------------------TASKS-------------------------')
   log('- Severity of bugs in current code base: 4/5')
   log('- Get nextId at component level of exco or woco builders, currently firing on ea click')
