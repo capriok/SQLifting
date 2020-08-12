@@ -1,12 +1,17 @@
 @import "../../index.scss";
 
 .sidebar {
+	cursor: default;
 	user-select: none;
 	position: sticky;
+	top: 0;
 	flex: 1;
-	padding: 0 10px;
-	top: 60px;
-	cursor: default;
+	.sql {
+		font-size: 2.2rem;
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+		border-bottom: 2px solid steelblue;
+	}
 	h1 {
 		cursor: pointer;
 	}
@@ -22,11 +27,13 @@
 		}
 		padding: 0px 20px;
 		li {
+			color: black;
 			padding: 3px;
 			margin: 0;
+			padding-left: 10px;
 			letter-spacing: 1px;
-			* {
-			}
+			border-left: 2px solid steelblue;
+			text-decoration: none;
 		}
 	}
 }

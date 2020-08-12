@@ -47,8 +47,8 @@ function App() {
   return (
     <>
       <Router>
+        {/* <Navbar /> */}
         <Layout>
-          <Navbar />
           <Sidebar />
           <Keystone />
         </Layout>

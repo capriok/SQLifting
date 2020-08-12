@@ -4,7 +4,7 @@ import styles from './styles/workout.module.scss'
 const Workout = () => {
 	return (
 		<>
-			<h1 className={styles.workout}>workout</h1>
+			<h1 className={styles.workout}>Workout</h1>
 		</>
 	)
 }

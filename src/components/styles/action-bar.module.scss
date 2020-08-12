@@ -1,4 +1,20 @@
-@import "../index.scss";
+@import "../../index.scss";
+
+.btn {
+	button {
+		margin-left: 10px;
+		cursor: pointer;
+	}
+}
 
 .actionbar {
+	z-index: 2;
+	position: sticky;
+	top: 0;
+	@include flex;
+	justify-content: space-between;
+	width: 100%;
+	max-height: 60px;
+	background-color: $body;
+	border-bottom: 2px solid steelblue;
 }
