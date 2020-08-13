@@ -1,14 +1,14 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useStateValue } from './state'
-import LogBox from './views/logger'
+// import LogBox from './views/logger'
 import useUpdate from './hooks/useUpdate';
 
 import Layout from './layouts/layout'
 import Keystone from './views/keystone';
 import Sidebar from './components/sidebar';
-import Navbar from './components/navbar'
 
 function App() {
   const [{
@@ -17,12 +17,6 @@ function App() {
     composites: { excos, wocos, circs }
   }, dispatch] = useStateValue()
   const update = useUpdate()
-
-  const [pickedWorkout, setPickedWorkout] = useState({
-    id: undefined,
-    name: undefined,
-    deps: []
-  })
 
   useEffect(() => {
     if (isAuthenticated) update('all')
@@ -46,13 +40,12 @@ function App() {
 
   return (
     <>
-      <Router>
-        {/* <Navbar /> */}
-        <Layout>
+      <Layout>
+        <Router>
           <Sidebar />
           <Keystone />
-        </Layout>
-      </Router>
+        </Router>
+      </Layout>
     </>
   );
 }

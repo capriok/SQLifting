@@ -1,6 +1,10 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React from 'react'
-import views from '../styles/views.module.scss'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import views from '../styles/views.module.scss'
+
+import RouteHandler from '../utils/routeHandler'
 
 import Manage from './manage'
 import Assemble from './assemble'
@@ -20,20 +24,8 @@ const Keystone = () => {
 		{
 			path: "/workout",
 			component: Workout
-		},
-		// {
-		// 	path: "/",
-		// 	component: '',
-		// routes: [
-		// 	{
-		// 		path: "/''/''",
-		// 		component: ''
-		// 	}
-		// ]
-		// }
+		}
 	]
-
-
 	return (
 		<>
 			<div className={views.keystone}>
@@ -41,7 +33,7 @@ const Keystone = () => {
 				<div className={views.keyscroll}>
 					<Switch>
 						{routes.map((route, i) => (
-							<RouteWithSubRoutes key={i} {...route} />
+							<RouteHandler key={i} {...route} />
 						))}
 					</Switch>
 				</div>
@@ -51,13 +43,3 @@ const Keystone = () => {
 }
 
 export default Keystone
-
-const RouteWithSubRoutes = (route) => (
-	<Route
-		path={route.path}
-		render={props => (
-			// pass the sub-routes down to keep nesting
-			<route.component {...props} routes={route.routes} />
-		)}
-	/>
-)

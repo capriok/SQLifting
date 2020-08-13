@@ -1,10 +1,26 @@
 @import "../index.scss";
 
 .entity {
-	width: 20px;
+	cursor: pointer;
+	user-select: none;
+	width: 30%;
+	height: 40px;
+	margin: 10px;
 	border: 1px solid steelblue;
+	border-radius: 5px;
+	p {
+		@include flex;
+		margin: 0;
+		height: 100%;
+	}
+	&:hover {
+		background-color: rgb(198, 206, 212);
+	}
 }
 
 .manage {
 	width: 100%;
+	@include flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
 }
