@@ -6,6 +6,7 @@ import views from '../styles/views.module.scss'
 
 import RouteHandler from '../utils/routeHandler'
 
+import Authenticate from './authenticate'
 import Manage from './manage'
 import Assemble from './assemble'
 import Workout from './workout'
@@ -30,6 +31,8 @@ const Keystone = () => {
 		<>
 			<div className={views.keystone}>
 				<Actionbar />
+				{/* <Authenticate /> */}
+
 				<div className={views.keyscroll}>
 					<Switch>
 						{routes.map((route, i) => (

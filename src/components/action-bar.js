@@ -6,8 +6,6 @@ import styles from '../styles/action-bar.module.scss'
 
 const ActionBTN = (props) => <span className={styles.btn}><button  {...props}>{props.title}</button></span>
 
-let query = window.location.pathname.split('/')[3]
-
 const Actionbar = () => {
 	const [{ active },] = useStateValue()
 	const [title, setTitle] = useState('')

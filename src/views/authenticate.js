@@ -4,7 +4,7 @@ import { Button, Input } from 'godspeed'
 
 import { SQLiftingAcc } from '../api/sqlifting'
 
-const LogBox = () => {
+const Authenticate = () => {
   const [, dispatch] = useStateValue()
   const [register, setRegister] = useState(false)
   const [formTitle, setTitle] = useState('Login')
@@ -92,4 +92,4 @@ const LogBox = () => {
   )
 }
 
-export default LogBox
+export default Authenticate

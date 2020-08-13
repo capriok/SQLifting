@@ -124,17 +124,6 @@ export default function Index() {
     log('')
   }
 
-  // useEffect(() => {
-  //   let path = window.location.pathname.split('/')[2]
-  //   let query = window.location.pathname.split('/')[3]
-  //   console.log('PAHT', path);
-  //   console.log('QUERY', query);
-  //   initialState.performer = {
-  //     name: query.capitalize(),
-  //     payload: initialState[path]
-  //   }
-  //   console.log('PERFORMER', initialState.performer);
-  // }, [initialState.performer])
   return (
     <>
       <StateProvider initialState={initialState} reducer={reducer}>

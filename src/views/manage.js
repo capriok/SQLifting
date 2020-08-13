@@ -7,7 +7,7 @@ import styles from '../styles/manage.module.scss'
 import useActiveByPath from '../hooks/useActiveByPath'
 
 const Manage = () => {
-	const [{ active },] = useStateValue()
+	const [{ active }] = useStateValue()
 	const activeByPath = useActiveByPath()
 	const [stage, setStage] = useState([])
 
@@ -18,7 +18,7 @@ const Manage = () => {
 	return (
 		<div className={styles.manage}>
 			{stage.map((ent, i) => (
-				<div className={styles.entity} key={i} ><p>{ent.name}</p></div>
+				<div className={styles.entity} key={i}><p>{ent.name}</p></div>
 			))}
 		</div>
 	)

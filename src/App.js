@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useStateValue } from './state'
-// import LogBox from './views/logger'
 import useUpdate from './hooks/useUpdate';
 
 import Layout from './layouts/layout'
