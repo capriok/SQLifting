@@ -1,0 +1,71 @@
+@import "../index.scss";
+
+.logbox {
+	@include flex;
+	width: 100%;
+	height: 100vh;
+	flex-direction: column;
+	main {
+		$h: 400px;
+		$w: 300px;
+		position: relative;
+		overflow: hidden;
+		@include flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		height: $h;
+		width: $w;
+		padding: 10px;
+		border-radius: 10px;
+		.bg {
+			z-index: -1;
+			position: absolute;
+			top: 0;
+			opacity: 0.2;
+			height: $h;
+			width: $w;
+			background-image: url("../gallery/blurred.jpg");
+			background-size: cover;
+			background-color: $body;
+		}
+		h1 {
+			border-bottom: 2px solid steelblue;
+			text-align: center;
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+			width: 100%;
+		}
+		form {
+			margin: auto 0;
+			@include flex;
+			flex-direction: column;
+			label {
+				@include flex;
+				justify-content: center;
+				align-items: center;
+				img {
+					user-select: none;
+					width: 20px;
+					margin-right: 10px;
+				}
+				input {
+					margin: 5px 0;
+					background-color: rgba(
+						159,
+						183,
+						214,
+						0.404
+					);
+				}
+			}
+			button {
+				margin-top: 20px;
+				width: 100%;
+			}
+		}
+		p {
+			margin-top: auto;
+			cursor: pointer;
+		}
+	}
+}

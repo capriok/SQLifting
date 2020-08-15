@@ -3,11 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useStateValue } from './state'
-import useUpdate from './hooks/useUpdate';
 
+import Authenticate from './views/authenticate'
 import Layout from './layouts/layout'
 import Keystone from './views/keystone';
 import Sidebar from './components/sidebar';
+
+import useUpdate from './hooks/useUpdate';
 
 function App() {
   const [{
@@ -41,8 +43,9 @@ function App() {
     <>
       <Layout>
         <Router>
-          <Sidebar />
-          <Keystone />
+          <Authenticate />
+          {/* <Sidebar />
+          <Keystone /> */}
         </Router>
       </Layout>
     </>

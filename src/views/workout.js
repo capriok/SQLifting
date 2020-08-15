@@ -1,4 +1,5 @@
 import React from 'react'
+
 import styles from '../styles/workout.module.scss'
 
 const Workout = () => {

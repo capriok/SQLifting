@@ -1,8 +1,16 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
 import { useStateValue } from '../state'
 import { Button, Input } from 'godspeed'
 
+import styles from '../styles/logbox.module.scss'
+
 import { SQLiftingAcc } from '../api/sqlifting'
+
+import person from '../gallery/person-black.png'
+import secure from '../gallery/lock-black.png'
+import blurred from '../gallery/blurred.jpg'
 
 const Authenticate = () => {
   const [, dispatch] = useStateValue()
@@ -69,24 +77,38 @@ const Authenticate = () => {
 
   return (
     <>
-      <div className="log-box">
-        <header><h1>{formTitle}</h1></header>
-        <section>
+      <div className={styles.logbox}>
+        <main>
+          <h1>{formTitle}</h1>
           <form onSubmit={(e) => formSubmit(e)}>
-            <div>
-              <Input placeholder="Username" value={form.username}
-                onChange={(e) => setForm({ ...form, username: e.target.value.replace(/[^a-z]/ig, '').toLowerCase() })} />
-              <Input placeholder="Password" value={form.password} type="text"
-                onChange={(e) => setForm({ ...form, password: e.target.value.replace(/[^a-z0-9]/ig, '') })} />
-            </div>
-            <div>
-              <Button text={!register ? 'Login' : 'Register'} onClick={() => { }} />
-            </div>
+            <label>
+              <img src={person} alt="" />
+              <Input placeholder="Username"
+                value={form.username}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    username: e.target.value.replace(/[^a-z]/ig, '').toLowerCase()
+                  })} />
+            </label>
+            <label>
+              <img src={secure} alt="" />
+              <Input placeholder="Password"
+                value={form.password}
+                type="text"
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    password: e.target.value.replace(/[^a-z0-9]/ig, '')
+                  })} />
+            </label>
+            <Button text={!register ? 'Login' : 'Register'} onClick={() => { }} />
           </form>
           <p onClick={() => { setRegister(!register); register ? setTitle('Login') : setTitle('Create Account') }}>
             {!register ? 'Dont have an account?' : 'Login with credentials'}
           </p>
-        </section>
+          <div className={styles.bg}></div>
+        </main>
       </div>
     </>
   )
