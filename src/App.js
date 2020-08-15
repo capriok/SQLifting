@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { useStateValue } from './state'
 import { Navbar, NavLink } from 'godspeed'
+
 import DatabaseManager from './components/database-manager'
 import ExerciseBuilder from './components/exercise-builder'
 import WorkoutBuilder from './components/workout-builder'
 import BuiltWorkouts from './components/built-workouts'
 import InProgress from './components/in-progress'
 import LogBox from './components/log-box'
+
 import useUpdate from './hooks/useUpdate';
 
 function App() {
