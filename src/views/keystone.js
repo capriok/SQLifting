@@ -10,6 +10,7 @@ import Manage from './manage'
 import Assemble from './assemble'
 import Workout from './workout'
 import Actionbar from '../components/action-bar'
+import Authenticate from '../components/authenticate'
 
 const Keystone = () => {
 	const routes = [

@@ -1,10 +1,10 @@
 @import "../index.scss";
 
-.logbox {
+.authbox {
 	@include flex;
+	flex-direction: column;
 	width: 100%;
 	height: 100vh;
-	flex-direction: column;
 	main {
 		$h: 400px;
 		$w: 300px;
@@ -21,10 +21,10 @@
 			z-index: -1;
 			position: absolute;
 			top: 0;
-			opacity: 0.2;
+			opacity: 0.3;
 			height: $h;
 			width: $w;
-			background-image: url("../gallery/blurred.jpg");
+			background-image: url("../gallery/authbox_blur.jpg");
 			background-size: cover;
 			background-color: $body;
 		}

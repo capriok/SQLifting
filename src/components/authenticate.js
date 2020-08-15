@@ -4,13 +4,12 @@ import React, { useState } from 'react'
 import { useStateValue } from '../state'
 import { Button, Input } from 'godspeed'
 
-import styles from '../styles/logbox.module.scss'
+import styles from '../styles/authbox.module.scss'
 
 import { SQLiftingAcc } from '../api/sqlifting'
 
-import person from '../gallery/person-black.png'
-import secure from '../gallery/lock-black.png'
-import blurred from '../gallery/blurred.jpg'
+import person from '../gallery/authbox_person.png'
+import lock from '../gallery/authbox_lock.png'
 
 const Authenticate = () => {
   const [, dispatch] = useStateValue()
@@ -57,7 +56,7 @@ const Authenticate = () => {
           }
         })
       })
-      .then(() => window.location.pathname = '/database')
+      .then(() => window.location.pathname = '/')
       .catch(error => {
         console.log(error);
         setTitle('Invalid Credentials')
@@ -77,7 +76,7 @@ const Authenticate = () => {
 
   return (
     <>
-      <div className={styles.logbox}>
+      <div className={styles.authbox}>
         <main>
           <h1>{formTitle}</h1>
           <form onSubmit={(e) => formSubmit(e)}>
@@ -92,10 +91,10 @@ const Authenticate = () => {
                   })} />
             </label>
             <label>
-              <img src={secure} alt="" />
+              <img src={lock} alt="" />
               <Input placeholder="Password"
                 value={form.password}
-                type="text"
+                type="password"
                 onChange={(e) =>
                   setForm({
                     ...form,

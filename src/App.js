@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useStateValue } from './state'
 
-import Authenticate from './views/authenticate'
+import Authenticate from './components/authenticate'
 import Layout from './layouts/layout'
 import Keystone from './views/keystone';
 import Sidebar from './components/sidebar';
 
 import useUpdate from './hooks/useUpdate';
+import { Navbar, NavLink } from 'godspeed';
+import Landing from './layouts/landing';
 
 function App() {
   const [{
@@ -41,13 +43,24 @@ function App() {
 
   return (
     <>
-      <Layout>
-        <Router>
+      <Router>
+        {!isAuthenticated && <>
+          <Route exact path='/' render={() => (
+            <Landing />
+          )} />
+        </>}
+        <Route path='/' render={() => (
+          <Layout>
+            {isAuthenticated && <>
+              <Sidebar />
+              <Keystone />
+            </>}
+          </Layout>
+        )} />
+        <Route path='/login' render={() => (
           <Authenticate />
-          {/* <Sidebar />
-          <Keystone /> */}
-        </Router>
-      </Layout>
+        )} />
+      </Router>
     </>
   );
 }
