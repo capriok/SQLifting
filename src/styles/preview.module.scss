@@ -9,36 +9,41 @@
 	color: white;
 	width: 100%;
 	padding: 10px;
+	padding-bottom: 20px;
 	margin-top: 10px;
 	border-radius: 5px;
 	background-color: rgba(0, 0, 0, 0.9);
-	.title {
-		text-align: center;
-		padding-bottom: 10px;
-		border-bottom: 2px solid steelblue;
-		font-size: 1.2rem;
+	* {
+		font-weight: 300;
 	}
 	ul {
-		margin: 5px 0;
-		padding-left: 20px;
+		margin: 0;
+		padding: 3px 0 3px 20px;
 		li {
 			cursor: default;
 		}
 	}
+	span {
+		color: rgb(96, 171, 221);
+		font-size: 0.9rem;
+		margin-left: 2px;
+	}
+	.title {
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 2px solid steelblue;
+		font-weight: 400;
+		font-size: 1.2rem;
+	}
 	.dep {
+		font-weight: 400;
 		font-size: 1.1rem;
 		margin: 0;
 		margin-top: 20px;
 	}
-	span {
-		color: rgb(91, 160, 206);
-		font-size: 0.9rem;
-		margin-left: 2px;
-	}
 	.detail {
-		margin: 5px 0;
-	}
-	.subdep {
-		margin: 5px 0;
+		margin: 0;
+		font-weight: 400;
+		margin-top: 5px;
 	}
 }

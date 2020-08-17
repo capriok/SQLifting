@@ -3,7 +3,6 @@ import { useStateValue } from '../state'
 import { SQLifting, installProps } from '../api/sqlifting'
 
 const log = (message, log) => console.log(`%c${message}`, 'color: lightskyblue', log)
-
 const useUpdate = () => {
   const [{ user: { details: { uid } }, composites, compositions
   }, dispatch] = useStateValue()
@@ -29,15 +28,32 @@ const useUpdate = () => {
 
   const updateCompositions = (params) => {
     SQLifting.get('/get/compositions', { params: params })
-      .then(res => {
+      .then(async res => {
         let final = installProps(res)
         log('Compositions returned', final)
-        dispatch({
-          type: "COMPOSITION_ACTION",
-          compositions: { ...compositions, ...final }
-        })
+        await attachOccurrences(final)
+
       })
       .catch(err => console.log(err))
+  }
+
+  const attachOccurrences = (semiFinal) => {
+    let final = { ...semiFinal }
+    let keys = Object.keys(final)
+    keys.forEach(key => {
+      final[key].forEach((ent, i) => {
+        SQLifting.get('/get/occurrences', { params: { table: key.slice(0, -1), entId: ent.id } })
+          .then(res => {
+            let occArr = []
+            res.data.forEach(occ => occArr.push(occ.name))
+            final[key][i].occ = occArr
+          })
+      })
+    })
+    dispatch({
+      type: "COMPOSITION_ACTION",
+      compositions: { ...compositions, ...final }
+    })
   }
 
   const updateComposites = (params) => {

@@ -43,7 +43,6 @@ const Authenticate = () => {
       password: form.password
     })
       .then(async res => {
-        console.log(res);
         setTitle(`Welcome ${res.data.user.name.capitalize()}`)
         localStorage.setItem('SQLifting-token', res.data.token)
         localStorage.setItem('SQLifting-user', JSON.stringify(res.data.user))
@@ -56,6 +55,7 @@ const Authenticate = () => {
           }
         })
       })
+      .then(() => window.location.href = '/')
       .catch(error => {
         console.log(error);
         setTitle('Invalid Credentials')
