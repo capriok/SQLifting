@@ -114,7 +114,7 @@ export default function Index() {
           width: '100vw',
           height: '100vh',
         }}>
-          <h1>Down for mainenance</h1>
+          <h1>Down for maintenance</h1>
           <br />
           <p>Check back soon</p>
         </div>
