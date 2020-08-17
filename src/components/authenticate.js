@@ -33,7 +33,7 @@ const Authenticate = () => {
       })
       .catch(error => {
         console.log(error);
-        setTitle('idk')
+        // setTitle('idk')
       })
   }
 
@@ -56,7 +56,6 @@ const Authenticate = () => {
           }
         })
       })
-      .then(() => window.location.pathname = '/')
       .catch(error => {
         console.log(error);
         setTitle('Invalid Credentials')

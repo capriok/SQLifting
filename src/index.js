@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { StateProvider } from "./state";
 import App from './App';
-import './App.scss';
 import './Index.scss';
 
 import 'react-tippy/dist/tippy.css'
@@ -41,6 +40,20 @@ export default function Index() {
       parent: {},
       entity: '',
       pathname: '',
+    },
+    actionState: {
+      select: {
+        state: false,
+        selection: []
+      },
+      edit: {
+        state: false,
+        entity: {
+          type: '',
+          entType: '',
+          ent: {}
+        }
+      }
     }
   }
 
@@ -77,6 +90,29 @@ export default function Index() {
         return {
           ...state,
           active: action.active
+        };
+      case "ACTIONSTATE_ACTION":
+        return {
+          ...state,
+          actionState: action.actionState
+        };
+      case "ACTIONSTATE_RESET":
+        return {
+          ...state,
+          actionState: {
+            select: {
+              state: false,
+              selection: []
+            },
+            edit: {
+              state: false,
+              entity: {
+                type: '',
+                entType: '',
+                ent: {}
+              }
+            }
+          }
         };
       default:
         return state;

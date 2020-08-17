@@ -4,13 +4,12 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import RouteHandler from '../utils/routeHandler'
 
-import views from '../styles/views.module.scss'
+import styles from '../styles/views.module.scss'
 
 import Manage from './manage'
 import Assemble from './assemble'
 import Workout from './workout'
 import Actionbar from '../components/action-bar'
-import Authenticate from '../components/authenticate'
 
 const Keystone = () => {
 	const routes = [
@@ -29,7 +28,7 @@ const Keystone = () => {
 	]
 	return (
 		<>
-			<div className={views.keystone}>
+			<div className={styles.keystone}>
 				<Actionbar />
 				<Switch>
 					{routes.map((route, i) => (

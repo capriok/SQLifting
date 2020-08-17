@@ -10,7 +10,6 @@ import Keystone from './views/keystone';
 import Sidebar from './components/sidebar';
 
 import useUpdate from './hooks/useUpdate';
-import { Navbar, NavLink } from 'godspeed';
 import Landing from './layouts/landing';
 
 function App() {
@@ -57,88 +56,14 @@ function App() {
             </>}
           </Layout>
         )} />
-        <Route path='/login' render={() => (
-          <Authenticate />
-        )} />
+        {!isAuthenticated && <>
+          <Route path='/login' render={() => (
+            <Authenticate />
+          )} />
+        </>}
       </Router>
     </>
   );
 }
 
-
 export default App
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// return (
-//   <>
-//     <Router>
-//       <Navbar className="navbar" title="SQLifting" titleWeight="300" shadow>
-//         {isAuthenticated &&
-//           <NavLink hover="steelblue" onClick={() => logoutActions()}>
-//             Logout
-//         </NavLink>
-//         }
-//       </Navbar>
-//       <div className="app">
-//         <div className="action-bar">
-//           {isAuthenticated
-//             ? <>
-//               <Link className="item" to="/database">Database Manager</Link>
-//               <Link className="item" to="/exercise-builder">Exercise Builder</Link>
-//               <Link className="item" to="/workout-builder">Workout Builder</Link>
-//               <Link className="item" to="/workouts">Built Workouts</Link>
-//             </>
-//             : <div className="greeting">Welcome to SQLifting</div>
-//           }
-//         </div>
-//         {isAuthenticated
-//           ? <>
-//             <Route path="/database" render={() => (
-//               <DatabaseManager />
-//             )} />
-//             <Route exact path="/exercise-builder" render={() => (
-//               <ExerciseBuilder />
-//             )} />
-//             <Route exact path="/workout-builder" render={() => (
-//               <WorkoutBuilder />
-//             )} />
-//             <Route exact path="/workouts" render={() => (
-//               <BuiltWorkouts
-//                 workout={pickedWorkout}
-//                 setWorkout={setPickedWorkout} />
-//             )} />
-//             <Route exact path="/workout-in-progress" render={() => (
-//               <InProgress />
-//             )} />
-//           </>
-//           : <LogBox />
-//         }
-//       </div>
-//     </Router>
-//   </>
-// );

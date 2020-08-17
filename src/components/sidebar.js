@@ -18,8 +18,8 @@ const Sidebar = () => {
 			{ name: 'Movements', pathname: '/compositions/movements', parent: compositions, entity: 'movements' }
 		],
 		composites: [
-			{ name: 'Circuits', pathname: '/composites/circuits', parent: composites, entity: 'circs' },
 			{ name: 'Exercises', pathname: '/composites/exercises', parent: composites, entity: 'excos' },
+			{ name: 'Circuits', pathname: '/composites/circuits', parent: composites, entity: 'circs' },
 			{ name: 'Workouts', pathname: '/composites/workouts', parent: composites, entity: 'wocos' }
 		]
 	}
@@ -71,7 +71,7 @@ const Sidebar = () => {
 					))}
 				</ul>
 				<br />
-				<h1>Assembly</h1>
+				<h1>Assemble</h1>
 				<ul className={styles.panel}>
 					{assembler.composites.map((op, i) => (
 						<Link key={i}

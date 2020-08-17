@@ -87,7 +87,7 @@ const useUpdate = () => {
       let exco_id = exco.id
       SQLifting.get('/get/exco_deps', { params: { exco_id } })
         .then(res => {
-          exco.deps = res.data
+          exco.deps = res.data[0]
         })
         .catch(err => console.log(err))
     })

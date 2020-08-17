@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../state'
 
 import styles from '../styles/landing.module.scss'
 
@@ -11,7 +10,6 @@ import manage from '../gallery/landing_manage.png'
 import workout from '../gallery/landing_workout.png'
 
 const Landing = () => {
-	const [{ user: { isAuthenticated, details: { username } } }] = useStateValue()
 	return (
 		<div className={styles.landing}>
 			<nav>

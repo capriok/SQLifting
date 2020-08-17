@@ -1,26 +1,39 @@
 @import "../index.scss";
 
-.entity {
-	cursor: pointer;
-	user-select: none;
-	width: 30%;
-	height: 40px;
-	margin: 10px;
-	border: 1px solid steelblue;
-	border-radius: 5px;
-	p {
-		@include flex;
-		margin: 0;
-		height: 100%;
-	}
-	&:hover {
-		background-color: rgb(198, 206, 212);
-	}
-}
-
 .manage {
 	width: 100%;
 	@include flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
+	align-items: flex-start;
+	.entities {
+		flex: 2;
+		width: 25%;
+		@include flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		.entity {
+			cursor: pointer;
+			user-select: none;
+			width: 45%;
+			height: 40px;
+			margin: 10px;
+			border: 1px solid steelblue;
+			border-radius: 5px;
+			color: white;
+			background-color: rgba(0, 0, 0, 0.9);
+			p {
+				@include flex;
+				margin: 0;
+				height: 100%;
+			}
+			&:hover {
+				background-color: rgb(42, 42, 42);
+			}
+		}
+		.activeENT {
+			background-color: $entity-bg;
+			&:hover {
+				background-color: $entity-bg;
+			}
+		}
+	}
 }
