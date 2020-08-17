@@ -2,12 +2,11 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
-
 import styles from '../styles/action-bar.module.scss'
 
-import useActionBarActions from '../hooks/useActionBarActions'
+import { Button } from 'godspeed'
 
-const ActionBTN = (props) => <span className={styles.btn}><button {...props}>{props.title}</button></span>
+import useActionBarActions from '../hooks/useActionBarActions'
 
 const Actionbar = () => {
 	const [{ active, actionState }, dispatch] = useStateValue()
@@ -28,9 +27,9 @@ const Actionbar = () => {
 			<div className={styles.actionbar}>
 				<h1>{title}</h1>
 				<div className={styles.actions}>
-					<ActionBTN title="Edit" onClick={() => toggle('edit')} />
-					<ActionBTN title="Select" onClick={() => toggle('select')} />
-					<ActionBTN title="Delete" disabled={true} />
+					<Button text="Edit" size="xsm" onClick={() => toggle('edit')} />
+					<Button text="Select" size="xsm" onClick={() => toggle('select')} />
+					<Button text="Delete" size="xsm" onClick={() => { }} disabled />
 				</div>
 			</div>
 		</>

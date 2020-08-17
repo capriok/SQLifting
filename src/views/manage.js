@@ -46,7 +46,11 @@ const Manage = () => {
 			<div className={styles.manage}>
 				<div className={styles.entities}>
 					{entities.map((ent, i) => (
-						<div key={i} className={entityClass(ent.id)} onClick={() => set(ent)}><p>{ent.name}</p></div>
+						<div key={i} className={styles.cont}>
+							<div className={entityClass(ent.id)} onClick={() => set(ent)}>
+								<p>{ent.name}</p>
+							</div>
+						</div>
 					))}
 				</div>
 				{actionState.edit.state

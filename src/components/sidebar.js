@@ -45,49 +45,55 @@ const Sidebar = () => {
 		})
 	}
 
+	const activeLI = pathname => {
+		console.log(pathname);
+		let path = window.location.pathname.split('/').slice(1)
+		let windowPath = `/${path[0]}/${path[1]}/${path[2]}`
+		console.log(windowPath);
+		return pathname === windowPath ? styles.activeLI : null
+	}
+
 	return (
 		<>
 			<div className={styles.sidebar}>
 				<h1 className={styles.sql}>SQLifting</h1>
 				<h1>Manage</h1>
-				<h3>Compositions</h3>
-				<ul className={styles.panel}>
+				<p>Compositions</p>
+				<ul>
 					{manager.compositions.map((op, i) => (
 						<Link key={i}
 							to={`${manager.pathname}${op.pathname}`}
 							onClick={() => CTX(op)}>
-							<li>{op.name}</li>
+							<li className={activeLI(`${manager.pathname}${op.pathname}`)}>{op.name}</li>
 						</Link>
 					))}
 				</ul>
-				<h3>Composites</h3>
-				<ul className={styles.panel}>
+				<p>Composites</p>
+				<ul>
 					{manager.composites.map((op, i) => (
 						<Link key={i}
 							to={`${manager.pathname}${op.pathname}`}
 							onClick={() => CTX(op)}>
-							<li>{op.name}</li>
+							<li className={activeLI(`${manager.pathname}${op.pathname}`)}>{op.name}</li>
 						</Link>
 					))}
 				</ul>
-				<br />
 				<h1>Assemble</h1>
-				<ul className={styles.panel}>
+				<ul>
 					{assembler.composites.map((op, i) => (
 						<Link key={i}
 							to={`${assembler.pathname}${op.pathname}`}
 							onClick={() => CTX(op)}>
-							<li>{op.name}</li>
+							<li className={activeLI(`${assembler.pathname}${op.pathname}`)}>{op.name}</li>
 						</Link>
 					))
 					}
 				</ul >
-				<br />
 				<h1 >Workout</h1>
-				<ul className={styles.panel}>
+				<ul>
 					<Link to={'/workout'}><li>Go</li></Link>
 				</ul>
-			</div >
+			</div>
 		</>
 	)
 }

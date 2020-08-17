@@ -12,33 +12,43 @@
 		font-size: 2.2rem;
 		height: 60px;
 		margin: 0;
+		padding: 0;
 		padding-top: 15px;
 		padding-bottom: 0;
 		max-height: 60px;
 		border-bottom: 2px solid steelblue;
+		background-color: transparent;
 	}
 	h1 {
 		cursor: pointer;
+		font-size: 1.8rem;
+		margin-bottom: 10px;
 	}
-	h3 {
-		letter-spacing: 1.5px;
-		font-weight: 500;
-		font-weight: 400;
+	p {
+		padding: 0;
+		padding-top: 5px;
+		margin-top: 5px;
 		margin-bottom: 0px;
+		border-radius: 5px;
 	}
-	.panel {
-		p {
-			margin: 0;
-		}
-		padding: 0px 20px;
+	ul {
+		padding-right: 0;
+		padding-left: 10px;
+		margin: 0;
+		margin: 10px 5px;
+		width: fit-content;
 		li {
 			color: black;
-			padding: 3px;
-			margin: 0;
+			padding: 0;
+			padding-top: 5px;
 			padding-left: 10px;
-			letter-spacing: 1px;
-			border-left: 2px solid steelblue;
 			text-decoration: none;
+			border-left: 2px solid steelblue;
+			transition: 0.1s;
+		}
+		.activeLI {
+			transition: 0.1s;
+			padding-left: 20px;
 		}
 	}
 }

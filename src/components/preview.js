@@ -65,16 +65,20 @@ const Preview = ({ preview: { type, entType, ent } }) => {
 						{ent.circ.length > 0 && <>
 							<p className={styles.dep}>Circuits</p>
 							<ul>
-								{ent.circ.map((dep, i) => (
-									<div key={i}>
-										<li className={styles.detail}>{dep.name}: <span>{dep.reps}</span></li>
-										<ul>
-											{dep.deps.map((dep, i) => (
-												<li key={i}>{dep.name}: <span>{dep.duration}</span></li>
-											))}
-										</ul>
-									</div>
-								))}
+								{ent.circ.map((dep, i) => {
+									let amount = parseInt(dep.reps)
+									let reps = amount === 1 ? 'round' : 'rounds'
+									return (
+										<div key={i}>
+											<li className={styles.detail}>{dep.name}: <span>{amount} {reps}</span></li>
+											<ul>
+												{dep.deps.map((dep, i) => (
+													<li key={i}>{dep.name}: <span>{dep.duration}</span></li>
+												))}
+											</ul>
+										</div>
+									)
+								})}
 							</ul>
 						</>}
 					</div>
