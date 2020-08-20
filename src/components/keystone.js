@@ -4,12 +4,12 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import RouteHandler from '../utils/routeHandler'
 
-import styles from '../styles/views.module.scss'
+import styles from '../styles/main.module.scss'
 
-import Manage from './manage'
-import Assemble from './assemble'
-import Workout from './workout'
-import Actionbar from '../components/action-bar'
+import Manage from '../views/manage'
+import Assemble from '../views/assemble'
+import Workout from '../views/workout'
+import Actionbar from './action-bar'
 
 const Keystone = () => {
 	const routes = [

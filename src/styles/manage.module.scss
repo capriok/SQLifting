@@ -10,7 +10,8 @@
 		@include flex;
 		justify-content: flex-start;
 		flex-wrap: wrap;
-		padding: 0 20px;
+		padding: 0 10px;
+		margin-bottom: 10px;
 		.cont {
 			@include flex;
 			flex: 1;

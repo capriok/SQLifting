@@ -2,16 +2,18 @@
 
 .prevnull {
 	flex: 1;
-	padding: 0 10px;
+	padding: 0 20px;
 }
 .preview {
 	flex: 1;
-	color: white;
+	position: sticky;
+	top: 140px;
 	width: 100%;
 	padding: 10px;
 	padding-bottom: 20px;
-	margin-top: 10px;
+	margin-right: 20px;
 	border-radius: 5px;
+	color: white;
 	background-color: rgba(0, 0, 0, 0.9);
 	* {
 		font-weight: 300;

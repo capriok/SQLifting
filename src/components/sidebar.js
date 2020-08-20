@@ -46,17 +46,14 @@ const Sidebar = () => {
 	}
 
 	const activeLI = pathname => {
-		console.log(pathname);
 		let path = window.location.pathname.split('/').slice(1)
 		let windowPath = `/${path[0]}/${path[1]}/${path[2]}`
-		console.log(windowPath);
 		return pathname === windowPath ? styles.activeLI : null
 	}
 
 	return (
 		<>
 			<div className={styles.sidebar}>
-				<h1 className={styles.sql}>SQLifting</h1>
 				<h1>Manage</h1>
 				<p>Compositions</p>
 				<ul>

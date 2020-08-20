@@ -1,16 +1,24 @@
 @import "../index.scss";
+$half: translate(-50%);
 
 .main {
 	position: absolute;
+	top: 0;
 	left: 50%;
-	transform: translate(-50%);
+	transform: $half;
 	@include flex;
 	justify-content: flex-start;
 	align-items: flex-start;
+	align-self: stretch;
 	width: 100vw;
+	padding-top: 70px;
 	max-width: $max-width;
 }
 
 .keystone {
 	flex: 4;
+	align-self: stretch;
+	// min-height: calc(100vh - 70px);
+	margin-left: 10px;
+	// background-color: $main;
 }

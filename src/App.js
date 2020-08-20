@@ -5,12 +5,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useStateValue } from './state'
 
 import Authenticate from './components/authenticate'
-import Layout from './layouts/layout'
-import Keystone from './views/keystone';
+import MainLayout from './layouts/main-layout'
+import Keystone from './components/keystone';
 import Sidebar from './components/sidebar';
 
 import useUpdate from './hooks/useUpdate';
-import Landing from './layouts/landing';
+import LandingLayout from './layouts/landing-layout';
 
 function App() {
   const [{
@@ -24,13 +24,6 @@ function App() {
     if (isAuthenticated) update('all')
   }, [])
 
-  const logoutActions = async () => {
-    await dispatch({ type: 'LOGOUT' })
-    localStorage.removeItem('SQLifting-token')
-    localStorage.removeItem('SQLifting-user')
-    window.location.pathname = '/'
-  }
-
   const lengthLog = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 50);
   useEffect(() => { lengthLog('Equipment', equipments) }, [equipments])
   useEffect(() => { lengthLog('Muscles', muscles) }, [muscles])
@@ -43,19 +36,24 @@ function App() {
   return (
     <>
       <Router>
-        {!isAuthenticated && <>
-          <Route exact path='/' render={() => (
-            <Landing />
+        {!isAuthenticated
+          ? <Route exact path='/' render={() => (
+            <LandingLayout />
           )} />
-        </>}
-        <Route path='/' render={() => (
-          <Layout>
-            {isAuthenticated && <>
-              <Sidebar />
-              <Keystone />
-            </>}
-          </Layout>
-        )} />
+          : <>
+            <Route exact path='/' render={() => (
+              <MainLayout>
+                <h1>sdklas</h1>
+              </MainLayout>
+            )} />
+            <Route path='/' render={() => (
+              <MainLayout>
+                <Sidebar />
+                <Keystone />
+              </MainLayout>
+            )} />
+          </>
+        }
         {!isAuthenticated && <>
           <Route path='/login' render={() => (
             <Authenticate />

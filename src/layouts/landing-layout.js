@@ -9,7 +9,7 @@ import assemble from '../gallery/landing_assemble.png'
 import manage from '../gallery/landing_manage.png'
 import workout from '../gallery/landing_workout.png'
 
-const Landing = () => {
+const LandingLayout = () => {
 	return (
 		<div className={styles.landing}>
 			<nav>
@@ -45,4 +45,4 @@ const Landing = () => {
 	)
 }
 
-export default Landing
+export default LandingLayout
