@@ -1,0 +1,46 @@
+@import "../index.scss";
+
+.sidebar {
+	z-index: 100;
+	cursor: default;
+	user-select: none;
+	position: sticky;
+	flex: 1;
+	top: 70px;
+	min-width: 250px;
+	background-color: $main;
+	padding: 0 20px;
+	padding-bottom: 10px;
+	h1 {
+		cursor: pointer;
+		font-size: 1.8rem;
+		margin-bottom: 10px;
+	}
+	p {
+		padding: 0;
+		padding-top: 5px;
+		margin-top: 5px;
+		margin-bottom: 0px;
+		border-radius: 5px;
+	}
+	ul {
+		padding-right: 0;
+		padding-left: 10px;
+		margin: 0;
+		margin: 10px 5px;
+		width: fit-content;
+		li {
+			color: black;
+			padding: 0;
+			padding-top: 5px;
+			padding-left: 10px;
+			text-decoration: none;
+			border-left: 2px solid steelblue;
+			transition: 0.1s;
+		}
+		.activeLI {
+			transition: 0.1s;
+			padding-left: 20px;
+		}
+	}
+}

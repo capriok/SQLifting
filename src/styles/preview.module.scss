@@ -1,0 +1,51 @@
+@import "../index.scss";
+
+.prevnull {
+	flex: 1;
+	padding: 0 20px;
+}
+.preview {
+	flex: 1;
+	position: sticky;
+	top: 140px;
+	width: 100%;
+	padding: 10px;
+	padding-bottom: 20px;
+	margin-right: 20px;
+	border-radius: 5px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.9);
+	* {
+		font-weight: 300;
+	}
+	ul {
+		margin: 0;
+		padding: 3px 0 3px 20px;
+		li {
+			cursor: default;
+		}
+	}
+	span {
+		color: rgb(96, 171, 221);
+		font-size: 0.9rem;
+		margin-left: 2px;
+	}
+	.title {
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 2px solid steelblue;
+		font-weight: 400;
+		font-size: 1.2rem;
+	}
+	.dep {
+		font-weight: 400;
+		font-size: 1.1rem;
+		margin: 0;
+		margin-top: 20px;
+	}
+	.detail {
+		margin: 0;
+		font-weight: 400;
+		margin-top: 5px;
+	}
+}

@@ -1,12 +1,18 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
+/*eslint no-extend-native: "off"*/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { StateProvider } from "./state";
 import App from './App';
-import './App.scss';
 import './Index.scss';
 
 import 'react-tippy/dist/tippy.css'
 import 'react-draggable-array/dist/index.css'
+
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+}
 
 export default function Index() {
   let initialState = {
@@ -28,6 +34,26 @@ export default function Index() {
       circs: [],
       excos: [],
       wocos: []
+    },
+    active: {
+      name: '',
+      parent: {},
+      entity: '',
+      pathname: '',
+    },
+    actionState: {
+      select: {
+        state: false,
+        selection: []
+      },
+      edit: {
+        state: false,
+        entity: {
+          type: '',
+          entType: '',
+          ent: {}
+        }
+      }
     }
   }
 
@@ -45,7 +71,7 @@ export default function Index() {
             isAuthenticated: false,
             token: '',
             details: {
-              user_id: undefined,
+              uid: undefined,
               username: ''
             }
           }
@@ -59,6 +85,34 @@ export default function Index() {
         return {
           ...state,
           composites: action.composites
+        };
+      case "ACTIVE_ACTION":
+        return {
+          ...state,
+          active: action.active
+        };
+      case "ACTIONSTATE_ACTION":
+        return {
+          ...state,
+          actionState: action.actionState
+        };
+      case "ACTIONSTATE_RESET":
+        return {
+          ...state,
+          actionState: {
+            select: {
+              state: false,
+              selection: []
+            },
+            edit: {
+              state: false,
+              entity: {
+                type: '',
+                entType: '',
+                ent: {}
+              }
+            }
+          }
         };
       default:
         return state;
@@ -94,10 +148,15 @@ export default function Index() {
   let LStoken = localStorage.getItem('SQLifting-token')
   let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))
   if (LStoken && LSuser) {
-    initialState.user.token = LStoken
-    initialState.user.isAuthenticated = true
-    initialState.user.details.uid = parseFloat(LSuser.uid)
-    initialState.user.details.name = LSuser.name
+    initialState.user = {
+      isAuthenticated: true,
+      token: LStoken,
+      details: {
+        uid: LSuser.uid,
+        username: LSuser.name
+      }
+    }
+
     log(`Logged in as ${initialState.user.details.name} (ID: ${initialState.user.details.uid})`);
     log('')
   }
@@ -124,7 +183,3 @@ export default function Index() {
 }
 
 ReactDOM.render(<Index />, document.getElementById('root'))
-
-String.prototype.capitalize = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-}

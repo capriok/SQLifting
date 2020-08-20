@@ -1,0 +1,31 @@
+@import "../index.scss";
+
+.navbar {
+	z-index: 100;
+	user-select: none;
+	@include flex;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	padding: 0 25px;
+	background-color: $main;
+	* {
+		color: black;
+	}
+	h1 {
+		font-size: 2.6rem;
+		margin: 25px 0;
+	}
+}
+
+.break {
+	z-index: 10;
+	position: fixed;
+	top: 60px;
+	width: 100vw;
+	height: 10px;
+	background-color: $body;
+}
