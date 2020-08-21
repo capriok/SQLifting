@@ -8,7 +8,7 @@ button {
 .actionbar {
 	z-index: 100;
 	position: sticky;
-	top: 70px;
+	top: $top;
 	@include flex;
 	justify-content: space-between;
 	width: 100%;
@@ -16,8 +16,10 @@ button {
 	max-height: 60px;
 	min-width: 800px;
 	padding: 0 20px;
+	border-radius: 5px;
+	border: $lightborder;
+	box-shadow: $soft-shadow;
 	background-color: $main;
-	border-bottom: 2px solid steelblue;
 	h1 {
 		margin-top: 20px;
 	}

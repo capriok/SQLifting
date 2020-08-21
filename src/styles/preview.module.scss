@@ -2,7 +2,7 @@
 
 .prevnull {
 	flex: 1;
-	padding: 0 20px;
+	padding: 0 0px;
 }
 .preview {
 	flex: 1;
@@ -11,9 +11,11 @@
 	width: 100%;
 	padding: 10px;
 	padding-bottom: 20px;
-	margin-right: 20px;
+	// margin-right: 20px;
+	margin-top: 10px;
 	border-radius: 5px;
 	color: white;
+	box-shadow: $soft-shadow;
 	background-color: rgba(0, 0, 0, 0.9);
 	* {
 		font-weight: 300;
@@ -26,7 +28,7 @@
 		}
 	}
 	span {
-		color: rgb(96, 171, 221);
+		color: $preview-span;
 		font-size: 0.9rem;
 		margin-left: 2px;
 	}

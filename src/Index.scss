@@ -30,11 +30,14 @@
 }
 
 $max-width: 1400px;
-$top: 60px;
+$top: 70px;
+$lightborder: 1px solid rgb(190, 190, 190);
 $body: rgb(221, 221, 221);
 $main: rgb(240, 240, 240);
-$entity-bg: rgb(10, 49, 71);
-
+$entity-idle: rgba(0, 0, 0, 0.9);
+$entity-active: rgb(20, 80, 115);
+$preview-span: rgb(100, 177, 228);
+$soft-shadow: -3px 3px 5px -5px black;
 body {
   background-color: $body;
   margin: 0;

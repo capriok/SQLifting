@@ -164,19 +164,7 @@ export default function Index() {
   return (
     <>
       <StateProvider initialState={initialState} reducer={reducer}>
-        {/* <App /> */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          width: '100vw',
-          height: '100vh',
-        }}>
-          <h1>Down for mainenance</h1>
-          <br />
-          <p>Check back soon</p>
-        </div>
+        <App />
       </StateProvider>
     </>
   );

@@ -40,19 +40,13 @@ function App() {
           ? <Route exact path='/' render={() => (
             <LandingLayout />
           )} />
-          : <>
-            <Route exact path='/' render={() => (
-              <MainLayout>
-                <h1>sdklas</h1>
-              </MainLayout>
-            )} />
-            <Route path='/' render={() => (
-              <MainLayout>
-                <Sidebar />
-                <Keystone />
-              </MainLayout>
-            )} />
-          </>
+          :
+          <Route path='/' render={() => (
+            <MainLayout>
+              <Sidebar />
+              <Keystone />
+            </MainLayout>
+          )} />
         }
         {!isAuthenticated && <>
           <Route path='/login' render={() => (

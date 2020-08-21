@@ -5,12 +5,15 @@
 	cursor: default;
 	user-select: none;
 	position: sticky;
+	top: $top;
 	flex: 1;
-	top: 70px;
 	min-width: 250px;
-	background-color: $main;
 	padding: 0 20px;
 	padding-bottom: 10px;
+	border: $lightborder;
+	border-radius: 5px;
+	box-shadow: $soft-shadow;
+	background-color: $main;
 	h1 {
 		cursor: pointer;
 		font-size: 1.8rem;

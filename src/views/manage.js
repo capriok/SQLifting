@@ -52,6 +52,7 @@ const Manage = () => {
 							</div>
 						</div>
 					))}
+					{/* <div className={styles.cont}><div className={styles.entity}><p>test</p></div></div> */}
 				</div>
 				{actionState.edit.state
 					? <Editor />

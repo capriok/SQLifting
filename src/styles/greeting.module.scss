@@ -1,0 +1,38 @@
+@import "../index.scss";
+
+.greeting {
+	@include flex;
+	flex-direction: column;
+	width: 100%;
+	min-height: 500px;
+	padding-top: 50px;
+	h1 {
+		font-size: 2rem;
+	}
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap");
+.clock {
+	color: black;
+	width: fit-content;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	padding: 10px 0;
+	.time,
+	.date {
+		font-family: "Baloo Tamma 2", cursive;
+		font-weight: 300;
+		text-align: center;
+	}
+	.time {
+		font-size: 4rem;
+		padding-bottom: 10px;
+		margin: 0;
+		margin-top: 40px;
+	}
+	.date {
+		font-size: 2rem;
+		margin: 0;
+		margin: 20px;
+	}
+}

@@ -10,6 +10,7 @@ import Manage from '../views/manage'
 import Assemble from '../views/assemble'
 import Workout from '../views/workout'
 import Actionbar from './action-bar'
+import Greeting from '../views/greeting'
 
 const Keystone = () => {
 	const routes = [
@@ -31,6 +32,9 @@ const Keystone = () => {
 			<div className={styles.keystone}>
 				<Actionbar />
 				<Switch>
+					<Route exact path='/' render={() => (
+						<Greeting />
+					)} />
 					{routes.map((route, i) => (
 						<RouteHandler key={i} {...route} />
 					))}
