@@ -6,7 +6,7 @@ import styles from '../styles/action-bar.module.scss'
 
 import { Button } from 'godspeed'
 
-import useActionBarActions from '../hooks/useActionBarActions'
+import useActionBarActions from '../utils/useActionBarActions'
 
 const Actionbar = () => {
 	const [{ active, actionState }, dispatch] = useStateValue()

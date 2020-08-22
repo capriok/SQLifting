@@ -18,4 +18,5 @@ yarn-error.log*
 /src/components/builders
 /src/components/viewers
 
+/old
 /db

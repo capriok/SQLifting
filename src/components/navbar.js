@@ -18,7 +18,7 @@ const Navbar = () => {
 
 	return (
 		<>
-			<Nav className={styles.navbar} title="SQLifting">
+			<Nav className={styles.navbar} title="SQLifting" to="/">
 				<NavLink hover="steelblue" onClick={() => logoutActions()}>
 					Logout
         </NavLink>

@@ -4,10 +4,64 @@
 	@include flex;
 	flex-direction: column;
 	width: 100%;
-	min-height: 500px;
-	padding-top: 50px;
-	h1 {
-		font-size: 2rem;
+	height: 100%;
+	border-radius: 5px;
+	border: $lightborder;
+	box-shadow: $soft-shadow;
+	background-color: $main;
+	.message {
+		font-size: 2.5rem;
+		margin-top: 0;
+		margin-bottom: 30px;
+	}
+	* {
+		font-family: "Baloo Tamma 2", cursive;
+		font-weight: 300;
+	}
+}
+
+.weather {
+	@include flex;
+	flex-direction: column;
+	user-select: none;
+	min-width: 600px;
+	filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3));
+	.top,
+	.bottom {
+		@include flex;
+		flex: 100%;
+	}
+	.description {
+		font-size: 1.8rem;
+		margin: 0px;
+	}
+	.bottom {
+		margin: 20px;
+		margin-bottom: 30px;
+	}
+	.temperature,
+	.humidity {
+		text-align: center;
+		min-width: 200px;
+		p {
+			margin: 0px;
+			font-size: 1.3rem;
+		}
+		h1 {
+			@include flex;
+			justify-items: self-start;
+			margin: 10px;
+			p {
+			}
+			.symbol {
+				font-size: 1.3rem;
+				padding-bottom: 10px;
+			}
+		}
+	}
+	.icon {
+		width: 100px;
+		filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3)) hue-rotate(180deg);
 	}
 }
 
@@ -18,21 +72,19 @@
 	border-top: 3px solid black;
 	border-bottom: 3px solid black;
 	padding: 10px 0;
+	min-width: 600px;
 	.time,
 	.date {
-		font-family: "Baloo Tamma 2", cursive;
-		font-weight: 300;
 		text-align: center;
+		margin: 0;
 	}
 	.time {
-		font-size: 4rem;
+		font-size: 2.5rem;
 		padding-bottom: 10px;
-		margin: 0;
-		margin-top: 40px;
+		margin-top: 20px;
 	}
 	.date {
-		font-size: 2rem;
-		margin: 0;
-		margin: 20px;
+		font-size: 1.8rem;
+		margin: 10px;
 	}
 }

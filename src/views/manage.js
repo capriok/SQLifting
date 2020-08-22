@@ -8,8 +8,8 @@ import styles from '../styles/manage.module.scss'
 import Preview from '../components/preview'
 import Editor from '../components/editor'
 
-import useActiveByPath from '../hooks/useActiveByPath'
-import useActionBarActions from '../hooks/useActionBarActions'
+import useActiveByPath from '../utils/useActiveByPath'
+import useActionBarActions from '../utils/useActionBarActions'
 
 const Manage = () => {
 	const [{ active, actionState }, dispatch] = useStateValue()

@@ -9,7 +9,7 @@ import MainLayout from './layouts/main-layout'
 import Keystone from './components/keystone';
 import Sidebar from './components/sidebar';
 
-import useUpdate from './hooks/useUpdate';
+import useUpdate from './utils/useUpdate';
 import LandingLayout from './layouts/landing-layout';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
     user: { isAuthenticated },
     compositions: { equipments, muscles, exercises, movements },
     composites: { excos, wocos, circs }
-  }, dispatch] = useStateValue()
+  }] = useStateValue()
   const update = useUpdate()
 
   useEffect(() => {

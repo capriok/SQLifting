@@ -30,13 +30,15 @@ const Keystone = () => {
 	return (
 		<>
 			<div className={styles.keystone}>
-				<Actionbar />
 				<Switch>
 					<Route exact path='/' render={() => (
 						<Greeting />
 					)} />
 					{routes.map((route, i) => (
-						<RouteHandler key={i} {...route} />
+						<React.Fragment key={i}>
+							<Actionbar />
+							<RouteHandler {...route} />
+						</React.Fragment>
 					))}
 				</Switch>
 			</div>
