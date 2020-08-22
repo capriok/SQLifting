@@ -23,9 +23,8 @@
 				height: 40px;
 				margin-right: 10px;
 				margin-bottom: 10px;
-				border: $lightborder;
 				border-radius: 5px;
-				color: white;
+				border: $light-border;
 				box-shadow: $soft-shadow;
 				background-color: $entity-idle;
 				transition: 0.2s;
@@ -36,16 +35,14 @@
 				}
 				&:hover {
 					transition: 0.2s;
+					color: white;
 					background-color: $entity-active;
 				}
 			}
 			.activeENT {
 				background-color: $entity-active;
+				color: white;
 				transition: 0.2s;
-				&:hover {
-					background-color: $entity-active;
-					transition: 0.2s;
-				}
 			}
 		}
 	}

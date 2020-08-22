@@ -4,7 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from '../styles/sidebar.module.scss'
-
+import gear from '../gallery/gear.png'
 import { useStateValue } from '../state'
 
 const Sidebar = () => {
@@ -54,6 +54,9 @@ const Sidebar = () => {
 	return (
 		<>
 			<div className={styles.sidebar}>
+				<div className={styles.head}>
+					<img className={styles.icon} src={gear} alt="" draggable={false} />
+				</div>
 				<h1>Manage</h1>
 				<p>Compositions</p>
 				<ul>
@@ -86,7 +89,7 @@ const Sidebar = () => {
 					))
 					}
 				</ul >
-				<h1 >Workout</h1>
+				<h1>Workout</h1>
 				<ul>
 					<Link to={'/workout'}><li>Go</li></Link>
 				</ul>

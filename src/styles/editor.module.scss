@@ -1,24 +1,34 @@
 @import "../index.scss";
 
-.editnull {
-	flex: 1;
-	padding: 0 10px;
-}
 .editor {
 	flex: 1;
-	color: white;
 	width: 100%;
 	padding: 10px;
+	padding-bottom: 20px;
 	margin-top: 10px;
 	border-radius: 5px;
-	background-color: rgba(0, 0, 0, 0.9);
+	border: $light-border;
+	box-shadow: $soft-shadow;
+	background-color: $entity-idle;
+	.title {
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 2px solid steelblue;
+		font-weight: 400;
+		font-size: 1.2rem;
+	}
 	form {
 		@include flex;
 		input {
 			flex: 1;
 			margin-right: 10px;
 			padding: 5px;
+			border: $light-border;
+			background-color: $main;
 		}
 		justify-content: space-between;
 	}
+}
+.submit {
+	background-color: cadetblue;
 }

@@ -1,3 +1,5 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React from 'react'
 
 import styles from '../styles/preview.module.scss'
@@ -85,7 +87,11 @@ const Preview = ({ preview: { type, entType, ent } }) => {
 				</>
 			)
 		}
-	} else { return <div className={styles.prevnull}></div> }
+	} else {
+		return <div className={styles.preview}>
+			<p className={styles.title}>Select an entity to preview or edit</p>
+		</div>
+	}
 }
 
 export default Preview

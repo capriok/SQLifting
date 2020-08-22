@@ -1,12 +1,13 @@
 @import "../index.scss";
 
 .greeting {
+	user-select: none;
 	@include flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
 	border-radius: 5px;
-	border: $lightborder;
+	border: $light-border;
 	box-shadow: $soft-shadow;
 	background-color: $main;
 	.message {
@@ -23,9 +24,7 @@
 .weather {
 	@include flex;
 	flex-direction: column;
-	user-select: none;
 	min-width: 600px;
-	filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3));
 	.top,
 	.bottom {
 		@include flex;

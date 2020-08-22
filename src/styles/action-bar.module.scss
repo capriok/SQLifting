@@ -6,6 +6,7 @@ button {
 }
 
 .actionbar {
+	user-select: none;
 	z-index: 100;
 	position: sticky;
 	top: $top;
@@ -17,7 +18,7 @@ button {
 	min-width: 800px;
 	padding: 0 20px;
 	border-radius: 5px;
-	border: $lightborder;
+	border: $light-border;
 	box-shadow: $soft-shadow;
 	background-color: $main;
 	h1 {

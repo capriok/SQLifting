@@ -8,38 +8,54 @@
 	top: $top;
 	flex: 1;
 	min-width: 250px;
-	padding: 0 20px;
 	padding-bottom: 10px;
-	border: $lightborder;
+	border: $light-border;
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $main;
+	.head {
+		@include flex;
+		padding: 10px;
+		.icon {
+			cursor: pointer;
+			margin-right: auto;
+			width: 18px;
+		}
+	}
 	h1 {
-		cursor: pointer;
-		font-size: 1.8rem;
-		margin-bottom: 10px;
+		font-size: 1.3rem;
+		font-family: Roboto;
+		margin-bottom: 0;
+		padding: 10px 20px;
+		margin-top: 0;
+		border-top: $light-border;
+		border-bottom: $light-border;
+		background-color: rgb(235, 235, 235);
 	}
 	p {
 		padding: 0;
-		padding-top: 5px;
-		margin-top: 5px;
-		margin-bottom: 0px;
-		border-radius: 5px;
+		padding-top: 10px;
+		padding-left: 20px;
+		margin: 0;
 	}
 	ul {
 		padding-right: 0;
-		padding-left: 10px;
+		padding-left: 20px;
 		margin: 0;
 		margin: 10px 5px;
+		margin-top: 10px;
 		width: fit-content;
 		li {
 			color: black;
 			padding: 0;
-			padding-top: 5px;
+			padding-bottom: 10px;
 			padding-left: 10px;
 			text-decoration: none;
 			border-left: 2px solid steelblue;
 			transition: 0.1s;
+		}
+		:last-child li {
+			padding-bottom: 0;
 		}
 		.activeLI {
 			transition: 0.1s;

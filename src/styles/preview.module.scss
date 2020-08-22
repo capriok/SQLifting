@@ -11,15 +11,11 @@
 	width: 100%;
 	padding: 10px;
 	padding-bottom: 20px;
-	// margin-right: 20px;
 	margin-top: 10px;
 	border-radius: 5px;
-	color: white;
+	border: $light-border;
 	box-shadow: $soft-shadow;
-	background-color: rgba(0, 0, 0, 0.9);
-	* {
-		font-weight: 300;
-	}
+	background-color: $entity-idle;
 	ul {
 		margin: 0;
 		padding: 3px 0 3px 20px;

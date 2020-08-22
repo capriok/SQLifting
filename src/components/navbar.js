@@ -8,7 +8,7 @@ import styles from '.././styles/navbar.module.scss'
 import { Navbar as Nav, NavLink } from 'godspeed'
 
 const Navbar = () => {
-	const { dispatch } = useStateValue()
+	const [, dispatch] = useStateValue()
 	const logoutActions = async () => {
 		await dispatch({ type: 'LOGOUT' })
 		localStorage.removeItem('SQLifting-token')
