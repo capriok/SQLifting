@@ -5,7 +5,7 @@ import React from 'react'
 import styles from '../styles/preview.module.scss'
 
 const Preview = ({ preview: { type, entType, ent } }) => {
-	type && console.log('%cPreviewing', 'color: lightskyblue', ent);
+	Object.keys(ent).length > 0 && console.log('%cPreviewing', 'color: lightskyblue', ent);
 	if (type === 'composition') {
 		return (
 			<>

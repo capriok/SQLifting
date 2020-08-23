@@ -1,49 +1,66 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useStateValue } from '../state'
 import Axios from 'axios'
+
+import placeholder from '../gallery/weather_placeholder.png'
 
 // https://openweathermap.org/api/one-call-api
 
 const log = (message, log) => console.log(`%c${message}`, 'color: lightskyblue', log)
 
 const useWeather = () => {
-	const [weather, setWeather] = useState({})
+	const [{ weather }, dispatch] = useStateValue()
 
-	const getCoords = (position) => {
-		const lat = position.coords.latitude
-		const lon = position.coords.longitude
-		getWeather(lat, lon)
+	const getWeather = () => {
+		navigator.geolocation.getCurrentPosition((position) => {
+			const lat = position.coords.latitude
+			const lon = position.coords.longitude
+			const API = `https://api.openweathermap.org/data/2.5/`
+			const LOCATION = `lat=${lat}&lon=${lon}`
+			const EXCLUDE = `minutely,hourly,daily`
+			const KEY = process.env.REACT_APP_WEATHER_KEY
+			const ENDPOINT = `${API}onecall?${LOCATION}&units=imperial&exclude=${EXCLUDE}&appid=${KEY}`
+			Axios.get(ENDPOINT)
+				.then(res => {
+					const results = {
+						timezone: res.data.timezone.split('/')[1],
+						temperature: Math.ceil(res.data.current.temp),
+						humidity: res.data.current.humidity,
+						condition: res.data.current.weather[0].main,
+						description: res.data.current.weather[0].description,
+						icon: `http://openweathermap.org/img/wn/${res.data.current.weather[0].icon}@2x.png`
+					}
+					dispatch({
+						type: 'WEATHER_ACTION',
+						weather: results
+					})
+					log('Weather Statistics', { weather: results });
+				})
+				.catch(() => {
+					dispatch({
+						type: 'WEATHER_ACTION',
+						error: 'Weather data unavailable'
+					})
+				})
+		})
 	}
-	const getWeather = (lat, lon) => {
-		let API = `https://api.openweathermap.org/data/2.5/`
-		let LOCATION = `lat=${lat}&lon=${lon}`
-		let EXCLUDE = `minutely,hourly,daily`
-		let KEY = process.env.REACT_APP_WEATHER_KEY
-		let ENDPOINT = `${API}onecall?${LOCATION}&units=imperial&exclude=${EXCLUDE}&appid=${KEY}`
-		Axios.get(ENDPOINT)
-			.then(res => {
-				let results = {
-					timezone: res.data.timezone.split('/')[1],
-					temperature: Math.ceil(res.data.current.temp),
-					humidity: res.data.current.humidity,
-					condition: res.data.current.weather[0].main,
-					description: `Today has ${res.data.current.weather[0].description}`,
-					icon: `http://openweathermap.org/img/wn/${res.data.current.weather[0].icon}@2x.png`
+
+	useEffect(() => {
+		if (Object.keys(weather).length === 0) {
+			dispatch({
+				type: 'WEATHER_ACTION',
+				weather: {
+					temperature: 0,
+					humidity: 0,
+					description: 'no weather data',
+					icon: placeholder
 				}
-				setWeather(results)
-				log('Weather Statistics', { weather: results });
 			})
-			.catch(() => {
-				setWeather({ error: 'Weather data unavailable' })
-			})
-	}
-	useEffect(() => {
-		navigator.geolocation.getCurrentPosition(getCoords)
-	}, [])
-
-	useEffect(() => {
-		const timer = setInterval(() => navigator.geolocation.getCurrentPosition(getCoords), 60000)
+		}
+		getWeather()
+		const timer = setInterval(() => getWeather(), 300000)
 		return () => clearInterval(timer)
 	}, [])
 

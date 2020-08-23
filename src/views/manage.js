@@ -12,7 +12,7 @@ import useActiveByPath from '../utils/useActiveByPath'
 import useActionBarActions from '../utils/useActionBarActions'
 
 const Manage = () => {
-	const [{ active, actionState }, dispatch] = useStateValue()
+	const [{ active, actionState }] = useStateValue()
 	const activeByPath = useActiveByPath()
 	const { resetActionBarStates, setEditEntity } = useActionBarActions()
 	const [entities, setEntities] = useState([])

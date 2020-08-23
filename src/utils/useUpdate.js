@@ -30,7 +30,7 @@ const useUpdate = () => {
     SQLifting.get('/get/compositions', { params: params })
       .then(async res => {
         let final = installProps(res)
-        log('Compositions returned', final)
+        log('Compositions returned', { compositions: final })
         await attachOccurrences(final)
 
       })
@@ -83,8 +83,8 @@ const useUpdate = () => {
       type: "COMPOSITE_ACTION",
       composites: { ...composites, ...final }
     })
-    if (hasExcos || hasWocos || hasCircs) return log('Composites returned with dependencies', final)
-    if (!hasExcos && !hasWocos && !hasCircs) return log('Composites returned no dependencies', final)
+    if (hasExcos || hasWocos || hasCircs) return log('Composites returned with dependencies', { Composites: final })
+    if (!hasExcos && !hasWocos && !hasCircs) return log('Composites returned no dependencies', { Composites: final })
   }
 
   const getCircDeps = (semiFinal) => {

@@ -60,6 +60,7 @@
 	}
 	.icon {
 		width: 100px;
+		min-height: 100px;
 		filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3)) hue-rotate(180deg);
 	}
 }

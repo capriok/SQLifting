@@ -36,12 +36,12 @@ const Greeting = () => {
 export default Greeting
 
 const Weather = () => {
-	const { temperature, humidity, icon, description, error } = useWeather()
+	const [{ weather: { temperature, humidity, icon, description, error } }] = useStateValue()
 	if (error) return <h1>{error}</h1>
 	return (
 		<div className={styles.weather}>
 			<div className={styles.top}>
-				<p className={styles.description}>{description}</p>
+				<p className={styles.description}>Today has {description}</p>
 			</div>
 			<div className={styles.bottom}>
 				<div className={styles.temperature}>

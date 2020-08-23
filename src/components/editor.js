@@ -10,7 +10,7 @@ import { Button, Input } from 'godspeed'
 const Editor = () => {
 	const [{ actionState: { edit: { entity: { ent } } } }] = useStateValue()
 	const [value, setValue] = useState('')
-	ent.name && console.log('%cEditing', 'color: lightskyblue', ent);
+	Object.keys(ent).length > 0 && console.log('%cEditing', 'color: lightskyblue', ent);
 
 	const submit = (e) => {
 		e.preventDefault()

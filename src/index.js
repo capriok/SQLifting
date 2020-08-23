@@ -23,6 +23,7 @@ export default function Index() {
         name: ''
       }
     },
+    weather: {},
     compositions: {
       equipments: [],
       muscles: [],
@@ -75,6 +76,11 @@ export default function Index() {
             }
           }
         };
+      case "WEATHER_ACTION":
+        return {
+          ...state,
+          weather: action.weather
+        };
       case "COMPOSITION_ACTION":
         return {
           ...state,
@@ -125,20 +131,10 @@ export default function Index() {
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
   log('-------------------------TASKS-------------------------')
-  log('- Severity of bugs in current code base: 4/5')
-  log('- Get nextId at component level of exco or woco builders, currently firing on ea click')
-  log('- logic of "building up" excos and wocos needs to be re thought')
   log('- When deleting any composition:')
   log('     Must handle dependencies of deleted record')
-  log('- Research standards for fetching, posting and deleting from db')
-  log('     When new data goes in db, set app data by refetch or just set app data')
-  log('     How many time should you be going back and forth from db realistically')
-  log('     Should data be posted in bulk or little bits')
-  log('     Better way to attach dependencies to composites?')
-  log('- Rethink logic for an in-progress workout')
-  log('- Rethink composition injection, add movements')
-  log('- Resdesign complete user interface')
-  log('- Feature to edit composite name')
+  log('- Add composition injection to actio bar for manage view')
+  log('- Hook up route and query for entity edit of name ')
   log('- Authentication should be done smarter')
   log('     JWT for routes involving account specific data')
   log('-------------------------------------------------------')

@@ -10,6 +10,7 @@ import Keystone from './components/keystone';
 import Sidebar from './components/sidebar';
 
 import useUpdate from './utils/useUpdate';
+import useWeather from './utils/useWeather';
 import LandingLayout from './layouts/landing-layout';
 
 function App() {
@@ -19,12 +20,13 @@ function App() {
     composites: { excos, wocos, circs }
   }] = useStateValue()
   const update = useUpdate()
+  useWeather()
 
   useEffect(() => {
     if (isAuthenticated) update('all')
   }, [])
 
-  const lengthLog = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 50);
+  const lengthLog = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 100);
   useEffect(() => { lengthLog('Equipment', equipments) }, [equipments])
   useEffect(() => { lengthLog('Muscles', muscles) }, [muscles])
   useEffect(() => { lengthLog('Exercises', exercises) }, [exercises])
