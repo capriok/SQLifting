@@ -2,61 +2,76 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
+import useActiveByPath from '../utils/useActiveByPath'
+import useManagerActions from '../utils/useManagerActions'
 
 import styles from '../styles/manage.module.scss'
 
 import Preview from '../components/preview'
 import Editor from '../components/editor'
+import Selector from '../components/selector'
 
-import useActiveByPath from '../utils/useActiveByPath'
-import useActionBarActions from '../utils/useActionBarActions'
 
 const Manage = () => {
-	const [{ active, actionState }] = useStateValue()
+	const [{
+		actionState,
+		manager,
+		manager: {
+			active,
+			preview,
+			editor,
+			selector
+		}
+	},
+		dispatch] = useStateValue()
 	const activeByPath = useActiveByPath()
-	const { resetActionBarStates, setEditEntity } = useActionBarActions()
+	const { fullReset, addToSelection } = useManagerActions()
 	const [entities, setEntities] = useState([])
-	const [preview, setPreview] = useState({ type: '', entType: '', ent: {} })
 	useEffect(() => {
-		setPreview({ type: '', entType: '', ent: {} })
-		resetActionBarStates()
+		fullReset()
 	}, [entities])
 
 	useEffect(() => {
-		setEntities(activeByPath.parent[activeByPath.entity])
+		setEntities(activeByPath.group[activeByPath.entity])
 	}, [active])
 
-	const set = (ent) => {
-		const type = window.location.pathname.split('/')[2].slice(0, -1)
-		const entType = window.location.pathname.split('/')[3].slice(0, -1)
-		let entAndStuff = { type, entType, ent }
-		setPreview(entAndStuff)
-		setEditEntity('edit', {
-			...actionState.edit,
-			entity: entAndStuff
+	const set = (entity) => {
+		if (selector.state === true) return addToSelection(entity)
+		dispatch({
+			type: 'MANAGER_ACTION',
+			manager: {
+				...manager,
+				preview: {
+					group: entity.group,
+					table: entity.table,
+					entity
+				}
+			}
 		})
 	}
 
 	let entityClass = (id) => {
-		return preview.ent.id === id ? `${styles.entity} ${styles.activeENT}` : styles.entity
+		return manager.preview.entity.id === id ? `${styles.entity} ${styles.activeENT}` : styles.entity
 	}
 
 	return (
 		<>
 			<div className={styles.manage}>
 				<div className={styles.entities}>
-					{entities.map((ent, i) => (
+					{entities.map((entity, i) => (
 						<div key={i} className={styles.cont}>
-							<div className={entityClass(ent.id)} onClick={() => set(ent)}>
-								<p>{ent.name}</p>
+							<div className={entityClass(entity.id)} onClick={() => set(entity)}>
+								<p>{entity.name}</p>
 							</div>
 						</div>
 					))}
 					{/* <div className={styles.cont}><div className={styles.entity}><p>test</p></div></div> */}
 				</div>
-				{actionState.edit.state
+				{editor.state
 					? <Editor />
-					: <Preview preview={preview} />
+					: selector.state
+						? <Selector />
+						: <Preview />
 				}
 			</div>
 		</>

@@ -2,23 +2,22 @@ import { useStateValue } from '../state'
 
 const useActiveByPath = () => {
 	const [initialState] = useStateValue()
-	let fullPath = window.location.pathname
-	let path = window.location.pathname.split('/')[2]
-	let query = window.location.pathname.split('/')[3]
-	let nameQuery = query
 
-	if (path === 'composites') {
-		if (query === 'circuits') query = 'circs'
-		if (query === 'exercises') query = 'excos'
-		if (query === 'workouts') query = 'wocos'
+	let group = window.location.pathname.split('/')[2]
+	let entity = window.location.pathname.split('/')[3]
+	let nameQuery = entity
+
+	if (group === 'composites') {
+		if (entity === 'circuits') entity = 'circs'
+		if (entity === 'exercises') entity = 'excos'
+		if (entity === 'workouts') entity = 'wocos'
 	}
-	initialState.active = {
+	initialState.manager.active = {
 		name: nameQuery.capitalize(),
-		pathname: fullPath,
-		parent: initialState[path],
-		entity: query
+		group: initialState[group],
+		entity: entity
 	}
-	return initialState.active
+	return initialState.manager.active
 }
 
 export default useActiveByPath
