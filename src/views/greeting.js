@@ -1,12 +1,11 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/import React from 'react'
-import { useStateValue } from '../state'
-import styles from '../styles/greeting.module.scss'
-
+/*eslint no-unused-vars: "off"*/
+import React from 'react'
 import Moment from 'react-moment';
-import useWeather from '../utils/useWeather';
+import { useStateValue } from '../state'
 import useClock from '../utils/useClock';
 
+import styles from '../styles/greeting.module.scss'
 
 const Greeting = () => {
 	const [{ user }] = useStateValue()

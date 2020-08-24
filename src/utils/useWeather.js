@@ -1,14 +1,12 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import { useEffect } from 'react'
-import { useStateValue } from '../state'
 import Axios from 'axios'
+import { useStateValue } from '../state'
 
 import placeholder from '../gallery/weather_placeholder.png'
 
 // https://openweathermap.org/api/one-call-api
-
-const log = (message, log) => console.log(`%c${message}`, 'color: lightskyblue', log)
 
 const useWeather = () => {
 	const [{ weather }, dispatch] = useStateValue()
@@ -28,7 +26,6 @@ const useWeather = () => {
 						timezone: res.data.timezone.split('/')[1],
 						temperature: Math.ceil(res.data.current.temp),
 						humidity: res.data.current.humidity,
-						condition: res.data.current.weather[0].main,
 						description: res.data.current.weather[0].description,
 						icon: `http://openweathermap.org/img/wn/${res.data.current.weather[0].icon}@2x.png`
 					}
@@ -36,7 +33,7 @@ const useWeather = () => {
 						type: 'WEATHER_ACTION',
 						weather: results
 					})
-					log('Weather Statistics', { weather: results });
+					console.log('%cWeather Statistics', 'color: lightskyblue', { weather: results });
 				})
 				.catch(() => {
 					dispatch({
@@ -52,6 +49,7 @@ const useWeather = () => {
 			dispatch({
 				type: 'WEATHER_ACTION',
 				weather: {
+					timezone: 'Unknown',
 					temperature: 0,
 					humidity: 0,
 					description: 'no weather data',
@@ -60,8 +58,15 @@ const useWeather = () => {
 			})
 		}
 		getWeather()
-		const timer = setInterval(() => getWeather(), 300000)
-		return () => clearInterval(timer)
+		const fiveMinute = setInterval(() => {
+			if (window.location.pathname !== '/') return
+			getWeather()
+		}, 300000)
+		const thirtyMinute = setInterval(() => getWeather(), 1500000)
+		return () => {
+			clearInterval(fiveMinute)
+			clearInterval(thirtyMinute)
+		}
 	}, [])
 
 	return (weather)

@@ -1,17 +1,16 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { useStateValue } from './state'
+import useUpdate from './utils/useUpdate';
+import useWeather from './utils/useWeather';
+import LandingLayout from './layouts/landing-layout';
 
 import Authenticate from './components/authenticate'
 import MainLayout from './layouts/main-layout'
 import Keystone from './components/keystone';
 import Sidebar from './components/sidebar';
-
-import useUpdate from './utils/useUpdate';
-import useWeather from './utils/useWeather';
-import LandingLayout from './layouts/landing-layout';
 
 function App() {
   const [{
@@ -20,20 +19,21 @@ function App() {
     composites: { excos, wocos, circs }
   }] = useStateValue()
   const update = useUpdate()
-  useWeather()
 
   useEffect(() => {
     if (isAuthenticated) update('all')
   }, [])
 
-  const lengthLog = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 100);
-  useEffect(() => { lengthLog('Equipment', equipments) }, [equipments])
-  useEffect(() => { lengthLog('Muscles', muscles) }, [muscles])
-  useEffect(() => { lengthLog('Exercises', exercises) }, [exercises])
-  useEffect(() => { lengthLog('Movements', movements) }, [movements])
-  useEffect(() => { lengthLog('Excos', excos) }, [excos])
-  useEffect(() => { lengthLog('Wocos', wocos) }, [wocos])
-  useEffect(() => { lengthLog('Circs', circs) }, [circs])
+  useWeather()
+
+  const log = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 100);
+  useEffect(() => { log('Equipment', equipments) }, [equipments])
+  useEffect(() => { log('Muscles', muscles) }, [muscles])
+  useEffect(() => { log('Exercises', exercises) }, [exercises])
+  useEffect(() => { log('Movements', movements) }, [movements])
+  useEffect(() => { log('Excos', excos) }, [excos])
+  useEffect(() => { log('Wocos', wocos) }, [wocos])
+  useEffect(() => { log('Circs', circs) }, [circs])
 
   return (
     <>

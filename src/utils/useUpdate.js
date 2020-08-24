@@ -1,10 +1,16 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import { useStateValue } from '../state'
 import { SQLifting, installProps } from '../api/sqlifting'
 
-const log = (message, log) => console.log(`%c${message}`, 'color: lightskyblue', log)
 const useUpdate = () => {
-  const [{ user: { details: { uid } }, composites, compositions
+  const [{
+    user: {
+      details: {
+        uid }
+    },
+    composites,
+    compositions
   }, dispatch] = useStateValue()
   const update = (type, requests) => {
     const missingRequests = typeof requests !== 'object' && (type === 'compositions' || type === 'compositions')
@@ -30,7 +36,7 @@ const useUpdate = () => {
     SQLifting.get('/get/compositions', { params: params })
       .then(async res => {
         let final = installProps(res)
-        log('Compositions returned', { compositions: final })
+        console.log('%cCompositions returned', 'color: lightskyblue', { compositions: final })
         await attachOccurrences(final)
 
       })
@@ -83,8 +89,8 @@ const useUpdate = () => {
       type: "COMPOSITE_ACTION",
       composites: { ...composites, ...final }
     })
-    if (hasExcos || hasWocos || hasCircs) return log('Composites returned with dependencies', { Composites: final })
-    if (!hasExcos && !hasWocos && !hasCircs) return log('Composites returned no dependencies', { Composites: final })
+    if (hasExcos || hasWocos || hasCircs) return console.log('%cComposites returned with dependencies', 'color: lightskyblue', { composites: final })
+    if (!hasExcos && !hasWocos && !hasCircs) return console.log('%cComposites returned no dependencies', 'color: lightskyblue', { composites: final })
   }
 
   const getCircDeps = (semiFinal) => {
@@ -110,13 +116,13 @@ const useUpdate = () => {
   }
 
   const getWocoDeps = (semiFinal) => {
-    const hasCircs = (semiFinal.hasOwnProperty('circs') && semiFinal.circs.length > 0)
     semiFinal.wocos.forEach((woco) => {
       let woco_id = woco.id
       SQLifting.get('/get/woco_deps', { params: { woco_id } })
         .then(res => {
-          woco.exco = res.data[0]
-          woco.circ = res.data[1]
+          woco.excos = res.data[0]
+          woco.circs = res.data[1]
+          const hasCircs = (res.data[1].length > 0)
           if (hasCircs) {
             res.data[1].forEach((circ) => {
               let circ_id = circ.id

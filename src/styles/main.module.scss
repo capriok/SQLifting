@@ -1,11 +1,10 @@
 @import "../index.scss";
-$half: translate(-50%);
 
 .main {
 	position: absolute;
 	top: 0;
 	left: 50%;
-	transform: $half;
+	transform: translate(-50%);
 	@include flex;
 	justify-content: flex-start;
 	align-items: flex-start;
@@ -18,7 +17,5 @@ $half: translate(-50%);
 .keystone {
 	flex: 4;
 	align-self: stretch;
-	// min-height: calc(100vh - 70px);
 	margin-left: 10px;
-	// background-color: $main;
 }

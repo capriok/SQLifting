@@ -1,15 +1,14 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
+import { SQLiftingAcc } from '../api/sqlifting'
 import { useStateValue } from '../state'
-import { Button, Input } from 'godspeed'
 
 import styles from '../styles/authbox.module.scss'
-
-import { SQLiftingAcc } from '../api/sqlifting'
-
 import person from '../gallery/authbox_person.png'
 import lock from '../gallery/authbox_lock.png'
+
+import { Button, Input } from 'godspeed'
 
 const Authenticate = () => {
   const [, dispatch] = useStateValue()

@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import RouteHandler from '../utils/routeHandler'
 
 import styles from '../styles/main.module.scss'

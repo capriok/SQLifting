@@ -13,6 +13,7 @@ import 'react-draggable-array/dist/index.css'
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 }
+
 export default function Index() {
   let initialState = {
     user: {
@@ -20,7 +21,7 @@ export default function Index() {
       token: '',
       details: {
         uid: '',
-        name: ''
+        username: ''
       }
     },
     weather: {},
@@ -35,26 +36,19 @@ export default function Index() {
       excos: [],
       wocos: []
     },
-    active: {
-      name: '',
-      parent: {},
-      entity: '',
-      pathname: '',
-    },
-    actionState: {
-      select: {
-        state: false,
+    manager: {
+      active: {},
+      preview: {
+        entity: {}
+      },
+      editor: {
+        entity: {}
+      },
+      selector: {
         selection: []
       },
-      edit: {
-        state: false,
-        entity: {
-          type: '',
-          entType: '',
-          ent: {}
-        }
-      }
-    }
+    },
+    assembler: {}
   }
 
   const reducer = (state, action) => {
@@ -91,32 +85,26 @@ export default function Index() {
           ...state,
           composites: action.composites
         };
-      case "ACTIVE_ACTION":
+      case "MANAGER_ACTION":
+        console.log('hit');
         return {
           ...state,
-          active: action.active
+          manager: action.manager
         };
-      case "ACTIONSTATE_ACTION":
+      case "RESET_MANAGER":
         return {
           ...state,
-          actionState: action.actionState
-        };
-      case "ACTIONSTATE_RESET":
-        return {
-          ...state,
-          actionState: {
-            select: {
-              state: false,
+          manager: {
+            active: {},
+            preview: {
+              entity: {}
+            },
+            editor: {
+              entity: {}
+            },
+            selector: {
               selection: []
             },
-            edit: {
-              state: false,
-              entity: {
-                type: '',
-                entType: '',
-                ent: {}
-              }
-            }
           }
         };
       default:
@@ -131,6 +119,16 @@ export default function Index() {
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
   log('-------------------------TASKS-------------------------')
+  log('- Immediate =>')
+  log('- Move active context into manager')
+  log('     Must refactor useActivePath logic to dispatch to new location')
+  log('- Editor Logic needs to use new manager context')
+  log('     Only open editor if an entity is being previewed')
+  log('- Delete active context')
+  log('- Delete actionState context')
+  log('- Think about if you actually need a checked prop on all incoming entitites')
+  log('     If only needed later, inject it when needed')
+  log('- Future =>')
   log('- When deleting any composition:')
   log('     Must handle dependencies of deleted record')
   log('- Add composition injection to actio bar for manage view')
@@ -152,7 +150,7 @@ export default function Index() {
       }
     }
 
-    log(`Logged in as ${initialState.user.details.name} (ID: ${initialState.user.details.uid})`);
+    log(`Logged in as ${initialState.user.details.username.capitalize()} (ID: ${initialState.user.details.uid})`);
     log('')
   }
 
