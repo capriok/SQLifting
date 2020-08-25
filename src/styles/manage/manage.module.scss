@@ -1,0 +1,15 @@
+@import "../../index.scss";
+
+.manage {
+	width: 100%;
+	@include flex;
+	align-items: flex-start;
+	.entities {
+		flex: 2;
+		width: 25%;
+		@include flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		margin: 10px 0;
+	}
+}

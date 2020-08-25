@@ -5,13 +5,14 @@ import { useStateValue } from '../state'
 import useActiveByPath from '../utils/useActiveByPath'
 import useManagerActions from '../utils/useManagerActions'
 
-import styles from '../styles/manage.module.scss'
+import styles from '../styles/manage/manage.module.scss'
+import main from '../styles/manage/main.module.scss'
 import check from '../gallery/check_black.png'
 
-import Preview from '../components/preview'
-import Editor from '../components/editor'
-import Selector from '../components/selector'
-import Compose from '../components/compose'
+import Preview from '../components/manage/preview'
+import Editor from '../components/manage/editor'
+import Selector from '../components/manage/selector'
+import Compose from '../components/manage/compose'
 
 
 const Manage = () => {
@@ -67,12 +68,12 @@ const Manage = () => {
 
 	let entityClass = (id) => {
 		if (selector.state === true) {
-			return styles.entity
+			return main.entity
 		} else {
 			if (preview.entity && manager.preview.entity.id === id) {
-				return `${styles.entity} ${styles.active_entity}`
+				return `${main.entity} ${main.active_entity}`
 			} else {
-				return styles.entity
+				return main.entity
 			}
 		}
 	}
@@ -82,7 +83,7 @@ const Manage = () => {
 			<div className={styles.manage}>
 				<div className={styles.entities}>
 					{entities.map((entity, i) => (
-						<div key={i} className={styles.cont}>
+						<div key={i} className={main.entity_cont}>
 							<div className={entityClass(entity.id)} onClick={() => set(entity)}>
 								{selector.selection.some(s => s.id === entity.id) && <img src={check} alt="" />}
 								<p>{entity.name}</p>

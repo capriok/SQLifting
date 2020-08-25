@@ -1,13 +1,15 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
-import { SQLifting } from '../api/sqlifting'
-import { useStateValue } from '../state'
-import useUpdate from '../utils/useUpdate'
-import styles from '../styles/compose.module.scss'
+import { SQLifting } from '../../api/sqlifting'
+import { useStateValue } from '../../state'
+import useUpdate from '../../utils/useUpdate'
+
+import main from '../../styles/manage/main.module.scss'
+import styles from '../../styles/manage/compose.module.scss'
 
 import { Button, Input } from 'godspeed'
-import Preview from '../components/preview'
+import Preview from './preview'
 
 const Compose = () => {
 	const [{
@@ -18,7 +20,6 @@ const Compose = () => {
 		},
 		manager: {
 			active: {
-				group,
 				entity
 			}
 		}
@@ -37,12 +38,14 @@ const Compose = () => {
 	}
 	return (
 		<>
-			<div className={styles.compose}>
-				<p className={styles.title}>Add {entity.slice(0, -1)}</p>
-				<form onSubmit={e => submit(e)}>
-					<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
-					<Button type="submit" text="Submit" size="xsm" bg="rgb(44, 116, 175)" />
-				</form>
+			<div className={main.extension}>
+				<p className={main.title}>Add {entity.slice(0, -1)}</p>
+				<div className={styles.compose}>
+					<form onSubmit={e => submit(e)}>
+						<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
+						<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
+					</form>
+				</div>
 			</div>
 		</>
 	)

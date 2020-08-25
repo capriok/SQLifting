@@ -1,0 +1,25 @@
+@import "../../index.scss";
+
+ul {
+	margin: 0;
+	padding: 3px 0 3px 20px;
+	li {
+		cursor: default;
+	}
+}
+span {
+	color: $preview-span;
+	font-size: 0.9rem;
+	margin-left: 2px;
+}
+.dep {
+	font-weight: 400;
+	font-size: 1.1rem;
+	margin: 0;
+	margin-top: 20px;
+}
+.detail {
+	margin: 0;
+	font-weight: 400;
+	margin-top: 5px;
+}

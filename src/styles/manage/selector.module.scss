@@ -1,0 +1,22 @@
+@import "../../index.scss";
+
+.selector {
+	ul {
+		padding: 3px 0 3px 20px;
+		padding-right: 10px;
+		li {
+			user-select: none;
+			@include flex;
+			justify-content: space-between;
+			img {
+				margin-left: auto;
+				width: 15px;
+			}
+			span {
+				color: $preview-span;
+				font-size: 0.9rem;
+				margin-left: 2px;
+			}
+		}
+	}
+}

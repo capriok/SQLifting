@@ -2,11 +2,12 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { isEmpty } from 'lodash'
-import { SQLifting } from '../api/sqlifting'
-import { useStateValue } from '../state'
-import useUpdate from '../utils/useUpdate';
+import { SQLifting } from '../../api/sqlifting'
+import { useStateValue } from '../../state'
+import useUpdate from '../../utils/useUpdate';
 
-import styles from '../styles/editor.module.scss'
+import main from '../../styles/manage/main.module.scss'
+import styles from '../../styles/manage/editor.module.scss'
 import { Button, Input } from 'godspeed'
 
 
@@ -34,12 +35,14 @@ const Editor = () => {
 			.then(() => update(`${group}s`, [`${table}s`]))
 	}
 	return (
-		<div className={styles.editor}>
-			<p className={styles.title}>{entity.name}</p>
-			<form onSubmit={e => submit(e)}>
-				<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
-				<Button type="submit" text="Submit" size="xsm" bg="rgb(44, 116, 175)" />
-			</form>
+		<div className={main.extension}>
+			<p className={main.title}>{entity.name}</p>
+			<div className={styles.editor}>
+				<form onSubmit={e => submit(e)}>
+					<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
+					<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
+				</form>
+			</div>
 		</div>
 	)
 }

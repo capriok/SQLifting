@@ -14,9 +14,19 @@ import Sidebar from './components/sidebar';
 
 function App() {
   const [{
-    user: { isAuthenticated },
-    compositions: { equipments, muscles, exercises, movements },
-    composites: { excos, wocos, circs }
+    user: {
+      isAuthenticated
+    },
+    compositions: {
+      equipments,
+      muscles,
+      exercises,
+      movements },
+    composites: {
+      excos,
+      wocos,
+      circs
+    }
   }] = useStateValue()
   const update = useUpdate()
 
@@ -26,7 +36,11 @@ function App() {
 
   useWeather()
 
-  const log = (message, arg) => arg.length > 0 && setTimeout(() => console.log(`%c${message}`, 'color: lightskyblue', arg.length), 100);
+  const log = (message, arg) => {
+    arg.length > 0 && setTimeout(() => {
+      console.log(`%c${message}`, 'color: lightskyblue', arg.length)
+    }, 100)
+  };
   useEffect(() => { log('Equipment', equipments) }, [equipments])
   useEffect(() => { log('Muscles', muscles) }, [muscles])
   useEffect(() => { log('Exercises', exercises) }, [exercises])
