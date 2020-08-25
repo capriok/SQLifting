@@ -15,9 +15,11 @@ const Preview = () => {
 			}
 		}
 	}] = useStateValue()
+
 	useEffect(() => {
-		Object.keys(entity).length > 0 && console.log('%cPreviewing', 'color: lightskyblue', entity);
+		(entity && Object.keys(entity).length > 0) && console.log('%cPreviewing', 'color: lightskyblue', entity);
 	}, [])
+
 	switch (group) {
 		case 'compositions':
 			return (
@@ -99,7 +101,7 @@ const Preview = () => {
 		default:
 			return (
 				<div className={styles.preview}>
-					<p className={styles.title}>Select an entity to preview or edit</p>
+					<p className={styles.title}>Select an entity to preview</p>
 				</div>
 			)
 	}

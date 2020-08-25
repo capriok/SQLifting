@@ -8,9 +8,9 @@ export const installProps = (res) => {
   const keys = Object.keys(res.data)
   for (let i = 0; i < keys.length; i++) {
     let key = res.data[keys[i]]
-    key.forEach(item => {
-      item.checked = false
-    })
+    // key.forEach(item => {
+    //   item.checked = false
+    // })
     final[keys[i]] = key.sort((a, b) => (a.name > b.name) ? 1 : -1)
   }
   return final

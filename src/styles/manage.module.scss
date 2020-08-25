@@ -17,6 +17,7 @@
 			min-width: 50%;
 			max-width: 50%;
 			.entity {
+				position: relative;
 				cursor: pointer;
 				user-select: none;
 				width: 100%;
@@ -33,13 +34,20 @@
 					margin: 0;
 					height: 100%;
 				}
+				img {
+					position: absolute;
+					top: 50%;
+					left: 5px;
+					transform: translate(0, -50%);
+					width: 15px;
+				}
 				&:hover {
 					transition: 0.2s;
 					color: white;
 					background-color: $entity-active;
 				}
 			}
-			.activeENT {
+			.active_entity {
 				background-color: $entity-active;
 				color: white;
 				transition: 0.2s;

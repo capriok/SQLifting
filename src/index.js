@@ -38,12 +38,8 @@ export default function Index() {
     },
     manager: {
       active: {},
-      preview: {
-        entity: {}
-      },
-      editor: {
-        entity: {}
-      },
+      preview: {},
+      editor: {},
       selector: {
         selection: []
       },
@@ -86,7 +82,6 @@ export default function Index() {
           composites: action.composites
         };
       case "MANAGER_ACTION":
-        console.log('hit');
         return {
           ...state,
           manager: action.manager
@@ -96,12 +91,8 @@ export default function Index() {
           ...state,
           manager: {
             active: {},
-            preview: {
-              entity: {}
-            },
-            editor: {
-              entity: {}
-            },
+            preview: {},
+            editor: {},
             selector: {
               selection: []
             },
@@ -119,20 +110,11 @@ export default function Index() {
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
   log('-------------------------TASKS-------------------------')
-  log('- Immediate =>')
-  log('- Move active context into manager')
-  log('     Must refactor useActivePath logic to dispatch to new location')
-  log('- Editor Logic needs to use new manager context')
-  log('     Only open editor if an entity is being previewed')
-  log('- Delete active context')
-  log('- Delete actionState context')
-  log('- Think about if you actually need a checked prop on all incoming entitites')
-  log('     If only needed later, inject it when needed')
-  log('- Future =>')
   log('- When deleting any composition:')
   log('     Must handle dependencies of deleted record')
-  log('- Add composition injection to actio bar for manage view')
-  log('- Hook up route and query for entity edit of name ')
+  log('- Think about more composition editing features')
+  log('     Add deps to entity?')
+  log('     Change sets, reps, or weight of composite dep?')
   log('- Authentication should be done smarter')
   log('     JWT for routes involving account specific data')
   log('-------------------------------------------------------')

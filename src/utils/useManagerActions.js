@@ -1,8 +1,10 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
+import { SQLifting } from '../api/sqlifting'
 import { useStateValue } from '../state'
+import useUpdate from '../utils/useUpdate';
 
-import { isEmpty } from 'lodash'
+import { isEmpty, uniqBy, remove } from 'lodash'
 
 const useManagerActions = () => {
 	const [{
@@ -17,12 +19,13 @@ const useManagerActions = () => {
 		}
 	}, dispatch] = useStateValue()
 
+	const update = useUpdate()
+
 	const fullReset = () => {
 		dispatch({ type: 'RESET_MANAGER' })
 	}
 
-	const enableEditor = () => {
-		console.log(manager);
+	const toggleEditor = () => {
 		if (isEmpty(preview.entity)) return
 		dispatch({
 			type: 'MANAGER_ACTION',
@@ -31,45 +34,55 @@ const useManagerActions = () => {
 				editor: {
 					...preview,
 					state: !editor.state
+				},
+				selector: {
+					...selector,
+					state: false,
+					selection: []
 				}
 			}
 		})
-
-		// if (!prop) return
-		// let initial = {}
-		// Object.keys(actionState).forEach((key) => initial[key] = {
-		// 	...actionState[key],
-		// 	state: false
-		// })
-		// dispatch({
-		// 	type: 'ACTIONSTATE_ACTION',
-		// 	actionState: {
-		// 		...initial,
-		// 		[prop]: {
-		// 			...actionState[prop],
-		// 			state: !actionState[prop].state
-		// 		}
-		// 	}
-		// })
 	}
 
-	const enableSelector = () => {
-		if (isEmpty(preview.entity)) return
+	const toggleSelector = () => {
+		dispatch({
+			type: 'MANAGER_ACTION',
+			manager: {
+				...manager,
+				preview: {
+					state: false
+				},
+				editor: {
+					state: false
+				},
+				selector: {
+					...selector,
+					state: !selector.state,
+					selection: []
+				}
+			}
+		})
+	}
+
+	const addToSelection = (entity) => {
+		let newSelection = [...selection, entity]
+		const unique = arr => uniqBy(arr, 'id')
 		dispatch({
 			type: 'MANAGER_ACTION',
 			manager: {
 				...manager,
 				selector: {
 					...selector,
-					state: !editor.state,
+					selection: unique(newSelection)
 				}
 			}
 		})
 	}
 
-	const addToSelection = async (entity) => {
-		let newSelection = [...selection, entity]
-		await dispatch({
+	const removeFromSelection = (id) => {
+		let newSelection = [...selection]
+		remove(newSelection, s => s.id === id)
+		dispatch({
 			type: 'MANAGER_ACTION',
 			manager: {
 				...manager,
@@ -81,11 +94,39 @@ const useManagerActions = () => {
 		})
 	}
 
-	const deleteSelection = () => {
+	const deleteSelection = (selection, table, type) => {
+		let count = 0
+		selection.forEach(async record => {
+			SQLifting.post('/delete/byid', { table: table, id: record.id })
+				.then(() => {
+					console.log('Delete Success!')
+					if (table === 'circ') {
+						return deleteDependencies('circ_movs', record, type, ['circs'])
+					}
+					if (table === 'woco') {
+						return deleteDependencies('woco_excos', record, type, ['wocos'])
+					}
+					count++
+					count === selection.length && update(type, [table + 's'])
+				})
+				.catch(e => console.log(e))
+		});
 
+		const deleteDependencies = async (table, id, type, requests) => {
+			await SQLifting.post(`/delete/deps`, { table, id })
+				.then(res => update(type, requests))
+				.catch(err => console.log(err))
+		}
 	}
 
-	return { fullReset, enableEditor, enableSelector, addToSelection, deleteSelection }
+	return {
+		fullReset,
+		toggleEditor,
+		toggleSelector,
+		addToSelection,
+		removeFromSelection,
+		deleteSelection
+	}
 }
 
 export default useManagerActions

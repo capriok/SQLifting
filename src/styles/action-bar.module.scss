@@ -1,10 +1,5 @@
 @import "../index.scss";
 
-button {
-	margin-left: 10px;
-	cursor: pointer;
-}
-
 .actionbar {
 	user-select: none;
 	z-index: 100;
@@ -23,5 +18,30 @@ button {
 	background-color: $main;
 	h1 {
 		margin-top: 20px;
+	}
+	.actions {
+		@include flex;
+		button {
+			margin-right: 10px;
+			cursor: pointer;
+		}
+		.select_group {
+			@include flex;
+			.select {
+				margin-right: 0;
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+			.delete {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+		}
+		.delete_hover:hover {
+			background-color: rgb(175, 0, 0);
+		}
+		.active_button {
+			background-color: $entity-active;
+		}
 	}
 }

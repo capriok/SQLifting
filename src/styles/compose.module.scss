@@ -1,10 +1,6 @@
 @import "../index.scss";
 
-.prevnull {
-	flex: 1;
-	padding: 0 10px;
-}
-.preview {
+.compose {
 	flex: 1;
 	position: sticky;
 	top: 140px;
@@ -23,27 +19,18 @@
 		font-weight: 400;
 		font-size: 1.2rem;
 	}
-	ul {
-		margin: 0;
-		padding: 3px 0 3px 20px;
-		li {
-			cursor: default;
+	form {
+		@include flex;
+		input {
+			flex: 1;
+			margin-right: 10px;
+			padding: 5px;
+			border: $light-border;
+			background-color: $main;
 		}
+		justify-content: space-between;
 	}
-	span {
-		color: $preview-span;
-		font-size: 0.9rem;
-		margin-left: 2px;
-	}
-	.dep {
-		font-weight: 400;
-		font-size: 1.1rem;
-		margin: 0;
-		margin-top: 20px;
-	}
-	.detail {
-		margin: 0;
-		font-weight: 400;
-		margin-top: 5px;
-	}
+}
+.submit {
+	background-color: cadetblue;
 }

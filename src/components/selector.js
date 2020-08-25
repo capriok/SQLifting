@@ -7,20 +7,38 @@ import { useStateValue } from '../state'
 import useUpdate from '../utils/useUpdate';
 
 import styles from '../styles/selector.module.scss'
-
+import X from '../gallery/x_black.png'
+import useManagerActions from '../utils/useManagerActions';
 
 const Selector = () => {
 	const [{
 		manager: {
 			selector,
+			selector: {
+				selection
+			}
 		}
 	}] = useStateValue()
 
+	const { removeFromSelection } = useManagerActions()
 	const update = useUpdate()
 
 	return (
 		<div className={styles.selector}>
-			<p className={styles.title}>Selector</p>
+			<p className={styles.title}>Selection</p>
+			<ul>
+				{selection.map((entity, i) => (
+					<li key={i}>
+						<span>{entity.name}</span>
+						<img
+							src={X}
+							alt=""
+							draggable={false}
+							onClick={() => removeFromSelection(entity.id)}
+						/>
+					</li>
+				))}
+			</ul>
 		</div>
 	)
 }

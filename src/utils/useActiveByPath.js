@@ -14,8 +14,10 @@ const useActiveByPath = () => {
 	}
 	initialState.manager.active = {
 		name: nameQuery.capitalize(),
-		group: initialState[group],
-		entity: entity
+		groupState: initialState[group],
+		entity: entity,
+		group: group,
+		table: entity.slice(0, -1)
 	}
 	return initialState.manager.active
 }

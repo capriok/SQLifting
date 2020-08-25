@@ -6,15 +6,16 @@ import useActiveByPath from '../utils/useActiveByPath'
 import useManagerActions from '../utils/useManagerActions'
 
 import styles from '../styles/manage.module.scss'
+import check from '../gallery/check_black.png'
 
 import Preview from '../components/preview'
 import Editor from '../components/editor'
 import Selector from '../components/selector'
+import Compose from '../components/compose'
 
 
 const Manage = () => {
 	const [{
-		actionState,
 		manager,
 		manager: {
 			active,
@@ -32,26 +33,48 @@ const Manage = () => {
 	}, [entities])
 
 	useEffect(() => {
-		setEntities(activeByPath.group[activeByPath.entity])
+		setEntities(activeByPath.groupState[activeByPath.entity])
 	}, [active])
 
 	const set = (entity) => {
 		if (selector.state === true) return addToSelection(entity)
+		if (preview.entity && preview.entity.id === entity.id) {
+			console.log('hit');
+			return dispatch({
+				type: 'MANAGER_ACTION',
+				manager: {
+					...manager,
+					preview: {
+						state: false,
+					}
+				}
+			})
+		}
 		dispatch({
 			type: 'MANAGER_ACTION',
 			manager: {
 				...manager,
 				preview: {
+					state: true,
 					group: entity.group,
 					table: entity.table,
-					entity
-				}
+					entity: entity
+				},
+				editor: { state: false }
 			}
 		})
 	}
 
 	let entityClass = (id) => {
-		return manager.preview.entity.id === id ? `${styles.entity} ${styles.activeENT}` : styles.entity
+		if (selector.state === true) {
+			return styles.entity
+		} else {
+			if (preview.entity && manager.preview.entity.id === id) {
+				return `${styles.entity} ${styles.active_entity}`
+			} else {
+				return styles.entity
+			}
+		}
 	}
 
 	return (
@@ -61,6 +84,7 @@ const Manage = () => {
 					{entities.map((entity, i) => (
 						<div key={i} className={styles.cont}>
 							<div className={entityClass(entity.id)} onClick={() => set(entity)}>
+								{selector.selection.some(s => s.id === entity.id) && <img src={check} alt="" />}
 								<p>{entity.name}</p>
 							</div>
 						</div>
@@ -71,7 +95,9 @@ const Manage = () => {
 					? <Editor />
 					: selector.state
 						? <Selector />
-						: <Preview />
+						: preview.state
+							? <Preview />
+							: <Compose />
 				}
 			</div>
 		</>
