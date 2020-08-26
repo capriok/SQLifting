@@ -18,17 +18,27 @@ const Keystone = () => {
 		<>
 			<div className={styles.keystone}>
 				<Route exact path='/' render={() => (
-					<Greeting />
+					<>
+						<Greeting />
+					</>
 				)} />
-				<Actionbar />
 				<Route path="/manage" render={() => (
-					<Manage />
+					<>
+						<Actionbar />
+						<Manage />
+					</>
 				)} />
 				<Route path="/assemble" render={() => (
-					<Assemble />
+					<>
+						<Actionbar />
+						<Assemble />
+					</>
 				)} />
 				<Route path="/workout" render={() => (
-					<Workout />
+					<>
+						<Actionbar />
+						<Workout />
+					</>
 				)} />
 			</div>
 		</>

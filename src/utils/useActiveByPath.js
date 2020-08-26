@@ -13,7 +13,6 @@ const useActiveByPath = () => {
 		if (entity === 'exercises') entity = 'excos'
 		if (entity === 'workouts') entity = 'wocos'
 	}
-
 	let state
 
 	switch (view) {

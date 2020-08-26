@@ -12,6 +12,7 @@ import Preview from '../components/manage/preview'
 import Editor from '../components/manage/editor'
 import Selector from '../components/manage/selector'
 import Compose from '../components/manage/compose'
+import { isEmpty } from 'lodash'
 
 
 const Manage = () => {
@@ -39,6 +40,7 @@ const Manage = () => {
 	useEffect(() => {
 		return () => fullReset()
 	}, [])
+
 
 	const set = (entity) => {
 		if (selector.state === true) return addToSelection(entity)
