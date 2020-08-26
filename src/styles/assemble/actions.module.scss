@@ -24,13 +24,11 @@
 	.active_button {
 		background-color: $entity-active;
 	}
-}
-
-@media (max-width: 1200px) {
-}
-
-@media (max-width: $media-main) {
-}
-
-@media (max-width: $media-mobile) {
+	@include media("<=phone") {
+		width: 100%;
+		justify-content: space-between;
+		button {
+			margin: 0;
+		}
+	}
 }

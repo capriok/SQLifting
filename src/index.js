@@ -25,9 +25,6 @@ export default function Index() {
       }
     },
     weather: {},
-    components: {
-      sidebar: true
-    },
     compositions: {
       equipments: [],
       muscles: [],
@@ -52,8 +49,6 @@ export default function Index() {
     }
   }
 
-  if (window.innerWidth <= 750) initialState.components.sidebar = false
-
   const reducer = (state, action) => {
     switch (action.type) {
       case "AUTHORIZATION":
@@ -77,11 +72,6 @@ export default function Index() {
         return {
           ...state,
           weather: action.weather
-        };
-      case "COMPONENT_ACTION":
-        return {
-          ...state,
-          components: action.components
         };
       case "COMPOSITION_ACTION":
         return {

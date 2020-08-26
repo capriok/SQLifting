@@ -15,4 +15,9 @@
 	.submit {
 		background-color: $entity-active;
 	}
+	@include media("<=phone") {
+		form {
+			margin-top: 10px;
+		}
+	}
 }

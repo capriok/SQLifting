@@ -42,6 +42,14 @@ $soft-shadow: -3px 3px 5px -5px black;
 $media-main: 900px;
 $media-mobile: 750px;
 
+@import "./utils/breakpoints.scss";
+
+$breakpoints: (
+  "phone": 320px,
+  "tablet": 768px,
+  "desktop": 1024px,
+) !default;
+
 body {
   background-color: $body;
   margin: 0;

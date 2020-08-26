@@ -1,6 +1,7 @@
 @import "../index.scss";
 
 .navbar {
+	z-index: unset;
 	z-index: 100;
 	user-select: none;
 	@include flex;
@@ -28,6 +29,24 @@
 	.desktop_button {
 		@include flex;
 	}
+	@include media("<=tablet") {
+		width: 100vw;
+		.mobile_button {
+			@include flex;
+		}
+		.desktop_button {
+			display: none;
+		}
+	}
+	@include media("<=phone") {
+		z-index: 100;
+		position: relative;
+		height: 50px;
+		box-shadow: none;
+		a {
+			font-size: 2rem;
+		}
+	}
 }
 
 .break {
@@ -37,31 +56,7 @@
 	width: 100vw;
 	height: 10px;
 	background-color: $body;
-}
-
-@media (max-width: $media-main) {
-	.navbar {
-		width: 100vw;
-		.mobile_button {
-			@include flex;
-		}
-		.desktop_button {
-			display: none;
-		}
-	}
-}
-
-@media (max-width: $media-mobile) {
-	.navbar {
-		z-index: 10;
-		position: relative;
-		height: 50px;
-		box-shadow: none;
-		a {
-			font-size: 2rem;
-		}
-	}
-	.break {
+	@include media("<=phone") {
 		display: none;
 	}
 }

@@ -24,10 +24,7 @@
 	.active_button {
 		background-color: $entity-active;
 	}
-}
-
-@media (max-width: $media-mobile) {
-	.actions {
+	@include media("<=phone") {
 		width: 100%;
 		justify-content: space-between;
 		button {

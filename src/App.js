@@ -1,6 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { useStateValue } from './state'
 import useUpdate from './utils/useUpdate';
@@ -8,6 +8,7 @@ import useWeather from './utils/useWeather';
 import LandingLayout from './layouts/landing-layout';
 
 import Authenticate from './components/authenticate'
+import Navbar from './components/navbar'
 import MainLayout from './layouts/main-layout'
 import Sidebar from './components/sidebar';
 import Keystone from './components/keystone';
@@ -30,6 +31,8 @@ function App() {
   }] = useStateValue()
   const update = useUpdate()
 
+  const [SB, setSB] = useState(false)
+
   useEffect(() => {
     if (isAuthenticated) update('all')
   }, [])
@@ -49,6 +52,8 @@ function App() {
   useEffect(() => { log('Wocos', wocos) }, [wocos])
   useEffect(() => { log('Circs', circs) }, [circs])
 
+  const openSidebar = () => setSB(!SB)
+
   return (
     <>
       <Router>
@@ -58,10 +63,13 @@ function App() {
           )} />
           :
           <Route path='/' render={() => (
-            <MainLayout>
-              <Sidebar />
-              <Keystone />
-            </MainLayout>
+            <>
+              <Navbar SB={SB} openSidebar={openSidebar} />
+              <MainLayout>
+                <Sidebar open={SB} set={setSB} />
+                <Keystone />
+              </MainLayout>
+            </>
           )} />
         }
         {!isAuthenticated && <>

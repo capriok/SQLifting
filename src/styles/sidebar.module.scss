@@ -1,13 +1,14 @@
 @import "../index.scss";
 
 .sidebar {
-	z-index: 1000;
+	z-index: 500;
 	cursor: default;
 	user-select: none;
 	position: sticky;
 	top: $top;
 	flex: 1;
-	min-width: 250px;
+	max-width: 275px;
+	min-width: 200px;
 	padding-bottom: 10px;
 	border: $light-border;
 	border-radius: 5px;
@@ -67,15 +68,13 @@
 			padding-left: 20px;
 		}
 	}
-}
-
-@media (max-width: $media-mobile) {
-	.sidebar {
-		position: fixed;
+	@include media("<=phone") {
+		position: absolute;
 		top: 50px;
 		left: 0;
 		width: 100vw;
 		height: 100vh;
+		max-width: unset;
 		padding-bottom: 100px;
 		overflow-y: scroll;
 		.head {

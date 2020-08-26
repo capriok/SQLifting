@@ -10,20 +10,10 @@
 	align-items: flex-start;
 	align-self: stretch;
 	width: 100vw;
-	padding: 0 20px;
+	padding: 0 10px;
 	padding-top: 70px;
 	max-width: $max-width;
-}
-
-@media (max-width: $media-main) {
-	.main {
-		padding: 0 10px;
-		padding-top: 70px;
-	}
-}
-
-@media (max-width: $media-mobile) {
-	.main {
+	@include media("<=phone") {
 		padding: 0;
 		padding-top: 50px;
 	}

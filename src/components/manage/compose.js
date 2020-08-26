@@ -33,21 +33,13 @@ const Compose = () => {
 	const disclaimer = () => {
 		switch (entity) {
 			case 'equipments':
-				return (
-					<center>Equipments are used to assemble exercises</center>
-				)
+				return ('Equipments are used to assemble exercises')
 			case 'muscles':
-				return (
-					<center>Muscles are used to assemble exercises</center>
-				)
+				return ('Muscles are used to assemble exercises')
 			case 'exercises':
-				return (
-					<center>Exercises are used to assemble exercises</center>
-				)
+				return ('Exercises are used to assemble exercises')
 			case 'movements':
-				return (
-					<center>Movements are used to assemble circuits</center>
-				)
+				return ('Movements are used to assemble circuits')
 			default:
 				break;
 		}
@@ -71,8 +63,7 @@ const Compose = () => {
 						<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
 						<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
 					</form>
-					<br />
-					{disclaimer()}
+					<p className={styles.disclaimer}>{disclaimer()}</p>
 				</div>
 			</div>
 		</>
