@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useStateValue } from '../state'
 import useAssembleActions from '../utils/useAssembleActions'
+import useActiveByPath from '../utils/useActiveByPath'
 import styles from '../styles/assemble.module.scss'
 
 const Assemble = () => {
@@ -9,7 +10,10 @@ const Assemble = () => {
 		console.log('ASSEMBLE');
 		return () => fullReset()
 	}, [])
+	const activeByPath = useActiveByPath()
 	const { fullReset } = useAssembleActions()
+
+	console.log(activeByPath);
 
 	return (
 		<>

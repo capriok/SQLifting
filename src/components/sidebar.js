@@ -37,20 +37,12 @@ const Sidebar = () => {
 		compositions: [...router.compositions],
 		composites: [...router.composites]
 	}
-	const assemble = {
+	const assembler = {
 		pathname: '/assemble',
 		composites: [...router.composites]
 	}
 
 	const CTX = (op) => {
-		dispatch({
-			type: 'ACTIVE_ACTION',
-			active: {
-				name: op.name,
-				parent: op.parent,
-				entity: op.entity
-			}
-		})
 		window.innerWidth <= 750 && closeSidebar()
 	}
 
@@ -84,7 +76,7 @@ const Sidebar = () => {
 						{manage.compositions.map((op, i) => (
 							<Link key={i}
 								to={`${manage.pathname}${op.pathname}`}
-								onClick={() => CTX(op)}>
+								onClick={() => CTX()}>
 								<li className={activeLI(`${manage.pathname}${op.pathname}`)}>{op.name}</li>
 							</Link>
 						))}
@@ -94,18 +86,18 @@ const Sidebar = () => {
 						{manage.composites.map((op, i) => (
 							<Link key={i}
 								to={`${manage.pathname}${op.pathname}`}
-								onClick={() => CTX(op)}>
+								onClick={() => CTX()}>
 								<li className={activeLI(`${manage.pathname}${op.pathname}`)}>{op.name}</li>
 							</Link>
 						))}
 					</ul>
 					<h1>Assemble</h1>
 					<ul>
-						{assemble.composites.map((op, i) => (
+						{assembler.composites.map((op, i) => (
 							<Link key={i}
-								to={`${assemble.pathname}${op.pathname}`}
-								onClick={() => CTX(op)}>
-								<li className={activeLI(`${assemble.pathname}${op.pathname}`)}>{op.name}</li>
+								to={`${assembler.pathname}${op.pathname}`}
+								onClick={() => CTX()}>
+								<li className={activeLI(`${assembler.pathname}${op.pathname}`)}>{op.name}</li>
 							</Link>
 						))
 						}

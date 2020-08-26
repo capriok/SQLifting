@@ -39,7 +39,6 @@ const useActiveByPath = () => {
 			break;
 	}
 
-
 	return state
 }
 

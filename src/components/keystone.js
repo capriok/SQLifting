@@ -13,37 +13,58 @@ import Actionbar from './action-bar'
 import Greeting from '../views/greeting'
 
 const Keystone = () => {
-	const routes = [
-		{
-			path: "/manage",
-			component: Manage
-		},
-		{
-			path: "/assemble",
-			component: Assemble
-		},
-		{
-			path: "/workout",
-			component: Workout
-		}
-	]
+
 	return (
 		<>
 			<div className={styles.keystone}>
-				<Switch>
-					<Route exact path='/' render={() => (
-						<Greeting />
-					)} />
-					{routes.map((route, i) => (
-						<React.Fragment key={i}>
-							<Actionbar />
-							<RouteHandler {...route} />
-						</React.Fragment>
-					))}
-				</Switch>
+				<Route exact path='/' render={() => (
+					<Greeting />
+				)} />
+				<Actionbar />
+				<Route path="/manage" render={() => (
+					<Manage />
+				)} />
+				<Route path="/assemble" render={() => (
+					<Assemble />
+				)} />
+				<Route path="/workout" render={() => (
+					<Workout />
+				)} />
 			</div>
 		</>
+
 	)
 }
 
 export default Keystone
+
+// const routes = [
+// 	{
+// 		path: "/manage",
+// 		component: Manage
+// 	},
+// 	{
+// 		path: "/assemble",
+// 		component: Assemble
+// 	},
+// 	{
+// 		path: "/workout",
+// 		component: Workout
+// 	}
+// ]
+
+{/* <>
+	<div className={styles.keystone}>
+		<Switch>
+			<Route exact path='/' render={() => (
+				<Greeting />
+			)} />
+			{routes.map((route, i) => (
+				<React.Fragment key={i}>
+					<Actionbar />
+					<RouteHandler {...route} />
+				</React.Fragment>
+			))}
+		</Switch>
+	</div>
+</> */}
