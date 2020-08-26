@@ -4,7 +4,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import RouteHandler from '../utils/routeHandler'
 
-import styles from '../styles/main.module.scss'
+import styles from '../styles/keystone.module.scss'
 
 import Manage from '../views/manage'
 import Assemble from '../views/assemble'

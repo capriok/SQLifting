@@ -1,7 +1,7 @@
 @import "../index.scss";
 
 .sidebar {
-	z-index: 100;
+	z-index: 1000;
 	cursor: default;
 	user-select: none;
 	position: sticky;
@@ -15,11 +15,15 @@
 	background-color: $main;
 	.head {
 		@include flex;
+		justify-content: space-between;
 		padding: 10px;
-		.icon {
+		.gear,
+		.close {
 			cursor: pointer;
-			margin-right: auto;
 			width: 18px;
+		}
+		.close {
+			display: none;
 		}
 	}
 	h1 {
@@ -58,9 +62,26 @@
 		:last-child li {
 			padding-bottom: 0;
 		}
-		.activeLI {
+		.active_li {
 			transition: 0.1s;
 			padding-left: 20px;
+		}
+	}
+}
+
+@media (max-width: $media-mobile) {
+	.sidebar {
+		position: fixed;
+		top: 50px;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		padding-bottom: 100px;
+		overflow-y: scroll;
+		.head {
+			.close {
+				display: inline;
+			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import styles from '../styles/landing.module.scss'
+import styles from './landing.module.scss'
 
 import landingBlur from '../gallery/landing_blur.jpg'
 import logo from '../gallery/official_logo.png'

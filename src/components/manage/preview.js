@@ -1,14 +1,15 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useEffect } from 'react'
+import { isEmpty } from 'lodash'
 import { useStateValue } from '../../state'
 
-import main from '../../styles/manage/main.module.scss'
+import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/preview.module.scss'
 
 const Preview = () => {
 	const [{
-		manager: {
+		manage: {
 			preview: {
 				group,
 				table,
@@ -18,15 +19,15 @@ const Preview = () => {
 	}] = useStateValue()
 
 	useEffect(() => {
-		(entity && Object.keys(entity).length > 0) && console.log('%cPreviewing', 'color: lightskyblue', entity);
+		(entity && !isEmpty(entity)) && console.log('%cPreviewing', 'color: lightskyblue', entity);
 	}, [])
 
 	switch (group) {
 		case 'compositions':
 			return (
 				<>
-					<div className={main.extension}>
-						<p className={main.title}>{entity.name}</p>
+					<div className={view.extension}>
+						<p className={view.title}>{entity.name}</p>
 						<p className={styles.detail}>Occurrences</p>
 						<ul>
 							{entity.occ.length > 0
@@ -41,17 +42,17 @@ const Preview = () => {
 			switch (table) {
 				case 'exco':
 					return (
-						<div className={main.extension}>
-							<p className={main.title}>{entity.name}</p>
-							<p className={styles.detail}>Equipmentity: <span>{entity.deps.equipmentity}</span></p>
+						<div className={view.extension}>
+							<p className={view.title}>{entity.name}</p>
+							<p className={styles.detail}>Equipment: <span>{entity.deps.equipment}</span></p>
 							<p className={styles.detail}>Muscle: <span>{entity.deps.muscle}</span></p>
 							<p className={styles.detail}>Exercise: <span>{entity.deps.exercise}</span></p>
 						</div>
 					)
 				case 'circ':
 					return (
-						<div className={main.extension}>
-							<p className={main.title}>{entity.name}</p>
+						<div className={view.extension}>
+							<p className={view.title}>{entity.name}</p>
 							{entity.deps.map((dep, i) => (
 								<p key={i} className={styles.detail}>{dep.name}: <span>{dep.duration}</span></p>
 							))}
@@ -59,8 +60,8 @@ const Preview = () => {
 					)
 				case 'woco':
 					return (
-						<div className={main.extension}>
-							<p className={main.title}>{entity.name}</p>
+						<div className={view.extension}>
+							<p className={view.title}>{entity.name}</p>
 							<p className={styles.dep}>Exercises</p>
 							<ul>
 								{entity.excos.map((dep, i) => (
@@ -101,8 +102,8 @@ const Preview = () => {
 			break;
 		default:
 			return (
-				<div className={main.extension}>
-					<p className={main.title}>Select an entity to preview</p>
+				<div className={view.extension}>
+					<p className={view.title}>Select an entity to preview</p>
 				</div>
 			)
 	}

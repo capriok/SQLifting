@@ -1,0 +1,37 @@
+@import "../../index.scss";
+
+.manage_actions {
+	@include flex;
+	button {
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	.select_group {
+		@include flex;
+		.select {
+			margin-right: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		.delete {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+	}
+	.delete_hover:hover {
+		background-color: rgb(175, 0, 0);
+	}
+	.active_button {
+		background-color: $entity-active;
+	}
+}
+
+@media (max-width: $media-mobile) {
+	.actions {
+		width: 100%;
+		justify-content: space-between;
+		button {
+			margin: 0;
+		}
+	}
+}

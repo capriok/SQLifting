@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import useActiveByPath from '../utils/useActiveByPath'
-import useManagerActions from '../utils/useManagerActions'
+import useManageActions from '../utils/useManageActions'
 
 import styles from '../styles/manage/manage.module.scss'
-import main from '../styles/manage/main.module.scss'
 import check from '../gallery/check_black.png'
 
 import Preview from '../components/manage/preview'
@@ -17,18 +16,18 @@ import Compose from '../components/manage/compose'
 
 const Manage = () => {
 	const [{
-		manager,
-		manager: {
+		manage,
+		manage: {
 			active,
 			preview,
 			editor,
 			selector
 		}
-	},
-		dispatch] = useStateValue()
+	}] = useStateValue()
 	const activeByPath = useActiveByPath()
-	const { fullReset, addToSelection } = useManagerActions()
+	const { fullReset, setPreview, addToSelection } = useManageActions()
 	const [entities, setEntities] = useState([])
+
 	useEffect(() => {
 		fullReset()
 	}, [entities])
@@ -37,43 +36,23 @@ const Manage = () => {
 		setEntities(activeByPath.groupState[activeByPath.entity])
 	}, [active])
 
+	useEffect(() => {
+		return () => fullReset()
+	}, [])
+
 	const set = (entity) => {
 		if (selector.state === true) return addToSelection(entity)
-		if (preview.entity && preview.entity.id === entity.id) {
-			console.log('hit');
-			return dispatch({
-				type: 'MANAGER_ACTION',
-				manager: {
-					...manager,
-					preview: {
-						state: false,
-					}
-				}
-			})
-		}
-		dispatch({
-			type: 'MANAGER_ACTION',
-			manager: {
-				...manager,
-				preview: {
-					state: true,
-					group: entity.group,
-					table: entity.table,
-					entity: entity
-				},
-				editor: { state: false }
-			}
-		})
+		setPreview(entity)
 	}
 
 	let entityClass = (id) => {
 		if (selector.state === true) {
-			return main.entity
+			return styles.entity
 		} else {
-			if (preview.entity && manager.preview.entity.id === id) {
-				return `${main.entity} ${main.active_entity}`
+			if (preview.entity && manage.preview.entity.id === id) {
+				return `${styles.entity} ${styles.active_entity}`
 			} else {
-				return main.entity
+				return styles.entity
 			}
 		}
 	}
@@ -82,15 +61,16 @@ const Manage = () => {
 		<>
 			<div className={styles.manage}>
 				<div className={styles.entities}>
+					<div className={styles.mobile_break} />
 					{entities.map((entity, i) => (
-						<div key={i} className={main.entity_cont}>
+						<div key={i} className={styles.entity_cont}>
 							<div className={entityClass(entity.id)} onClick={() => set(entity)}>
 								{selector.selection.some(s => s.id === entity.id) && <img src={check} alt="" />}
-								<p>{entity.name}</p>
+								<div><p>{entity.name}</p></div>
 							</div>
 						</div>
 					))}
-					{/* <div className={styles.cont}><div className={styles.entity}><p>test</p></div></div> */}
+					{/* <div className={styles.entity_cont}><div className={styles.entity}><div><p>test</p></div></div></div> */}
 				</div>
 				{editor.state
 					? <Editor />

@@ -6,9 +6,17 @@ import { Link } from 'react-router-dom'
 
 import styles from '../styles/sidebar.module.scss'
 import gear from '../gallery/gear.png'
+import close from '../gallery/x_black.png'
 
 const Sidebar = () => {
-	const [{ compositions, composites }, dispatch] = useStateValue()
+	const [{
+		components,
+		components: {
+			sidebar
+		},
+		compositions,
+		composites
+	}, dispatch] = useStateValue()
 
 	const router = {
 		compositions: [
@@ -24,12 +32,12 @@ const Sidebar = () => {
 		]
 	}
 
-	const manager = {
+	const manage = {
 		pathname: '/manage',
 		compositions: [...router.compositions],
 		composites: [...router.composites]
 	}
-	const assembler = {
+	const assemble = {
 		pathname: '/assemble',
 		composites: [...router.composites]
 	}
@@ -43,57 +51,71 @@ const Sidebar = () => {
 				entity: op.entity
 			}
 		})
+		window.innerWidth <= 750 && closeSidebar()
 	}
 
 	const activeLI = pathname => {
 		let path = window.location.pathname.split('/').slice(1)
 		let windowPath = `/${path[0]}/${path[1]}/${path[2]}`
-		return pathname === windowPath ? styles.activeLI : null
+		return pathname === windowPath ? styles.active_li : null
+	}
+
+	const closeSidebar = () => {
+		dispatch({
+			type: 'COMPONENT_ACTION',
+			components: {
+				...components,
+				sidebar: false
+			}
+		})
 	}
 
 	return (
 		<>
-			<div className={styles.sidebar}>
-				<div className={styles.head}>
-					<img className={styles.icon} src={gear} alt="" draggable={false} />
+			{sidebar &&
+				<div className={styles.sidebar}>
+					<div className={styles.head}>
+						<img className={styles.gear} src={gear} alt="" draggable={false} />
+						<img className={styles.close} src={close} alt="" onClick={() => closeSidebar()} />
+					</div>
+					<h1>Manage</h1>
+					<p>Compositions</p>
+					<ul>
+						{manage.compositions.map((op, i) => (
+							<Link key={i}
+								to={`${manage.pathname}${op.pathname}`}
+								onClick={() => CTX(op)}>
+								<li className={activeLI(`${manage.pathname}${op.pathname}`)}>{op.name}</li>
+							</Link>
+						))}
+					</ul>
+					<p>Composites</p>
+					<ul>
+						{manage.composites.map((op, i) => (
+							<Link key={i}
+								to={`${manage.pathname}${op.pathname}`}
+								onClick={() => CTX(op)}>
+								<li className={activeLI(`${manage.pathname}${op.pathname}`)}>{op.name}</li>
+							</Link>
+						))}
+					</ul>
+					<h1>Assemble</h1>
+					<ul>
+						{assemble.composites.map((op, i) => (
+							<Link key={i}
+								to={`${assemble.pathname}${op.pathname}`}
+								onClick={() => CTX(op)}>
+								<li className={activeLI(`${assemble.pathname}${op.pathname}`)}>{op.name}</li>
+							</Link>
+						))
+						}
+					</ul >
+					<h1>Workout</h1>
+					<ul>
+						<Link to={'/workout'}><li>Go</li></Link>
+					</ul>
 				</div>
-				<h1>Manage</h1>
-				<p>Compositions</p>
-				<ul>
-					{manager.compositions.map((op, i) => (
-						<Link key={i}
-							to={`${manager.pathname}${op.pathname}`}
-							onClick={() => CTX(op)}>
-							<li className={activeLI(`${manager.pathname}${op.pathname}`)}>{op.name}</li>
-						</Link>
-					))}
-				</ul>
-				<p>Composites</p>
-				<ul>
-					{manager.composites.map((op, i) => (
-						<Link key={i}
-							to={`${manager.pathname}${op.pathname}`}
-							onClick={() => CTX(op)}>
-							<li className={activeLI(`${manager.pathname}${op.pathname}`)}>{op.name}</li>
-						</Link>
-					))}
-				</ul>
-				<h1>Assemble</h1>
-				<ul>
-					{assembler.composites.map((op, i) => (
-						<Link key={i}
-							to={`${assembler.pathname}${op.pathname}`}
-							onClick={() => CTX(op)}>
-							<li className={activeLI(`${assembler.pathname}${op.pathname}`)}>{op.name}</li>
-						</Link>
-					))
-					}
-				</ul >
-				<h1>Workout</h1>
-				<ul>
-					<Link to={'/workout'}><li>Go</li></Link>
-				</ul>
-			</div>
+			}
 		</>
 	)
 }

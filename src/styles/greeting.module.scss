@@ -50,18 +50,20 @@
 			@include flex;
 			justify-items: self-start;
 			margin: 10px;
-			p {
-			}
 			.symbol {
+				color: black;
 				font-size: 1.3rem;
 				padding-bottom: 10px;
 			}
 		}
 	}
 	.icon {
-		width: 100px;
-		min-height: 100px;
-		filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3)) hue-rotate(180deg);
+		@include flex;
+		img {
+			width: 100px;
+			min-height: 100px;
+			filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3)) hue-rotate(180deg);
+		}
 	}
 }
 
@@ -86,5 +88,64 @@
 	.date {
 		font-size: 1.8rem;
 		margin: 10px;
+	}
+}
+
+@media (max-width: $media-main) {
+	.greeting {
+		padding: 100px 0;
+	}
+}
+
+@media (max-width: $media-mobile) {
+	.greeting {
+		border-top: none;
+		position: fixed;
+		top: 0;
+		height: 100vh;
+		.message {
+			margin-top: 20px;
+			font-size: 1.8rem;
+		}
+	}
+	.weather {
+		.top {
+			.description {
+				font-size: 1.5rem;
+			}
+		}
+		.bottom {
+			flex-wrap: wrap;
+			width: 100vw;
+			.icon {
+				order: -1;
+				width: 100vw;
+				margin-bottom: 10px;
+			}
+			.temperature {
+				margin-left: 30px;
+			}
+			.humidity {
+				margin-right: 30px;
+			}
+			.temperature,
+			.humidity {
+				flex: 1;
+				min-width: unset;
+				h1 {
+					font-size: 1.5rem;
+				}
+				p {
+					margin: 0px;
+					font-size: 1.3rem;
+				}
+				.symbol {
+					font-size: 0.9rem;
+				}
+			}
+		}
+	}
+	.clock {
+		display: none;
 	}
 }

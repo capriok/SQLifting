@@ -1,31 +1,27 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { isEmpty } from 'lodash'
-import { SQLifting } from '../../api/sqlifting'
 import { useStateValue } from '../../state'
-import useUpdate from '../../utils/useUpdate';
 
-import main from '../../styles/manage/main.module.scss'
+import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/selector.module.scss'
 import X from '../../gallery/x_black.png'
-import useManagerActions from '../../utils/useManagerActions';
+import useManageActions from '../../utils/useManageActions';
 
 const Selector = () => {
 	const [{
-		manager: {
+		manage: {
 			selector: {
 				selection
 			}
 		}
 	}] = useStateValue()
 
-	const { removeFromSelection } = useManagerActions()
-	const update = useUpdate()
+	const { removeFromSelection } = useManageActions()
 
 	return (
-		<div className={main.extension}>
-			<p className={main.title}>Selection</p>
+		<div className={view.extension}>
+			<p className={view.title}>Selection</p>
 			<div className={styles.selector}>
 				<ul>
 					{selection.map((entity, i) => (

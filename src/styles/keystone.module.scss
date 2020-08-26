@@ -1,0 +1,20 @@
+@import "../index.scss";
+
+.keystone {
+	flex: 4;
+	align-self: stretch;
+	margin-left: 10px;
+}
+
+@media (max-width: $media-main) {
+	.keystone {
+	}
+}
+
+@media (max-width: $media-mobile) {
+	.keystone {
+		flex: 1;
+		width: 90%;
+		margin-left: 0;
+	}
+}

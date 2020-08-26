@@ -25,6 +25,9 @@ export default function Index() {
       }
     },
     weather: {},
+    components: {
+      sidebar: true
+    },
     compositions: {
       equipments: [],
       muscles: [],
@@ -36,7 +39,7 @@ export default function Index() {
       excos: [],
       wocos: []
     },
-    manager: {
+    manage: {
       active: {},
       preview: {},
       editor: {},
@@ -44,8 +47,12 @@ export default function Index() {
         selection: []
       },
     },
-    assembler: {}
+    assemble: {
+      active: {}
+    }
   }
+
+  if (window.innerWidth <= 750) initialState.components.sidebar = false
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -71,6 +78,11 @@ export default function Index() {
           ...state,
           weather: action.weather
         };
+      case "COMPONENT_ACTION":
+        return {
+          ...state,
+          components: action.components
+        };
       case "COMPOSITION_ACTION":
         return {
           ...state,
@@ -81,21 +93,34 @@ export default function Index() {
           ...state,
           composites: action.composites
         };
-      case "MANAGER_ACTION":
+      case "MANAGE_ACTION":
         return {
           ...state,
-          manager: action.manager
+          manage: action.manage
         };
-      case "RESET_MANAGER":
+      case "RESET_MANAGE":
         return {
           ...state,
-          manager: {
+          manage: {
             active: {},
             preview: {},
             editor: {},
             selector: {
               selection: []
             },
+          }
+        };
+      case "ASSEMBLE_ACTION":
+        return {
+          ...state,
+          assemble: action.assemble
+        };
+      case "RESET_ASSEMBLE":
+        console.log('hit');
+        return {
+          ...state,
+          assemble: {
+            active: {}
           }
         };
       default:
@@ -110,6 +135,10 @@ export default function Index() {
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
   log('-------------------------TASKS-------------------------')
+  log('- Sidebar gear toggles settings sidebar content')
+  log('     Turn off disclaimers')
+  log('     Set main accent color(currently: entity-active)')
+  log('     etc..')
   log('- When deleting any composition:')
   log('     Must handle dependencies of deleted record')
   log('- Think about more composition editing features')

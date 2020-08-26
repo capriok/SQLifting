@@ -47,7 +47,7 @@ const Weather = () => {
 					<h1>{temperature}<span className={styles.symbol}>°</span></h1>
 					<p>Temperature</p>
 				</div>
-				<img className={styles.icon} src={icon} draggable={false} alt="" />
+				<div className={styles.icon}><img src={icon} draggable={false} alt="" /></div>
 				<div className={styles.humidity}>
 					<h1>{humidity}<span className={styles.symbol}>%</span></h1>
 					<p>Humidity</p>

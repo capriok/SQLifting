@@ -3,64 +3,27 @@
 import React, { useState, useEffect } from 'react'
 import { isEmpty } from 'lodash'
 import { useStateValue } from '../state'
-import useManagerActions from '../utils/useManagerActions'
+import useActiveByPath from '../utils/useActiveByPath'
 
 import styles from '../styles/action-bar.module.scss'
-
-import { Button } from 'godspeed'
+import ManageActions from './manage/actions'
+import AssembleActions from './assemble/actions'
 
 const Actionbar = () => {
 	const [{
-		manager: {
-			active,
-			active: {
-				group,
-				table
-			},
-			preview,
-			editor,
-			selector,
-			selector: {
-				selection
-			}
-		}
+		manage,
+		assemble
 	}] = useStateValue()
-	const [title, setTitle] = useState('')
 
-	const { toggleEditor, toggleSelector, deleteSelection } = useManagerActions()
 
-	useEffect(() => {
-		setTitle(active.name)
-	}, [active])
+	const activeByPath = useActiveByPath()
 
 	return (
 		<>
 			<div className={styles.actionbar}>
-				<h1>{title}</h1>
-				<div className={styles.actions}>
-					<Button
-						text="Edit"
-						size="xsm"
-						className={editor.state ? styles.active_button : null}
-						onClick={() => toggleEditor()}
-						disabled={isEmpty(preview.entity)}
-					/>
-					<div className={styles.select_group}>
-						<Button
-							text="Select"
-							size="xsm"
-							className={selector.state ? `${styles.active_button} ${styles.select}` : styles.select}
-							onClick={() => toggleSelector()}
-						/>
-						<Button
-							text="Delete"
-							size="xsm"
-							className={`${styles.delete_hover} ${styles.delete}`}
-							onClick={() => deleteSelection(selection, table, group)}
-							disabled={isEmpty(selector.selection)}
-						/>
-					</div>
-				</div>
+				<h1>{activeByPath.name}</h1>
+				{!isEmpty(manage.active) && <ManageActions />}
+				{!isEmpty(assemble.active) && <AssembleActions />}
 			</div>
 		</>
 	)

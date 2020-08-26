@@ -9,8 +9,8 @@ import LandingLayout from './layouts/landing-layout';
 
 import Authenticate from './components/authenticate'
 import MainLayout from './layouts/main-layout'
-import Keystone from './components/keystone';
 import Sidebar from './components/sidebar';
+import Keystone from './components/keystone';
 
 function App() {
   const [{

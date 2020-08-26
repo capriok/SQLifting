@@ -6,14 +6,14 @@ import { SQLifting } from '../../api/sqlifting'
 import { useStateValue } from '../../state'
 import useUpdate from '../../utils/useUpdate';
 
-import main from '../../styles/manage/main.module.scss'
+import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/editor.module.scss'
 import { Button, Input } from 'godspeed'
 
 
 const Editor = () => {
 	const [{
-		manager: {
+		manage: {
 			editor,
 			editor: {
 				group,
@@ -32,11 +32,16 @@ const Editor = () => {
 	const submit = (e) => {
 		e.preventDefault()
 		SQLifting.post('/post/entity_edit', { table: table, id: entity.id, edit: value })
-			.then(() => update(`${group}s`, [`${table}s`]))
+			.then(() => {
+				console.log(group);
+				console.log(table);
+				update(group, [`${table}s`])
+				setValue('')
+			})
 	}
 	return (
-		<div className={main.extension}>
-			<p className={main.title}>{entity.name}</p>
+		<div className={view.extension}>
+			<p className={view.title}>{entity.name}</p>
 			<div className={styles.editor}>
 				<form onSubmit={e => submit(e)}>
 					<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />

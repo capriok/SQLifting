@@ -11,6 +11,8 @@
 	width: 100%;
 	height: 60px;
 	padding: 0 25px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $main;
 	* {
@@ -19,6 +21,12 @@
 	a {
 		font-size: 2.5rem;
 		margin: 25px 0;
+	}
+	.mobile_button {
+		display: none;
+	}
+	.desktop_button {
+		@include flex;
 	}
 }
 
@@ -29,4 +37,31 @@
 	width: 100vw;
 	height: 10px;
 	background-color: $body;
+}
+
+@media (max-width: $media-main) {
+	.navbar {
+		width: 100vw;
+		.mobile_button {
+			@include flex;
+		}
+		.desktop_button {
+			display: none;
+		}
+	}
+}
+
+@media (max-width: $media-mobile) {
+	.navbar {
+		z-index: 10;
+		position: relative;
+		height: 50px;
+		box-shadow: none;
+		a {
+			font-size: 2rem;
+		}
+	}
+	.break {
+		display: none;
+	}
 }

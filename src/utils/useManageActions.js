@@ -2,14 +2,14 @@
 /*eslint no-unused-vars: "off"*/
 import { SQLifting } from '../api/sqlifting'
 import { useStateValue } from '../state'
-import useUpdate from '../utils/useUpdate';
+import useUpdate from './useUpdate';
 
 import { isEmpty, uniqBy, remove } from 'lodash'
 
-const useManagerActions = () => {
+const useManageActions = () => {
 	const [{
-		manager,
-		manager: {
+		manage,
+		manage: {
 			preview,
 			editor,
 			selector,
@@ -22,15 +22,42 @@ const useManagerActions = () => {
 	const update = useUpdate()
 
 	const fullReset = () => {
-		dispatch({ type: 'RESET_MANAGER' })
+		dispatch({ type: 'RESET_MANAGE' })
+	}
+
+	const setPreview = (entity) => {
+		if (preview.entity && preview.entity.id === entity.id) {
+			return dispatch({
+				type: 'MANAGE_ACTION',
+				manage: {
+					...manage,
+					preview: {
+						state: false,
+					}
+				}
+			})
+		}
+		dispatch({
+			type: 'MANAGE_ACTION',
+			manage: {
+				...manage,
+				preview: {
+					state: true,
+					group: entity.group,
+					table: entity.table,
+					entity: entity
+				},
+				editor: { state: false }
+			}
+		})
 	}
 
 	const toggleEditor = () => {
 		if (isEmpty(preview.entity)) return
 		dispatch({
-			type: 'MANAGER_ACTION',
-			manager: {
-				...manager,
+			type: 'MANAGE_ACTION',
+			manage: {
+				...manage,
 				editor: {
 					...preview,
 					state: !editor.state
@@ -46,9 +73,9 @@ const useManagerActions = () => {
 
 	const toggleSelector = () => {
 		dispatch({
-			type: 'MANAGER_ACTION',
-			manager: {
-				...manager,
+			type: 'MANAGE_ACTION',
+			manage: {
+				...manage,
 				preview: {
 					state: false
 				},
@@ -68,9 +95,9 @@ const useManagerActions = () => {
 		let newSelection = [...selection, entity]
 		const unique = arr => uniqBy(arr, 'id')
 		dispatch({
-			type: 'MANAGER_ACTION',
-			manager: {
-				...manager,
+			type: 'MANAGE_ACTION',
+			manage: {
+				...manage,
 				selector: {
 					...selector,
 					selection: unique(newSelection)
@@ -83,9 +110,9 @@ const useManagerActions = () => {
 		let newSelection = [...selection]
 		remove(newSelection, s => s.id === id)
 		dispatch({
-			type: 'MANAGER_ACTION',
-			manager: {
-				...manager,
+			type: 'MANAGE_ACTION',
+			manage: {
+				...manage,
 				selector: {
 					...selector,
 					selection: newSelection
@@ -114,13 +141,14 @@ const useManagerActions = () => {
 
 		const deleteDependencies = async (table, id, type, requests) => {
 			await SQLifting.post(`/delete/deps`, { table, id })
-				.then(res => update(type, requests))
+				.then(() => update(type, requests))
 				.catch(err => console.log(err))
 		}
 	}
 
 	return {
 		fullReset,
+		setPreview,
 		toggleEditor,
 		toggleSelector,
 		addToSelection,
@@ -129,4 +157,4 @@ const useManagerActions = () => {
 	}
 }
 
-export default useManagerActions
+export default useManageActions
