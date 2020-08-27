@@ -17,7 +17,6 @@ const Selector = () => {
 		}
 	}] = useStateValue()
 
-	const { removeFromSelection } = useManageActions()
 
 	return (
 		<div className={view.extension}>
@@ -27,12 +26,6 @@ const Selector = () => {
 					{selection.map((entity, i) => (
 						<li key={i}>
 							<span>{entity.name}</span>
-							<img
-								src={X}
-								alt=""
-								draggable={false}
-								onClick={() => removeFromSelection(entity.id)}
-							/>
 						</li>
 					))}
 				</ul>
