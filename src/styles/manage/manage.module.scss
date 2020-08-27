@@ -115,7 +115,7 @@
 		.entities {
 			order: 1;
 			width: 100%;
-			margin-top: 10px;
+			margin-top: 0;
 			.entity_cont {
 				min-width: 100%;
 				max-width: 100%;
@@ -127,7 +127,6 @@
 	}
 
 	@include media("<=phone") {
-		flex-direction: column;
 		.extension {
 			border-radius: 0;
 			width: 100%;
@@ -152,7 +151,6 @@
 			order: 1;
 			width: 100%;
 			margin: 0;
-			margin-top: 0;
 			.entity_cont {
 				min-width: 100%;
 				max-width: 100%;

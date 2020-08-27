@@ -18,6 +18,11 @@
 	h1 {
 		margin-top: 20px;
 	}
+	@include media("<=tablet") {
+		h1 {
+			display: none;
+		}
+	}
 	@include media("<=phone") {
 		height: 50px;
 		max-height: 50px;

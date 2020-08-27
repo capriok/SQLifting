@@ -24,6 +24,14 @@
 	.active_button {
 		background-color: $entity-active;
 	}
+
+	@include media("<=tablet") {
+		width: 100%;
+		justify-content: space-between;
+		button {
+			margin: 0;
+		}
+	}
 	@include media("<=phone") {
 		width: 100%;
 		justify-content: space-between;
