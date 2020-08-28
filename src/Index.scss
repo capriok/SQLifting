@@ -41,7 +41,6 @@ $max-width: 1300px;
 $top: 70px;
 $body: rgb(221, 221, 221);
 $main: rgb(240, 240, 240);
-$entity-idle: rgb(240, 240, 240);
 $light-border: 1px solid rgb(190, 190, 190);
 $soft-shadow: -3px 3px 5px -5px black;
 :root {
@@ -54,13 +53,14 @@ body {
   margin: 0;
   padding: 0;
 }
+html {
+  scroll-behavior: smooth;
+}
 * {
   box-sizing: border-box;
   line-height: 1.5rem;
   font-family: roboto;
-}
-html {
-  scroll-behavior: smooth;
+  text-decoration: none;
 }
 h1,
 h2,
@@ -72,7 +72,4 @@ h4 {
 h1 {
   font-size: 1.8rem;
   letter-spacing: 1px;
-}
-a {
-  text-decoration: none;
 }

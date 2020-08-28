@@ -115,7 +115,6 @@ export default function Index() {
           assemble: action.assemble
         };
       case "RESET_ASSEMBLE":
-        console.log('hit');
         return {
           ...state,
           assemble: {
