@@ -32,12 +32,12 @@
 @import "./styles/breakpoints.scss";
 
 $breakpoints: (
-  "phone": 320px,
+  "phone": 420px,
   "tablet": 900px,
-  "desktop": 1024px,
+  "desktop": 1200px,
 ) !default;
 
-$max-width: 1400px;
+$max-width: 1300px;
 $top: 70px;
 $body: rgb(221, 221, 221);
 $main: rgb(240, 240, 240);

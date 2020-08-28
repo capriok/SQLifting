@@ -11,8 +11,8 @@
 	width: 100%;
 	flex-direction: column;
 	max-width: 300px;
+	min-width: 300px;
 	min-height: 600px;
-	min-width: 200px;
 	padding-bottom: 10px;
 	border: $light-border;
 	border-radius: 5px;
@@ -71,9 +71,6 @@
 			transition: 0.1s;
 			padding-left: 20px;
 		}
-	}
-	@include media("<=tablet") {
-		max-width: 350px;
 	}
 	@include media("<=phone") {
 		position: absolute;

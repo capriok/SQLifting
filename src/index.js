@@ -9,7 +9,6 @@ import './Index.scss';
 
 import 'react-tippy/dist/tippy.css'
 import 'react-draggable-array/dist/index.css'
-import globalVars from './Index.scss';
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -28,7 +27,7 @@ export default function Index() {
     weather: {},
     options: {
       tips: true,
-      accent: '#206fa3'
+      accent: ''
     },
     compositions: {
       equipments: [],

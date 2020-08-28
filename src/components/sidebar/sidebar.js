@@ -29,10 +29,7 @@ const Sidebar = ({ open, set }) => {
 }
 
 const SidebarContent = ({ CTX }) => {
-	const [{
-		compositions,
-		composites
-	},] = useStateValue()
+	const [{ compositions, composites }] = useStateValue()
 
 	const [OPS, setOPS] = useState(false)
 
