@@ -1,4 +1,4 @@
-@import "../index.scss";
+@import "../../index.scss";
 
 .sidebar {
 	z-index: 500;
@@ -7,7 +7,11 @@
 	position: sticky;
 	top: $top;
 	flex: 1;
+	display: flex;
+	width: 100%;
+	flex-direction: column;
 	max-width: 275px;
+	min-height: 600px;
 	min-width: 200px;
 	padding-bottom: 10px;
 	border: $light-border;
@@ -48,7 +52,7 @@
 		padding-left: 20px;
 		margin: 0;
 		margin: 10px 5px;
-		margin-top: 10px;
+		margin-left: 0;
 		width: fit-content;
 		li {
 			cursor: pointer;

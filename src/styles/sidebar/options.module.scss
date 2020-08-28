@@ -1,0 +1,78 @@
+@import "../../index.scss";
+
+.options {
+	flex: 1;
+	@include flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	height: 100%;
+	ul {
+		box-sizing: border-box;
+		width: 100%;
+		li {
+			cursor: default;
+			@include flex;
+			justify-content: space-between;
+			padding-right: 20px;
+			padding-bottom: 0;
+			p {
+				padding: 0;
+			}
+		}
+	}
+	.logout {
+		cursor: pointer;
+		text-align: center;
+		font-size: 1.2rem;
+		letter-spacing: 0.5px;
+		padding: 5px 0;
+		margin-top: auto;
+		transition: 0.2s;
+		&:hover {
+			transition: 0.2s;
+			color: white;
+			background-color: $entity-active;
+		}
+	}
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+	input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+		&:checked + span {
+			background-color: $entity-active;
+		}
+		&:checked + span:before {
+			transform: translateX(18px);
+		}
+	}
+	span {
+		position: absolute;
+		cursor: pointer;
+		border-radius: 34px;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		transition: 0.3s;
+		&:before {
+			content: "";
+			position: absolute;
+			left: 4px;
+			bottom: 4px;
+			height: 12px;
+			width: 12px;
+			border-radius: 50%;
+			background-color: white;
+			transition: 0.4s;
+		}
+	}
+}

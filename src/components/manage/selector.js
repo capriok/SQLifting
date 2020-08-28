@@ -17,20 +17,27 @@ const Selector = () => {
 		}
 	}] = useStateValue()
 
+	const notMobile = window.screen.width >= 420
 
 	return (
 		<div className={view.extension}>
 			<p className={view.title}>Selection</p>
 			<div className={styles.selector}>
-				<ul>
-					{selection.map((entity, i) => (
-						<li key={i}>
-							<span>{entity.name}</span>
-						</li>
-					))}
-				</ul>
+				{notMobile
+					? <>
+						{selection.length <= 0 && <p className={styles.disclaimer}>Select entites to delete</p>}
+						<ul>
+							{selection.map((entity, i) => (
+								<li key={i}>
+									<span>{entity.name}</span>
+								</li>
+							))}
+						</ul>
+					</>
+					: <p className={styles.disclaimer}>Select entites to delete</p>
+				}
 			</div>
-		</div>
+		</div >
 	)
 }
 

@@ -4,10 +4,11 @@ import React from 'react'
 import { useStateValue } from '../state'
 
 import styles from '.././styles/navbar.module.scss'
+import logo from '../gallery/official_logo_bluesql.png'
 
 import { Navbar as Nav, NavLink } from 'godspeed'
 
-const Navbar = ({ SB, openSidebar }) => {
+const Navbar = ({ SB, set }) => {
 	const [, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
@@ -22,17 +23,12 @@ const Navbar = ({ SB, openSidebar }) => {
 	return (
 		<>
 			<Nav className={styles.navbar} title="SQLifting" to="/">
-				<NavLink
-					className={styles.desktop_button}
-					hover="steelblue"
-					onClick={() => logoutActions()}>
-					Logout
-				</NavLink>
+				<img className={styles.desktop_logo} src={logo} alt="" />
 				<NavLink
 					className={styles.mobile_button}
 					style={!notMobile && SB ? { backgroundColor: '#267fbb' } : {}}
 					hover="steelblue"
-					onClick={() => openSidebar()}>
+					onClick={() => set(!SB)}>
 					☰
 					 </NavLink>
 			</Nav>

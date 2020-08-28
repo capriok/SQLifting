@@ -20,29 +20,28 @@
 		color: black;
 	}
 	a {
-		font-size: 2.5rem;
+		font-size: 2.1rem;
+		letter-spacing: 0.5px;
 		margin: 25px 0;
+	}
+	.desktop_logo {
+		height: 40px;
 	}
 	.mobile_button {
 		display: none;
-	}
-	.desktop_button {
-		@include flex;
-	}
-	@include media("<=tablet") {
-		width: 100vw;
-		.mobile_button {
-			@include flex;
-		}
-		.desktop_button {
-			display: none;
-		}
 	}
 	@include media("<=phone") {
 		z-index: 100;
 		position: relative;
 		height: 50px;
 		box-shadow: none;
+		width: 100vw;
+		.mobile_button {
+			@include flex;
+		}
+		.desktop_logo {
+			display: none;
+		}
 		a {
 			font-size: 2rem;
 		}

@@ -8,14 +8,14 @@
 			margin-right: 10px;
 			padding: 5px;
 			border: $light-border;
-			background-color: $main;
+			background-color: lighten($color: $body, $amount: 5%);
 		}
 		justify-content: space-between;
 	}
 	.submit {
 		background-color: $entity-active;
 	}
-	.disclaimer {
+	.tip {
 		width: 100%;
 		text-align: center;
 		margin-bottom: 0;

@@ -25,6 +25,9 @@ export default function Index() {
       }
     },
     weather: {},
+    options: {
+      tips: true
+    },
     compositions: {
       equipments: [],
       muscles: [],
@@ -67,6 +70,11 @@ export default function Index() {
               username: ''
             }
           }
+        };
+      case "OPTIONS_ACTION":
+        return {
+          ...state,
+          options: action.options
         };
       case "WEATHER_ACTION":
         return {
@@ -138,6 +146,9 @@ export default function Index() {
   log('     JWT for routes involving account specific data')
   log('-------------------------------------------------------')
   log('')
+
+  let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
+  if (LSops) initialState.options = LSops
 
   let LStoken = localStorage.getItem('SQLifting-token')
   let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))

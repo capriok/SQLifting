@@ -18,6 +18,9 @@ const Compose = () => {
 				uid
 			}
 		},
+		options: {
+			tips
+		},
 		manage: {
 			active: {
 				entity
@@ -30,7 +33,7 @@ const Compose = () => {
 
 	if (entity === 'excos' || entity === 'circs' || entity === 'wocos') return <Preview />
 
-	const disclaimer = () => {
+	const tip = () => {
 		switch (entity) {
 			case 'equipments':
 				return ('Equipments are used to assemble exercises')
@@ -60,10 +63,10 @@ const Compose = () => {
 				<p className={view.title}>Add {entity.slice(0, -1)}</p>
 				<div className={styles.compose}>
 					<form onSubmit={e => submit(e)}>
-						<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
+						<Input placeholder="Add name" value={value} onChange={e => setValue(e.target.value)} />
 						<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
 					</form>
-					<p className={styles.disclaimer}>{disclaimer()}</p>
+					{tips && <p className={styles.tip}>{tip()}</p>}
 				</div>
 			</div>
 		</>

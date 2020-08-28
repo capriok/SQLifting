@@ -2,7 +2,6 @@
 
 .keystone {
 	flex: 2;
-	align-self: stretch;
 	margin-left: 10px;
 	@include media("<=tablet") {
 		flex: 3;

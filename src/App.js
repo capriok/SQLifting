@@ -52,8 +52,6 @@ function App() {
   useEffect(() => { log('Wocos', wocos) }, [wocos])
   useEffect(() => { log('Circs', circs) }, [circs])
 
-  const openSidebar = () => setSB(!SB)
-
   return (
     <>
       <Router>
@@ -64,7 +62,7 @@ function App() {
           :
           <Route path='/' render={() => (
             <>
-              <Navbar SB={SB} openSidebar={openSidebar} />
+              <Navbar SB={SB} set={setSB} />
               <MainLayout>
                 <Sidebar open={SB} set={setSB} />
                 <Keystone />
