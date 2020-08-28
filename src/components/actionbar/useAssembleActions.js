@@ -1,8 +1,8 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import { SQLifting } from '../api/sqlifting'
-import { useStateValue } from '../state'
-import useUpdate from './useUpdate';
+import { SQLifting } from '../../api/sqlifting'
+import { useStateValue } from '../../state'
+import useUpdate from '../../utils/useUpdate';
 
 import { isEmpty, uniqBy, remove } from 'lodash'
 

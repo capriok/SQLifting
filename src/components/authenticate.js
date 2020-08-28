@@ -5,8 +5,8 @@ import { SQLiftingAcc } from '../api/sqlifting'
 import { useStateValue } from '../state'
 
 import styles from '../styles/authbox.module.scss'
-import person from '../gallery/authbox_person.png'
-import lock from '../gallery/authbox_lock.png'
+import person from '../images/authbox_person.png'
+import lock from '../images/authbox_lock.png'
 
 import { Button, Input } from 'godspeed'
 

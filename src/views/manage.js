@@ -3,17 +3,15 @@
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state'
 import useActiveByPath from '../utils/useActiveByPath'
-import useManageActions from '../utils/useManageActions'
+import useManageActions from '../components/actionbar/useManageActions'
 
 import styles from '../styles/manage/manage.module.scss'
-import check from '../gallery/check_black.png'
+import check from '../images/check_black.png'
 
 import Preview from '../components/manage/preview'
 import Editor from '../components/manage/editor'
 import Selector from '../components/manage/selector'
 import Compose from '../components/manage/compose'
-import { isEmpty } from 'lodash'
-
 
 const Manage = () => {
 	const [{

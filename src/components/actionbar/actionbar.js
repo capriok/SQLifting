@@ -1,13 +1,13 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { isEmpty } from 'lodash'
-import { useStateValue } from '../state'
-import useActiveByPath from '../utils/useActiveByPath'
+import { useStateValue } from '../../state'
+import useActiveByPath from '../../utils/useActiveByPath'
 
-import styles from '../styles/action-bar.module.scss'
-import ManageActions from './manage/actions'
-import AssembleActions from './assemble/actions'
+import styles from '../../styles/actionbar.module.scss'
+import ManageActions from '../manage/actions'
+import AssembleActions from '../assemble/actions'
 
 const Actionbar = () => {
 	const [{

@@ -1,12 +1,15 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../../state'
 import { Link } from 'react-router-dom'
 
-import styles from '../styles/sidebar/sidebar.module.scss'
-import ops from '../styles/sidebar/options.module.scss'
-import gear from '../gallery/gear.png'
+import styles from '../../styles/sidebar/sidebar.module.scss'
+import ops from '../../styles/sidebar/options.module.scss'
+import gear from '../../images/gear.png'
+
+import Tips from './options/tips'
+import Accent from './options/accent'
 
 const Sidebar = ({ open, set }) => {
 	const notMobile = window.screen.width >= 420
@@ -29,7 +32,7 @@ const SidebarContent = ({ CTX }) => {
 	const [{
 		compositions,
 		composites
-	}, dispatch] = useStateValue()
+	},] = useStateValue()
 
 	const [OPS, setOPS] = useState(false)
 
@@ -115,38 +118,23 @@ const SidebarContent = ({ CTX }) => {
 }
 
 const SidebarOptions = () => {
-	const [{
-		options,
-		options: {
-			tips
-		}
-	}, dispatch] = useStateValue()
-	const changeOptions = () => {
-		let newOptions = {
-			...options,
-			tips: !tips
-		}
-		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
-		dispatch({ type: 'OPTIONS_ACTION', options: newOptions })
+	const [{ options }, dispatch] = useStateValue()
+
+	const logoutActions = async () => {
+		await dispatch({ type: 'LOGOUT' })
+		localStorage.removeItem('SQLifting-token')
+		localStorage.removeItem('SQLifting-user')
+		window.location.pathname = '/'
 	}
 
 	return (
 		<div className={ops.options}>
 			<h1>Options</h1>
 			<ul>
-				<li>
-					<p>Toggle tips</p>
-					<label className={ops.switch}>
-						<input
-							type="checkbox"
-							checked={tips}
-							onChange={() => changeOptions()}
-						/>
-						<span />
-					</label>
-				</li>
+				<Accent />
+				<Tips />
 			</ul>
-			<h1 className={ops.logout}>Logout</h1>
+			<h1 className={ops.logout} onClick={() => logoutActions()}>Logout</h1>
 		</div>
 	)
 }

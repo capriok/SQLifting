@@ -10,7 +10,7 @@ import LandingLayout from './layouts/landing-layout';
 import Authenticate from './components/authenticate'
 import Navbar from './components/navbar'
 import MainLayout from './layouts/main-layout'
-import Sidebar from './components/sidebar';
+import Sidebar from './components/sidebar/sidebar';
 import Keystone from './components/keystone';
 
 function App() {

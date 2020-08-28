@@ -1,0 +1,18 @@
+@import "../../../index.scss";
+
+.accent {
+	position: relative;
+	span {
+		cursor: pointer;
+		width: 40px;
+		height: 20px;
+		border-radius: 20px;
+		background-color: $app-accent;
+	}
+}
+
+.picker {
+	z-index: 100;
+	position: absolute;
+	right: -45px;
+}

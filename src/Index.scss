@@ -29,26 +29,25 @@
   align-items: center;
 }
 
-$max-width: 1400px;
-$top: 70px;
-$body: rgb(221, 221, 221);
-$main: rgb(240, 240, 240);
-$entity-idle: rgb(240, 240, 240);
-$entity-active: rgb(32, 111, 163);
-$preview-span: rgb(7, 96, 168);
-$light-border: 1px solid rgb(190, 190, 190);
-$soft-shadow: -3px 3px 5px -5px black;
-
-$media-main: 900px;
-$media-mobile: 750px;
-
-@import "./utils/breakpoints.scss";
+@import "./styles/breakpoints.scss";
 
 $breakpoints: (
   "phone": 320px,
   "tablet": 900px,
   "desktop": 1024px,
 ) !default;
+
+$max-width: 1400px;
+$top: 70px;
+$body: rgb(221, 221, 221);
+$main: rgb(240, 240, 240);
+$entity-idle: rgb(240, 240, 240);
+$light-border: 1px solid rgb(190, 190, 190);
+$soft-shadow: -3px 3px 5px -5px black;
+:root {
+  --app-accent: #206fa3;
+}
+$app-accent: var(--app-accent);
 
 body {
   background-color: $body;

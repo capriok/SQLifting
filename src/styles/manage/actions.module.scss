@@ -22,7 +22,7 @@
 		background-color: rgb(175, 0, 0);
 	}
 	.active_button {
-		background-color: $entity-active;
+		background-color: $app-accent;
 	}
 
 	@include media("<=tablet") {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 import { useStateValue } from '../../state'
-import useManageActions from '../../utils/useManageActions'
+import useManageActions from '../actionbar/useManageActions'
 
 import styles from '../../styles/manage/actions.module.scss'
 

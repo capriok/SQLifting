@@ -4,20 +4,11 @@ import React from 'react'
 import { useStateValue } from '../state'
 
 import styles from '.././styles/navbar.module.scss'
-import logo from '../gallery/official_logo_bluesql.png'
+import logo from '../images/official_logo_bluesql.png'
 
 import { Navbar as Nav, NavLink } from 'godspeed'
 
 const Navbar = ({ SB, set }) => {
-	const [, dispatch] = useStateValue()
-
-	const logoutActions = async () => {
-		await dispatch({ type: 'LOGOUT' })
-		localStorage.removeItem('SQLifting-token')
-		localStorage.removeItem('SQLifting-user')
-		window.location.pathname = '/'
-	}
-
 	const notMobile = window.screen.width >= 420
 
 	return (

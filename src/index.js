@@ -9,6 +9,7 @@ import './Index.scss';
 
 import 'react-tippy/dist/tippy.css'
 import 'react-draggable-array/dist/index.css'
+import globalVars from './Index.scss';
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -26,7 +27,8 @@ export default function Index() {
     },
     weather: {},
     options: {
-      tips: true
+      tips: true,
+      accent: '#206fa3'
     },
     compositions: {
       equipments: [],
@@ -147,8 +149,14 @@ export default function Index() {
   log('-------------------------------------------------------')
   log('')
 
+
+  console.log(initialState.options.accent);
+
+
   let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
+  let root = document.documentElement.style
   if (LSops) initialState.options = LSops
+  if (LSops) root.setProperty('--app-accent', LSops.accent)
 
   let LStoken = localStorage.getItem('SQLifting-token')
   let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))

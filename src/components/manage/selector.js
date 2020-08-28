@@ -5,8 +5,6 @@ import { useStateValue } from '../../state'
 
 import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/selector.module.scss'
-import X from '../../gallery/x_black.png'
-import useManageActions from '../../utils/useManageActions';
 
 const Selector = () => {
 	const [{

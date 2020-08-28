@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import Axios from 'axios'
 import { useStateValue } from '../state'
 
-import placeholder from '../gallery/weather_placeholder.png'
+import placeholder from '../images/weather_placeholder.png'
 
 // https://openweathermap.org/api/one-call-api
 
