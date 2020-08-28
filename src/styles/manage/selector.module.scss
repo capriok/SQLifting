@@ -8,6 +8,7 @@
 	ul {
 		padding: 3px 0 3px 20px;
 		padding-right: 10px;
+		margin-bottom: 0;
 		li {
 			user-select: none;
 			@include flex;

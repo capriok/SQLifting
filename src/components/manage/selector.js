@@ -23,14 +23,16 @@ const Selector = () => {
 			<div className={styles.selector}>
 				{notMobile
 					? <>
-						{selection.length <= 0 && <p className={styles.disclaimer}>Select entites to delete</p>}
-						<ul>
-							{selection.map((entity, i) => (
-								<li key={i}>
-									<span>{entity.name}</span>
-								</li>
-							))}
-						</ul>
+						{selection.length <= 0
+							? <p className={styles.disclaimer}>Select entites to delete</p>
+							: <ul>
+								{selection.map((entity, i) => (
+									<li key={i}>
+										<span>{entity.name}</span>
+									</li>
+								))}
+							</ul>
+						}
 					</>
 					: <p className={styles.disclaimer}>Select entites to delete</p>
 				}
