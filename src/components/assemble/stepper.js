@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStateValue } from '../../state'
+import useActiveByPath from '../../utils/useActiveByPath'
 
 import stepper from '../../styles/assemble/stepper.scss'
 
@@ -20,16 +21,21 @@ const useStyles = makeStyles(() => ({
 }))
 
 const Stepper = (props) => {
-	const { activeStep, setActiveStep } = props
-	const [{ },] = useStateValue()
+	const { activeStep, setActiveStep, stepLabels } = props
+	const [{
+		assemble: {
+			active
+		} },] = useStateValue()
+
+	const activeByPath = useActiveByPath()
+
+	useEffect(() => {
+		setActiveStep(0)
+	}, [activeByPath.entity])
 
 	const cls = useStyles()
 
-	const steps = [
-		'Choose Equipment',
-		'Choose Exercise',
-		'Choose Muscle'
-	]
+	const steps = stepLabels
 
 	return (
 		<>
@@ -48,7 +54,7 @@ const Stepper = (props) => {
 			</MStepper>
 			{activeStep === steps.length ? (
 				<>
-					<p className={cls.instructions}>All steps completed</p>
+					<p className={cls.instructions}>{activeByPath.name} created successfullly</p>
 					<Button text="Reset" onClick={() => setActiveStep(0)} />
 				</>
 			) : (

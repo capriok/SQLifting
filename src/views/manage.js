@@ -39,7 +39,6 @@ const Manage = () => {
 		return () => fullReset()
 	}, [])
 
-
 	const set = (entity) => {
 		if (selector.state === true) return addToSelection(entity)
 		setPreview(entity)

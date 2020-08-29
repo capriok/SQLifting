@@ -137,7 +137,13 @@ export default function Index() {
 
   const log = (message) => console.log(`%c${message}`, 'color: white')
 
-  console.log('%cWelcome to SQLifting', 'color: white; font-family: Verdana; font-size: 1.5rem; border-bottom: 2px solid lightskyblue; margin: 20px 0');
+  console.log('%cWelcome to SQLifting', `
+    color: white;
+    font-family: Verdana;
+    font-size: 1.5rem;
+    border-bottom: 2px solid lightskyblue;
+    margin: 20px 0
+  `);
 
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
@@ -152,11 +158,6 @@ export default function Index() {
   log('-------------------------------------------------------')
   log('')
 
-  let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
-  let root = document.documentElement.style
-  if (LSops) initialState.options = LSops
-  if (LSops) root.setProperty('--app-accent', LSops.accentOption)
-
   let LStoken = localStorage.getItem('SQLifting-token')
   let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))
   if (LStoken && LSuser) {
@@ -165,6 +166,9 @@ export default function Index() {
       token: LStoken,
       details: LSuser
     }
+    let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
+    if (LSops) initialState.options = LSops
+    if (LSops) document.documentElement.style.setProperty('--app-accent', LSops.accentOption)
 
     log(`Logged in as ${initialState.user.details.username.capitalize()} (ID: ${initialState.user.details.uid})`);
     log('')

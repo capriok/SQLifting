@@ -56,8 +56,6 @@ const Sidebar = () => {
 }
 
 const SidebarContent = ({ setSidebar }) => {
-	const [{ compositions, composites }] = useStateValue()
-
 	const [optionsOpen, setOptions] = useState(false)
 
 	const router = {
