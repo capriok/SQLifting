@@ -14,21 +14,32 @@ import SidebarOption from './options/sidebar'
 
 const notMobile = window.screen.width >= 420
 
-const Sidebar = ({ sidebarOpen, setSidebar }) => {
-	const [{ options: { sidebar } }] = useStateValue()
+const Sidebar = () => {
+	const [{
+		options: { sidebarOption },
+		components,
+		components: { sidebar }
+	}, dispatch] = useStateValue()
 
-	if (notMobile && !sidebar) {
+	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
+
+	if (notMobile && !sidebarOption) {
+		if (condition) {
+
+		} else {
+
+		}
 		return (
 			<>
-				{(!sidebar && sidebarOpen) &&
-					<SidebarContent setSidebar={() => setSidebar(!sidebarOpen)} sidebarOpen={sidebarOpen} />
+				{(!sidebarOption && sidebar) &&
+					<SidebarContent setSidebar={() => flipSidebar()} />
 				}
 			</>
 		)
 	} else if (notMobile) {
 		return (
 			<>
-				{sidebar &&
+				{sidebarOption &&
 					< SidebarContent setSidebar={() => { }} />
 				}
 			</>
@@ -36,15 +47,15 @@ const Sidebar = ({ sidebarOpen, setSidebar }) => {
 	} else {
 		return (
 			<>
-				{sidebarOpen &&
-					<SidebarContent setSidebar={() => setSidebar(!sidebarOpen)} />
+				{sidebar &&
+					<SidebarContent setSidebar={() => flipSidebar()} />
 				}
 			</>
 		)
 	}
 }
 
-const SidebarContent = ({ setSidebar, sidebarOpen }) => {
+const SidebarContent = ({ setSidebar }) => {
 	const [{ compositions, composites }] = useStateValue()
 
 	const [optionsOpen, setOptions] = useState(false)
@@ -91,7 +102,7 @@ const SidebarContent = ({ setSidebar, sidebarOpen }) => {
 					/>
 				</div>
 				{optionsOpen
-					? <SidebarOptions setSidebar={setSidebar} sidebarOpen={sidebarOpen} setOptions={() => setOptions(!optionsOpen)} />
+					? <SidebarOptions setOptions={() => setOptions(!optionsOpen)} />
 					: <>
 						<h1>Manage</h1>
 						<p>Compositions</p>

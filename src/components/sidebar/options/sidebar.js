@@ -2,27 +2,34 @@ import React from 'react'
 import { useStateValue } from '../../../state'
 import styles from '../../../styles/sidebar/options/toggle.module.scss'
 
-const Sidebar = ({ setSidebar, sidebarOpen, setOptions }) => {
-	const [{ options, options: { sidebar } }, dispatch] = useStateValue()
+const Sidebar = ({ setOptions }) => {
+	const [{
+		options,
+		options: { sidebarOption },
+		components,
+		components: { sidebar }
+	}, dispatch] = useStateValue()
+
+	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
 
 	const set = () => {
 		let newOptions = {
 			...options,
-			sidebar: !sidebar
+			sidebarOption: !sidebarOption
 		}
 		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
-		dispatch({ type: 'OPTIONS_ACTION', options: newOptions })
-		setSidebar()
-		!sidebarOpen && setOptions()
+		dispatch({ type: 'OPTION_ACTION', options: newOptions })
+		flipSidebar()
+		!sidebar && setOptions()
 	}
 
 	return (
 		<li>
-			<p>Show sidebar</p>
+			<p>Persistant sidebar</p>
 			<label className={styles.switch}>
 				<input
 					type="checkbox"
-					checked={sidebar}
+					checked={sidebarOption}
 					onChange={() => set()}
 				/>
 				<span />

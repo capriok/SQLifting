@@ -19,7 +19,7 @@ const Compose = () => {
 			}
 		},
 		options: {
-			tips
+			tipsOption
 		},
 		manage: {
 			active: {
@@ -66,7 +66,7 @@ const Compose = () => {
 						<Input placeholder="Add name" value={value} onChange={e => setValue(e.target.value)} />
 						<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
 					</form>
-					{tips && <p className={styles.tip}>{tip()}</p>}
+					{tipsOption && <p className={styles.tip}>{tip()}</p>}
 				</div>
 			</div>
 		</>

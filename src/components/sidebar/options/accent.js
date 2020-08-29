@@ -4,7 +4,10 @@ import { BlockPicker } from 'react-color';
 import styles from '../../../styles/sidebar/options/accent.module.scss'
 
 const Accent = () => {
-	const [{ options, options: { accent } }, dispatch] = useStateValue()
+	const [{
+		options,
+		options: { accentOption }
+	}, dispatch] = useStateValue()
 	const [picker, setPicker] = useState(false)
 
 	const ref = useRef();
@@ -28,11 +31,11 @@ const Accent = () => {
 	const set = (color) => {
 		let newOptions = {
 			...options,
-			accent: color
+			accentOption: color
 		}
 		document.documentElement.style.setProperty('--app-accent', color)
 		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
-		dispatch({ type: 'OPTIONS_ACTION', options: newOptions })
+		dispatch({ type: 'OPTION_ACTION', options: newOptions })
 	}
 
 	return (
@@ -44,7 +47,7 @@ const Accent = () => {
 			{picker &&
 				<div className={styles.picker} ref={ref}>
 					<BlockPicker
-						color={accent}
+						color={accentOption}
 						colors={defaultColors}
 						onChangeComplete={color => set(color.hex)}
 					/>

@@ -76,12 +76,12 @@ export default function Index() {
             }
           }
         };
-      case "OPTIONS_ACTION":
+      case "OPTION_ACTION":
         return {
           ...state,
           options: action.options
         };
-      case "COMPONENTS_ACTION":
+      case "COMPONENT_ACTION":
         return {
           ...state,
           components: action.components
@@ -142,10 +142,6 @@ export default function Index() {
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
   log('-------------------------TASKS-------------------------')
-  log('- Sidebar gear toggles settings sidebar content')
-  log('     Turn off disclaimers')
-  log('     Set main accent color(currently: entity-active)')
-  log('     etc..')
   log('- When deleting any composition:')
   log('     Must handle dependencies of deleted record')
   log('- Think about more composition editing features')
@@ -163,7 +159,7 @@ export default function Index() {
   let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
   let root = document.documentElement.style
   if (LSops) initialState.options = LSops
-  if (LSops) root.setProperty('--app-accent', LSops.accent)
+  if (LSops) root.setProperty('--app-accent', LSops.accentOption)
 
   let LStoken = localStorage.getItem('SQLifting-token')
   let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))

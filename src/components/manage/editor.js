@@ -14,7 +14,7 @@ import { Button, Input } from 'godspeed'
 const Editor = () => {
 	const [{
 		options: {
-			tips
+			tipsOption
 		},
 		manage: {
 			editor,
@@ -50,7 +50,7 @@ const Editor = () => {
 					<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
 					<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
 				</form>
-				{tips && <p className={styles.tip}>Change entity name</p>}
+				{tipsOption && <p className={styles.tip}>Change entity name</p>}
 			</div>
 		</div>
 	)

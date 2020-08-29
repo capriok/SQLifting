@@ -3,15 +3,15 @@ import { useStateValue } from '../../../state'
 import styles from '../../../styles/sidebar/options/toggle.module.scss'
 
 const Tips = () => {
-	const [{ options, options: { tips } }, dispatch] = useStateValue()
+	const [{ options, options: { tipsOption } }, dispatch] = useStateValue()
 
 	const set = () => {
 		let newOptions = {
 			...options,
-			tips: !tips
+			tipsOption: !tipsOption
 		}
 		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
-		dispatch({ type: 'OPTIONS_ACTION', options: newOptions })
+		dispatch({ type: 'OPTION_ACTION', options: newOptions })
 	}
 
 	return (
@@ -20,7 +20,7 @@ const Tips = () => {
 			<label className={styles.switch}>
 				<input
 					type="checkbox"
-					checked={tips}
+					checked={tipsOption}
 					onChange={() => set()}
 				/>
 				<span />
