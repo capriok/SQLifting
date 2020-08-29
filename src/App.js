@@ -31,7 +31,7 @@ function App() {
   }] = useStateValue()
   const update = useUpdate()
 
-  const [SB, setSB] = useState(false)
+  const [sidebarOpen, setSidebar] = useState(false)
 
   useEffect(() => {
     if (isAuthenticated) update('all')
@@ -62,9 +62,9 @@ function App() {
           :
           <Route path='/' render={() => (
             <>
-              <Navbar SB={SB} set={setSB} />
+              <Navbar sidebarOpen={sidebarOpen} setSidebar={setSidebar} />
               <MainLayout>
-                <Sidebar open={SB} set={setSB} />
+                <Sidebar sidebarOpen={sidebarOpen} setSidebar={setSidebar} />
                 <Keystone />
               </MainLayout>
             </>

@@ -26,8 +26,12 @@ export default function Index() {
     },
     weather: {},
     options: {
-      tips: true,
-      accent: ''
+      sidebarOption: true,
+      tipsOption: true,
+      accentOption: '#206fa3'
+    },
+    components: {
+      sidebar: true
     },
     compositions: {
       equipments: [],
@@ -76,6 +80,11 @@ export default function Index() {
         return {
           ...state,
           options: action.options
+        };
+      case "COMPONENTS_ACTION":
+        return {
+          ...state,
+          components: action.components
         };
       case "WEATHER_ACTION":
         return {

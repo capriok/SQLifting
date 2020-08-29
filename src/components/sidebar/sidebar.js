@@ -8,30 +8,46 @@ import styles from '../../styles/sidebar/sidebar.module.scss'
 import ops from '../../styles/sidebar/options.module.scss'
 import gear from '../../images/gear.png'
 
-import Tips from './options/tips'
-import Accent from './options/accent'
+import TipsOption from './options/tips'
+import AccentOption from './options/accent'
+import SidebarOption from './options/sidebar'
 
-const Sidebar = ({ open, set }) => {
-	const notMobile = window.screen.width >= 420
-	if (notMobile) {
+const notMobile = window.screen.width >= 420
+
+const Sidebar = ({ sidebarOpen, setSidebar }) => {
+	const [{ options: { sidebar } }] = useStateValue()
+
+	if (notMobile && !sidebar) {
 		return (
-			<SidebarContent CTX={() => { }} />
+			<>
+				{(!sidebar && sidebarOpen) &&
+					<SidebarContent setSidebar={() => setSidebar(!sidebarOpen)} sidebarOpen={sidebarOpen} />
+				}
+			</>
+		)
+	} else if (notMobile) {
+		return (
+			<>
+				{sidebar &&
+					< SidebarContent setSidebar={() => { }} />
+				}
+			</>
 		)
 	} else {
 		return (
 			<>
-				{open &&
-					<SidebarContent CTX={() => set(!open)} />
+				{sidebarOpen &&
+					<SidebarContent setSidebar={() => setSidebar(!sidebarOpen)} />
 				}
 			</>
 		)
 	}
 }
 
-const SidebarContent = ({ CTX }) => {
+const SidebarContent = ({ setSidebar, sidebarOpen }) => {
 	const [{ compositions, composites }] = useStateValue()
 
-	const [OPS, setOPS] = useState(false)
+	const [optionsOpen, setOptions] = useState(false)
 
 	const router = {
 		compositions: [
@@ -70,18 +86,18 @@ const SidebarContent = ({ CTX }) => {
 						className={styles.gear}
 						src={gear}
 						alt=""
-						onClick={() => setOPS(!OPS)}
+						onClick={() => setOptions(!optionsOpen)}
 						draggable={false}
 					/>
 				</div>
-				{OPS
-					? <SidebarOptions />
+				{optionsOpen
+					? <SidebarOptions setSidebar={setSidebar} sidebarOpen={sidebarOpen} setOptions={() => setOptions(!optionsOpen)} />
 					: <>
 						<h1>Manage</h1>
 						<p>Compositions</p>
 						<ul>
 							{manage.compositions.map((op, i) => (
-								<Link key={i} to={`${manage.pathname}${op.pathname}`} onClick={() => CTX()}>
+								<Link key={i} to={`${manage.pathname}${op.pathname}`} onClick={() => setSidebar()}>
 									<li className={activeLI(`${manage.pathname}${op.pathname}`)}>{op.name}</li>
 								</Link>
 							))}
@@ -89,7 +105,7 @@ const SidebarContent = ({ CTX }) => {
 						<p>Composites</p>
 						<ul>
 							{manage.composites.map((op, i) => (
-								<Link key={i} to={`${manage.pathname}${op.pathname}`} onClick={() => CTX()}>
+								<Link key={i} to={`${manage.pathname}${op.pathname}`} onClick={() => setSidebar()}>
 									<li className={activeLI(`${manage.pathname}${op.pathname}`)}>{op.name}</li>
 								</Link>
 							))}
@@ -97,7 +113,7 @@ const SidebarContent = ({ CTX }) => {
 						<h1>Assemble</h1>
 						<ul>
 							{assembler.composites.map((op, i) => (
-								<Link key={i} to={`${assembler.pathname}${op.pathname}`} onClick={() => CTX()}>
+								<Link key={i} to={`${assembler.pathname}${op.pathname}`} onClick={() => setSidebar()}>
 									<li className={activeLI(`${assembler.pathname}${op.pathname}`)}>{op.name}</li>
 								</Link>
 							))
@@ -114,8 +130,8 @@ const SidebarContent = ({ CTX }) => {
 	)
 }
 
-const SidebarOptions = () => {
-	const [{ options }, dispatch] = useStateValue()
+const SidebarOptions = ({ setSidebar, sidebarOpen, setOptions }) => {
+	const [{ }, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
 		await dispatch({ type: 'LOGOUT' })
@@ -128,8 +144,9 @@ const SidebarOptions = () => {
 		<div className={ops.options}>
 			<h1>Options</h1>
 			<ul>
-				<Accent />
-				<Tips />
+				<AccentOption />
+				<TipsOption />
+				<SidebarOption setSidebar={setSidebar} sidebarOpen={sidebarOpen} setOptions={setOptions} />
 			</ul>
 			<h1 className={ops.logout} onClick={() => logoutActions()}>Logout</h1>
 		</div>

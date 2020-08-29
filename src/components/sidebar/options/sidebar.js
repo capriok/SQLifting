@@ -2,25 +2,27 @@ import React from 'react'
 import { useStateValue } from '../../../state'
 import styles from '../../../styles/sidebar/options/toggle.module.scss'
 
-const Tips = () => {
-	const [{ options, options: { tips } }, dispatch] = useStateValue()
+const Sidebar = ({ setSidebar, sidebarOpen, setOptions }) => {
+	const [{ options, options: { sidebar } }, dispatch] = useStateValue()
 
 	const set = () => {
 		let newOptions = {
 			...options,
-			tips: !tips
+			sidebar: !sidebar
 		}
 		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
 		dispatch({ type: 'OPTIONS_ACTION', options: newOptions })
+		setSidebar()
+		!sidebarOpen && setOptions()
 	}
 
 	return (
 		<li>
-			<p>Show tips</p>
+			<p>Show sidebar</p>
 			<label className={styles.switch}>
 				<input
 					type="checkbox"
-					checked={tips}
+					checked={sidebar}
 					onChange={() => set()}
 				/>
 				<span />
@@ -29,4 +31,4 @@ const Tips = () => {
 	)
 }
 
-export default Tips
+export default Sidebar

@@ -8,18 +8,26 @@ import logo from '../images/official_logo_bluesql.png'
 
 import { Navbar as Nav, NavLink } from 'godspeed'
 
-const Navbar = ({ SB, set }) => {
+const Navbar = ({ sidebarOpen, setSidebar }) => {
+	const [{ options: { sidebar } }] = useStateValue()
 	const notMobile = window.screen.width >= 420
 
 	return (
 		<>
 			<Nav className={styles.navbar} title="SQLifting" to="/">
-				<img className={styles.desktop_logo} src={logo} alt="" />
+				{!sidebar
+					? <NavLink
+						hover="steelblue"
+						onClick={() => setSidebar(!sidebarOpen)}>
+						☰
+				 </NavLink>
+					: <img className={styles.desktop_logo} src={logo} alt="" />
+				}
 				<NavLink
 					className={styles.mobile_button}
-					style={!notMobile && SB ? { backgroundColor: '#267fbb' } : {}}
+					style={!notMobile && sidebarOpen ? { backgroundColor: '#267fbb' } : {}}
 					hover="steelblue"
-					onClick={() => set(!SB)}>
+					onClick={() => setSidebar(!sidebarOpen)}>
 					☰
 					 </NavLink>
 			</Nav>
