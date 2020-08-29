@@ -42,7 +42,7 @@ const Authenticate = () => {
       password: form.password
     })
       .then(async res => {
-        setTitle(`Welcome ${res.data.user.name.capitalize()}`)
+        setTitle(`Welcome ${res.data.user.username.capitalize()}`)
         localStorage.setItem('SQLifting-token', res.data.token)
         localStorage.setItem('SQLifting-user', JSON.stringify(res.data.user))
         await dispatch({

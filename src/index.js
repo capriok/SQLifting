@@ -152,10 +152,6 @@ export default function Index() {
   log('-------------------------------------------------------')
   log('')
 
-
-  console.log(initialState.options.accent);
-
-
   let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
   let root = document.documentElement.style
   if (LSops) initialState.options = LSops
@@ -167,10 +163,7 @@ export default function Index() {
     initialState.user = {
       isAuthenticated: true,
       token: LStoken,
-      details: {
-        uid: LSuser.uid,
-        username: LSuser.name
-      }
+      details: LSuser
     }
 
     log(`Logged in as ${initialState.user.details.username.capitalize()} (ID: ${initialState.user.details.uid})`);

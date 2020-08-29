@@ -11,6 +11,7 @@ import gear from '../../images/gear.png'
 import TipsOption from './options/tips'
 import AccentOption from './options/accent'
 import SidebarOption from './options/sidebar'
+import { useEffect } from 'react'
 
 const notMobile = window.screen.width >= 420
 
@@ -20,6 +21,8 @@ const Sidebar = () => {
 		components,
 		components: { sidebar }
 	}, dispatch] = useStateValue()
+
+	useEffect(() => { !notMobile && dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: false } }) }, [])
 
 	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
 
@@ -122,7 +125,7 @@ const SidebarContent = ({ setSidebar }) => {
 						</ul>
 						<h1>Assemble</h1>
 						<ul>
-							{createMap(manage, 'composites')}
+							{createMap(assemble, 'composites')}
 						</ul >
 						<h1>Workout</h1>
 						<ul>
@@ -151,7 +154,7 @@ const SidebarOptions = ({ flipOtions }) => {
 			<ul>
 				<AccentOption />
 				<TipsOption />
-				<SidebarOption flipOtions={flipOtions} />
+				{notMobile && <SidebarOption flipOtions={flipOtions} />}
 			</ul>
 			<h1 className={ops.logout} onClick={() => logoutActions()}>Logout</h1>
 		</div>
