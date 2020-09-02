@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useStateValue } from '../../../state'
+import { useStateValue } from '../../../state/state'
 import { BlockPicker } from 'react-color';
 import styles from '../../../styles/sidebar/options/accent.module.scss'
 

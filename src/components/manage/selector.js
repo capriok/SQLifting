@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { useStateValue } from '../../state'
+import { useStateValue } from '../../state/state'
 
 import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/selector.module.scss'

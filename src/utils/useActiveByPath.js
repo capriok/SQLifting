@@ -1,4 +1,4 @@
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 
 const useActiveByPath = () => {
 	const [initialState] = useStateValue()

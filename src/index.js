@@ -3,10 +3,12 @@
 /*eslint no-extend-native: "off"*/
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { StateProvider } from "./state";
-import App from './App';
-import './Index.scss';
+import initialState from './state/context'
+import stateReducer from './state/reducer'
+import { StateProvider } from "./state/state";
+import App from './app';
 
+import './index.scss';
 import 'react-tippy/dist/tippy.css'
 import 'react-draggable-array/dist/index.css'
 
@@ -15,126 +17,6 @@ String.prototype.capitalize = function () {
 }
 
 export default function Index() {
-  let initialState = {
-    user: {
-      isAuthenticated: false,
-      token: '',
-      details: {
-        uid: '',
-        username: ''
-      }
-    },
-    weather: {},
-    options: {
-      sidebarOption: true,
-      tipsOption: true,
-      accentOption: '#206fa3'
-    },
-    components: {
-      sidebar: true
-    },
-    compositions: {
-      equipments: [],
-      muscles: [],
-      exercises: [],
-      movements: []
-    },
-    composites: {
-      circs: [],
-      excos: [],
-      wocos: []
-    },
-    manage: {
-      active: {},
-      preview: {},
-      editor: {},
-      selector: {
-        selection: []
-      },
-    },
-    assemble: {
-      active: {}
-    }
-  }
-
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "AUTHORIZATION":
-        return {
-          ...state,
-          user: action.user
-        };
-      case "LOGOUT":
-        return {
-          ...state,
-          user: {
-            isAuthenticated: false,
-            token: '',
-            details: {
-              uid: undefined,
-              username: ''
-            }
-          }
-        };
-      case "OPTION_ACTION":
-        return {
-          ...state,
-          options: action.options
-        };
-      case "COMPONENT_ACTION":
-        return {
-          ...state,
-          components: action.components
-        };
-      case "WEATHER_ACTION":
-        return {
-          ...state,
-          weather: action.weather
-        };
-      case "COMPOSITION_ACTION":
-        return {
-          ...state,
-          compositions: action.compositions
-        };
-      case "COMPOSITE_ACTION":
-        return {
-          ...state,
-          composites: action.composites
-        };
-      case "MANAGE_ACTION":
-        return {
-          ...state,
-          manage: action.manage
-        };
-      case "RESET_MANAGE":
-        return {
-          ...state,
-          manage: {
-            active: {},
-            preview: {},
-            editor: {},
-            selector: {
-              selection: []
-            },
-          }
-        };
-      case "ASSEMBLE_ACTION":
-        return {
-          ...state,
-          assemble: action.assemble
-        };
-      case "RESET_ASSEMBLE":
-        return {
-          ...state,
-          assemble: {
-            active: {}
-          }
-        };
-      default:
-        return state;
-    }
-  }
-
   const log = (message) => console.log(`%c${message}`, 'color: white')
 
   console.log('%cWelcome to SQLifting', `
@@ -142,41 +24,28 @@ export default function Index() {
     font-family: Verdana;
     font-size: 1.5rem;
     border-bottom: 2px solid lightskyblue;
-    margin: 20px 0
   `);
 
   if (process.env.NODE_ENV === 'production') console.log = () => { }
 
-  log('-------------------------TASKS-------------------------')
-  log('- When deleting any composition:')
-  log('     Must handle dependencies of deleted record')
-  log('- Think about more composition editing features')
-  log('     Add deps to entity?')
-  log('     Change sets, reps, or weight of composite dep?')
-  log('- Authentication should be done smarter')
-  log('     JWT for routes involving account specific data')
-  log('-------------------------------------------------------')
-  log('')
-
-  let LStoken = localStorage.getItem('SQLifting-token')
-  let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))
-  if (LStoken && LSuser) {
-    initialState.user = {
-      isAuthenticated: true,
-      token: LStoken,
-      details: LSuser
-    }
-    let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
-    if (LSops) initialState.options = LSops
-    if (LSops) document.documentElement.style.setProperty('--app-accent', LSops.accentOption)
-
+  if (initialState.user.token) {
+    log('-------------------------TASKS-------------------------')
+    log('- When deleting any composition:')
+    log('     Must handle dependencies of deleted record')
+    log('- Think about more composition editing features')
+    log('     Add deps to entity?')
+    log('     Change sets, reps, or weight of composite dep?')
+    log('- Authentication should be done smarter')
+    log('     JWT for routes involving account specific data')
+    log('-------------------------------------------------------')
+    log('')
     log(`Logged in as ${initialState.user.details.username.capitalize()} (ID: ${initialState.user.details.uid})`);
     log('')
   }
 
   return (
     <>
-      <StateProvider initialState={initialState} reducer={reducer}>
+      <StateProvider initialState={initialState} reducer={stateReducer}>
         <App />
       </StateProvider>
     </>

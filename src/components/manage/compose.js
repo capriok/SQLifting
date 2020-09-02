@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { SQLifting } from '../../api/sqlifting'
-import { useStateValue } from '../../state'
+import { useStateValue } from '../../state/state'
 import useUpdate from '../../utils/useUpdate'
 
 import view from '../../styles/manage/manage.module.scss'

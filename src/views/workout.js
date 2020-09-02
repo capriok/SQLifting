@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 import useWorkoutActions from '../components/actionbar/useWorkoutActions'
 import useActiveByPath from '../utils/useActiveByPath'
 import styles from '../styles/workout/workout.module.scss'

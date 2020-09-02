@@ -1,6 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import { useStateValue } from '../../state'
+import { useStateValue } from '../../state/state'
 import useUpdate from '../../utils/useUpdate';
 
 const useWorkoutActions = () => {

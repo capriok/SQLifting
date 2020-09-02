@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
-import { useStateValue } from '../../state'
+import { useStateValue } from '../../state/state'
 import { Link } from 'react-router-dom'
 
 import styles from '../../styles/sidebar/sidebar.module.scss'

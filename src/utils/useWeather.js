@@ -2,14 +2,14 @@
 /*eslint no-unused-vars: "off"*/
 import { useEffect } from 'react'
 import Axios from 'axios'
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 
 import placeholder from '../images/weather_placeholder.png'
 
 // https://openweathermap.org/api/one-call-api
 
 const useWeather = () => {
-	const [{ weather }, dispatch] = useStateValue()
+	const [{ user, weather }, dispatch] = useStateValue()
 
 	const getWeather = () => {
 		navigator.geolocation.getCurrentPosition((position) => {
@@ -45,6 +45,7 @@ const useWeather = () => {
 	}
 
 	useEffect(() => {
+		if (!user.isAuthenticated) return
 		if (Object.keys(weather).length === 0) {
 			dispatch({
 				type: 'WEATHER_ACTION',

@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { useStateValue } from './state'
+import { useStateValue } from './state/state'
 import useUpdate from './utils/useUpdate';
 import useWeather from './utils/useWeather';
 import LandingLayout from './layouts/landing-layout';

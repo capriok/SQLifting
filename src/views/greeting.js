@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
 import Moment from 'react-moment';
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 import useClock from '../utils/useClock';
 
 import styles from '../styles/greeting.module.scss'

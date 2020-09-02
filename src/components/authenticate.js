@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
 import { SQLiftingAcc } from '../api/sqlifting'
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 
 import styles from '../styles/authbox.module.scss'
 import person from '../images/authbox_person.png'

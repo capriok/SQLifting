@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 import useActiveByPath from '../utils/useActiveByPath'
 import useManageActions from '../components/actionbar/useManageActions'
 

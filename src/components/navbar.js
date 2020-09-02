@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { useStateValue } from '../state'
+import { useStateValue } from '../state/state'
 
 import styles from '.././styles/navbar.module.scss'
 import logo from '../images/official_logo_bluesql.png'
