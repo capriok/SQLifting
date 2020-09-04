@@ -4,9 +4,7 @@ import { useStateValue } from '../../state/state'
 import useUpdate from '../../utils/useUpdate';
 
 const useWorkoutActions = () => {
-	const [{
-
-	}, dispatch] = useStateValue()
+	const [, dispatch] = useStateValue()
 
 	const update = useUpdate()
 

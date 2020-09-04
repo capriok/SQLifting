@@ -2,7 +2,6 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../state/state'
-import useActiveByPath from '../utils/useActiveByPath'
 import useManageActions from '../components/actionbar/useManageActions'
 
 import styles from '../styles/manage/manage.module.scss'
@@ -23,7 +22,6 @@ const Manage = () => {
 			selector
 		}
 	}] = useStateValue()
-	const activeByPath = useActiveByPath()
 	const { fullReset, setPreview, addToSelection } = useManageActions()
 	const [entities, setEntities] = useState([])
 
@@ -32,7 +30,7 @@ const Manage = () => {
 	}, [entities])
 
 	useEffect(() => {
-		setEntities(activeByPath.groupState[activeByPath.entity])
+		setEntities(active.groupState[active.entity])
 	}, [active])
 
 	useEffect(() => {

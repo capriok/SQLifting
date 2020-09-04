@@ -1,3 +1,5 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React from 'react'
 import { useStateValue } from '../../state/state'
 
@@ -7,36 +9,46 @@ import { Button } from 'godspeed'
 
 const AssembleActions = () => {
 	const [{
-		assemble: { }
-	}] = useStateValue()
+		assemble,
+		assemble: {
+			steps,
+			activeStep
+		}
+	}, dispatch] = useStateValue()
 
-
-
+	const setStep = (val) => {
+		dispatch({
+			type: 'ASSEMBLE_ACTION',
+			assemble: {
+				...assemble,
+				activeStep: val
+			}
+		})
+	}
 	return (
 		<div className={styles.assemble_actions}>
-			<Button
-				text="Edit"
-				size="xsm"
-			// className={}
-			// onClick={() => }
-			// disabled={isEmpty()}
-			/>
-			<div className={styles.select_group}>
-				<Button
-					text="Select"
-					size="xsm"
-				// className={}
-				// onClick={() => }
-				/>
-				<Button
-					text="Delete"
-					size="xsm"
-				// className={}
-				// onClick={() => }
-				// disabled={isEmpty()}
-				/>
-			</div>
-		</div >
+			{/* <div className={styles.select_group}></div> */}
+			{activeStep === steps.length
+				? <>
+					<Button text="Reset" onClick={() => setStep(0)} />
+				</>
+				: <>
+					<Button
+						text="Back"
+						disabled={activeStep === 0 || activeStep === steps.length}
+						onClick={() => activeStep > 0 && setStep(activeStep - 1)} />
+					<Button
+						text="Next"
+						disabled={activeStep === steps.length - 1 || activeStep === steps.length}
+						onClick={() => setStep(activeStep + 1)} />
+					<Button
+						text="Submit"
+						disabled={activeStep < steps.length - 1}
+						onClick={() => { }} />
+				</>
+			}
+
+		</div>
 	)
 }
 

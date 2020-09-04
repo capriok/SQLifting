@@ -68,7 +68,10 @@ const stateReducer = (state, action) => {
 			return {
 				...state,
 				assemble: {
-					active: {}
+					active: {},
+					steps: [],
+					activeStep: 0,
+					build: {}
 				}
 			};
 		default:

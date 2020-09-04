@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import { useStateValue } from '../state/state'
 import useClock from '../utils/useClock';
 
-import styles from '../styles/greeting.module.scss'
+import styles from '../styles/general/greeting.module.scss'
 
 const Greeting = () => {
 	const [{ user }] = useStateValue()

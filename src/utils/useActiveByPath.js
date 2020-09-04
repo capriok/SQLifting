@@ -6,7 +6,10 @@ const useActiveByPath = () => {
 	let view = window.location.pathname.split('/')[1]
 	let group = window.location.pathname.split('/')[2]
 	let entity = window.location.pathname.split('/')[3]
-	let nameQuery = entity
+	let fragment = window.location.pathname.split('/')[4]
+	let activePath = `${view}/${group}/${entity}`
+	let name = entity
+	let table = entity
 
 	if (group === 'composites') {
 		if (entity === 'circuits') entity = 'circs'
@@ -18,20 +21,24 @@ const useActiveByPath = () => {
 	switch (view) {
 		case 'manage':
 			state = initialState.manage.active = {
-				name: nameQuery.capitalize(),
+				name: name.capitalize(),
 				groupState: initialState[group],
+				activePath: activePath,
 				entity: entity,
 				group: group,
-				table: entity.slice(0, -1)
+				table: table.slice(0, -1),
+				fragment: fragment
 			}
 			break;
 		case 'assemble':
 			state = initialState.assemble.active = {
-				name: nameQuery.capitalize(),
+				name: name.capitalize(),
 				groupState: initialState[group],
+				activePath: activePath,
 				entity: entity,
 				group: group,
-				table: entity.slice(0, -1)
+				table: table.slice(0, -1),
+				fragment: fragment
 			}
 			break;
 		default:

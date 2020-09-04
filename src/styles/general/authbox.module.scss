@@ -1,4 +1,4 @@
-@import "../index.scss";
+@import "../../index.scss";
 
 .authbox {
 	@include flex;
@@ -24,7 +24,7 @@
 			opacity: 0.3;
 			height: $h;
 			width: $w;
-			background-image: url("../images/authbox_blur.jpg");
+			background-image: url("../../images/authbox_blur.jpg");
 			background-size: cover;
 			background-color: $body;
 		}

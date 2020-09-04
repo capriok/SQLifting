@@ -3,7 +3,7 @@
 import React from 'react'
 import { useStateValue } from '../state/state'
 
-import styles from '.././styles/navbar.module.scss'
+import styles from '.././styles/general/navbar.module.scss'
 import logo from '../images/official_logo_bluesql.png'
 
 import { Navbar as Nav, NavLink } from 'godspeed'

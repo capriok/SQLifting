@@ -36,7 +36,10 @@ const initialState = {
 		},
 	},
 	assemble: {
-		active: {}
+		active: {},
+		steps: [],
+		activeStep: 0,
+		build: {}
 	}
 }
 

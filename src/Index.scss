@@ -29,7 +29,7 @@
   align-items: center;
 }
 
-@import "./styles/breakpoints.scss";
+@import "./styles/general/breakpoints.scss";
 
 $breakpoints: (
   "phone": 420px,

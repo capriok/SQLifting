@@ -3,7 +3,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import styles from '../styles/keystone.module.scss'
+import styles from '../styles/general/keystone.module.scss'
 
 import Greeting from '../views/greeting'
 import Actionbar from './actionbar/actionbar'

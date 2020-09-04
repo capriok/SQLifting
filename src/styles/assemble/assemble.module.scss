@@ -1,4 +1,97 @@
 @import "../../index.scss";
 
+.stepper {
+	z-index: 50;
+	position: sticky;
+	top: 140px;
+	margin-top: 10px;
+	border-radius: 5px;
+	border: $light-border;
+	box-shadow: $soft-shadow;
+	background-color: $main;
+}
 .assemble {
+	@include flex;
+	align-items: flex-start;
+	.entities {
+		flex: 2;
+		@include flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		margin: 10px 0;
+		.entity_cont {
+			@include flex;
+			flex: 1;
+			min-width: 50%;
+			max-width: 50%;
+			.entity {
+				position: relative;
+				cursor: pointer;
+				user-select: none;
+				@include flex;
+				width: 100%;
+				height: 40px;
+				padding: 5px;
+				margin-right: 10px;
+				margin-bottom: 10px;
+				border-radius: 5px;
+				border: $light-border;
+				box-shadow: $soft-shadow;
+				background-color: $main;
+				transition: 0.2s;
+				div {
+					@include flex;
+					width: 100%;
+					text-align: center;
+					p {
+						margin: 0;
+						height: 100%;
+						width: 95%;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+						overflow: hidden;
+					}
+				}
+				img {
+					position: absolute;
+					top: 50%;
+					left: 5px;
+					transform: translate(0, -50%);
+					width: 15px;
+				}
+				&:hover {
+					transition: 0.2s;
+					color: white;
+					background-color: $app-accent;
+				}
+			}
+			.active_entity {
+				background-color: $app-accent;
+				color: white;
+				transition: 0.2s;
+			}
+		}
+	}
+	.extension {
+		z-index: 10;
+		flex: 1;
+		position: sticky;
+		top: 140px;
+		width: 100%;
+		min-width: 275px;
+		padding: 10px;
+		padding-bottom: 20px;
+		margin-top: 10px;
+		border-radius: 5px;
+		border: $light-border;
+		box-shadow: $soft-shadow;
+		background-color: $main;
+		.title {
+			text-align: center;
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-accent;
+			font-weight: 400;
+			font-size: 1.2rem;
+		}
+	}
 }

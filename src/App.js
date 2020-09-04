@@ -5,11 +5,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { useStateValue } from './state/state'
 import useUpdate from './utils/useUpdate';
 import useWeather from './utils/useWeather';
-import LandingLayout from './layouts/landing-layout';
 
+import LandingLayout from './layouts/landing-layout';
 import Authenticate from './components/authenticate'
-import Navbar from './components/navbar'
 import MainLayout from './layouts/main-layout'
+import Navbar from './components/navbar'
 import Sidebar from './components/sidebar/sidebar';
 import Keystone from './components/keystone';
 

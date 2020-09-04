@@ -1,8 +1,8 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState } from 'react'
-import { useStateValue } from '../../state/state'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useStateValue } from '../../state/state'
 
 import styles from '../../styles/sidebar/sidebar.module.scss'
 import ops from '../../styles/sidebar/options.module.scss'
@@ -11,7 +11,6 @@ import gear from '../../images/gear.png'
 import TipsOption from './options/tips'
 import AccentOption from './options/accent'
 import SidebarOption from './options/sidebar'
-import { useEffect } from 'react'
 
 const notMobile = window.screen.width >= 420
 
@@ -21,6 +20,7 @@ const Sidebar = () => {
 		components,
 		components: { sidebar }
 	}, dispatch] = useStateValue()
+
 
 	useEffect(() => { !notMobile && dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: false } }) }, [])
 
@@ -83,9 +83,11 @@ const SidebarContent = ({ setSidebar }) => {
 	}
 
 	const activeLI = pathname => {
-		let path = window.location.pathname.split('/').slice(1)
-		let windowPath = `/${path[0]}/${path[1]}/${path[2]}`
-		return pathname === windowPath ? styles.active_li : null
+		let liPath = pathname.split('/').slice(1)
+		let liPathname = `/${liPath[0]}/${liPath[1]}/${liPath[2]}`
+		let windowPath = window.location.pathname.split('/').slice(1)
+		let windowPathname = `/${windowPath[0]}/${windowPath[1]}/${windowPath[2]}`
+		return liPathname === windowPathname ? styles.active_li : null
 	}
 
 	const createMap = (type, group) => (
@@ -137,7 +139,7 @@ const SidebarContent = ({ setSidebar }) => {
 }
 
 const SidebarOptions = ({ flipOtions }) => {
-	const [{ }, dispatch] = useStateValue()
+	const [, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
 		await dispatch({ type: 'LOGOUT' })

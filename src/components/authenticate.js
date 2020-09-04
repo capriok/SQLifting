@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { SQLiftingAcc } from '../api/sqlifting'
 import { useStateValue } from '../state/state'
 
-import styles from '../styles/authbox.module.scss'
+import styles from '../styles/general/authbox.module.scss'
 import person from '../images/authbox_person.png'
 import lock from '../images/authbox_lock.png'
 

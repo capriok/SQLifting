@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash'
 import { useStateValue } from '../../state/state'
 import useActiveByPath from '../../utils/useActiveByPath'
 
-import styles from '../../styles/actionbar.module.scss'
+import styles from '../../styles/general/actionbar.module.scss'
 import ManageActions from '../manage/actions'
 import AssembleActions from '../assemble/actions'
 
