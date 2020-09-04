@@ -39,6 +39,7 @@ const initialState = {
 		active: {},
 		steps: [],
 		activeStep: 0,
+		activeEntities: [],
 		build: {}
 	}
 }

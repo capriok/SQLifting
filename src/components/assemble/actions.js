@@ -6,6 +6,7 @@ import { useStateValue } from '../../state/state'
 import styles from '../../styles/assemble/actions.module.scss'
 
 import { Button } from 'godspeed'
+import useAssembleActions from '../actionbar/useAssembleActions'
 
 const AssembleActions = () => {
 	const [{
@@ -16,31 +17,24 @@ const AssembleActions = () => {
 		}
 	}, dispatch] = useStateValue()
 
-	const setStep = (val) => {
-		dispatch({
-			type: 'ASSEMBLE_ACTION',
-			assemble: {
-				...assemble,
-				activeStep: val
-			}
-		})
-	}
+	const { setActiveStep } = useAssembleActions()
+
 	return (
 		<div className={styles.assemble_actions}>
 			{/* <div className={styles.select_group}></div> */}
 			{activeStep === steps.length
 				? <>
-					<Button text="Reset" onClick={() => setStep(0)} />
+					<Button text="Reset" onClick={() => setActiveStep(0)} />
 				</>
 				: <>
 					<Button
 						text="Back"
 						disabled={activeStep === 0 || activeStep === steps.length}
-						onClick={() => activeStep > 0 && setStep(activeStep - 1)} />
+						onClick={() => activeStep > 0 && setActiveStep(activeStep - 1)} />
 					<Button
 						text="Next"
 						disabled={activeStep === steps.length - 1 || activeStep === steps.length}
-						onClick={() => setStep(activeStep + 1)} />
+						onClick={() => setActiveStep(activeStep + 1)} />
 					<Button
 						text="Submit"
 						disabled={activeStep < steps.length - 1}

@@ -71,6 +71,7 @@ const stateReducer = (state, action) => {
 					active: {},
 					steps: [],
 					activeStep: 0,
+					activeEntities: [],
 					build: {}
 				}
 			};
