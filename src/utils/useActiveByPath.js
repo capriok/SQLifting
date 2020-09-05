@@ -6,7 +6,6 @@ const useActiveByPath = () => {
 	let view = window.location.pathname.split('/')[1]
 	let group = window.location.pathname.split('/')[2]
 	let entity = window.location.pathname.split('/')[3]
-	let fragment = window.location.pathname.split('/')[4]
 	let activePath = `${view}/${group}/${entity}`
 	let name = entity
 	let table = entity
@@ -26,8 +25,7 @@ const useActiveByPath = () => {
 				activePath: activePath,
 				entity: entity,
 				group: group,
-				table: table.slice(0, -1),
-				fragment: fragment
+				table: table.slice(0, -1)
 			}
 			break;
 		case 'assemble':
@@ -37,8 +35,7 @@ const useActiveByPath = () => {
 				activePath: activePath,
 				entity: entity,
 				group: group,
-				table: table.slice(0, -1),
-				fragment: fragment
+				table: table.slice(0, -1)
 			}
 			break;
 		default:

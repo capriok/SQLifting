@@ -27,18 +27,19 @@ const useAssembleActions = () => {
 
 	const stepSet = {
 		excos: [
-			{ name: 'Equipment', label: 'Choose Equipment', entity: equipments },
-			{ name: 'Muscles', label: 'Choose Muscle', entity: muscles },
-			{ name: 'Exercise', label: 'Choose Exercise', entity: exercises },
+			{ name: 'Equipment', label: 'Equipment', entity: equipments },
+			{ name: 'Muscles', label: 'Muscle', entity: muscles },
+			{ name: 'Exercise', label: 'Exercise', entity: exercises },
 			{ name: 'Review', label: 'Review', entity: [] }
 		],
 		circs: [
-			{ name: 'Movements', label: 'Choose Movements', entity: movements },
+			{ name: 'Movements', label: 'Movements', entity: movements },
+			{ name: 'Detail', label: 'Detail', entity: [] },
 			{ name: 'Review', label: 'Review', entity: [] }
 		],
 		wocos: [
-			{ name: 'Exercises', label: 'Choose Exercises', entity: excos },
-			{ name: 'Circuits', label: 'Choose Circuits', entity: circs },
+			{ name: 'Exercises', label: 'Exercises', entity: excos },
+			{ name: 'Circuits', label: 'Circuits', entity: circs },
 			{ name: 'Review', label: 'Review', entity: [] }
 		]
 	}
@@ -102,6 +103,19 @@ const useAssembleActions = () => {
 		})
 	}
 
+	const submitBuild = (val) => {
+		dispatch({
+			type: 'ASSEMBLE_ACTION',
+			assemble: {
+				...assemble,
+				build: {
+					...build,
+					name: val
+				}
+			}
+		})
+	}
+
 	return {
 		fullReset,
 		resetSteps,
@@ -109,6 +123,7 @@ const useAssembleActions = () => {
 		setActiveStep,
 		setActiveEntities,
 		addToBuild,
+		submitBuild,
 	}
 }
 

@@ -6,9 +6,10 @@ import useAssembleActions from '../components/actionbar/useAssembleActions'
 
 import styles from '../styles/assemble/assemble.module.scss'
 
-import Stepper from "../components/assemble/stepper";
-
 import check from '../images/check_black.png'
+
+import Stepper from "../components/assemble/stepper";
+import { Input, Button } from 'godspeed';
 
 const Assemble = () => {
 	const [{
@@ -22,10 +23,17 @@ const Assemble = () => {
 		}
 	},] = useStateValue()
 
-	const { fullReset, resetSteps, setSteps, setActiveEntities, addToBuild } = useAssembleActions()
+	const {
+		fullReset,
+		setSteps,
+		setActiveEntities,
+		addToBuild,
+		submitBuild
+	} = useAssembleActions()
+
+	const [name, setName] = useState('')
 
 	useEffect(() => { return () => fullReset() }, [])
-	useEffect(() => { return () => resetSteps() }, [])
 
 	useEffect(() => {
 		setActiveEntities()
@@ -42,6 +50,11 @@ const Assemble = () => {
 	useEffect(() => {
 		setSteps()
 	}, [active.entity])
+
+	const submit = (e) => {
+		e.preventDefault()
+		submitBuild(name)
+	}
 
 	return (
 		<>
@@ -63,7 +76,12 @@ const Assemble = () => {
 							))}
 						</div>
 						<div className={styles.extension}>
-							<p className={styles.title}>extension</p>
+							<p className={styles.title}>{active.entity}</p>
+							<div className={styles.compose}>
+								<form onSubmit={e => submit(e)}>
+									<Input placeholder="Give it a name" onChange={e => setName(e.target.value)} />
+								</form>
+							</div>
 						</div>
 					</>
 					: <>
