@@ -21,7 +21,7 @@ const AssembleActions = () => {
 
 	return (
 		<div className={styles.assemble_actions}>
-			{/* <div className={styles.select_group}></div> */}
+			<div className={styles.select_group}></div>
 			{activeStep === steps.length
 				? <>
 					<Button text="Reset" onClick={() => setActiveStep(0)} />

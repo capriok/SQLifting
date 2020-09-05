@@ -2,9 +2,6 @@
 /*eslint no-unused-vars: "off"*/
 import { SQLifting } from '../../api/sqlifting'
 import { useStateValue } from '../../state/state'
-import useUpdate from '../../utils/useUpdate';
-
-import { isEmpty, uniqBy, remove } from 'lodash'
 
 const useAssembleActions = () => {
 	const [{
@@ -23,13 +20,12 @@ const useAssembleActions = () => {
 			steps,
 			active,
 			activeStep,
-			activeEntities
+			activeEntities,
+			build
 		}
 	}, dispatch] = useStateValue()
 
-	const update = useUpdate()
-
-	const stepMap = {
+	const stepSet = {
 		excos: [
 			{ name: 'Equipment', label: 'Choose Equipment', entity: equipments },
 			{ name: 'Muscles', label: 'Choose Muscle', entity: muscles },
@@ -66,8 +62,9 @@ const useAssembleActions = () => {
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				steps: stepMap[active.entity],
-				activeStep: 0
+				steps: stepSet[active.entity],
+				activeStep: 0,
+				build: {}
 			}
 		})
 	}
@@ -83,12 +80,24 @@ const useAssembleActions = () => {
 	}
 
 	const setActiveEntities = () => {
-		console.log(steps);
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				activeEntities: stepMap[active.entity][activeStep].entity
+				activeEntities: stepSet[active.entity][activeStep].entity
+			}
+		})
+	}
+
+	const addToBuild = (entity) => {
+		dispatch({
+			type: 'ASSEMBLE_ACTION',
+			assemble: {
+				...assemble,
+				build: {
+					...build,
+					[activeEntities[0].table]: entity
+				}
 			}
 		})
 	}
@@ -98,7 +107,8 @@ const useAssembleActions = () => {
 		resetSteps,
 		setSteps,
 		setActiveStep,
-		setActiveEntities
+		setActiveEntities,
+		addToBuild,
 	}
 }
 

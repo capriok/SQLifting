@@ -58,7 +58,7 @@ const Manage = () => {
 		<>
 			<div className={styles.manage}>
 				<div className={styles.entities}>
-					<div className={styles.mobile_break} />
+					<div className={styles.actionbar_gap} />
 					{entities.map((entity, i) => (
 						<div key={i} className={styles.entity_cont}>
 							<div className={entityClass(entity.id)} onClick={() => set(entity)}>

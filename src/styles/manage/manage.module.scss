@@ -4,7 +4,7 @@
 	width: 100%;
 	@include flex;
 	align-items: flex-start;
-	.mobile_break {
+	.actionbar_gap {
 		display: none;
 	}
 	.entities {
@@ -99,7 +99,7 @@
 	}
 	@include media("<=tablet") {
 		flex-direction: column;
-		.mobile_break {
+		.actionbar_gap {
 			display: block;
 			z-index: 2;
 			position: sticky;
@@ -127,7 +127,6 @@
 			}
 		}
 	}
-
 	@include media("<=phone") {
 		.extension {
 			border-radius: 0;

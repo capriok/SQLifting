@@ -22,8 +22,9 @@ const Assemble = () => {
 		}
 	},] = useStateValue()
 
-	const { fullReset, resetSteps, setSteps, setActiveEntities } = useAssembleActions()
+	const { fullReset, resetSteps, setSteps, setActiveEntities, addToBuild } = useAssembleActions()
 
+	useEffect(() => { return () => fullReset() }, [])
 	useEffect(() => { return () => resetSteps() }, [])
 
 	useEffect(() => {
@@ -42,20 +43,19 @@ const Assemble = () => {
 		setSteps()
 	}, [active.entity])
 
-	useEffect(() => { return () => fullReset() }, [])
-
 	return (
 		<>
 			<div className={styles.stepper}>
 				<Stepper />
 			</div>
+			<div className={styles.stepper_gap}></div>
 			<div className={styles.assemble}>
 				{activeStep < steps.length
 					? <>
 						<div className={styles.entities}>
 							{activeEntities.map((entity, i) => (
 								<div key={i} className={styles.entity_cont}>
-									<div className={styles.entity} >
+									<div className={styles.entity} onClick={() => addToBuild(entity)}>
 										{/* {selector.selection.some(s => s.id === entity.id) && <img src={check} alt="" />} */}
 										<div><p>{entity.name}</p></div>
 									</div>
