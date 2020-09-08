@@ -10,6 +10,8 @@ import check from '../images/check_black.png'
 
 import Stepper from "../components/assemble/stepper";
 import { Input, Button } from 'godspeed';
+import { isEmpty } from 'lodash'
+import ExercisesExtension from '../components/assemble/extensions/exercises'
 
 const Assemble = () => {
 	const [{
@@ -19,7 +21,8 @@ const Assemble = () => {
 			steps,
 			active,
 			activeStep,
-			activeEntities
+			activeEntities,
+			build
 		}
 	},] = useStateValue()
 
@@ -56,6 +59,21 @@ const Assemble = () => {
 		submitBuild(name)
 	}
 
+	const activeEntity = entity => {
+		const idleClass = styles.entity
+		const activeClass = `${styles.entity} ${styles.active_entity}`
+		const check = () => {
+			if (build[activeEntities[0].table] === undefined) return idleClass
+			let inBuild = build[activeEntities[0].table].id === entity.id
+			return inBuild ? activeClass : idleClass
+		}
+		if (!isEmpty(build)) {
+			return check()
+		} else {
+			return idleClass
+		}
+	}
+
 	return (
 		<>
 			<div className={styles.stepper}>
@@ -63,12 +81,12 @@ const Assemble = () => {
 			</div>
 			<div className={styles.stepper_gap}></div>
 			<div className={styles.assemble}>
-				{activeStep < steps.length
+				{activeStep < steps.length - 1
 					? <>
 						<div className={styles.entities}>
 							{activeEntities.map((entity, i) => (
 								<div key={i} className={styles.entity_cont}>
-									<div className={styles.entity} onClick={() => addToBuild(entity)}>
+									<div className={activeEntity(entity)} onClick={() => addToBuild(entity)}>
 										{/* {selector.selection.some(s => s.id === entity.id) && <img src={check} alt="" />} */}
 										<div><p>{entity.name}</p></div>
 									</div>
@@ -76,12 +94,13 @@ const Assemble = () => {
 							))}
 						</div>
 						<div className={styles.extension}>
-							<p className={styles.title}>{active.entity}</p>
-							<div className={styles.compose}>
+							{name ? <p className={styles.title}>{name}</p> : <p className={styles.name_placeholder}></p>}
+							<div className={styles.name_form}>
 								<form onSubmit={e => submit(e)}>
 									<Input placeholder="Give it a name" onChange={e => setName(e.target.value)} />
 								</form>
 							</div>
+							<ExercisesExtension />
 						</div>
 					</>
 					: <>

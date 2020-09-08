@@ -112,7 +112,13 @@
 			font-weight: 400;
 			font-size: 1.2rem;
 		}
-		.compose {
+		.name_placeholder {
+			height: 36px;
+			font-size: 1.2rem;
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-accent;
+		}
+		.name_form {
 			@include flex;
 			form {
 				width: 100%;

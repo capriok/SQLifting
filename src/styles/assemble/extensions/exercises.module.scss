@@ -1,0 +1,11 @@
+@import "../../../index.scss";
+
+.exercise_exntension {
+	p {
+		margin-bottom: 0;
+		span {
+			color: $app-accent;
+			font-size: 0.9rem;
+		}
+	}
+}
