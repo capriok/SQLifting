@@ -40,6 +40,7 @@ const initialState = {
 		steps: [],
 		activeStep: 0,
 		activeEntities: [],
+		readyForNext: false,
 		build: {}
 	}
 }

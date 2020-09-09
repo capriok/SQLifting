@@ -7,17 +7,19 @@ import styles from '../../styles/assemble/actions.module.scss'
 
 import { Button } from 'godspeed'
 import useAssembleActions from '../actionbar/useAssembleActions'
+import { buildQueries } from '@testing-library/react'
 
 const AssembleActions = () => {
 	const [{
-		assemble,
 		assemble: {
 			steps,
-			activeStep
+			activeStep,
+			readyForNext,
+			build
 		}
-	}, dispatch] = useStateValue()
+	},] = useStateValue()
 
-	const { setActiveStep } = useAssembleActions()
+	const { setActiveStep, submitBuild } = useAssembleActions()
 
 	return (
 		<div className={styles.assemble_actions}>
@@ -33,12 +35,12 @@ const AssembleActions = () => {
 						onClick={() => activeStep > 0 && setActiveStep(activeStep - 1)} />
 					<Button
 						text="Next"
-						disabled={activeStep === steps.length - 1 || activeStep === steps.length}
+						disabled={activeStep === steps.length - 1 || activeStep === steps.length || !readyForNext}
 						onClick={() => setActiveStep(activeStep + 1)} />
 					<Button
 						text="Submit"
-						disabled={activeStep < steps.length - 1}
-						onClick={() => { }} />
+						disabled={activeStep < steps.length - 1 || !build.name}
+						onClick={() => submitBuild()} />
 				</>
 			}
 

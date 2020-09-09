@@ -29,12 +29,10 @@ const useAssembleActions = () => {
 		excos: [
 			{ name: 'Equipment', label: 'Equipment', entity: equipments },
 			{ name: 'Muscles', label: 'Muscle', entity: muscles },
-			{ name: 'Exercise', label: 'Exercise', entity: exercises },
-			{ name: 'Review', label: 'Review', entity: [] }
+			{ name: 'Exercise', label: 'Exercise', entity: exercises }
 		],
 		circs: [
 			{ name: 'Movements', label: 'Movements', entity: movements },
-			{ name: 'Detail', label: 'Detail', entity: [] },
 			{ name: 'Review', label: 'Review', entity: [] }
 		],
 		wocos: [
@@ -75,7 +73,8 @@ const useAssembleActions = () => {
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				activeStep: val
+				activeStep: val,
+				readyForNext: false
 			}
 		})
 	}
@@ -90,30 +89,8 @@ const useAssembleActions = () => {
 		})
 	}
 
-	const addToBuild = (entity) => {
-		dispatch({
-			type: 'ASSEMBLE_ACTION',
-			assemble: {
-				...assemble,
-				build: {
-					...build,
-					[activeEntities[0].table]: entity
-				}
-			}
-		})
-	}
-
 	const submitBuild = (val) => {
-		dispatch({
-			type: 'ASSEMBLE_ACTION',
-			assemble: {
-				...assemble,
-				build: {
-					...build,
-					name: val
-				}
-			}
-		})
+		console.log(build);
 	}
 
 	return {
@@ -122,8 +99,7 @@ const useAssembleActions = () => {
 		setSteps,
 		setActiveStep,
 		setActiveEntities,
-		addToBuild,
-		submitBuild,
+		submitBuild
 	}
 }
 

@@ -36,8 +36,6 @@ const Editor = () => {
 		e.preventDefault()
 		SQLifting.post('/post/entity_edit', { table: table, id: entity.id, edit: value })
 			.then(() => {
-				console.log(group);
-				console.log(table);
 				update(group, [`${table}s`])
 				setValue('')
 			})
