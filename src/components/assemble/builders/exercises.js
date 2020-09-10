@@ -10,15 +10,13 @@ const Exercises = () => {
 	const [{
 		assemble,
 		assemble: {
-			steps,
-			active,
-			activeStep,
 			activeEntities,
 			build
 		}
 	}, dispatch] = useStateValue()
 
 	const nameBuild = (val) => {
+		if (build.name && build.name === '') return delete build.name
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {

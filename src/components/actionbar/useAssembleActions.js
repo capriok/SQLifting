@@ -17,10 +17,9 @@ const useAssembleActions = () => {
 		},
 		assemble,
 		assemble: {
-			steps,
 			active,
+			steps,
 			activeStep,
-			activeEntities,
 			build
 		}
 	}, dispatch] = useStateValue()
@@ -68,23 +67,43 @@ const useAssembleActions = () => {
 		})
 	}
 
-	const setActiveStep = (val) => {
+	const incStep = () => {
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				activeStep: val,
+				activeStep: activeStep + 1,
 				readyForNext: false
 			}
 		})
 	}
 
-	const setActiveEntities = () => {
+	const decStep = () => {
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				activeEntities: stepSet[active.entity][activeStep].entity
+				activeStep: activeStep - 1,
+				readyForNext: true
+			}
+		})
+	}
+
+	const setActiveEntities = () => {
+		let bool
+		if (steps.length > 0) {
+			if (build.hasOwnProperty(steps[activeStep].label.toLowerCase())) {
+				bool = true
+			} else {
+				bool = false
+			}
+		}
+		dispatch({
+			type: 'ASSEMBLE_ACTION',
+			assemble: {
+				...assemble,
+				activeEntities: stepSet[active.entity][activeStep].entity,
+				readyForNext: bool
 			}
 		})
 	}
@@ -97,7 +116,8 @@ const useAssembleActions = () => {
 		fullReset,
 		resetSteps,
 		setSteps,
-		setActiveStep,
+		incStep,
+		decStep,
 		setActiveEntities,
 		submitBuild
 	}

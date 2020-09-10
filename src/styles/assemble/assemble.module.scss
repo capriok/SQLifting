@@ -19,10 +19,10 @@
 
 .stepper_gap {
 	z-index: 10;
-	position: fixed;
-	top: 130px;
-	width: 100vw;
-	height: 10px;
+	position: absolute;
+	top: -12px;
+	width: 100%;
+	height: 12px;
 	background-color: $body;
 	@include media("<=phone") {
 		display: none;
@@ -95,7 +95,7 @@
 		z-index: 10;
 		flex: 1;
 		position: sticky;
-		top: 140px;
+		top: 260px;
 		width: 100%;
 		min-width: 275px;
 		padding: 10px;

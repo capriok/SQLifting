@@ -6,11 +6,7 @@ import useAssembleActions from '../components/actionbar/useAssembleActions'
 
 import styles from '../styles/assemble/assemble.module.scss'
 
-import check from '../images/check_black.png'
-
 import Stepper from "../components/assemble/stepper";
-import { Input, Button } from 'godspeed';
-import { isEmpty } from 'lodash'
 import Exercises from '../components/assemble/builders/exercises'
 import Circuits from '../components/assemble/builders/circuits'
 import Workouts from '../components/assemble/builders/workouts'
@@ -20,22 +16,17 @@ const Assemble = () => {
 		composites,
 		compositions,
 		assemble: {
-			steps,
 			active,
-			activeStep,
-			activeEntities,
-			build
+			steps,
+			activeStep
 		}
 	},] = useStateValue()
 
 	const {
 		fullReset,
 		setSteps,
-		setActiveEntities,
-		addToBuild,
-		submitBuild
+		setActiveEntities
 	} = useAssembleActions()
-
 
 	useEffect(() => { return () => fullReset() }, [])
 
@@ -58,9 +49,9 @@ const Assemble = () => {
 	return (
 		<>
 			<div className={styles.stepper}>
+				<div className={styles.stepper_gap} />
 				<Stepper />
 			</div>
-			<div className={styles.stepper_gap}></div>
 			<div className={styles.assemble}>
 				{active.entity === 'excos'
 					? <Exercises />
@@ -70,7 +61,6 @@ const Assemble = () => {
 							? <Workouts />
 							: <> </>
 				}
-
 			</div>
 		</>
 	)

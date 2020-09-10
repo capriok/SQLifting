@@ -63,7 +63,10 @@ const useWeather = () => {
 			if (window.location.pathname !== '/') return
 			getWeather()
 		}, 300000)
-		const thirtyMinute = setInterval(() => getWeather(), 1500000)
+		const thirtyMinute = setInterval(() => {
+			if (window.location.pathname !== '/') return
+			getWeather()
+		}, 1500000)
 		return () => {
 			clearInterval(fiveMinute)
 			clearInterval(thirtyMinute)
