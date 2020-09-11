@@ -8,13 +8,14 @@ const useActiveByPath = () => {
 	let entity = window.location.pathname.split('/')[3]
 	let activePath = `${view}/${group}/${entity}`
 	let name = entity
-	let table = entity
 
 	if (group === 'composites') {
 		if (entity === 'circuits') entity = 'circs'
 		if (entity === 'exercises') entity = 'excos'
 		if (entity === 'workouts') entity = 'wocos'
 	}
+	let table = entity
+
 	let state
 
 	switch (view) {

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useStateValue } from '../../../state/state'
-import useAssembleActions from '../../actionbar/useAssembleActions'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ext from '../../../styles/assemble/extensions/exercises.module.scss'
@@ -67,7 +66,7 @@ const Exercises = () => {
 				<div className={styles.name_input}>
 					<Input placeholder="Give it a name" onChange={e => nameBuild(e.target.value)} />
 				</div>
-				<div className={ext.exercise_exntension}>
+				<div className={ext.exercises_exntension}>
 					{build.hasOwnProperty('equipment') && <p>Equipment: <span>{build.equipment.name}</span></p>}
 					{build.hasOwnProperty('muscle') && <p>Muscle: <span>{build.muscle.name}</span></p>}
 					{build.hasOwnProperty('exercise') && <p>Exercise: <span>{build.exercise.name}</span></p>}

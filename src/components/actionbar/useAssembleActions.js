@@ -108,7 +108,8 @@ const useAssembleActions = () => {
 		})
 	}
 
-	const submitBuild = (val) => {
+	const submitBuild = () => {
+		console.log(active);
 		console.log(build);
 	}
 

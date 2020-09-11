@@ -59,7 +59,7 @@ const Assemble = () => {
 						? <Circuits />
 						: active.entity === 'wocos'
 							? <Workouts />
-							: <> </>
+							: <></>
 				}
 			</div>
 		</>

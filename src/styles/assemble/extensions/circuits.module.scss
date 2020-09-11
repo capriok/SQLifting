@@ -1,12 +1,23 @@
 @import "../../../index.scss";
 
-.exercise_exntension {
+.circuits_exntension {
+	p:first-child {
+		margin-top: 20px;
+	}
 	p {
 		margin-bottom: 0;
 		margin-top: 5px;
-		span {
-			color: $app-accent;
-			font-size: 0.9rem;
+	}
+	ul {
+		margin: 0;
+		padding: 3px 0 3px 15px;
+		li {
+			cursor: default;
 		}
+	}
+	span {
+		color: $app-accent;
+		font-size: 0.9rem;
+		margin-left: 2px;
 	}
 }

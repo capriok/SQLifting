@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { uniqBy, remove } from 'lodash'
 import { useStateValue } from '../../../state/state'
-import useAssembleActions from '../../actionbar/useAssembleActions'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
-import ext from '../../../styles/assemble/extensions/exercises.module.scss'
+import ext from '../../../styles/assemble/extensions/circuits.module.scss'
+
+import check from '../../../images/check_black.png'
 import { Input } from 'godspeed';
 
 const Circuits = () => {
@@ -16,6 +18,7 @@ const Circuits = () => {
 			build
 		}
 	}, dispatch] = useStateValue()
+
 
 	const nameBuild = (val) => {
 		dispatch({
@@ -31,23 +34,31 @@ const Circuits = () => {
 	}
 
 	const addToWorkoutBuild = (entity) => {
+		let updatedBuild = []
+		if (build.movements !== undefined) {
+			// if build has > 0 movements => spread movements and add entity
+			updatedBuild = [...build.movements, entity]
+			if (build.movements.some(s => s.id === entity.id)) {
+				// If entity is already in build => remove it
+				updatedBuild = remove(updatedBuild, s => s.id !== entity.id)
+			} else {
+				// Add selected entity to build and make sure its unique by id
+				updatedBuild = uniqBy(updatedBuild, 'id')
+			}
+		} else {
+			// if build has < 1 movements => only add entity
+			updatedBuild = [entity]
+		}
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
+				readyForNext: true,
 				build: {
-					...build,
+					movements: updatedBuild
 				}
 			}
 		})
-	}
-
-	const activeEntity = entity => {
-		const idleClass = styles.entity
-		const activeClass = `${styles.entity} ${styles.active_entity}`
-		if (build[activeEntities[0].table] === undefined) return idleClass
-		let inBuild = build[activeEntities[0].table].id === entity.id
-		return inBuild ? activeClass : idleClass
 	}
 
 	return (
@@ -58,7 +69,8 @@ const Circuits = () => {
 						<div className={styles.entities}>
 							{activeEntities.map((entity, i) => (
 								<div key={i} className={styles.entity_cont}>
-									<div className={activeEntity(entity)} onClick={() => addToWorkoutBuild(entity)}>
+									<div className={styles.entity} onClick={() => addToWorkoutBuild(entity)}>
+										{build.movements !== undefined && build.movements.some(s => s.id === entity.id) && <img src={check} alt="" />}
 										<div><p>{entity.name}</p></div>
 									</div>
 								</div>
@@ -70,9 +82,12 @@ const Circuits = () => {
 								<Input placeholder="Give it a name" onChange={e => nameBuild(e.target.value)} />
 							</div>
 							<div className={ext.circuits_exntension}>
-								{/* <p>Equipment: {build.hasOwnProperty('equipment') && <span>{build.equipment.name}</span>}</p>
-								 <p>Muscle: {build.hasOwnProperty('muscle') && <span>{build.muscle.name}</span>}</p>
-								<p>Exercise: {build.hasOwnProperty('exercise') && <span>{build.exercise.name}</span>}</p> */}
+								{(build.hasOwnProperty('movements') && build.movements.length > 0) && <>
+									<p>Movements</p>
+									<ul>
+										{build.movements.map((mov, i) => <li key={i}><span>{mov.name}</span></li>)}
+									</ul>
+								</>}
 							</div>
 						</div>
 					</>

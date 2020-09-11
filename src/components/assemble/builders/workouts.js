@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useStateValue } from '../../../state/state'
-import useAssembleActions from '../../actionbar/useAssembleActions'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ext from '../../../styles/assemble/extensions/exercises.module.scss'

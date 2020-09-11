@@ -107,7 +107,7 @@ const useManageActions = () => {
 			// If entity is already in selection => remove it
 			updatedSelection = remove([...selection], s => s.id !== entity.id)
 		} else {
-			// Add selected entity to selection
+			// Add selected entity to selection and make sure its unique by id
 			updatedSelection = uniqBy([...selection, entity], 'id')
 		}
 		dispatch({
