@@ -7,9 +7,9 @@ import useAssembleActions from '../components/actionbar/useAssembleActions'
 import styles from '../styles/assemble/assemble.module.scss'
 
 import Stepper from "../components/assemble/stepper";
-import Exercises from '../components/assemble/builders/exercises'
-import Circuits from '../components/assemble/builders/circuits'
-import Workouts from '../components/assemble/builders/workouts'
+import ExerciseBuilder from '../components/assemble/builders/exercise-builder'
+import CircuitBuilder from '../components/assemble/builders/circuit-builder'
+import WorkoutBuilder from '../components/assemble/builders/workout-builder'
 
 const Assemble = () => {
 	const [{
@@ -54,11 +54,11 @@ const Assemble = () => {
 			</div>
 			<div className={styles.assemble}>
 				{active.entity === 'excos'
-					? <Exercises />
+					? <ExerciseBuilder />
 					: active.entity === 'circs'
-						? <Circuits />
+						? <CircuitBuilder />
 						: active.entity === 'wocos'
-							? <Workouts />
+							? <WorkoutBuilder />
 							: <></>
 				}
 			</div>

@@ -1,0 +1,23 @@
+@import "../../../index.scss";
+
+.circuit_exntension {
+	p:first-child {
+		margin-top: 20px;
+	}
+	p {
+		margin-bottom: 0;
+		margin-top: 5px;
+	}
+	ul {
+		margin: 0;
+		padding: 3px 0 3px 15px;
+		li {
+			cursor: default;
+		}
+	}
+	span {
+		color: $app-accent;
+		font-size: 0.9rem;
+		margin-left: 2px;
+	}
+}

@@ -2,10 +2,10 @@ import React from 'react'
 import { useStateValue } from '../../../state/state'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
-import ext from '../../../styles/assemble/extensions/exercises.module.scss'
+import ext from '../../../styles/assemble/extensions/exercise-extension.module.scss'
 import { Input } from 'godspeed';
 
-const Exercises = () => {
+const ExerciseBuilder = () => {
 	const [{
 		assemble,
 		assemble: {
@@ -66,7 +66,7 @@ const Exercises = () => {
 				<div className={styles.name_input}>
 					<Input placeholder="Give it a name" onChange={e => nameBuild(e.target.value)} />
 				</div>
-				<div className={ext.exercises_exntension}>
+				<div className={ext.exercise_exntension}>
 					{build.hasOwnProperty('equipment') && <p>Equipment: <span>{build.equipment.name}</span></p>}
 					{build.hasOwnProperty('muscle') && <p>Muscle: <span>{build.muscle.name}</span></p>}
 					{build.hasOwnProperty('exercise') && <p>Exercise: <span>{build.exercise.name}</span></p>}
@@ -76,4 +76,4 @@ const Exercises = () => {
 	)
 }
 
-export default Exercises
+export default ExerciseBuilder

@@ -32,12 +32,12 @@ const useAssembleActions = () => {
 		],
 		circs: [
 			{ name: 'Movements', label: 'Movements', entity: movements },
-			{ name: 'Review', label: 'Review', entity: [] }
+			{ name: 'Detail', label: 'Detail', entity: [] }
 		],
 		wocos: [
 			{ name: 'Exercises', label: 'Exercises', entity: excos },
 			{ name: 'Circuits', label: 'Circuits', entity: circs },
-			{ name: 'Review', label: 'Review', entity: [] }
+			{ name: 'Detail', label: 'Detail', entity: [] }
 		]
 	}
 

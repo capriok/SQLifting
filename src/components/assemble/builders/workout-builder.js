@@ -2,10 +2,10 @@ import React from 'react'
 import { useStateValue } from '../../../state/state'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
-import ext from '../../../styles/assemble/extensions/exercises.module.scss'
+import ext from '../../../styles/assemble/extensions/workout-extension.module.scss'
 import { Input } from 'godspeed';
 
-const Workouts = () => {
+const WorkoutBuilder = () => {
 	const [{
 		assemble,
 		assemble: {
@@ -29,7 +29,7 @@ const Workouts = () => {
 		})
 	}
 
-	const addToCircuitBuild = (entity) => {
+	const addToWorkoutBuild = (entity) => {
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
@@ -57,7 +57,7 @@ const Workouts = () => {
 						<div className={styles.entities}>
 							{activeEntities.map((entity, i) => (
 								<div key={i} className={styles.entity_cont}>
-									<div className={activeEntity(entity)} onClick={() => addToCircuitBuild(entity)}>
+									<div className={activeEntity(entity)} onClick={() => addToWorkoutBuild(entity)}>
 										<div><p>{entity.name}</p></div>
 									</div>
 								</div>
@@ -68,7 +68,7 @@ const Workouts = () => {
 							<div className={styles.name_input}>
 								<Input placeholder="Give it a name" onChange={e => nameBuild(e.target.value)} />
 							</div>
-							<div className={ext.workouts_exntension}>
+							<div className={ext.workout_exntension}>
 								{/* <p>Equipment: {build.hasOwnProperty('equipment') && <span>{build.equipment.name}</span>}</p>
 								<p>Muscle: {build.hasOwnProperty('muscle') && <span>{build.muscle.name}</span>}</p>
 								<p>Exercise: {build.hasOwnProperty('exercise') && <span>{build.exercise.name}</span>}</p> */}
@@ -83,4 +83,4 @@ const Workouts = () => {
 	)
 }
 
-export default Workouts
+export default WorkoutBuilder

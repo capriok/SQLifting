@@ -9,7 +9,9 @@ import styles from '../../styles/manage/preview.module.scss'
 
 const Preview = () => {
 	const [{
+		options: { tipsOption },
 		manage: {
+			active,
 			preview: {
 				group,
 				table,
@@ -114,6 +116,9 @@ const Preview = () => {
 					<div className={styles.preview}>
 						<p className={view.title}>Select an entity to preview</p>
 					</div>
+					{ active.table !== 'woco' &&
+						tipsOption && <center>{active.name} are used to assemble Workouts</center>
+					}
 				</div>
 			)
 	}
