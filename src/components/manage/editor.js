@@ -45,8 +45,15 @@ const Editor = () => {
 			<p className={view.title}>{entity.name}</p>
 			<div className={styles.editor}>
 				<form onSubmit={e => submit(e)}>
-					<Input placeholder="Edit name" value={value} onChange={e => setValue(e.target.value)} />
-					<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
+					<Input
+						placeholder="Edit name"
+						value={value}
+						onChange={e => setValue(e.target.value)} />
+					<Button
+						className={styles.submit}
+						type="submit"
+						text="Submit"
+						size="xsm" />
 				</form>
 				{tipsOption && <p className={styles.tip}>Change entity name</p>}
 			</div>

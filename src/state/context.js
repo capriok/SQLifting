@@ -57,5 +57,12 @@ if (LStoken && LSuser) {
 	if (LSops) initialState.options = LSops
 	if (LSops) document.documentElement.style.setProperty('--app-accent', LSops.accentOption)
 }
+let LScomponents = JSON.parse(localStorage.getItem('SQLifting-components'))
+if (LScomponents) {
+	initialState.components = {
+		...initialState.components,
+		sidebar: LScomponents.sidebar
+	}
+}
 
 export default initialState

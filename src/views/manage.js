@@ -62,7 +62,9 @@ const Manage = () => {
 					{entities.map((entity, i) => (
 						<div key={i} className={styles.entity_cont}>
 							<div className={entityClass(entity.id)} onClick={() => set(entity)}>
-								{selector.selection.some(s => s.id === entity.id) && <img src={check} alt="" />}
+								{selector.selection.some(s => s.id === entity.id) &&
+									<img src={check} alt="" />
+								}
 								<div><p>{entity.name}</p></div>
 							</div>
 						</div>

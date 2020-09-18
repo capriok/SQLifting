@@ -18,6 +18,10 @@
 			cursor: default;
 		}
 	}
+	.li_bb {
+		padding: 5px 0px;
+		border-bottom: 2px solid $body;
+	}
 	span {
 		color: $app-accent;
 		font-size: 0.9rem;

@@ -56,13 +56,37 @@ const useAssembleActions = () => {
 	}
 
 	const setSteps = () => {
+		let buildProps
+		switch (active.entity) {
+			case 'excos':
+				buildProps = {
+					equipment: {},
+					muscle: {},
+					exercise: {},
+				}
+				break;
+			case 'circs':
+				buildProps = {
+					movements: []
+				}
+				break;
+			case 'wocos':
+				buildProps = {
+					exercises: [],
+					circuits: []
+				}
+				break;
+			default:
+				buildProps = {}
+				break;
+		}
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
 				steps: stepSet[active.entity],
 				activeStep: 0,
-				build: {}
+				build: buildProps
 			}
 		})
 	}
@@ -92,8 +116,10 @@ const useAssembleActions = () => {
 	const setActiveEntities = () => {
 		let bool
 		if (steps.length > 0) {
-			if (build.hasOwnProperty(steps[activeStep].label.toLowerCase()) ||
-				steps[activeStep].label.toLowerCase() === 'detail'
+			if ((build.hasOwnProperty(steps[activeStep].label.toLowerCase())
+				&& build[steps[activeStep].label.toLowerCase()].length > 0)
+				|| steps[activeStep].label.toLowerCase() === 'detail'
+				|| (active.entity === 'wocos' && activeStep === 1)
 			) {
 				bool = true
 			} else {
@@ -111,7 +137,7 @@ const useAssembleActions = () => {
 	}
 
 	const submitBuild = () => {
-		console.log(active);
+		// console.log(active);
 		console.log(build);
 	}
 

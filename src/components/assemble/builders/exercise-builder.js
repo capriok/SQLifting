@@ -52,26 +52,36 @@ const ExerciseBuilder = () => {
 
 	return (
 		<>
-			<div className={styles.entities}>
-				{activeEntities.map((entity, i) => (
-					<div key={i} className={styles.entity_cont}>
-						<div className={activeEntity(entity)} onClick={() => addToExerciseBuild(entity)}>
-							<div><p>{entity.name}</p></div>
+			{build.hasOwnProperty('equipment') &&
+				build.hasOwnProperty('muscle') &&
+				build.hasOwnProperty('exercise') && <>
+					<div className={styles.entities}>
+						{activeEntities.map((entity, i) => (
+							<div key={i} className={styles.entity_cont}>
+								<div
+									className={activeEntity(entity)}
+									onClick={() => addToExerciseBuild(entity)}>
+									<div><p>{entity.name}</p></div>
+								</div>
+							</div>
+						))}
+					</div>
+					<div className={styles.extension}>
+						{build.name
+							? <p className={styles.title}>{build.name}</p>
+							: <p className={styles.name_placeholder}></p>}
+						<div className={styles.name_input}>
+							<Input
+								placeholder="Give it a name"
+								onChange={e => nameBuild(e.target.value)} />
+						</div>
+						<div className={ext.exercise_exntension}>
+							<p>Equipment: <span>{build.equipment.name}</span></p>
+							<p>Muscle: <span>{build.muscle.name}</span></p>
+							<p>Exercise: <span>{build.exercise.name}</span></p>
 						</div>
 					</div>
-				))}
-			</div>
-			<div className={styles.extension}>
-				{build.name ? <p className={styles.title}>{build.name}</p> : <p className={styles.name_placeholder}></p>}
-				<div className={styles.name_input}>
-					<Input placeholder="Give it a name" onChange={e => nameBuild(e.target.value)} />
-				</div>
-				<div className={ext.exercise_exntension}>
-					{build.hasOwnProperty('equipment') && <p>Equipment: <span>{build.equipment.name}</span></p>}
-					{build.hasOwnProperty('muscle') && <p>Muscle: <span>{build.muscle.name}</span></p>}
-					{build.hasOwnProperty('exercise') && <p>Exercise: <span>{build.exercise.name}</span></p>}
-				</div>
-			</div>
+				</>}
 		</>
 	)
 }

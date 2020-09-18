@@ -103,6 +103,7 @@ const useUpdate = () => {
       SQLifting.get('/get/circ_deps', { params: { circ_id } })
         .then(res => {
           circ.deps = res.data
+          circ.sets = 0
         })
         .catch(err => console.log(err))
     })
@@ -114,6 +115,9 @@ const useUpdate = () => {
       SQLifting.get('/get/exco_deps', { params: { exco_id } })
         .then(res => {
           exco.deps = res.data[0]
+          exco.sets = 0
+          exco.reps = 0
+          exco.weight = 0
         })
         .catch(err => console.log(err))
     })

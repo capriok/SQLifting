@@ -32,15 +32,7 @@ const Assemble = () => {
 
 	useEffect(() => {
 		setActiveEntities()
-	}, [composites, compositions])
-
-	useEffect(() => {
-		setActiveEntities()
-	}, [steps])
-
-	useEffect(() => {
-		setActiveEntities()
-	}, [activeStep])
+	}, [composites, compositions, steps, activeStep])
 
 	useEffect(() => {
 		setSteps()

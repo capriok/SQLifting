@@ -17,7 +17,10 @@ const Navbar = () => {
 		components: { sidebar } },
 		dispatch] = useStateValue()
 
-	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
+	const flipSidebar = () => {
+		dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
+		localStorage.setItem('SQLifting-components', JSON.stringify({ sidebar: !sidebar }))
+	}
 
 	return (
 		<>

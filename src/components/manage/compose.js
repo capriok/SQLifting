@@ -63,8 +63,15 @@ const Compose = () => {
 				<p className={view.title}>Add {entity.slice(0, -1)}</p>
 				<div className={styles.compose}>
 					<form onSubmit={e => submit(e)}>
-						<Input placeholder="Add name" value={value} onChange={e => setValue(e.target.value)} />
-						<Button className={styles.submit} type="submit" text="Submit" size="xsm" />
+						<Input
+							placeholder="Add name"
+							value={value}
+							onChange={e => setValue(e.target.value)} />
+						<Button
+							className={styles.submit
+							} type="submit"
+							text="Submit"
+							size="xsm" />
 					</form>
 					{tipsOption && <p className={styles.tip}>{tip()}</p>}
 				</div>

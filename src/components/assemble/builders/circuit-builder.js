@@ -40,7 +40,7 @@ const CircuitBuilder = () => {
 		let updatedBuild = []
 		// bool determines whether or not the Next button is disabled
 		let bool
-		if (build.movements !== undefined) {
+		if (build.movements.length > 0) {
 			// if build has > 0 movements => spread movements and add entity
 			updatedBuild = [...build.movements, entity]
 			if (build.movements.some(s => s.id === entity.id)) {
@@ -76,14 +76,16 @@ const CircuitBuilder = () => {
 
 	return (
 		<>
-			{
-				activeStep < steps.length - 1
+			{build.hasOwnProperty('movements') && <>
+				{activeStep < steps.length - 1
 					? <>
 						<div className={styles.entities}>
 							{activeEntities.map((entity, i) => (
 								<div key={i} className={styles.entity_cont}>
 									<div className={styles.entity} onClick={() => addToCircuitBuild(entity)}>
-										{build.movements !== undefined && build.movements.some(s => s.id === entity.id) && <img src={check} alt="" />}
+										{build.movements.some(s => s.id === entity.id) &&
+											<img src={check} alt="" />
+										}
 										<div><p>{entity.name}</p></div>
 									</div>
 								</div>
@@ -93,26 +95,34 @@ const CircuitBuilder = () => {
 					: <>
 						<CircuitDetailer />
 					</>
-			}
-			<div className={styles.extension}>
-				{build.name ? <p className={styles.title}>{build.name}</p> : <p className={styles.name_placeholder}></p>}
-				<div className={styles.name_input}>
-					<Input placeholder="Give it a name" onChange={e => nameBuild(e.target.value)} />
+				}
+				<div className={styles.extension}>
+					{build.name
+						? <p className={styles.title}>{build.name}</p>
+						: <p className={styles.name_placeholder}></p>
+					}
+					<div className={styles.name_input}>
+						<Input
+							placeholder="Give it a name"
+							onChange={e => nameBuild(e.target.value)} />
+					</div>
+					<div className={ext.circuit_exntension}>
+						{build.movements.length > 0 && <>
+							<p>Movements</p>
+							<ul>
+								{build.movements.map((mov, i) => (
+									<li key={i} className={activeStep === 1 ? ext.li_bb : null}>
+										<span>{mov.name}</span>
+										{activeStep === 1 &&
+											<span>{mov.durationValue} {mov.durationType}</span>
+										}
+									</li>
+								))}
+							</ul>
+						</>}
+					</div>
 				</div>
-				<div className={ext.circuit_exntension}>
-					{(build.hasOwnProperty('movements') && build.movements.length > 0) && <>
-						<p>Movements</p>
-						<ul>
-							{build.movements.map((mov, i) => (
-								<li key={i}>
-									<span>{mov.name}</span>
-									{activeStep === 1 && <span>{mov.durationValue} {mov.durationType}</span>}
-								</li>
-							))}
-						</ul>
-					</>}
-				</div>
-			</div>
+			</>}
 		</>
 	)
 }

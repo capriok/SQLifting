@@ -90,7 +90,8 @@ const Authenticate = () => {
             </label>
             <label>
               <img src={lock} alt="" />
-              <Input placeholder="Password"
+              <Input
+                placeholder="Password"
                 value={form.password}
                 type="password"
                 onChange={(e) =>
@@ -99,9 +100,17 @@ const Authenticate = () => {
                     password: e.target.value.replace(/[^a-z0-9]/ig, '')
                   })} />
             </label>
-            <Button text={!register ? 'Login' : 'Register'} onClick={() => { }} />
+            <Button
+              text={!register ? 'Login' : 'Register'}
+              onClick={() => { }} />
           </form>
-          <p onClick={() => { setRegister(!register); register ? setTitle('Login') : setTitle('Create Account') }}>
+          <p
+            onClick={() => {
+              setRegister(!register)
+              register
+                ? setTitle('Login')
+                : setTitle('Create Account')
+            }}>
             {!register ? 'Dont have an account?' : 'Login with credentials'}
           </p>
           <div className={styles.bg}></div>
