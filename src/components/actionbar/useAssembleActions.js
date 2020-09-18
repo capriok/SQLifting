@@ -92,7 +92,9 @@ const useAssembleActions = () => {
 	const setActiveEntities = () => {
 		let bool
 		if (steps.length > 0) {
-			if (build.hasOwnProperty(steps[activeStep].label.toLowerCase())) {
+			if (build.hasOwnProperty(steps[activeStep].label.toLowerCase()) ||
+				steps[activeStep].label.toLowerCase() === 'detail'
+			) {
 				bool = true
 			} else {
 				bool = false

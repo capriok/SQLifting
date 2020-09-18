@@ -12,6 +12,9 @@
 		margin: 0;
 		padding: 3px 0 3px 15px;
 		li {
+			@include flex;
+			justify-content: space-between;
+			margin-right: 5px;
 			cursor: default;
 		}
 	}

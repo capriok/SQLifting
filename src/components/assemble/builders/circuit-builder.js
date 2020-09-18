@@ -27,6 +27,7 @@ const CircuitBuilder = () => {
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
+				readyForNext: true,
 				build: {
 					...build,
 					name: val
@@ -102,7 +103,12 @@ const CircuitBuilder = () => {
 					{(build.hasOwnProperty('movements') && build.movements.length > 0) && <>
 						<p>Movements</p>
 						<ul>
-							{build.movements.map((mov, i) => <li key={i}><span>{mov.name}</span></li>)}
+							{build.movements.map((mov, i) => (
+								<li key={i}>
+									<span>{mov.name}</span>
+									{activeStep === 1 && <span>{mov.durationValue} {mov.durationType}</span>}
+								</li>
+							))}
 						</ul>
 					</>}
 				</div>

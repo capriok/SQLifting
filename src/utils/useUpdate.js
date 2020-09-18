@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import { useStateValue } from '../state/state'
-import { SQLifting, installProps } from '../api/sqlifting'
+import { SQLifting, sortEntities } from '../api/sqlifting'
 
 const useUpdate = () => {
   const [{
@@ -35,7 +35,7 @@ const useUpdate = () => {
   const updateCompositions = (params) => {
     SQLifting.get('/get/compositions', { params: params })
       .then(async res => {
-        let final = installProps(res)
+        let final = sortEntities(res)
         console.log('%cCompositions returned', 'color: lightskyblue', { compositions: final })
         await attachOccurrences(final)
 
@@ -53,6 +53,10 @@ const useUpdate = () => {
             let occArr = []
             res.data.forEach(occ => occArr.push(occ.name))
             final[key][i].occ = occArr
+            if (key === 'movements') {
+              final[key][i].durationValue = 0
+              final[key][i].durationType = 'Reps'
+            }
           })
       })
     })
@@ -65,7 +69,7 @@ const useUpdate = () => {
   const updateComposites = (params) => {
     SQLifting.get('/get/composites', { params: params })
       .then(res => {
-        let final = installProps(res)
+        let final = sortEntities(res)
         attachDependencies(final)
       })
       .catch(err => console.log(err))

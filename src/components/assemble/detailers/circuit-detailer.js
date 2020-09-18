@@ -15,8 +15,7 @@ const CircuitDetailer = () => {
 
 	const setDuration = (val, i) => {
 		let newMovements = [...build.movements]
-		newMovements[i].duration = val
-		if (!newMovements[i].durationType) newMovements[i].durationType = 'Reps'
+		newMovements[i].durationValue = parseFloat(val)
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
@@ -31,7 +30,6 @@ const CircuitDetailer = () => {
 
 	const setDurationType = (val, i) => {
 		let newMovements = [...build.movements]
-		console.log(val);
 		newMovements[i].durationType = val
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
@@ -55,8 +53,8 @@ const CircuitDetailer = () => {
 							<div className={style.detail} key={i}>
 								<p>{mov.name}</p>
 								<div>
-									<Input type="number" placeholder="Duration" onChange={e => setDuration(e.target.value, i)} />
-									<select value={build.movements[i].durationType} onChange={e => setDurationType(e.target.value, i)}>
+									<Input type="number" min={0} step={2} value={mov.durationValue} placeholder="Duration" onChange={e => setDuration(e.target.value, i)} />
+									<select value={mov.durationType} onChange={e => setDurationType(e.target.value, i)}>
 										<option value="Reps">Reps</option>
 										<option value="Seconds">Seconds</option>
 										<option value="Minutes">Minutes</option>
