@@ -39,10 +39,13 @@ const useActiveByPath = () => {
 				table: table.slice(0, -1)
 			}
 			break;
+		case 'workout':
+			state = {
+			}
+			break;
 		default:
 			break;
 	}
-
 	return state
 }
 

@@ -129,7 +129,7 @@ const SidebarContent = ({ setSidebar }) => {
 						</ul >
 						<h1>Workout</h1>
 						<ul>
-							<Link to={'/workout'}><li>Go</li></Link>
+							<Link to={'/workout/:woco_id'}><li>Go</li></Link>
 						</ul>
 					</>
 				}

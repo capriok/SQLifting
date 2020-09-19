@@ -11,7 +11,11 @@
 		box-shadow: $soft-shadow;
 		background-color: $main;
 		h1 {
+			user-select: none;
 			text-align: center;
+		}
+		h2 {
+			user-select: none;
 		}
 		.details {
 			.detail {

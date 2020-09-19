@@ -10,6 +10,8 @@ const ExerciseBuilder = () => {
 		assemble,
 		assemble: {
 			activeEntities,
+			activeStep,
+			steps,
 			build
 		}
 	}, dispatch] = useStateValue()
@@ -69,16 +71,18 @@ const ExerciseBuilder = () => {
 					<div className={styles.extension}>
 						{build.name
 							? <p className={styles.title}>{build.name}</p>
-							: <p className={styles.name_placeholder}></p>}
+							: <p className={styles.name_placeholder}>Build name</p>}
 						<div className={styles.name_input}>
 							<Input
 								placeholder="Give it a name"
 								onChange={e => nameBuild(e.target.value)} />
 						</div>
 						<div className={ext.exercise_exntension}>
-							<p>Equipment: <span>{build.equipment.name}</span></p>
-							<p>Muscle: <span>{build.muscle.name}</span></p>
-							<p>Exercise: <span>{build.exercise.name}</span></p>
+							{Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0 && <>
+								<p>Equipment: <span>{build.equipment.name}</span></p>
+								<p>Muscle: <span>{build.muscle.name}</span></p>
+								<p>Exercise: <span>{build.exercise.name}</span></p>
+							</>}
 						</div>
 					</div>
 				</>}

@@ -113,6 +113,9 @@
 			font-size: 1.2rem;
 		}
 		.name_placeholder {
+			user-select: none;
+			text-align: center;
+			color: darken($color: $body, $amount: 10%);
 			height: 36px;
 			font-size: 1.2rem;
 			padding-bottom: 10px;

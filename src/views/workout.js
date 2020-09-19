@@ -3,23 +3,21 @@
 import React, { useEffect } from 'react'
 import { useStateValue } from '../state/state'
 import useWorkoutActions from '../components/actionbar/useWorkoutActions'
-import useActiveByPath from '../utils/useActiveByPath'
 import styles from '../styles/workout/workout.module.scss'
 
 const Workout = () => {
-	// const [{ },] = useStateValue()
+	const [{ composites: { wocos } },] = useStateValue()
 	useEffect(() => {
-		console.log('Workout');
 		return () => fullReset()
 	}, [])
-	const activeByPath = useActiveByPath()
 	const { fullReset } = useWorkoutActions()
-
-	console.log(activeByPath);
 
 	return (
 		<>
-			<h1 className={styles.workout}>Workout</h1>
+			<h1 align="center" className={styles.workout}>Workout</h1>
+			<div>{wocos.map((woco, i) => (
+				<p key={i}>{woco.name}</p>
+			))}</div>
 		</>
 	)
 }

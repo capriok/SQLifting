@@ -117,7 +117,8 @@ const useAssembleActions = () => {
 		let bool
 		if (steps.length > 0) {
 			if ((build.hasOwnProperty(steps[activeStep].label.toLowerCase())
-				&& build[steps[activeStep].label.toLowerCase()].length > 0)
+				&& (build[steps[activeStep].label.toLowerCase()].length > 0
+					|| Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0))
 				|| steps[activeStep].label.toLowerCase() === 'detail'
 				|| (active.entity === 'wocos' && activeStep === 1)
 			) {

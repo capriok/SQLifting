@@ -99,7 +99,7 @@ const CircuitBuilder = () => {
 				<div className={styles.extension}>
 					{build.name
 						? <p className={styles.title}>{build.name}</p>
-						: <p className={styles.name_placeholder}></p>
+						: <p className={styles.name_placeholder}>Build name</p>
 					}
 					<div className={styles.name_input}>
 						<Input

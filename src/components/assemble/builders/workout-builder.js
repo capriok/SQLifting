@@ -9,7 +9,6 @@ import ext from '../../../styles/assemble/extensions/workout-extension.module.sc
 
 import { Input } from 'godspeed';
 import WorkoutDetailer from '../detailers/workout-detailer'
-import { amber } from '@material-ui/core/colors'
 
 const WorkoutBuilder = () => {
 	const [{
@@ -106,7 +105,7 @@ const WorkoutBuilder = () => {
 				<div className={styles.extension}>
 					{build.name
 						? <p className={styles.title}>{build.name}</p>
-						: <p className={styles.name_placeholder}></p>
+						: <p className={styles.name_placeholder}>Build name</p>
 					}
 					<div className={styles.name_input}>
 						<Input
