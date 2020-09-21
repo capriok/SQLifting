@@ -92,13 +92,13 @@ const SidebarContent = ({ setSidebar }) => {
 
 	const createMap = (type, group) => (
 		type[group].map((op, i) => (
-			<Link key={i} to={`${type.pathname}${op.pathname}`} onClick={() => setSidebar()}>
+			<Link key={i} to={`${type.pathname}${op.pathname}`} onClick={setSidebar}>
 				<li className={activeLI(`${type.pathname}${op.pathname}`)}>{op.name}</li>
 			</Link>
 		))
 	)
 
-	const flipOtions = () => setOptions(!optionsOpen)
+	const flipOptions = () => setOptions(!optionsOpen)
 
 	return (
 		<>
@@ -107,12 +107,12 @@ const SidebarContent = ({ setSidebar }) => {
 					<img
 						className={styles.gear}
 						src={gear} alt=""
-						onClick={flipOtions}
+						onClick={flipOptions}
 						draggable={false}
 					/>
 				</div>
 				{optionsOpen
-					? <SidebarOptions setOptions={flipOtions} />
+					? <SidebarOptions flipOptions={flipOptions} />
 					: <>
 						<h1>Manage</h1>
 						<p>Compositions</p>
@@ -138,7 +138,7 @@ const SidebarContent = ({ setSidebar }) => {
 	)
 }
 
-const SidebarOptions = ({ flipOtions }) => {
+const SidebarOptions = ({ flipOptions }) => {
 	const [, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
@@ -154,7 +154,7 @@ const SidebarOptions = ({ flipOtions }) => {
 			<ul>
 				<AccentOption />
 				<TipsOption />
-				{notMobile && <SidebarOption flipOtions={flipOtions} />}
+				{notMobile && <SidebarOption flipOptions={flipOptions} />}
 			</ul>
 			<h1 className={ops.logout} onClick={() => logoutActions()}>Logout</h1>
 		</div>

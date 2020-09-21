@@ -11,9 +11,11 @@
 	background-color: $main;
 	@include media("<=phone") {
 		border-top: none;
+		border-radius: 0px;
 		border-top-left-radius: 0px;
 		border-top-right-radius: 0px;
-		top: 90px;
+		margin-top: 0px;
+		top: 50px;
 	}
 }
 
@@ -153,7 +155,6 @@
 			width: 100%;
 			height: 10px;
 			background-color: $body;
-			background-color: red;
 		}
 		.extension {
 			.title {
@@ -174,12 +175,14 @@
 	}
 	@include media("<=phone") {
 		.extension {
+			position: unset;
+			top: unset;
 			border-radius: 0;
-			width: 100%;
-			top: 50px;
+			width: 100vw;
+			top: 155px;
 			padding-top: 0;
-			margin-top: 0;
-			max-height: 240px;
+			margin-bottom: 10px;
+			margin-bottom: 0;
 			overflow-y: scroll;
 			border-top: none;
 			.title {
@@ -197,6 +200,7 @@
 			order: 1;
 			width: 100%;
 			margin: 0;
+			margin-top: 10px;
 			.entity_cont {
 				min-width: 100%;
 				max-width: 100%;

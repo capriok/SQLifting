@@ -12,4 +12,6 @@
 			font-size: 0.9rem;
 		}
 	}
+	@include media("<=phone") {
+	}
 }

@@ -2,8 +2,10 @@
 
 .assemble_actions {
 	@include flex;
+	width: 100%;
+	justify-content: flex-end;
 	button {
-		margin-right: 10px;
+		margin-left: 10px;
 		cursor: pointer;
 	}
 	.select_group {
@@ -23,12 +25,5 @@
 	}
 	.active_button {
 		background-color: $app-accent;
-	}
-	@include media("<=phone") {
-		width: 100%;
-		justify-content: space-between;
-		button {
-			margin: 0;
-		}
 	}
 }

@@ -46,6 +46,28 @@
 			}
 		}
 	}
+	@include media("<=phone") {
+		width: 100vw;
+		order: 1;
+		.detailer_cont {
+			margin-right: 0;
+			.details {
+				.detail {
+					width: 100%;
+					p {
+						padding-bottom: 10px;
+						margin-left: 0;
+					}
+					div {
+						input {
+							flex: 1;
+							max-width: 100px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 // DONT FORGET TO MAK3E INPUT AND SELECT FONT SIZE 16PX ON MOBILE

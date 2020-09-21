@@ -46,4 +46,30 @@
 			}
 		}
 	}
+	@include media("<=phone") {
+		width: 100vw;
+		order: 1;
+		.detailer_cont {
+			margin-right: 0;
+			.details {
+				.detail {
+					width: 100%;
+					flex-direction: column;
+					p {
+						padding-bottom: 10px;
+						margin-left: 0;
+					}
+					div {
+						@include flex;
+						justify-content: space-evenly;
+						width: 100%;
+						input {
+							flex: 1;
+							max-width: 100px;
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -29,6 +29,7 @@
 	}
 	div {
 		@include flex;
+		width: 75px;
 		margin-right: 5px;
 		align-items: flex-start;
 		flex-direction: column;
