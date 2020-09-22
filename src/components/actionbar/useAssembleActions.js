@@ -2,9 +2,11 @@
 /*eslint no-unused-vars: "off"*/
 import { SQLifting } from '../../api/sqlifting'
 import { useStateValue } from '../../state/state'
+import useUpdate from '../../utils/useUpdate'
 
 const useAssembleActions = () => {
 	const [{
+		user: { details: { uid } },
 		compositions: {
 			equipments,
 			muscles,
@@ -23,6 +25,8 @@ const useAssembleActions = () => {
 			build
 		}
 	}, dispatch] = useStateValue()
+
+	const update = useUpdate()
 
 	const stepSet = {
 		excos: [
@@ -116,17 +120,37 @@ const useAssembleActions = () => {
 	const setActiveEntities = () => {
 		let bool
 		if (steps.length > 0) {
-			if ((build.hasOwnProperty(steps[activeStep].label.toLowerCase())
-				&& (build[steps[activeStep].label.toLowerCase()].length > 0
-					|| Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0))
-				|| steps[activeStep].label.toLowerCase() === 'detail'
-				|| (active.entity === 'wocos' && activeStep === 1)
-			) {
-				bool = true
-			} else {
-				bool = false
+			let current = steps[activeStep].label.toLowerCase()
+			switch (active.entity) {
+				case 'excos':
+					Object.keys(build[current]).length > 0
+						? bool = true
+						: bool = false
+					break;
+				case 'circs':
+					build.movements.length > 0 || current === 'detail'
+						? bool = true
+						: bool = false
+					break;
+				case 'wocos':
+					console.log(build);
+					console.log(current);
+					(build.hasOwnProperty(current) && build[current].length > 0)
+						|| current === 'detail'
+						|| current === 'circuits'
+						? bool = true
+						: bool = false
+					break;
+				default:
+					break;
 			}
 		}
+		// (build.hasOwnProperty(steps[activeStep].label.toLowerCase())
+		// 	&& (build[steps[activeStep].label.toLowerCase()].length > 0
+		// 		|| Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0))
+		// 	|| steps[activeStep].label.toLowerCase() === 'detail'
+		// 	|| (active.entity === 'wocos' && activeStep === 1)
+
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
@@ -138,8 +162,37 @@ const useAssembleActions = () => {
 	}
 
 	const submitBuild = () => {
-		// console.log(active);
+		console.log(active);
 		console.log(build);
+		switch (active.entity) {
+			case 'excos':
+				SQLifting.post('post/exco', { uid, build })
+					.then(res => {
+						console.log(res);
+						update('composites', ['excos'])
+					})
+					.catch(err => console.log(err))
+				break;
+			case 'circs':
+				SQLifting.post('post/circ', { uid, build })
+					.then(res => {
+						console.log(res);
+						update('composites', ['circs'])
+					})
+					.catch(err => console.log(err))
+				break;
+			case 'wocos':
+				SQLifting.post('post/woco', { uid, build })
+					.then(res => {
+						console.log(res);
+						update('composites', ['wocos'])
+					})
+					.catch(err => console.log(err))
+				break;
+
+			default:
+				break;
+		}
 	}
 
 	return {

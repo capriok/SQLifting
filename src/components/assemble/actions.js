@@ -38,7 +38,7 @@ const AssembleActions = () => {
 						onClick={() => incStep()} />
 					<Button
 						text="Submit"
-						disabled={activeStep < steps.length - 1 || !build.name}
+						disabled={activeStep < steps.length - 1 || !build.name || !readyForNext}
 						onClick={() => submitBuild()} />
 				</>
 			}

@@ -27,7 +27,6 @@ const CircuitBuilder = () => {
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				readyForNext: true,
 				build: {
 					...build,
 					name: val
