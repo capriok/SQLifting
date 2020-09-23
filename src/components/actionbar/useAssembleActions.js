@@ -133,8 +133,6 @@ const useAssembleActions = () => {
 						: bool = false
 					break;
 				case 'wocos':
-					console.log(build);
-					console.log(current);
 					(build.hasOwnProperty(current) && build[current].length > 0)
 						|| current === 'detail'
 						|| current === 'circuits'
@@ -162,35 +160,34 @@ const useAssembleActions = () => {
 	}
 
 	const submitBuild = () => {
-		console.log(active);
-		console.log(build);
+		console.log('%cSubmitted Build', 'color: lightskyblue;', build);
 		switch (active.entity) {
 			case 'excos':
 				SQLifting.post('post/exco', { uid, build })
 					.then(res => {
-						console.log(res);
 						update('composites', ['excos'])
+						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
 					})
 					.catch(err => console.log(err))
 				break;
 			case 'circs':
 				SQLifting.post('post/circ', { uid, build })
 					.then(res => {
-						console.log(res);
 						update('composites', ['circs'])
+						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
 					})
 					.catch(err => console.log(err))
 				break;
 			case 'wocos':
 				SQLifting.post('post/woco', { uid, build })
 					.then(res => {
-						console.log(res);
 						update('composites', ['wocos'])
+						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
 					})
 					.catch(err => console.log(err))
 				break;
-
 			default:
+				console.log('Something went wrong');
 				break;
 		}
 	}

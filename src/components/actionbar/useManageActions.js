@@ -127,15 +127,22 @@ const useManageActions = () => {
 		// Count variable to monitor when all entities in selection have been removed from DB
 		let count = 0
 		selection.forEach(async record => {
-			SQLifting.post('/delete/byid', { table: table, id: record.id })
-				.then(() => {
+			SQLifting.post('/delete/byid', { table, id: record.id })
+				.then(async () => {
 					console.log('Delete Success!')
 					// If entity is a composite => call func to remove its dependencies as well
 					if (table === 'circ') {
-						return deleteDependencies('circ_movs', record, type, ['circs'])
+						await SQLifting.post(`/delete/deps`, { table: 'circ_movs', id: record.id })
+							.then(() => update(type, ['circs']))
+							.catch(err => console.log(err))
 					}
 					if (table === 'woco') {
-						return deleteDependencies('woco_excos', record, type, ['wocos'])
+						await SQLifting.post(`/delete/deps`, { table: 'woco_excos', id: record.id })
+							.then(() => { })
+							.catch(err => console.log(err))
+						await SQLifting.post(`/delete/deps`, { table: 'woco_circs', id: record.id })
+							.then(() => update(type, ['wocos']))
+							.catch(err => console.log(err))
 					}
 					// Add one to count => continue selection itteration
 					count++
@@ -145,11 +152,6 @@ const useManageActions = () => {
 				.catch(e => console.log(e))
 		});
 
-		const deleteDependencies = async (table, id, type, requests) => {
-			await SQLifting.post(`/delete/deps`, { table, id })
-				.then(() => update(type, requests))
-				.catch(err => console.log(err))
-		}
 	}
 
 	return {

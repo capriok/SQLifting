@@ -79,7 +79,7 @@ const Preview = () => {
 											<ul>
 												<li>Sets: <span>{dep.sets}</span></li>
 												<li>Reps: <span>{dep.reps}</span></li>
-												{dep.weight && <li>Weight: <span>{dep.weight}</span></li>}
+												<li>Weight: <span>{dep.weight}</span></li>
 											</ul>
 										</div>
 									))}
@@ -88,11 +88,9 @@ const Preview = () => {
 									<p className={styles.dep}>Circuits</p>
 									<ul>
 										{entity.circs.map((dep, i) => {
-											let amount = parseInt(dep.reps)
-											let reps = amount === 1 ? 'round' : 'rounds'
 											return (
 												<div key={i}>
-													<li className={styles.detail}>{dep.name}: <span>{amount} {reps}</span></li>
+													<li className={styles.detail}>{dep.name}: <span>{dep.sets} sets</span></li>
 													<ul>
 														{dep.deps.map((dep, i) => (
 															<li key={i}>{dep.name}: <span>{dep.duration}</span></li>
