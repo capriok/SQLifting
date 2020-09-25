@@ -7,6 +7,9 @@
 		li {
 			cursor: default;
 		}
+		div:not(:last-child) {
+			border-bottom: 2px solid $body;
+		}
 	}
 	span {
 		color: $app-accent;
@@ -16,8 +19,14 @@
 	.dep {
 		font-weight: 400;
 		font-size: 1.1rem;
-		margin: 0;
-		margin-top: 20px;
+		padding: 10px 20px;
+		margin: -10px;
+		margin-top: 10px;
+		margin-bottom: 5px;
+		border: unset;
+		border-top: $light-border;
+		border-bottom: $light-border;
+		background-color: rgb(235, 235, 235);
 	}
 	.detail {
 		margin: 0;

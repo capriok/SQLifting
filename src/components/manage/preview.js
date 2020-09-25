@@ -31,7 +31,7 @@ const Preview = () => {
 					<div className={view.extension}>
 						<div className={styles.preview}>
 							<p className={view.title}>{entity.name}</p>
-							<p className={styles.detail}>Occurrences</p>
+							<p className={styles.dep}>Occurrences</p>
 							<ul>
 								{entity.occ.length > 0
 									? entity.occ.map((occ, i) => <li key={i}><span>{occ}</span></li>)
@@ -49,9 +49,9 @@ const Preview = () => {
 						<div className={view.extension}>
 							<div className={styles.preview}>
 								<p className={view.title}>{entity.name}</p>
-								<p className={styles.detail}>Equipment: <span>{entity.deps.equipment}</span></p>
-								<p className={styles.detail}>Muscle: <span>{entity.deps.muscle}</span></p>
-								<p className={styles.detail}>Exercise: <span>{entity.deps.exercise}</span></p>
+								<p className={styles.dep}>Equipment: <span>{entity.deps.equipment}</span></p>
+								<p className={styles.dep}>Muscle: <span>{entity.deps.muscle}</span></p>
+								<p className={styles.dep}>Exercise: <span>{entity.deps.exercise}</span></p>
 							</div>
 						</div>
 					)
@@ -60,9 +60,12 @@ const Preview = () => {
 						<div className={view.extension}>
 							<div className={styles.preview}>
 								<p className={view.title}>{entity.name}</p>
-								{entity.deps.map((dep, i) => (
-									<p key={i} className={styles.detail}>{dep.name}: <span>{dep.duration}</span></p>
-								))}
+								<p className={styles.dep}>Movements</p>
+								<ul>
+									{entity.deps.map((dep, i) => (
+										<li key={i} className={styles.detail}>{dep.name}: <span>{dep.duration}</span></li>
+									))}
+								</ul>
 							</div>
 						</div>
 					)
@@ -84,23 +87,25 @@ const Preview = () => {
 										</div>
 									))}
 								</ul>
-								{entity.circs.length > 0 && <>
-									<p className={styles.dep}>Circuits</p>
-									<ul>
-										{entity.circs.map((dep, i) => {
-											return (
-												<div key={i}>
-													<li className={styles.detail}>{dep.name}: <span>{dep.sets} sets</span></li>
-													<ul>
-														{dep.deps.map((dep, i) => (
-															<li key={i}>{dep.name}: <span>{dep.duration}</span></li>
-														))}
-													</ul>
-												</div>
-											)
-										})}
-									</ul>
-								</>}
+								<p className={styles.dep}>Circuits</p>
+								{entity.circs.length > 0
+									? <>
+										<ul>
+											{entity.circs.map((dep, i) => {
+												return (
+													<div key={i}>
+														<li className={styles.detail}>{dep.name}: <span>{dep.sets} sets</span></li>
+														<ul>
+															{dep.deps.map((dep, i) => (
+																<li key={i}>{dep.name}: <span>{dep.duration}</span></li>
+															))}
+														</ul>
+													</div>
+												)
+											})}
+										</ul>
+									</>
+									: <><ul><span>None</span></ul></>}
 							</div>
 						</div>
 					)

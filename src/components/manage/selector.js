@@ -25,7 +25,8 @@ const Selector = () => {
 					? <>
 						{selection.length <= 0
 							? <p className={styles.disclaimer}>Select entites to delete</p>
-							: <ul>
+							:
+							<ul>
 								{selection.map((entity, i) => (
 									<li key={i}>
 										<span>{entity.name}</span>

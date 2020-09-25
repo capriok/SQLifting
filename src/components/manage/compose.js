@@ -49,8 +49,9 @@ const Compose = () => {
 	}
 
 	const submit = (e) => {
-		let table = entity.slice(0, -1)
 		e.preventDefault()
+		let table = entity.slice(0, -1)
+		if (!value) return
 		SQLifting.post('/post/composition', { table: table, name: value, uid: uid })
 			.then(() => {
 				update('compositions', [entity])
@@ -68,8 +69,8 @@ const Compose = () => {
 							value={value}
 							onChange={e => setValue(e.target.value)} />
 						<Button
-							className={styles.submit
-							} type="submit"
+							className={styles.submit}
+							type="submit"
 							text="Submit"
 							size="xsm" />
 					</form>

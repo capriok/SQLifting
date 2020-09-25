@@ -143,12 +143,6 @@ const useAssembleActions = () => {
 					break;
 			}
 		}
-		// (build.hasOwnProperty(steps[activeStep].label.toLowerCase())
-		// 	&& (build[steps[activeStep].label.toLowerCase()].length > 0
-		// 		|| Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0))
-		// 	|| steps[activeStep].label.toLowerCase() === 'detail'
-		// 	|| (active.entity === 'wocos' && activeStep === 1)
-
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
