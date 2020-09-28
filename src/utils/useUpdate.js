@@ -12,6 +12,7 @@ const useUpdate = () => {
     composites,
     compositions
   }, dispatch] = useStateValue()
+
   const update = (type, requests) => {
     const missingRequests = typeof requests !== 'object' && (type === 'compositions' || type === 'compositions')
     if (type === undefined) return console.log('Expecting a type')
@@ -33,117 +34,28 @@ const useUpdate = () => {
   }
 
   const updateCompositions = (params) => {
-    SQLifting.get('/get/compositions', { params: params })
-      .then(async res => {
+    SQLifting.get(`/compositions/:${uid}`)
+      .then(res => {
         let final = sortEntities(res)
         console.log('%cCompositions returned', 'color: lightskyblue', { compositions: final })
-        await attachOccurrences(final)
-
+        dispatch({
+          type: "COMPOSITION_ACTION",
+          compositions: { ...compositions, ...final }
+        })
       })
       .catch(err => console.log(err))
-  }
-
-  const attachOccurrences = (semiFinal) => {
-    let final = { ...semiFinal }
-    let keys = Object.keys(final)
-    keys.forEach(key => {
-      final[key].forEach((ent, i) => {
-        SQLifting.get('/get/occurrences', { params: { table: key.slice(0, -1), entId: ent.id } })
-          .then(res => {
-            let occArr = []
-            res.data.forEach(occ => occArr.push(occ.name))
-            final[key][i].occ = occArr
-            if (key === 'movements') {
-              final[key][i].durationValue = 0
-              final[key][i].durationType = 'Reps'
-            }
-          })
-      })
-    })
-    dispatch({
-      type: "COMPOSITION_ACTION",
-      compositions: { ...compositions, ...final }
-    })
   }
 
   const updateComposites = (params) => {
-    SQLifting.get('/get/composites', { params: params })
+    SQLifting.get('/composites', { params: params })
       .then(res => {
         let final = sortEntities(res)
-        attachDependencies(final)
+        dispatch({
+          type: "COMPOSITE_ACTION",
+          composites: { ...composites, ...final }
+        })
       })
       .catch(err => console.log(err))
-  }
-
-  const attachDependencies = (semiFinal) => {
-    let final = { ...semiFinal }
-    const hasCircs = (semiFinal.hasOwnProperty('circs') && semiFinal.circs.length > 0)
-    const hasExcos = (semiFinal.hasOwnProperty('excos') && semiFinal.excos.length > 0)
-    const hasWocos = (semiFinal.hasOwnProperty('wocos') && semiFinal.wocos.length > 0)
-    if (hasCircs) {
-      getCircDeps(final)
-    }
-    if (hasExcos) {
-      getExcoDeps(final)
-    }
-    if (hasWocos) {
-      getWocoDeps(final)
-    }
-    dispatch({
-      type: "COMPOSITE_ACTION",
-      composites: { ...composites, ...final }
-    })
-    if (hasExcos || hasWocos || hasCircs) return console.log('%cComposites returned with dependencies', 'color: lightskyblue', { composites: final })
-    if (!hasExcos && !hasWocos && !hasCircs) return console.log('%cComposites returned no dependencies', 'color: lightskyblue', { composites: final })
-  }
-
-  const getCircDeps = (semiFinal) => {
-    semiFinal.circs.forEach((circ) => {
-      let circ_id = circ.id
-      SQLifting.get('/get/circ_deps', { params: { circ_id } })
-        .then(res => {
-          circ.deps = res.data
-          circ.sets = 0
-        })
-        .catch(err => console.log(err))
-    })
-  }
-
-  const getExcoDeps = (semiFinal) => {
-    semiFinal.excos.forEach((exco) => {
-      let exco_id = exco.id
-      SQLifting.get('/get/exco_deps', { params: { exco_id } })
-        .then(res => {
-          exco.deps = res.data[0]
-          exco.sets = 0
-          exco.reps = 0
-          exco.weight = 0
-        })
-        .catch(err => console.log(err))
-    })
-  }
-
-  const getWocoDeps = (semiFinal) => {
-    semiFinal.wocos.forEach((woco) => {
-      let woco_id = woco.id
-      SQLifting.get('/get/woco_deps', { params: { woco_id } })
-        .then(res => {
-          woco.excos = res.data[0]
-          woco.circs = res.data[1]
-          const hasCircs = (res.data[1].length > 0)
-          if (hasCircs) {
-            res.data[1].forEach((circ) => {
-              let circ_id = circ.id
-              SQLifting.get('/get/circ_deps', { params: { circ_id } })
-                .then(res => {
-                  circ.deps = res.data
-                })
-                .catch(err => console.log(err))
-            })
-          }
-        })
-        .catch(err => console.log(err))
-    })
   }
 
   return update
