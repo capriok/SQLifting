@@ -36,6 +36,8 @@ const CircuitBuilder = () => {
 	}
 
 	const addToCircuitBuild = (entity) => {
+		entity.durationValue = 0
+		entity.durationType = 'Reps'
 		let updatedBuild = []
 		// bool determines whether or not the Next button is disabled
 		let bool

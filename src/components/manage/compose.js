@@ -52,7 +52,7 @@ const Compose = () => {
 		e.preventDefault()
 		let table = entity.slice(0, -1)
 		if (!value) return
-		SQLifting.post('/post/composition', { table: table, name: value, uid: uid })
+		SQLifting.post('/composition', { table: table, name: value, uid: uid })
 			.then(() => {
 				update('compositions', [entity])
 				setValue('')
@@ -65,7 +65,7 @@ const Compose = () => {
 				<div className={styles.compose}>
 					<form onSubmit={e => submit(e)}>
 						<Input
-							placeholder="Add name"
+							placeholder="Composition name"
 							value={value}
 							onChange={e => setValue(e.target.value)} />
 						<Button

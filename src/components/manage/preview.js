@@ -22,7 +22,7 @@ const Preview = () => {
 
 	useEffect(() => {
 		(entity && !isEmpty(entity)) && console.log('%cPreviewing', 'color: lightskyblue', entity);
-	}, [])
+	}, [entity])
 
 	switch (group) {
 		case 'compositions':

@@ -13,6 +13,7 @@ import { Button, Input } from 'godspeed'
 
 const Editor = () => {
 	const [{
+		user: { details: { uid } },
 		options: {
 			tipsOption
 		},
@@ -34,7 +35,7 @@ const Editor = () => {
 
 	const submit = (e) => {
 		e.preventDefault()
-		SQLifting.post('/post/entity_edit', { table: table, id: entity.id, edit: value })
+		SQLifting.post('/updateName', { table: table, name: value, id: entity.id, uid: uid })
 			.then(() => {
 				update(group, [`${table}s`])
 				setValue('')

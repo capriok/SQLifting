@@ -157,7 +157,7 @@ const useAssembleActions = () => {
 		console.log('%cSubmitted Build', 'color: lightskyblue;', build);
 		switch (active.entity) {
 			case 'excos':
-				SQLifting.post('post/exco', { uid, build })
+				SQLifting.post('exco', { build, uid })
 					.then(res => {
 						update('composites', ['excos'])
 						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
@@ -165,7 +165,7 @@ const useAssembleActions = () => {
 					.catch(err => console.log(err))
 				break;
 			case 'circs':
-				SQLifting.post('post/circ', { uid, build })
+				SQLifting.post('circ', { build, uid })
 					.then(res => {
 						update('composites', ['circs'])
 						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
@@ -173,7 +173,7 @@ const useAssembleActions = () => {
 					.catch(err => console.log(err))
 				break;
 			case 'wocos':
-				SQLifting.post('post/woco', { uid, build })
+				SQLifting.post('woco', { build, uid })
 					.then(res => {
 						update('composites', ['wocos'])
 						console.log('%cSuccessfully inserted', 'color: lightskyblue;');

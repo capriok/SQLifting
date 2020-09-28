@@ -8,6 +8,7 @@ import { isEmpty, uniqBy, remove } from 'lodash'
 
 const useManageActions = () => {
 	const [{
+		user: { details: { uid } },
 		manage,
 		manage: {
 			preview,
@@ -124,34 +125,39 @@ const useManageActions = () => {
 
 	// Iterate thru selection entities => remove them from DB one by one
 	const deleteSelection = (selection, table, type) => {
-		// Count variable to monitor when all entities in selection have been removed from DB
-		let count = 0
-		selection.forEach(async record => {
-			SQLifting.post('/delete/byid', { table, id: record.id })
-				.then(async () => {
-					console.log('Delete Success!')
-					// If entity is a composite => call func to remove its dependencies as well
-					if (table === 'circ') {
-						await SQLifting.post(`/delete/deps`, { table: 'circ_movs', id: record.id })
-							.then(() => update(type, ['circs']))
+		// Map ids into a string with ids comma seperated for sql query 
+		let selectionIds = [selection.map(sel => sel.id)].toString()
+		// Delete all ids from passed table by id
+		SQLifting.post('/byId', { table, ids: selectionIds, uid: uid })
+			.then(async () => {
+				console.log('Delete Success!')
+				// If table is circ or woco ==> delete its deps from relation tables by id
+				switch (table) {
+					case 'circ':
+						SQLifting.post(`/circ_movs`, { ids: selectionIds, })
 							.catch(err => console.log(err))
-					}
-					if (table === 'woco') {
-						await SQLifting.post(`/delete/deps`, { table: 'woco_excos', id: record.id })
-							.then(() => { })
+						break;
+					case 'woco':
+						SQLifting.post(`/woco_excos`, { ids: selectionIds })
 							.catch(err => console.log(err))
-						await SQLifting.post(`/delete/deps`, { table: 'woco_circs', id: record.id })
-							.then(() => update(type, ['wocos']))
-							.catch(err => console.log(err))
-					}
-					// Add one to count => continue selection itteration
-					count++
-					// When all selection entities have been removed => update data 
-					count === selection.length && update(type, [table + 's'])
-				})
-				.catch(e => console.log(e))
-		});
-
+						// If selection entity has 0 circs => remove id from selectionIds
+						selection.forEach((sel, index) => {
+							if (sel.circs.length === 0) {
+								selectionIds = selectionIds.split(',').filter((sel, i) => i !== index).toString()
+							}
+						})
+						// Only delete woco_circs if selectionIds has a value
+						if (selectionIds) {
+							SQLifting.post(`/woco_circs`, { ids: selectionIds })
+								.catch(err => console.log(err))
+						}
+						break;
+					default:
+						break;
+				}
+			})
+			.then(() => update(type, [table + 's']))
+			.catch(e => console.log(e))
 	}
 
 	return {

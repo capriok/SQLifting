@@ -35,6 +35,18 @@ const WorkoutBuilder = () => {
 	}
 
 	const addToWorkoutBuild = (entity) => {
+		switch (entity.table) {
+			case 'exco':
+				entity.sets = 0
+				entity.reps = 0
+				entity.weight = 0
+				break;
+			case 'circ':
+				entity.sets = 0
+				break;
+			default:
+				break;
+		}
 		let buildProp = steps[activeStep].label.toLowerCase()
 		let updatedBuild = []
 		let bool
