@@ -56,10 +56,12 @@ if (LStoken && LSuser) {
 		details: LSuser
 	}
 	let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
-	if (LSops) initialState.options = LSops
-	if (LSops) document.documentElement.style.setProperty('--app-background', LSops.backgroundOption)
-	if (LSops) document.documentElement.style.setProperty('--app-primaryt', LSops.primaryOption)
-	if (LSops) document.documentElement.style.setProperty('--app-secondary', LSops.secondaryOption)
+	if (LSops) {
+		initialState.options = LSops
+		document.documentElement.style.setProperty('--app-background', LSops.backgroundOption)
+		document.documentElement.style.setProperty('--app-primary', LSops.primaryOption)
+		document.documentElement.style.setProperty('--app-secondary', LSops.secondaryOption)
+	}
 }
 let LScomponents = JSON.parse(localStorage.getItem('SQLifting-components'))
 if (LScomponents) {
