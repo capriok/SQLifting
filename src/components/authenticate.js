@@ -19,7 +19,7 @@ const Authenticate = () => {
   })
 
   const signUp = () => {
-    SQLiftingAcc.post('/register', {
+    SQLiftingAcc.post('/user', {
       username: form.username,
       password: form.password
     })
@@ -37,9 +37,11 @@ const Authenticate = () => {
   }
 
   const login = () => {
-    SQLiftingAcc.post('/login', {
-      username: form.username,
-      password: form.password
+    SQLiftingAcc.get('/user', {
+      params: {
+        username: form.username,
+        password: form.password
+      }
     })
       .then(async res => {
         setTitle(`Welcome ${res.data.user.username.capitalize()}`)
