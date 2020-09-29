@@ -155,35 +155,12 @@ const useAssembleActions = () => {
 
 	const submitBuild = () => {
 		console.log('%cSubmitted Build', 'color: lightskyblue;', build);
-		switch (active.entity) {
-			case 'excos':
-				SQLifting.post('exco', { build, uid })
-					.then(res => {
-						update('composites', ['excos'])
-						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
-					})
-					.catch(err => console.log(err))
-				break;
-			case 'circs':
-				SQLifting.post('circ', { build, uid })
-					.then(res => {
-						update('composites', ['circs'])
-						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
-					})
-					.catch(err => console.log(err))
-				break;
-			case 'wocos':
-				SQLifting.post('woco', { build, uid })
-					.then(res => {
-						update('composites', ['wocos'])
-						console.log('%cSuccessfully inserted', 'color: lightskyblue;');
-					})
-					.catch(err => console.log(err))
-				break;
-			default:
-				console.log('Something went wrong');
-				break;
-		}
+		SQLifting.post(active.table, { build, uid })
+			.then(res => {
+				update('composites', [active.entity])
+				console.log('%cSuccessfully inserted', 'color: lightskyblue;');
+			})
+			.catch(err => console.log(err))
 	}
 
 	return {
