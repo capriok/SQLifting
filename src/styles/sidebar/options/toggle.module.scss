@@ -10,7 +10,7 @@
 		width: 0;
 		height: 0;
 		&:checked + span {
-			background-color: $app-accent;
+			background-color: $app-secondary;
 		}
 		&:checked + span:before {
 			transform: translateX(19px);

@@ -9,9 +9,11 @@ const initialState = {
 	},
 	weather: {},
 	options: {
-		sidebarOption: true,
+		backgroundOption: '#C7C7C7',
+		primaryOption: '#f0f0f0',
+		secondaryOption: '#206fa3',
 		tipsOption: true,
-		accentOption: '#206fa3'
+		sidebarOption: true
 	},
 	components: {
 		sidebar: true
@@ -55,7 +57,9 @@ if (LStoken && LSuser) {
 	}
 	let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
 	if (LSops) initialState.options = LSops
-	if (LSops) document.documentElement.style.setProperty('--app-accent', LSops.accentOption)
+	if (LSops) document.documentElement.style.setProperty('--app-background', LSops.backgroundOption)
+	if (LSops) document.documentElement.style.setProperty('--app-primaryt', LSops.primaryOption)
+	if (LSops) document.documentElement.style.setProperty('--app-secondary', LSops.secondaryOption)
 }
 let LScomponents = JSON.parse(localStorage.getItem('SQLifting-components'))
 if (LScomponents) {

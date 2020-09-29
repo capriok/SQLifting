@@ -15,7 +15,7 @@
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	box-shadow: $soft-shadow;
-	background-color: $main;
+	background-color: $app-primary;
 	* {
 		color: black;
 	}
@@ -54,7 +54,7 @@
 	top: 60px;
 	width: 100vw;
 	height: 10px;
-	background-color: $body;
+	background-color: $app-background;
 	@include media("<=phone") {
 		display: none;
 	}

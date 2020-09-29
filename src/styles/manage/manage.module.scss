@@ -31,7 +31,7 @@
 				border-radius: 5px;
 				border: $light-border;
 				box-shadow: $soft-shadow;
-				background-color: $main;
+				background-color: $app-primary;
 				transition: 0.2s;
 				div {
 					@include flex;
@@ -56,11 +56,11 @@
 				&:hover {
 					transition: 0.2s;
 					color: white;
-					background-color: $app-accent;
+					background-color: $app-secondary;
 				}
 			}
 			.active_entity {
-				background-color: $app-accent;
+				background-color: $app-secondary;
 				color: white;
 				transition: 0.2s;
 			}
@@ -79,11 +79,11 @@
 		border-radius: 5px;
 		border: $light-border;
 		box-shadow: $soft-shadow;
-		background-color: $main;
+		background-color: $app-primary;
 		.title {
 			text-align: center;
 			padding-bottom: 10px;
-			border-bottom: 2px solid $app-accent;
+			border-bottom: 2px solid $app-secondary;
 			font-weight: 400;
 			font-size: 1.2rem;
 		}
@@ -107,7 +107,7 @@
 			left: 0px;
 			width: 100%;
 			height: 10px;
-			background-color: $body;
+			background-color: $app-background;
 		}
 		.extension {
 			.title {
@@ -142,7 +142,7 @@
 				top: 0;
 				margin: 0;
 				margin-bottom: 5px;
-				background-color: $main;
+				background-color: $app-primary;
 			}
 			&::-webkit-scrollbar {
 				width: 0;

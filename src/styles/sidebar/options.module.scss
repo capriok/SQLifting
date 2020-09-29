@@ -7,6 +7,10 @@
 	justify-content: flex-start;
 	align-items: stretch;
 	height: 100%;
+	h1 {
+		background-color: $app-primary;
+		filter: brightness(95%);
+	}
 	ul {
 		width: 100%;
 		li {
@@ -33,7 +37,7 @@
 		&:hover {
 			transition: 0.2s;
 			color: white;
-			background-color: $app-accent;
+			background-color: $app-secondary;
 		}
 	}
 }

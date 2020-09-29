@@ -9,7 +9,9 @@ import ops from '../../styles/sidebar/options.module.scss'
 import gear from '../../images/gear.png'
 
 import TipsOption from './options/tips'
-import AccentOption from './options/accent'
+import BackgroundOption from './options/background'
+import PrimaryOption from './options/primary'
+import SecondaryOption from './options/secondary'
 import SidebarOption from './options/sidebar'
 
 const notMobile = window.screen.width >= 420
@@ -152,7 +154,9 @@ const SidebarOptions = ({ flipOptions }) => {
 		<div className={ops.options}>
 			<h1>Options</h1>
 			<ul>
-				<AccentOption />
+				<BackgroundOption />
+				<PrimaryOption />
+				<SecondaryOption />
 				<TipsOption />
 				{notMobile && <SidebarOption flipOptions={flipOptions} />}
 			</ul>

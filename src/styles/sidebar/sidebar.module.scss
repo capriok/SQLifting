@@ -17,7 +17,7 @@
 	border: $light-border;
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
-	background-color: $main;
+	background-color: $app-primary;
 	.head {
 		@include flex;
 		justify-content: space-between;
@@ -39,7 +39,8 @@
 		margin-top: 0;
 		border-top: $light-border;
 		border-bottom: $light-border;
-		background-color: rgb(235, 235, 235);
+		background-color: $app-primary;
+		filter: brightness(90%);
 	}
 	p {
 		padding: 0;
@@ -61,7 +62,7 @@
 			padding-bottom: 10px;
 			padding-left: 10px;
 			text-decoration: none;
-			border-left: 2px solid $app-accent;
+			border-left: 2px solid $app-secondary;
 			transition: 0.1s;
 		}
 		:last-child li {

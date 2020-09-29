@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useStateValue } from '../../../state/state'
 import { BlockPicker } from 'react-color';
-import styles from '../../../styles/sidebar/options/accent.module.scss'
+import styles from '../../../styles/sidebar/options/picker.module.scss'
 
-const Accent = () => {
+const Primary = () => {
 	const [{
 		options,
-		options: { accentOption }
+		options: { primaryOption }
 	}, dispatch] = useStateValue()
 	const [picker, setPicker] = useState(false)
 
@@ -16,38 +16,33 @@ const Accent = () => {
 	});
 
 	const defaultColors = [
-		'#0c0c0c',
-		'#206fa3',
-		'#168a29',
-		'#be0d0d',
-		'#7926bd',
-		'#383838',
-		'#48989b',
-		'#50b947',
-		'#7c0606',
-		'#b80ca9',
+		'#757575',
+		'#969696',
+		'#bfbfbf',
+		'#d1d1d1',
+		'#f0f0f0',
 	]
 
 	const set = (color) => {
 		let newOptions = {
 			...options,
-			accentOption: color
+			primaryOption: color
 		}
-		document.documentElement.style.setProperty('--app-accent', color)
+		document.documentElement.style.setProperty('--app-primary', color)
 		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
 		dispatch({ type: 'OPTION_ACTION', options: newOptions })
 	}
 
 	return (
 		<>
-			<li className={styles.accent}>
-				<p>Change accent</p>
-				<span onClick={() => setPicker(!picker)} />
+			<li className={styles.li}>
+				<p>Primary color</p>
+				<span style={{ backgroundColor: primaryOption }} onClick={() => setPicker(!picker)} />
 			</li>
 			{picker &&
 				<div className={styles.picker} ref={ref}>
 					<BlockPicker
-						color={accentOption}
+						color={primaryOption}
 						colors={defaultColors}
 						onChangeComplete={color => set(color.hex)}
 					/>
@@ -72,4 +67,4 @@ const useOutsideClick = (ref, callback) => {
 };
 
 
-export default Accent
+export default Primary

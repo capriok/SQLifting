@@ -39,17 +39,19 @@ $breakpoints: (
 
 $max-width: 1500px;
 $top: 70px;
-$body: rgb(221, 221, 221);
-$main: rgb(240, 240, 240);
-$light-border: 1px solid rgb(190, 190, 190);
+$light-border: 1px solid rgba(190, 190, 190, 0.4);
 $soft-shadow: -3px 3px 5px -5px black;
 :root {
-  --app-accent: #206fa3;
+  --app-background: #c7c7c7;
+  --app-primary: #f0f0f0;
+  --app-secondary: #206fa3;
 }
-$app-accent: var(--app-accent);
+$app-background: var(--app-background);
+$app-primary: var(--app-primary);
+$app-secondary: var(--app-secondary);
 
 body {
-  background-color: $body;
+  background-color: $app-background;
   margin: 0;
   padding: 0;
 }

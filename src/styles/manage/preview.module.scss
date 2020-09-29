@@ -8,11 +8,11 @@
 			cursor: default;
 		}
 		div:not(:last-child) {
-			border-bottom: 2px solid $body;
+			border-bottom: 2px solid $app-background;
 		}
 	}
 	span {
-		color: $app-accent;
+		color: $app-secondary;
 		font-size: 0.9rem;
 		margin-left: 2px;
 	}
