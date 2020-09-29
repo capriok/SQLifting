@@ -1,4 +1,7 @@
-import React from 'react'
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
+/*eslint no-useless-escape: "off"*/
+import React, { useState, useEffect } from 'react'
 import { uniqBy, remove } from 'lodash'
 import { useStateValue } from '../../../state/state'
 
@@ -21,18 +24,20 @@ const WorkoutBuilder = () => {
 		}
 	}, dispatch] = useStateValue()
 
-	const nameBuild = (val) => {
+	const [name, setName] = useState('')
+
+	useEffect(() => {
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
 				build: {
 					...build,
-					name: val
+					name: name
 				}
 			}
 		})
-	}
+	}, [name])
 
 	const addToWorkoutBuild = (entity) => {
 		switch (entity.table) {
@@ -122,7 +127,8 @@ const WorkoutBuilder = () => {
 					<div className={styles.name_input}>
 						<Input
 							placeholder="Give it a name"
-							onChange={e => nameBuild(e.target.value)} />
+							value={name}
+							onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 					</div>
 					<div className={ext.workout_exntension}>
 						{build.exercises.length > 0 && <>

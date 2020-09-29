@@ -92,9 +92,10 @@ const Preview = () => {
 									? <>
 										<ul>
 											{entity.circs.map((dep, i) => {
+												console.log(dep.sets);
 												return (
 													<div key={i}>
-														<li className={styles.detail}>{dep.name}: <span>{dep.sets} sets</span></li>
+														<li className={styles.detail}>{dep.name}: <span>{dep.sets} {dep.sets === 1 ? 'Set' : 'Sets'}</span></li>
 														<ul>
 															{dep.deps.map((dep, i) => (
 																<li key={i}>{dep.name}: <span>{dep.duration}</span></li>

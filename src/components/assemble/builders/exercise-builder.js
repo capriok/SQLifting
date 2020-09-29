@@ -1,6 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React from 'react'
+/*eslint no-useless-escape: "off"*/
+import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../../../state/state'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
@@ -12,25 +13,24 @@ const ExerciseBuilder = () => {
 		assemble,
 		assemble: {
 			activeEntities,
-			activeStep,
-			steps,
 			build
 		}
 	}, dispatch] = useStateValue()
 
-	const nameBuild = (val) => {
-		if (build.name && build.name === '') return delete build.name
+	const [name, setName] = useState('')
+
+	useEffect(() => {
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
 				build: {
 					...build,
-					name: val
+					name: name
 				}
 			}
 		})
-	}
+	}, [name])
 
 	const addToExerciseBuild = (entity) => {
 		dispatch({
@@ -77,7 +77,8 @@ const ExerciseBuilder = () => {
 						<div className={styles.name_input}>
 							<Input
 								placeholder="Give it a name"
-								onChange={e => nameBuild(e.target.value)} />
+								value={name}
+								onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 						</div>
 						<div className={ext.exercise_exntension}>
 							{/* {Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0 && <> */}

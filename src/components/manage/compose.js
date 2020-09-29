@@ -1,5 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
+/*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
 import { SQLifting } from '../../api/sqlifting'
 import { useStateValue } from '../../state/state'
@@ -58,6 +59,8 @@ const Compose = () => {
 				setValue('')
 			})
 	}
+
+
 	return (
 		<>
 			<div className={view.extension}>
@@ -67,7 +70,7 @@ const Compose = () => {
 						<Input
 							placeholder="Composition name"
 							value={value}
-							onChange={e => setValue(e.target.value)} />
+							onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 						<Button
 							className={styles.submit}
 							type="submit"

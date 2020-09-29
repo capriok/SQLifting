@@ -1,4 +1,7 @@
-import React from 'react'
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
+/*eslint no-useless-escape: "off"*/
+import React, { useState, useEffect } from 'react'
 import { uniqBy, remove } from 'lodash'
 import { useStateValue } from '../../../state/state'
 
@@ -21,19 +24,20 @@ const CircuitBuilder = () => {
 		}
 	}, dispatch] = useStateValue()
 
+	const [name, setName] = useState('')
 
-	const nameBuild = (val) => {
+	useEffect(() => {
 		dispatch({
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
 				build: {
 					...build,
-					name: val
+					name: name
 				}
 			}
 		})
-	}
+	}, [name])
 
 	const addToCircuitBuild = (entity) => {
 		entity.durationValue = 0
@@ -105,7 +109,8 @@ const CircuitBuilder = () => {
 					<div className={styles.name_input}>
 						<Input
 							placeholder="Give it a name"
-							onChange={e => nameBuild(e.target.value)} />
+							value={name}
+							onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 					</div>
 					<div className={ext.circuit_exntension}>
 						{build.movements.length > 0 && <>

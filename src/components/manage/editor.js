@@ -1,5 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
+/*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
 import { isEmpty } from 'lodash'
 import { SQLifting } from '../../api/sqlifting'
@@ -49,7 +50,7 @@ const Editor = () => {
 					<Input
 						placeholder="Edit name"
 						value={value}
-						onChange={e => setValue(e.target.value)} />
+						onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 					<Button
 						className={styles.submit}
 						type="submit"
