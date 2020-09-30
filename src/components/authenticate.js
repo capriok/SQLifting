@@ -18,7 +18,7 @@ const Authenticate = () => {
     username: '', password: ''
   })
 
-  const signUp = () => {
+  const postUser = () => {
     SQLiftingAcc.post('/user', {
       username: form.username,
       password: form.password
@@ -28,7 +28,7 @@ const Authenticate = () => {
         if (res.data === 'Username taken') return setTitle(res.data)
         setTitle(res.data)
         setRegister(false)
-        setTimeout(() => login(), 500);
+        setTimeout(() => getUser(), 500);
       })
       .catch(error => {
         console.log(error);
@@ -36,7 +36,7 @@ const Authenticate = () => {
       })
   }
 
-  const login = () => {
+  const getUser = () => {
     SQLiftingAcc.get('/user', {
       params: {
         username: form.username,
@@ -67,9 +67,9 @@ const Authenticate = () => {
     e.preventDefault()
     if (form.username && form.password) {
       if (!register) {
-        login()
+        getUser()
       } else {
-        signUp()
+        postUser()
       }
     }
   }
