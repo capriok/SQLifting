@@ -141,7 +141,13 @@ const SidebarContent = ({ setSidebar }) => {
 }
 
 const SidebarOptions = ({ flipOptions }) => {
-	const [, dispatch] = useStateValue()
+	const [{
+		user: {
+			details: {
+				uid
+			}
+		},
+	}, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
 		await dispatch({ type: 'LOGOUT' })
@@ -154,7 +160,7 @@ const SidebarOptions = ({ flipOptions }) => {
 		<div className={ops.options}>
 			<h1 className={ops.profile}>Profile</h1>
 			<ul>
-				<Link to="/user"><li>View Profile</li></Link>
+				<Link to={`/user/profile`}><li>View Profile</li></Link>
 			</ul>
 			<h1>Options</h1>
 			<ul>

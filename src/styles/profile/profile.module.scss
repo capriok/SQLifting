@@ -7,4 +7,64 @@
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $app-primary;
+	nav {
+		@include flex;
+		justify-content: space-between;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 2px solid $app-secondary;
+		img {
+			width: 100px;
+			width: 100px;
+		}
+		div:first-child {
+			flex: 2;
+			text-align: center;
+		}
+		div:last-child {
+			flex: 2;
+			@include flex;
+			p {
+				@include flex;
+				margin-left: 45px;
+				flex-direction: column;
+				span {
+					margin-top: 10px;
+				}
+			}
+			button {
+				margin-left: 80px;
+			}
+		}
+	}
+	main {
+		// .details {
+		// 	input {
+		// 		margin-left: 20px;
+		// 		border: 1px solid grey;
+		// 	}
+		// }
+		.compositions,
+		.composites {
+			@include flex;
+			justify-content: space-evenly;
+			height: 150px;
+			padding: 100px 0;
+			div {
+				min-width: 150px;
+				margin: 25px;
+				text-align: center;
+				p:first-child {
+					font-size: 1.2rem;
+					width: 100%;
+					margin-bottom: 10px;
+					padding-bottom: 10px;
+					border-bottom: 2px solid $app-secondary;
+				}
+				p:last-child {
+					font-size: 1.75rem;
+				}
+			}
+		}
+	}
 }
