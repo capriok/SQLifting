@@ -26,11 +26,13 @@ const Profile = () => {
 	const inputRef = useRef('')
 	const [editing, setEdit] = useState(false)
 	const [profile, setProfile] = useState({})
-
 	const [changes, setChanges] = useState({})
 
+	let queryUID = window.location.pathname.split('/')[3]
+
 	const fetchProfile = () => {
-		SQLiftingAcc.get(`/profile/${uid}`)
+		console.log(queryUID);
+		SQLiftingAcc.get(`/profile/${queryUID}`)
 			.then(res => {
 				console.log(res);
 				setProfile(res.data)
@@ -45,6 +47,15 @@ const Profile = () => {
 	useEffect(() => {
 		console.log(profile);
 	}, [profile])
+
+	const followUser = UID => {
+		SQLiftingAcc.post(`/follower`, {
+			following_uid: UID,
+			follower_uid: uid
+		})
+			.then(res => console.log(res))
+			.catch(err => console.log(err))
+	}
 
 	const changeIcon = (e) => {
 		let reader = new FileReader();
@@ -68,6 +79,7 @@ const Profile = () => {
 	}
 
 	const saveChanges = () => {
+		if (Object.keys(changes).length === 0) return
 		let formData = new FormData();
 		formData.append('uid', uid);
 		formData.append('icon', fileRef.current);
@@ -92,6 +104,13 @@ const Profile = () => {
 			.catch(err => console.log(err))
 	}
 
+	useEffect(() => {
+		for (let prop in changes) {
+			if (changes[prop] === '') {
+				delete changes[prop]
+			}
+		}
+	}, [changes])
 
 	return (
 		<div className={styles.profile}>
@@ -119,17 +138,23 @@ const Profile = () => {
 					</>}
 				</div>
 				<div>
-					<p>Followers<span>{profile.followers}</span></p>
-					<p>Following<span>{profile.following}</span></p>
-					<Button
-						text="Edit Profile"
-						size="xsm"
-						onClick={() => setEdit(true)}
-						disabled={editing} />
+					<p>Followers<span onClick={() => console.log(profile.followers)}>{profile.follower_count}</span></p>
+					<p>Following<span onClick={() => console.log(profile.following)}>{profile.following_count}</span></p>
+					{parseInt(queryUID) === uid
+						? <Button
+							text="Edit Profile"
+							size="xsm"
+							onClick={() => setEdit(true)}
+							disabled={editing} />
+						: <Button
+							text="Follow"
+							size="xsm"
+							onClick={() => followUser(queryUID)}
+							disabled={editing} />
+					}
 				</div>
 			</nav>
 			<main>
-
 				<div className={styles.head_title}>
 					<h1>Profile</h1>
 					<p>Join Date | {profile.join_date}</p>
@@ -138,14 +163,18 @@ const Profile = () => {
 					<div className={styles.stats}>
 						<ul>
 							<h2>Compositions</h2>
-							<li><p>Equipmnents</p><span>{compositions.equipments.length}</span></li>
-							<li><p>Muscles</p><span>{compositions.muscles.length}</span></li>
-							<li><p>Exercises</p><span>{compositions.exercises.length}</span></li>
-							<li><p>Movements</p><span>{compositions.movements.length}</span></li>
-							<h2>Composites</h2>
-							<li><p>Exercises</p><span>{composites.circs.length}</span></li>
-							<li><p>Circuits</p><span>{composites.excos.length}</span></li>
-							<li><p>Workouts</p><span>{composites.wocos.length}</span></li>
+							{
+								profile.hasOwnProperty('data') && <>
+									<li><p>Equipments</p><span>{profile.data.equipments}</span></li>
+									<li><p>Muscles</p><span>{profile.data.muscles}</span></li>
+									<li><p>Exercises</p><span>{profile.data.exercises}</span></li>
+									<li><p>Movements</p><span>{profile.data.movements}</span></li>
+									<h2>Composites</h2>
+									<li><p>Exercises</p><span>{profile.data.circs}</span></li>
+									<li><p>Circuits</p><span>{profile.data.excos}</span></li>
+									<li><p>Workouts</p><span>{profile.data.wocos}</span></li>
+								</>
+							}
 						</ul>
 					</div>
 					<div className={styles.account}>
@@ -182,6 +211,7 @@ const Profile = () => {
 								<p>Birthday</p>
 								{editing
 									? <Input
+										type="date"
 										placeholder={profile.birthday}
 										onChange={e => setChanges({ ...changes, birthday: e.target.value })} />
 									: <span>{profile.birthday}</span>

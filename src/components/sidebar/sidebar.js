@@ -131,7 +131,7 @@ const SidebarContent = ({ setSidebar }) => {
 						</ul >
 						<h1>Workout</h1>
 						<ul>
-							<Link to={'/workout/:woco_id'}><li>Go</li></Link>
+							<Link to={'/workout'}><li>Go</li></Link>
 						</ul>
 					</>
 				}
@@ -160,7 +160,7 @@ const SidebarOptions = ({ flipOptions }) => {
 		<div className={ops.options}>
 			<h1 className={ops.profile}>Profile</h1>
 			<ul>
-				<Link to={`/user/profile`}><li>View Profile</li></Link>
+				<Link to={`/user/profile/${uid}`}><li>View Profile</li></Link>
 			</ul>
 			<h1>Options</h1>
 			<ul>
