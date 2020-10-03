@@ -2,18 +2,17 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
 import { Route } from 'react-router-dom'
-import { useStateValue } from '../state/state'
-import { SQLiftingAcc } from '../api/sqlifting'
+import { useStateValue } from '../../../state/state'
+import { SQLiftingAcc } from '../../../api/sqlifting'
 
 import { Button } from 'godspeed'
 
+import styles from '../../../styles/social/user/user.module.scss'
 
-import styles from '../styles/user/user.module.scss'
-
-import Nav from '../components/user/nav'
-import Profile from '../components/user/profile'
-import Followers from '../components/user/followers'
-import Following from '../components/user/following'
+import Nav from './nav'
+import Profile from './profile'
+import Followers from './followers'
+import Following from './following'
 
 const INIT_PROFILE = {
 	data: {},
@@ -25,8 +24,7 @@ const User = () => {
 	const [{
 		user: {
 			details: {
-				uid,
-				username
+				uid
 			}
 		}
 	},] = useStateValue()
@@ -36,7 +34,8 @@ const User = () => {
 	const [profile, setProfile] = useState(INIT_PROFILE)
 	const [changes, setChanges] = useState({})
 
-	const queryUID = parseInt(window.location.pathname.split('/')[2])
+	const queryUID = parseInt(window.location.pathname.split('/')[3])
+	console.log(queryUID);
 
 	const fetchProfile = async () => {
 		await SQLiftingAcc.get(`/profile/${queryUID}/${uid}`)
@@ -138,17 +137,17 @@ const User = () => {
 		<div className={styles.user}>
 			<Nav {...props} />
 			<main>
-				<Route path="/user/:uid/profile" render={() => (
+				<Route path="/social/user/:quid/profile" render={() => (
 					<>
 						<Profile {...props} />
 					</>
 				)} />
-				<Route path="/user/:uid/followers" render={() => (
+				<Route path="/social/user/:quid/followers" render={() => (
 					<>
 						<Followers {...props} />
 					</>
 				)} />
-				<Route path="/user/:uid/following" render={() => (
+				<Route path="/social/user/:quid/following" render={() => (
 					<>
 						<Following {...props} />
 					</>

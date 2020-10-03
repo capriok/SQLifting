@@ -2,10 +2,10 @@
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../../state/state'
 
-import nullIcon from '../../images/null-icon.png'
-import styles from '../../styles/user/nav.module.scss'
+import nullIcon from '../../../images/null-icon.png'
+import styles from '../../../styles/social/user/nav.module.scss'
 
 import { Button } from 'godspeed'
 

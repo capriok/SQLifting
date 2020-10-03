@@ -2,11 +2,11 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../../state/state'
-import { SQLiftingAcc } from '../../api/sqlifting'
+import { useStateValue } from '../../../state/state'
+import { SQLiftingAcc } from '../../../api/sqlifting'
 
-import nullIcon from '../../images/null-icon.png'
-import styles from '../../styles/user/followers.module.scss'
+import nullIcon from '../../../images/null-icon.png'
+import styles from '../../../styles/social/user/followers.module.scss'
 
 import { Button } from 'godspeed'
 
@@ -62,7 +62,7 @@ const Followers = ({ queryUID, followUser, unfollowUser, unfollowOwnUser }) => {
 				<div className={styles.followers}>
 					{followers.map((f, i) => (
 						<div key={i} className={styles.follower}>
-							<Link to={`/user/${f.uid}/profile`}>
+							<Link to={`/social/user/${f.uid}/profile`}>
 								<img className={styles.icon} src={f.icon !== null ? f.icon : nullIcon} alt="" />
 								<span className={styles.username}>{f.username}</span>
 							</Link>

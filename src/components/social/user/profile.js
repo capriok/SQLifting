@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react'
 import { Input } from 'godspeed'
 
-import styles from '../../styles/user/profile.module.scss'
+import styles from '../../../styles/social/user/profile.module.scss'
 
 const Profile = ({ profile, editing, changes, setChanges }) => {
 

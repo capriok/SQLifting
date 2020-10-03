@@ -1,13 +1,13 @@
-@import "../../index.scss";
+@import "../../../index.scss";
 
 section {
 	padding: 0 20px;
-	.followers_title {
+	.following_title {
 		@include flex;
 		justify-content: space-between;
 	}
-	.followers {
-		.follower {
+	.following {
+		.followee {
 			@include flex;
 			justify-content: space-between;
 			align-items: stretch;
@@ -26,6 +26,9 @@ section {
 				.username {
 					text-transform: capitalize;
 				}
+			}
+			button {
+				min-width: 100px;
 			}
 		}
 	}

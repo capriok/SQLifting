@@ -1,0 +1,20 @@
+@import "../../../index.scss";
+
+.discover {
+	padding: 20px;
+	border: $light-border;
+	border-radius: 5px;
+	box-shadow: $soft-shadow;
+	background-color: $app-primary;
+	section {
+		@include flex;
+		.find_users {
+			flex: 2;
+		}
+		.other {
+			flex: 1;
+			@include flex;
+			justify-content: flex-end;
+		}
+	}
+}

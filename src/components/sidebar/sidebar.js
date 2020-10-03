@@ -23,7 +23,6 @@ const Sidebar = () => {
 		components: { sidebar }
 	}, dispatch] = useStateValue()
 
-
 	useEffect(() => { !notMobile && dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: false } }) }, [])
 
 	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
@@ -101,7 +100,13 @@ const SidebarContent = ({ setSidebar }) => {
 	)
 
 	const flipOptions = () => setOptions(!optionsOpen)
-
+	const [{
+		user: {
+			details: {
+				uid
+			}
+		},
+	}] = useStateValue()
 	return (
 		<>
 			<div id="sidebar" className={styles.sidebar}>
@@ -133,6 +138,11 @@ const SidebarContent = ({ setSidebar }) => {
 						<ul>
 							<Link to={'/workout'}><li>Go</li></Link>
 						</ul>
+						<h1 className={ops.profile}>Social</h1>
+						<ul>
+							<Link to={`/social/user/${uid}/profile`}><li>View Profile</li></Link>
+							<Link to={`/social/discover`}><li>Find Friends</li></Link>
+						</ul>
 					</>
 				}
 			</div>
@@ -141,13 +151,7 @@ const SidebarContent = ({ setSidebar }) => {
 }
 
 const SidebarOptions = ({ flipOptions }) => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		},
-	}, dispatch] = useStateValue()
+	const [, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
 		await dispatch({ type: 'LOGOUT' })
@@ -158,10 +162,6 @@ const SidebarOptions = ({ flipOptions }) => {
 
 	return (
 		<div className={ops.options}>
-			<h1 className={ops.profile}>Profile</h1>
-			<ul>
-				<Link to={`/user/${uid}/profile`}><li>View Profile</li></Link>
-			</ul>
 			<h1>Options</h1>
 			<ul>
 				<BackgroundOption />

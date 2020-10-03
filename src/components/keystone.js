@@ -6,11 +6,11 @@ import { Route } from 'react-router-dom'
 import styles from '../styles/general/keystone.module.scss'
 
 import Greeting from '../views/greeting'
-import User from '../views/user'
 import Actionbar from './actionbar/actionbar'
 import Manage from '../views/manage'
 import Assemble from '../views/assemble'
 import Workout from '../views/workout'
+import Social from '../views/social'
 
 const Keystone = () => {
 	return (
@@ -19,11 +19,6 @@ const Keystone = () => {
 				<Route exact path='/' render={() => (
 					<>
 						<Greeting />
-					</>
-				)} />
-				<Route path='/user/:uid/' render={() => (
-					<>
-						<User />
 					</>
 				)} />
 				<Route path="/manage" render={() => (
@@ -42,6 +37,11 @@ const Keystone = () => {
 					<>
 						<Actionbar />
 						<Workout />
+					</>
+				)} />
+				<Route path='/social' render={() => (
+					<>
+						<Social />
 					</>
 				)} />
 			</div>
