@@ -48,7 +48,6 @@ const FindUsers = ({ fetchUsers, users }) => {
 
 	return (
 		<>
-			<h2 className={styles.title}>Find Friends</h2>
 			<table className={styles.users}>
 				<thead>
 					<tr>

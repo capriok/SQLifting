@@ -1,11 +1,5 @@
 @import "../../../index.scss";
 
-.title {
-	// padding-bottom: 10px;
-	// margin-bottom: 10px;
-	// border-bottom: 2px solid $app-secondary;
-}
-
 .users {
 	@include flex;
 	flex-direction: column;

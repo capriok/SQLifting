@@ -45,13 +45,14 @@ const Discover = () => {
 			<h1>Discover</h1>
 			<section>
 				<div className={styles.find_users}>
+					<h2 className={styles.title}>Find Friends</h2>
 					<FindUsers {...props} />
 				</div>
 				<div className={styles.other}>
-					<div>div two</div>
+					<h2 className={styles.title}>Other</h2>
 				</div>
 			</section>
-		</div>
+		</div >
 	)
 }
 

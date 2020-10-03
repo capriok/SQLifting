@@ -8,13 +8,13 @@
 	background-color: $app-primary;
 	section {
 		@include flex;
+		align-items: flex-start;
 		.find_users {
 			flex: 2;
+			margin-right: 10px;
 		}
 		.other {
 			flex: 1;
-			@include flex;
-			justify-content: flex-end;
 		}
 	}
 }

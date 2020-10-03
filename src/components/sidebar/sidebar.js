@@ -57,7 +57,17 @@ const Sidebar = () => {
 }
 
 const SidebarContent = ({ setSidebar }) => {
+	const [{
+		user: {
+			details: {
+				uid
+			}
+		},
+	}] = useStateValue()
+
 	const [optionsOpen, setOptions] = useState(false)
+
+	const flipOptions = () => setOptions(!optionsOpen)
 
 	const router = {
 		compositions: [
@@ -70,7 +80,18 @@ const SidebarContent = ({ setSidebar }) => {
 			{ name: 'Exercises', pathname: '/composites/exercises' },
 			{ name: 'Circuits', pathname: '/composites/circuits' },
 			{ name: 'Workouts', pathname: '/composites/workouts' }
-		]
+		],
+		workout: [
+			{ name: 'Go', pathname: '' }
+		],
+		social: {
+			user: [
+				{ name: 'View Profile', pathname: `/user/${uid}/profile` }
+			],
+			discover: [
+				{ name: 'Find Friends', pathname: '/discover' }
+			]
+		}
 	}
 
 	const manage = {
@@ -81,6 +102,15 @@ const SidebarContent = ({ setSidebar }) => {
 	const assemble = {
 		pathname: '/assemble',
 		composites: [...router.composites]
+	}
+	const workout = {
+		pathname: '/workout',
+		workout: [...router.workout]
+	}
+	const social = {
+		pathname: '/social',
+		user: [...router.social.user],
+		discover: [...router.social.discover]
 	}
 
 	const activeLI = pathname => {
@@ -99,14 +129,6 @@ const SidebarContent = ({ setSidebar }) => {
 		))
 	)
 
-	const flipOptions = () => setOptions(!optionsOpen)
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		},
-	}] = useStateValue()
 	return (
 		<>
 			<div id="sidebar" className={styles.sidebar}>
@@ -136,12 +158,12 @@ const SidebarContent = ({ setSidebar }) => {
 						</ul >
 						<h1>Workout</h1>
 						<ul>
-							<Link to={'/workout'}><li>Go</li></Link>
+							{createMap(workout, 'workout')}
 						</ul>
 						<h1 className={ops.profile}>Social</h1>
 						<ul>
-							<Link to={`/social/user/${uid}/profile`}><li>View Profile</li></Link>
-							<Link to={`/social/discover`}><li>Find Friends</li></Link>
+							{createMap(social, 'user')}
+							{createMap(social, 'discover')}
 						</ul>
 					</>
 				}
