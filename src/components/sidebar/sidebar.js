@@ -160,7 +160,7 @@ const SidebarOptions = ({ flipOptions }) => {
 		<div className={ops.options}>
 			<h1 className={ops.profile}>Profile</h1>
 			<ul>
-				<Link to={`/user/profile/${uid}`}><li>View Profile</li></Link>
+				<Link to={`/user/${uid}/profile`}><li>View Profile</li></Link>
 			</ul>
 			<h1>Options</h1>
 			<ul>

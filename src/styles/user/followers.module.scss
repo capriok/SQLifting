@@ -1,0 +1,32 @@
+@import "../../index.scss";
+
+section {
+	padding: 0 20px;
+	.followers_title {
+		@include flex;
+		justify-content: space-between;
+	}
+	.followers {
+		.follower {
+			@include flex;
+			justify-content: space-between;
+			align-items: stretch;
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+			border-bottom: 2px solid lightgrey;
+			.icon {
+				width: 35px;
+				margin-right: 50px;
+			}
+			a {
+				flex: 1;
+				color: black;
+				@include flex;
+				justify-content: flex-start;
+				.username {
+					text-transform: capitalize;
+				}
+			}
+		}
+	}
+}
