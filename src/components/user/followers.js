@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import { useStateValue } from '../../state/state'
 import { SQLiftingAcc } from '../../api/sqlifting'
 
-import styles from '../../styles/user/followers.module.scss'
 import nullIcon from '../../images/null-icon.png'
+import styles from '../../styles/user/followers.module.scss'
 
 import { Button } from 'godspeed'
 
@@ -31,7 +31,7 @@ const Followers = ({ queryUID, followUser, unfollowUser, unfollowOwnUser }) => {
 
 	useEffect(() => {
 		fetchFollowers()
-	}, [])
+	}, [queryUID])
 
 	useEffect(() => {
 		followers.length > 0 && console.log('%cFollowers', 'color: lightskyblue', followers);
@@ -57,7 +57,7 @@ const Followers = ({ queryUID, followUser, unfollowUser, unfollowOwnUser }) => {
 			<section>
 				<div className={styles.followers_title}>
 					<h1>Followers</h1>
-					<Link to={`profile`} ><Button text="◄ Back" size="xsm" /></Link>
+					<Link to="profile"><Button text="◄ Back" size="xsm" /></Link>
 				</div>
 				<div className={styles.followers}>
 					{followers.map((f, i) => (

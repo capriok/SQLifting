@@ -1,11 +1,16 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Input } from 'godspeed'
 
 import styles from '../../styles/user/profile.module.scss'
 
 const Profile = ({ profile, editing, changes, setChanges }) => {
+
+	useEffect(() => {
+		Object.keys(profile.data).length > 0 && console.log('%cProfile', 'color: lightskyblue', { profile });
+	}, [profile])
+
 	return (
 		<>
 			<div className={styles.profile_title}>

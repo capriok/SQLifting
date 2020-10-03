@@ -6,131 +6,13 @@
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $app-primary;
-	nav {
-		@include flex;
-		justify-content: space-between;
-		align-items: stretch;
-		padding: 30px 0;
-		margin: -20px;
-		margin-bottom: 20px;
-		border-bottom: 2px solid $app-secondary;
-		background-color: $app-primary;
-		filter: brightness(95%);
-		.left {
-			flex: 1;
-			@include flex;
-			justify-content: flex-start;
-			align-items: stretch;
-			margin-left: 20px;
-			.icon_cont {
-				user-select: none;
-				@include flex;
-				flex-direction: column;
-				justify-content: space-between;
-				align-items: flex-start;
-				width: 130px;
-				.icon {
-					overflow: hidden;
-					position: relative;
-					width: 100px;
-					min-width: 100px;
-					max-width: 100px;
-					height: 100px;
-					min-height: 100px;
-					max-height: 100px;
-					margin-top: 20px;
-					border-radius: 50%;
-					img {
-						position: absolute;
-						left: 50%;
-						transform: translate(-50%);
-						height: 100%;
-					}
-				}
-				.edit_button {
-					color: white;
-					cursor: pointer;
-					font-family: "roboto";
-					font-size: 0.9rem;
-					padding: 6px 12px;
-					margin-top: 20px;
-					border-radius: 5px;
-					background-color: #111111;
-				}
-				input {
-					display: none;
-				}
-			}
-			.user_info {
-				flex: 1;
-				@include flex;
-				flex-direction: column;
-				justify-content: stretch;
-				align-items: flex-start;
-				margin-left: 20px;
-				h1 {
-					user-select: none;
-					text-transform: capitalize;
-					margin-bottom: 0;
-				}
-				.status {
-					white-space: pre-line;
-					margin: 0;
-					margin-top: 20px;
-				}
-				textarea {
-					resize: vertical;
-					outline: none;
-					font-size: 16px;
-					width: 100%;
-					margin-top: 20px;
-					border-radius: 5px;
-					border: 1px solid grey;
-				}
-				textarea::placeholder {
-					font-size: 14px;
-				}
-				.area_details {
-					@include flex;
-					justify-content: space-between;
-					width: 100%;
-					margin: 0;
-					box-sizing: border-box;
-					span {
-						font-size: 0.8rem;
-					}
-				}
-			}
-		}
-		.right {
-			user-select: none;
-			flex: 1;
-			@include flex;
-			justify-content: flex-end;
-			margin-right: 20px;
-			a {
-				color: black;
-				margin-right: 45px;
-				p {
-					@include flex;
-					flex-direction: column;
-					span {
-						margin-top: 10px;
-						font-size: 1.1rem;
-					}
-				}
-			}
-		}
-	}
 	footer {
-		div {
-			text-align: right;
-			button {
-				margin-left: 10px;
-			}
-			button:last-child {
-				background-color: rgb(0, 117, 0);
-			}
+		text-align: right;
+		button {
+			margin-left: 10px;
+		}
+		button:last-child {
+			background-color: rgb(0, 117, 0);
 		}
 	}
 }

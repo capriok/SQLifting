@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import { useStateValue } from '../../state/state'
 import { SQLiftingAcc } from '../../api/sqlifting'
 
-import styles from '../../styles/user/following.module.scss'
 import nullIcon from '../../images/null-icon.png'
+import styles from '../../styles/user/following.module.scss'
 
 import { Button } from 'godspeed'
 
@@ -31,7 +31,7 @@ const Following = ({ queryUID, followUser, unfollowUser }) => {
 
 	useEffect(() => {
 		fetchFollowing()
-	}, [])
+	}, [queryUID])
 
 	useEffect(() => {
 		following.length > 0 && console.log('%cFollowing', 'color: lightskyblue', following);

@@ -1,20 +1,19 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { useStateValue } from '../state/state'
 import { SQLiftingAcc } from '../api/sqlifting'
 
-import { Button, Input } from 'godspeed'
+import { Button } from 'godspeed'
 
-import nullIcon from '../images/null-icon.png'
 
 import styles from '../styles/user/user.module.scss'
 
+import Nav from '../components/user/nav'
 import Profile from '../components/user/profile'
 import Followers from '../components/user/followers'
 import Following from '../components/user/following'
-import { queries } from '@testing-library/react'
 
 const INIT_PROFILE = {
 	data: {},
@@ -33,12 +32,11 @@ const User = () => {
 	},] = useStateValue()
 
 	const fileRef = useRef(null)
-	const inputRef = useRef('')
 	const [editing, setEdit] = useState(false)
 	const [profile, setProfile] = useState(INIT_PROFILE)
 	const [changes, setChanges] = useState({})
 
-	let queryUID = parseInt(window.location.pathname.split('/')[2])
+	const queryUID = parseInt(window.location.pathname.split('/')[2])
 
 	const fetchProfile = async () => {
 		await SQLiftingAcc.get(`/profile/${queryUID}/${uid}`)
@@ -83,21 +81,6 @@ const User = () => {
 			.catch(err => console.log(err))
 	}
 
-	const changeIcon = (e) => {
-		let reader = new FileReader();
-		const file = e.target.files[0];
-		if (file) {
-			reader.onloadend = () => {
-				setChanges({
-					...changes,
-					icon: reader.result
-				})
-			};
-			fileRef.current = file
-			reader.readAsDataURL(file)
-		}
-	}
-
 	const cancelChanges = () => {
 		setEdit(false)
 		setChanges({})
@@ -121,11 +104,10 @@ const User = () => {
 					'Content-Type': 'multipart/form-data'
 				}
 			})
-			.then(() => {
+			.then(async () => {
 				setEdit(false)
 				setChanges({})
-				fileRef.current.value = 'null'
-				fetchProfile()
+				await fetchProfile()
 			})
 			.catch(err => console.log(err))
 	}
@@ -140,95 +122,21 @@ const User = () => {
 
 	const props = {
 		queryUID,
+		fileRef,
 		fetchProfile,
 		followUser,
 		unfollowUser,
 		unfollowOwnUser,
 		profile,
 		editing,
+		setEdit,
 		changes,
 		setChanges
 	}
 
 	return (
 		<div className={styles.user}>
-			<nav>
-				<div className={styles.left}>
-					<div className={styles.icon_cont}>
-						<Link to={`profile`}>
-							<div className={styles.icon}>
-								{editing
-									? <img
-										src={changes.icon !== undefined ? changes.icon : profile.icon}
-										alt="" />
-									: <img
-										src={profile.icon !== null ? profile.icon : nullIcon}
-										alt="" />
-								}
-							</div>
-						</Link>
-						{editing && <>
-							<label className={styles.edit_button} htmlFor="iconInput">Change Icon</label>
-							<input
-								id="iconInput"
-								ref={inputRef}
-								accept="image/jpeg, image/png"
-								type="file"
-								onChange={e => changeIcon(e)} />
-						</>}
-					</div>
-					<div className={styles.user_info}>
-						<h1>{profile.username}</h1>
-						{editing
-							? <><textarea
-								rows="4"
-								maxLength="120"
-								placeholder={profile.status}
-								onChange={e => setChanges({ ...changes, status: e.target.value })} />
-								<p className={styles.area_details}>
-									<span>Max length 120 characters</span>
-									<span>{changes.hasOwnProperty('status') && changes.status.length}</span>
-								</p>
-							</>
-							: <p className={styles.status}>{profile.status}</p>
-						}
-					</div>
-				</div>
-				<div className={styles.right}>
-					<Link to="followers">
-						<p>Followers<span>{profile.follower_count}</span></p>
-					</Link>
-					<Link to="following">
-						<p>Following<span>{profile.following_count}</span></p>
-					</Link>
-					{window.location.pathname !== `/user/${queryUID}/profile` && queryUID === uid
-						? <></>
-						: queryUID === uid
-							? <Button
-								text="Edit Profile"
-								size="xsm"
-								onClick={() => setEdit(true)}
-								disabled={editing} />
-							: !profile.isFollowed
-								? <Button
-									text="Follow"
-									size="xsm"
-									onClick={async () => {
-										await followUser(queryUID)
-										await fetchProfile()
-									}}
-									disabled={editing} />
-								: <Button
-									text="Unfollow"
-									size="xsm"
-									onClick={async () => {
-										await unfollowUser(queryUID)
-										await fetchProfile()
-									}}
-									disabled={editing} />
-					}
-				</div>
-			</nav>
+			<Nav {...props} />
 			<main>
 				<Route path="/user/:uid/profile" render={() => (
 					<>
@@ -248,16 +156,14 @@ const User = () => {
 			</main>
 			{editing &&
 				<footer>
-					<div>
-						<Button
-							text="Cancel"
-							size="xsm"
-							onClick={() => cancelChanges()} />
-						<Button
-							text="Save Changes"
-							size="xsm"
-							onClick={() => saveChanges()} />
-					</div>
+					<Button
+						text="Cancel"
+						size="xsm"
+						onClick={() => cancelChanges()} />
+					<Button
+						text="Save Changes"
+						size="xsm"
+						onClick={() => saveChanges()} />
 				</footer>
 			}
 		</div>
