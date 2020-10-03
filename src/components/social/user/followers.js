@@ -1,16 +1,23 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../../../state/state'
-import { SQLiftingAcc } from '../../../api/sqlifting'
+import useOutsideClick from '../../../utils/useOutsideClick'
 
 import nullIcon from '../../../images/null-icon.png'
 import styles from '../../../styles/social/user/followers.module.scss'
 
 import { Button } from 'godspeed'
 
-const Followers = ({ queryUID, followUser, unfollowUser, unfollowOwnUser }) => {
+const Followers = ({
+	queryUID,
+	fetchFollowers,
+	followUser,
+	unfollowUser,
+	unfollowOwnUser,
+	followers
+}) => {
 	const [{
 		user: {
 			details: {
@@ -19,37 +26,34 @@ const Followers = ({ queryUID, followUser, unfollowUser, unfollowOwnUser }) => {
 		}
 	},] = useStateValue()
 
-	const [followers, setFollowers] = useState([])
+	const [confirming, setConfirm] = useState()
 
-	const fetchFollowers = async () => {
-		await SQLiftingAcc.get(`/followers/${queryUID}/${uid}`)
-			.then((res) => {
-				setFollowers(res.data)
-			})
-			.catch(err => console.log(err))
-	}
+	const ref = useRef();
+	useOutsideClick(ref, () => {
+		if (confirming === parseInt(ref.current.id)) setConfirm()
+	});
 
 	useEffect(() => {
 		fetchFollowers()
 	}, [queryUID])
 
 	useEffect(() => {
-		followers.length > 0 && console.log('%cFollowers', 'color: lightskyblue', followers);
+		followers.length > 0 && console.log('%cFollowers', 'color: lightskyblue', { followers });
 	}, [followers])
 
 	async function follow(uid) {
 		await followUser(uid)
-		await fetchFollowers()
+		fetchFollowers()
 	}
 
 	async function unfollow(uid) {
 		await unfollowUser(uid)
-		await fetchFollowers()
+		fetchFollowers()
 	}
 
 	async function unfollowOwn(uid) {
 		await unfollowOwnUser(uid)
-		await fetchFollowers()
+		fetchFollowers()
 	}
 
 	return (
@@ -69,10 +73,35 @@ const Followers = ({ queryUID, followUser, unfollowUser, unfollowOwnUser }) => {
 							{f.uid === uid
 								? <></>
 								: queryUID === uid
-									? <Button text="Remove" size="xsm" onClick={() => unfollowOwn(f.uid)} />
+									? confirming === f.uid
+										? <div ref={ref} id={f.uid}>
+											<Button
+												className={styles.warn}
+												text="Confirm"
+												size="xsm"
+												onClick={() => unfollowOwn(f.uid)} />
+										</div>
+										: <Button
+											text="Remove"
+											size="xsm"
+											onClick={() => setConfirm(f.uid)} />
 									: !f.isFollowed
-										? <Button text="Follow" size="xsm" onClick={() => follow(f.uid)} />
-										: <Button text="Unfollow" size="xsm" onClick={() => unfollow(f.uid)} />
+										? <Button
+											text="Follow"
+											size="xsm"
+											onClick={() => follow(f.uid)} />
+										: confirming === f.uid
+											? <div ref={ref} id={f.uid}>
+												<Button
+													className={styles.warn}
+													text="Confirm"
+													size="xsm"
+													onClick={() => unfollow(f.uid)} />
+											</div>
+											: <Button
+												text="Unfollow"
+												size="xsm"
+												onClick={() => setConfirm(f.uid)} />
 							}
 						</div>
 					))}

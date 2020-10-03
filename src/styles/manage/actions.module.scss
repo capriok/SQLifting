@@ -19,7 +19,7 @@
 		}
 	}
 	.delete_hover:hover {
-		background-color: rgb(175, 0, 0);
+		background-color: $warn;
 	}
 	.active_button {
 		background-color: $app-secondary;

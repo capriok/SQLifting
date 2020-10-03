@@ -1,6 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
+import React, { useState, useRef } from 'react'
 import { useStateValue } from '../../../state/state'
 import { BlockPicker } from 'react-color';
+import useOutsideClick from '../../../utils/useOutsideClick'
+
 import styles from '../../../styles/sidebar/options/picker.module.scss'
 
 const Secondary = () => {
@@ -56,20 +60,5 @@ const Secondary = () => {
 		</>
 	)
 }
-
-const useOutsideClick = (ref, callback) => {
-	const handleClick = e => {
-		if (ref.current && !ref.current.contains(e.target)) {
-			callback();
-		}
-	};
-	useEffect(() => {
-		document.addEventListener("click", handleClick);
-		return () => {
-			document.removeEventListener("click", handleClick);
-		};
-	});
-};
-
 
 export default Secondary

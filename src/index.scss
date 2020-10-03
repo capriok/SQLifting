@@ -41,6 +41,7 @@ $max-width: 1500px;
 $top: 70px;
 $light-border: 1px solid rgba(190, 190, 190, 0.4);
 $soft-shadow: -3px 3px 5px -5px black;
+$warn: rgb(190, 9, 45);
 :root {
   --app-background: #c7c7c7;
   --app-primary: #f0f0f0;
@@ -75,4 +76,7 @@ h4 {
 h1 {
   font-size: 1.8rem;
   letter-spacing: 1px;
+}
+.warn {
+  background-color: $warn;
 }

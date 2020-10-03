@@ -29,18 +29,39 @@ const User = () => {
 		}
 	},] = useStateValue()
 
+	const queryUID = parseInt(window.location.pathname.split('/')[3])
+
 	const fileRef = useRef(null)
 	const [editing, setEdit] = useState(false)
-	const [profile, setProfile] = useState(INIT_PROFILE)
 	const [changes, setChanges] = useState({})
 
-	const queryUID = parseInt(window.location.pathname.split('/')[3])
-	console.log(queryUID);
+	const [profile, setProfile] = useState(INIT_PROFILE)
+	const [followers, setFollowers] = useState([])
+	const [following, setFollowing] = useState([])
+
 
 	const fetchProfile = async () => {
 		await SQLiftingAcc.get(`/profile/${queryUID}/${uid}`)
 			.then(res => {
 				setProfile(res.data)
+			})
+			.catch(err => console.log(err))
+	}
+
+
+	const fetchFollowers = async () => {
+		await SQLiftingAcc.get(`/followers/${queryUID}/${uid}`)
+			.then((res) => {
+				setFollowers(res.data)
+			})
+			.catch(err => console.log(err))
+	}
+
+
+	const fetchFollowing = async () => {
+		await SQLiftingAcc.get(`/following/${queryUID}/${uid}`)
+			.then((res) => {
+				setFollowing(res.data)
 			})
 			.catch(err => console.log(err))
 	}
@@ -120,17 +141,9 @@ const User = () => {
 	}, [changes])
 
 	const props = {
-		queryUID,
-		fileRef,
-		fetchProfile,
-		followUser,
-		unfollowUser,
-		unfollowOwnUser,
-		profile,
-		editing,
-		setEdit,
-		changes,
-		setChanges
+		queryUID, fileRef, fetchProfile, fetchFollowers, fetchFollowing,
+		followUser, unfollowUser, unfollowOwnUser, followers, following,
+		profile, editing, setEdit, changes, setChanges
 	}
 
 	return (

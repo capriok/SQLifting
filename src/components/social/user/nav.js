@@ -1,8 +1,9 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../../../state/state'
+import useOutsideClick from '../../../utils/useOutsideClick'
 
 import nullIcon from '../../../images/null-icon.png'
 import styles from '../../../styles/social/user/nav.module.scss'
@@ -10,10 +11,16 @@ import styles from '../../../styles/social/user/nav.module.scss'
 import { Button } from 'godspeed'
 
 const Nav = ({
-	queryUID, fileRef,
-	fetchProfile, followUser, unfollowUser,
-	profile, editing, changes,
-	setChanges, setEdit
+	queryUID,
+	fileRef,
+	fetchFollowers,
+	followUser,
+	unfollowUser,
+	profile,
+	editing,
+	changes,
+	setChanges,
+	setEdit
 }) => {
 	const [{
 		user: {
@@ -22,6 +29,13 @@ const Nav = ({
 			}
 		}
 	},] = useStateValue()
+
+	const [confirming, setConfirming] = useState(false)
+
+	const ref = useRef();
+	useOutsideClick(ref, () => {
+		if (confirming) setConfirming(false)
+	});
 
 	const changeIcon = (e) => {
 		let reader = new FileReader();
@@ -36,6 +50,18 @@ const Nav = ({
 			fileRef.current = file
 			reader.readAsDataURL(file)
 		}
+	}
+
+	async function follow(uid) {
+		await followUser(uid)
+		setConfirming(false)
+		fetchFollowers()
+	}
+
+	async function unfollow(uid) {
+		await unfollowUser(uid)
+		setConfirming(false)
+		fetchFollowers()
 	}
 
 	return (
@@ -88,7 +114,7 @@ const Nav = ({
 					<Link to="following">
 						<p>Following<span>{profile.following_count}</span></p>
 					</Link>
-					{window.location.pathname !== `/user/${queryUID}/profile` && queryUID === uid
+					{window.location.pathname !== `/social/user/${queryUID}/profile` && queryUID === uid
 						? <></>
 						: queryUID === uid
 							? <Button
@@ -100,19 +126,22 @@ const Nav = ({
 								? <Button
 									text="Follow"
 									size="xsm"
-									onClick={async () => {
-										await followUser(queryUID)
-										await fetchProfile()
-									}}
+									onClick={async () => follow(queryUID)}
 									disabled={editing} />
-								: <Button
-									text="Unfollow"
-									size="xsm"
-									onClick={async () => {
-										await unfollowUser(queryUID)
-										await fetchProfile()
-									}}
-									disabled={editing} />
+								: confirming
+									? <div ref={ref}>
+										<Button
+											className={styles.warn}
+											text="Confirm"
+											size="xsm"
+											onClick={() => unfollow(queryUID)}
+											disabled={editing} />
+									</div>
+									: <Button
+										text="Unfollow"
+										size="xsm"
+										onClick={() => setConfirming(true)}
+										disabled={editing} />
 					}
 				</div>
 			</div>
