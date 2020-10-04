@@ -47,7 +47,6 @@ const initialState = {
 	}
 }
 
-
 let LStoken = localStorage.getItem('SQLifting-token')
 let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))
 if (LStoken && LSuser) {
