@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { isEmpty } from 'lodash'
 import { useStateValue } from '../../state/state'
 import useManageActions from '../actionbar/useManageActions'
+import useOutsideClick from '../../utils/useOutsideClick'
 
 import styles from '../../styles/manage/actions.module.scss'
 
@@ -23,6 +24,14 @@ const ManageActions = () => {
 		}
 	}] = useStateValue()
 
+	const [confirming, setConfirming] = useState(false)
+
+	const ref = useRef();
+	useOutsideClick(ref, () => {
+		if (confirming) setConfirming(false)
+	});
+
+
 	const { toggleEditor, toggleSelector, deleteSelection } = useManageActions()
 
 	return (
@@ -41,13 +50,22 @@ const ManageActions = () => {
 					className={selector.state ? `${styles.active_button} ${styles.select}` : styles.select}
 					onClick={() => toggleSelector()}
 				/>
-				<Button
-					text="Delete"
-					size="xsm"
-					className={`${styles.delete_hover} ${styles.delete}`}
-					onClick={() => deleteSelection(selection, table, group)}
-					disabled={isEmpty(selector.selection)}
-				/>
+				{confirming
+					? <div ref={ref}>
+						<Button
+							className={styles.warn}
+							text="Confirm"
+							size="xsm"
+							className={`${styles.delete} ${styles.warn}`}
+							onClick={() => deleteSelection(selection, table)} />
+					</div>
+					: <Button
+						text="Delete"
+						size="xsm"
+						className={`${styles.delete}`}
+						onClick={() => setConfirming(true)}
+						disabled={isEmpty(selector.selection)} />
+				}
 			</div>
 		</div>
 	)

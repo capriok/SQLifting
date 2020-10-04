@@ -5,8 +5,6 @@ import { Route } from 'react-router-dom'
 import { useStateValue } from '../../../state/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
 
-import { Button } from 'godspeed'
-
 import styles from '../../../styles/social/user/user.module.scss'
 
 import UserNav from './user-nav'
@@ -34,6 +32,8 @@ const User = () => {
 	const fileRef = useRef(null)
 	const [editing, setEdit] = useState(false)
 	const [changes, setChanges] = useState({})
+
+	const [submitting, setSubmitting] = useState(false)
 
 	const [profile, setProfile] = useState(INIT_PROFILE)
 	const [followers, setFollowers] = useState([])
@@ -69,10 +69,6 @@ const User = () => {
 	useEffect(() => {
 		fetchProfile()
 	}, [queryUID])
-
-	useEffect(() => {
-		Object.keys(profile.data).length > 0 && console.log('%cProfile', 'color: lightskyblue', { profile });
-	}, [profile])
 
 	const followUser = async (UID) => {
 		await SQLiftingAcc.post(`/follow`, {
@@ -127,23 +123,29 @@ const User = () => {
 			.then(async () => {
 				setEdit(false)
 				setChanges({})
+				setSubmitting(false)
 				await fetchProfile()
 			})
 			.catch(err => console.log(err))
 	}
 
 	useEffect(() => {
+		let newChanges = {}
 		for (let prop in changes) {
-			if (changes[prop] === '') {
-				delete changes[prop]
+			if (changes[prop] !== '') {
+				newChanges[prop] = changes[prop]
+			}
+			if (Object.keys(newChanges).length === 0) {
+				setChanges(newChanges)
 			}
 		}
 	}, [changes])
 
 	const props = {
 		queryUID, fileRef, fetchProfile, fetchFollowers, fetchFollowing,
-		followUser, unfollowUser, unfollowOwnUser, followers, following,
-		profile, editing, setEdit, changes, setChanges
+		saveChanges, cancelChanges, followUser, unfollowUser, unfollowOwnUser,
+		profile, followers, following, editing, setEdit, changes, setChanges,
+		submitting, setSubmitting
 	}
 
 	return (
@@ -166,18 +168,6 @@ const User = () => {
 					</>
 				)} />
 			</main>
-			{editing &&
-				<footer>
-					<Button
-						text="Cancel"
-						size="xsm"
-						onClick={() => cancelChanges()} />
-					<Button
-						text="Save Changes"
-						size="xsm"
-						onClick={() => saveChanges()} />
-				</footer>
-			}
 		</div>
 	)
 }

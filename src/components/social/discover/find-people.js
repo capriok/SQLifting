@@ -42,7 +42,10 @@ const FindPeople = ({ fetchPeople, people }) => {
 			follower_uid: uid,
 			following_uid: UID
 		})
-			.then(() => fetchPeople())
+			.then(() => {
+				setConfirm()
+				fetchPeople()
+			})
 			.catch(err => console.log(err))
 	}
 
@@ -61,13 +64,13 @@ const FindPeople = ({ fetchPeople, people }) => {
 					{people.map((u, i) => (
 						<tr key={i}>
 							{u.uid !== uid && <>
-								<td><Link to={`user/${u.uid}/profile`}>
+								<td><Link to={`/social/user/${u.uid}/profile`}>
 									<img className={styles.icon} src={u.icon !== null ? u.icon : nullIcon} alt="" />
 								</Link></td>
-								<td><Link to={`user/${u.uid}/profile`}>
+								<td><Link to={`/social/user/${u.uid}/profile`}>
 									{u.username}
 								</Link></td>
-								<td><Link to={`user/${u.uid}/profile`}>
+								<td><Link to={`/social/user/${u.uid}/profile`}>
 									{u.location || 'Unknown'
 									}</Link></td>
 								<td>

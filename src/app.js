@@ -1,6 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { useStateValue } from './state/state'
 import useUpdate from './utils/useUpdate';

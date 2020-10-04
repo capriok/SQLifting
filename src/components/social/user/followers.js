@@ -43,16 +43,19 @@ const Followers = ({
 
 	async function follow(uid) {
 		await followUser(uid)
+		setConfirm()
 		fetchFollowers()
 	}
 
 	async function unfollow(uid) {
 		await unfollowUser(uid)
+		setConfirm()
 		fetchFollowers()
 	}
 
 	async function unfollowOwn(uid) {
 		await unfollowOwnUser(uid)
+		setConfirm()
 		fetchFollowers()
 	}
 

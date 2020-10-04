@@ -1,15 +1,39 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useEffect } from 'react'
-import { Input } from 'godspeed'
+import React, { useState, useEffect, useRef } from 'react'
+import useOutsideClick from '../../../utils/useOutsideClick'
 
 import styles from '../../../styles/social/user/profile.module.scss'
 
-const Profile = ({ profile, editing, changes, setChanges }) => {
+import { Button, Input } from 'godspeed'
+import { isEmpty } from 'lodash'
+
+const Profile = ({
+	cancelChanges,
+	saveChanges,
+	profile,
+	editing,
+	changes,
+	setChanges,
+	submitting,
+	setSubmitting
+}) => {
 
 	useEffect(() => {
 		Object.keys(profile.data).length > 0 && console.log('%cProfile', 'color: lightskyblue', { profile });
 	}, [profile])
+
+	const [confirming, setConfirming] = useState(false)
+
+	const ref = useRef();
+	useOutsideClick(ref, () => {
+		if (confirming) setConfirming(false)
+	});
+
+	function save() {
+		setSubmitting(true)
+		saveChanges()
+	}
 
 	return (
 		<>
@@ -83,6 +107,31 @@ const Profile = ({ profile, editing, changes, setChanges }) => {
 					</ul>
 				</div>
 			</section>
+			{editing &&
+				<footer>
+					<Button
+						text="Cancel"
+						size="xsm"
+						onClick={() => cancelChanges()} />
+					{confirming
+						? <div ref={ref}>
+							<Button
+								className={styles.warn}
+								text={submitting ? "Submitting" : "Confirm Changes"}
+								size="xsm"
+								onClick={() => save()}
+								disabled={submitting} />
+
+						</div>
+						: <Button
+							text="Save Changes"
+							name="save"
+							size="xsm"
+							onClick={() => setConfirming(true)}
+							disabled={submitting || isEmpty(changes)} />
+					}
+				</footer>
+			}
 		</>
 	)
 }

@@ -27,20 +27,18 @@ export default function Index() {
   `);
 
   if (process.env.NODE_ENV === 'production') console.log = () => { }
-
   if (initialState.user.token) {
-    log('-------------------------TASKS-------------------------')
-    log('- When deleting any composition:')
-    log('     Must handle dependencies of deleted record')
-    log('- Think about more composition editing features')
-    log('     Add deps to entity?')
-    log('     Change sets, reps, or weight of composite dep?')
-    log('- Authentication should be done smarter')
-    log('     JWT for routes involving account specific data')
-    log('-------------------------------------------------------')
-    log('')
+    if (process.env.NODE_ENV === 'development') {
+      log('-------------------------TASKS-------------------------')
+      log('- Think about more composition editing features')
+      log('     Add deps to entity?')
+      log('     Change sets, reps, or weight of composite dep?')
+      log('- Authentication should be done smarter')
+      log('     JWT for routes involving account specific data')
+    }
+    log('-------------------------USER-------------------------')
     log(`Logged in as ${initialState.user.details.username.capitalize()} (ID: ${initialState.user.details.uid})`);
-    log('')
+    log('-------------------------DATA-------------------------')
   }
 
   return (

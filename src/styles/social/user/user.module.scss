@@ -7,11 +7,12 @@
 	box-shadow: $soft-shadow;
 	background-color: $app-primary;
 	footer {
-		text-align: right;
+		@include flex;
+		justify-content: flex-end;
 		button {
 			margin-left: 10px;
 		}
-		button:last-child {
+		button[name="save"] {
 			background-color: rgb(0, 117, 0);
 		}
 	}

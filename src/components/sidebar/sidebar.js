@@ -23,6 +23,7 @@ const Sidebar = () => {
 		components: { sidebar }
 	}, dispatch] = useStateValue()
 
+
 	useEffect(() => { !notMobile && dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: false } }) }, [])
 
 	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
@@ -63,6 +64,9 @@ const SidebarContent = ({ setSidebar }) => {
 				uid
 			}
 		},
+		social: {
+			active
+		}
 	}] = useStateValue()
 
 	const [optionsOpen, setOptions] = useState(false)
@@ -111,18 +115,16 @@ const SidebarContent = ({ setSidebar }) => {
 		discover: [...router.discover]
 	}
 
+	const activePath = '/' + window.location.pathname.split('/').filter((_, i) => i !== 0).join('/')
+
 	const activeLI = pathname => {
-		let liPath = pathname.split('/').slice(1)
-		let liPathname = `/${liPath[0]}/${liPath[1]}/${liPath[2]}`
-		let windowPath = window.location.pathname.split('/').slice(1)
-		let windowPathname = `/${windowPath[0]}/${windowPath[1]}/${windowPath[2]}`
-		return liPathname === windowPathname ? styles.active_li : null
+		return pathname === activePath ? styles.active_li : null
 	}
 
-	const createMap = (type, group) => (
-		type[group].map((op, i) => (
-			<Link key={i} to={`${type.pathname}${op.pathname}`} onClick={setSidebar}>
-				<li className={activeLI(`${type.pathname}${op.pathname}`)}>{op.name}</li>
+	const createMap = (srcPath, src) => (
+		src.map((op, i) => (
+			<Link key={i} to={srcPath + src[i].pathname} onClick={setSidebar}>
+				<li className={activeLI(srcPath + src[i].pathname)}>{op.name}</li>
 			</Link>
 		))
 	)
@@ -144,24 +146,24 @@ const SidebarContent = ({ setSidebar }) => {
 						<h1>Manage</h1>
 						<p>Compositions</p>
 						<ul>
-							{createMap(manage, 'compositions')}
+							{createMap('/manage', manage.compositions)}
 						</ul>
 						<p>Composites</p>
 						<ul>
-							{createMap(manage, 'composites')}
+							{createMap('/manage', manage.composites)}
 						</ul>
 						<h1>Assemble</h1>
 						<ul>
-							{createMap(assemble, 'composites')}
+							{createMap('/assemble', assemble.composites)}
 						</ul >
 						<h1>Workout</h1>
 						<ul>
-							{createMap(workout, 'workout')}
+							{createMap('/workout', workout.workout)}
 						</ul>
 						<h1 className={ops.profile}>Social</h1>
 						<ul>
-							{createMap(social, 'user')}
-							{createMap(social, 'discover')}
+							{createMap('/social', social.user)}
+							{createMap('/social', social.discover)}
 						</ul>
 					</>
 				}

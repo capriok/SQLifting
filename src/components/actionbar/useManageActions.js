@@ -11,6 +11,7 @@ const useManageActions = () => {
 		user: { details: { uid } },
 		manage,
 		manage: {
+			active,
 			preview,
 			editor,
 			selector,
@@ -123,8 +124,8 @@ const useManageActions = () => {
 		})
 	}
 
-	// Iterate thru selection entities => remove them from DB one by one
-	const deleteSelection = (selection, table, type) => {
+	// Iterate thru selection entities => remove them from DB
+	const deleteSelection = (selection, table) => {
 		// Map ids into a string with ids comma seperated for sql query 
 		let selectionIds = [selection.map(sel => sel.id)].toString()
 		// Delete all ids from passed table by id
@@ -135,28 +136,29 @@ const useManageActions = () => {
 				switch (table) {
 					case 'circ':
 						SQLifting.post(`/circ_movs`, { ids: selectionIds, })
-							.catch(err => console.log(err))
+							.then(() => { }).catch(err => console.log(err))
 						break;
 					case 'woco':
+						// we know there will be woco_excos => delete them
 						SQLifting.post(`/woco_excos`, { ids: selectionIds })
-							.catch(err => console.log(err))
+							.then(() => { }).catch(err => console.log(err))
 						// If selection entity has 0 circs => remove id from selectionIds
 						selection.forEach((sel, index) => {
 							if (sel.circs.length === 0) {
 								selectionIds = selectionIds.split(',').filter((sel, i) => i !== index).toString()
 							}
 						})
-						// Only delete woco_circs if selectionIds has a value
+						// Only fire req to delete woco_circs if selectionIds has a value
 						if (selectionIds) {
 							SQLifting.post(`/woco_circs`, { ids: selectionIds })
-								.catch(err => console.log(err))
+								.then(() => { }).catch(err => console.log(err))
 						}
 						break;
 					default:
 						break;
 				}
 			})
-			.then(() => update(type, [table + 's']))
+			.then(() => update(active.group, [active.entity]))
 			.catch(e => console.log(e))
 	}
 
