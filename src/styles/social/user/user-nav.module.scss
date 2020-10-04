@@ -4,7 +4,7 @@
 	@include flex;
 	justify-content: space-between;
 	align-items: stretch;
-	padding: 35px 0;
+	padding: 35px 20px;
 	margin: -20px;
 	margin-bottom: 20px;
 	border-bottom: 2px solid $app-secondary;
@@ -15,7 +15,6 @@
 		@include flex;
 		justify-content: flex-start;
 		align-items: stretch;
-		margin-left: 20px;
 		.icon_cont {
 			user-select: none;
 			@include flex;
@@ -101,7 +100,6 @@
 		.cont {
 			@include flex;
 			justify-content: flex-end;
-			margin-right: 20px;
 			a {
 				color: black;
 				margin-right: 45px;

@@ -1,0 +1,23 @@
+@import "../../../index.scss";
+
+.nav {
+	@include flex;
+	justify-content: space-between;
+	align-items: stretch;
+	padding: 35px 20px;
+	margin: -20px;
+	margin-bottom: 20px;
+	border-bottom: 2px solid $app-secondary;
+	background-color: $app-primary;
+	filter: brightness(95%);
+	.title {
+		color: black;
+	}
+	.links {
+		@include flex;
+		justify-content: flex-end;
+		[name="link"] {
+			margin-right: 10px;
+		}
+	}
+}

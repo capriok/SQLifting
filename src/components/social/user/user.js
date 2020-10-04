@@ -9,7 +9,7 @@ import { Button } from 'godspeed'
 
 import styles from '../../../styles/social/user/user.module.scss'
 
-import Nav from './nav'
+import UserNav from './user-nav'
 import Profile from './profile'
 import Followers from './followers'
 import Following from './following'
@@ -148,7 +148,7 @@ const User = () => {
 
 	return (
 		<div className={styles.user}>
-			<Nav {...props} />
+			<UserNav {...props} />
 			<main>
 				<Route path="/social/user/:quid/profile" render={() => (
 					<>

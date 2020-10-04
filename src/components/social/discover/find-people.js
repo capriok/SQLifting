@@ -7,11 +7,11 @@ import { SQLiftingAcc } from '../../../api/sqlifting'
 import useOutsideClick from '../../../utils/useOutsideClick'
 
 import nullIcon from '../../../images/null-icon.png'
-import styles from '../../../styles/social/discover/find-users.module.scss'
+import styles from '../../../styles/social/discover/find-people.module.scss'
 
 import { Button } from 'godspeed'
 
-const FindUsers = ({ fetchUsers, users }) => {
+const FindPeople = ({ fetchPeople, people }) => {
 	const [{
 		user: {
 			details: {
@@ -33,7 +33,7 @@ const FindUsers = ({ fetchUsers, users }) => {
 			follower_uid: uid,
 			following_uid: UID
 		})
-			.then(() => fetchUsers())
+			.then(() => fetchPeople())
 			.catch(err => console.log(err))
 	}
 
@@ -42,13 +42,13 @@ const FindUsers = ({ fetchUsers, users }) => {
 			follower_uid: uid,
 			following_uid: UID
 		})
-			.then(() => fetchUsers())
+			.then(() => fetchPeople())
 			.catch(err => console.log(err))
 	}
 
 	return (
 		<>
-			<table className={styles.users}>
+			<table className={styles.people}>
 				<thead>
 					<tr>
 						<th>Icon</th>
@@ -58,7 +58,7 @@ const FindUsers = ({ fetchUsers, users }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{users.map((u, i) => (
+					{people.map((u, i) => (
 						<tr key={i}>
 							{u.uid !== uid && <>
 								<td><Link to={`user/${u.uid}/profile`}>
@@ -101,4 +101,4 @@ const FindUsers = ({ fetchUsers, users }) => {
 	)
 }
 
-export default FindUsers
+export default FindPeople

@@ -6,14 +6,17 @@
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $app-primary;
+	.main {
+		width: 100%;
+	}
 	section {
+		padding: 0;
 		@include flex;
-		align-items: flex-start;
-		.find_users {
-			flex: 2;
-			margin-right: 10px;
+		justify-content: flex-start;
+		.community {
+			flex: 1;
 		}
-		.other {
+		.find_people {
 			flex: 1;
 		}
 	}

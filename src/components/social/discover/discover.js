@@ -1,12 +1,15 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
+import { Route } from 'react-router-dom'
 import { useStateValue } from '../../../state/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
 
 import styles from '../../../styles/social/discover/discover.module.scss'
 
-import FindUsers from './find-users'
+import DiscoverNav from './discover-nav'
+import FindPeople from './find-people'
+import Community from './community'
 
 const Discover = () => {
 	const [{
@@ -17,40 +20,54 @@ const Discover = () => {
 		}
 	},] = useStateValue()
 
-	const [users, setUsers] = useState([])
+	const [people, setPeople] = useState([])
 
-	const fetchUsers = () => {
+	const fetchPeople = () => {
 		SQLiftingAcc.get(`/users/${uid}`)
 			.then(res => {
-				setUsers(res.data)
+				setPeople(res.data)
 			})
 			.catch(err => console.log(err))
 	}
 
 	useEffect(() => {
-		fetchUsers()
+		fetchPeople()
 	}, [])
 
 	useEffect(() => {
-		users.length > 0 && console.log('%cDiscovery', 'color: lightskyblue', { users });
-	}, [users])
+		people.length > 0 && console.log('%cDiscovery', 'color: lightskyblue', { people });
+	}, [people])
 
 	const props = {
-		fetchUsers,
-		users,
+		fetchPeople,
+		people,
 	}
 
 	return (
 		<div className={styles.discover}>
-			<h1>Discover</h1>
+			<DiscoverNav />
 			<section>
-				<div className={styles.find_users}>
-					<h2 className={styles.title}>Find Friends</h2>
-					<FindUsers {...props} />
-				</div>
-				<div className={styles.other}>
-					<h2 className={styles.title}>Other</h2>
-				</div>
+				<Route exact path='/social/discover' render={() => (
+					<>
+						<div className={styles.main}>
+							<p>Recently shared</p>
+							<p>Recently Assembled</p>
+						</div>
+					</>
+				)} />
+				<Route path='/social/discover/community' render={() => (
+					<>
+						<div className={styles.community}>
+							<Community />
+						</div>
+					</>
+				)} />
+				<Route path='/social/discover/people' render={() => (
+					<div className={styles.find_people}>
+						<h2 className={styles.title}>Find People</h2>
+						<FindPeople {...props} />
+					</div>
+				)} />
 			</section>
 		</div >
 	)

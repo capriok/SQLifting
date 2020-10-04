@@ -6,11 +6,11 @@ import { useStateValue } from '../../../state/state'
 import useOutsideClick from '../../../utils/useOutsideClick'
 
 import nullIcon from '../../../images/null-icon.png'
-import styles from '../../../styles/social/user/nav.module.scss'
+import styles from '../../../styles/social/user/user-nav.module.scss'
 
 import { Button } from 'godspeed'
 
-const Nav = ({
+const UserNav = ({
 	queryUID,
 	fileRef,
 	fetchFollowers,
@@ -149,4 +149,4 @@ const Nav = ({
 	)
 }
 
-export default Nav
+export default UserNav

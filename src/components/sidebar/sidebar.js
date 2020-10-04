@@ -84,14 +84,12 @@ const SidebarContent = ({ setSidebar }) => {
 		workout: [
 			{ name: 'Go', pathname: '' }
 		],
-		social: {
-			user: [
-				{ name: 'View Profile', pathname: `/user/${uid}/profile` }
-			],
-			discover: [
-				{ name: 'Find Friends', pathname: '/discover' }
-			]
-		}
+		user: [
+			{ name: 'View profile', pathname: `/user/${uid}/profile` }
+		],
+		discover: [
+			{ name: 'Find people', pathname: '/discover' }
+		]
 	}
 
 	const manage = {
@@ -109,8 +107,8 @@ const SidebarContent = ({ setSidebar }) => {
 	}
 	const social = {
 		pathname: '/social',
-		user: [...router.social.user],
-		discover: [...router.social.discover]
+		user: [...router.user],
+		discover: [...router.discover]
 	}
 
 	const activeLI = pathname => {
