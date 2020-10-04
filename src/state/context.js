@@ -44,6 +44,9 @@ const initialState = {
 		activeEntities: [],
 		readyForNext: false,
 		build: {}
+	},
+	social: {
+		active: {}
 	}
 }
 
