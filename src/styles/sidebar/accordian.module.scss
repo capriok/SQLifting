@@ -1,0 +1,39 @@
+@import "./../../index.scss";
+
+.accordion {
+	:not(:first-child) {
+		margin-top: 5px;
+	}
+	.item {
+		overflow: hidden;
+		transition: max-height 0.2s cubic-bezier(1, 0, 1, 0);
+		height: auto;
+		max-height: 1000px;
+	}
+	.item.collapsed {
+		max-height: 0;
+		transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
+	}
+	.title {
+		cursor: pointer;
+		@include flex;
+		justify-content: space-between;
+		&::after {
+			content: "";
+			border-left: 4.5px solid transparent;
+			border-right: 4.5px solid transparent;
+			border-top: 4.5px solid;
+		}
+		&:hover,
+		&.open {
+			color: black;
+		}
+		&.open {
+			&::after {
+				content: "";
+				border-top: 0;
+				border-bottom: 4.5px solid;
+			}
+		}
+	}
+}

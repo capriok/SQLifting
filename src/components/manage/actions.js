@@ -1,3 +1,5 @@
+/*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
 import { isEmpty } from 'lodash'
 import { useStateValue } from '../../state/state'
@@ -53,7 +55,6 @@ const ManageActions = () => {
 				{confirming
 					? <div ref={ref}>
 						<Button
-							className={styles.warn}
 							text="Confirm"
 							size="xsm"
 							className={`${styles.delete} ${styles.warn}`}

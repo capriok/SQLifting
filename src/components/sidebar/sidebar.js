@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useStateValue } from '../../state/state'
 
 import styles from '../../styles/sidebar/sidebar.module.scss'
+import acc from '../../styles/sidebar/accordian.module.scss'
 import ops from '../../styles/sidebar/options.module.scss'
 import gear from '../../images/gear.png'
 
@@ -129,6 +130,33 @@ const SidebarContent = ({ setSidebar }) => {
 		))
 	)
 
+
+	let LSsettings = JSON.parse(localStorage.getItem('SQLifting-settings'))
+	const [acrd, setAcrd] = React.useState(LSsettings || {
+		a: false,
+		b: false,
+		c: false,
+		d: false,
+	});
+	function set(name) {
+		let newAcrd = { ...acrd }
+		newAcrd[name] = !newAcrd[name]
+		setAcrd(newAcrd)
+		localStorage.setItem('SQLifting-settings', JSON.stringify(newAcrd))
+	}
+
+	const SectionTitle = ({ title, name }) => (
+		<h1
+			className={`${acc.title} ${acrd[name] && acc.open}`}
+			onClick={() => set(name)}>
+			{title}
+		</h1>
+	)
+
+	const sectionClass = (name) => {
+		return `${acc.item} ${!acrd[name] && acc.collapsed}`
+	}
+
 	return (
 		<>
 			<div id="sidebar" className={styles.sidebar}>
@@ -143,28 +171,38 @@ const SidebarContent = ({ setSidebar }) => {
 				{optionsOpen
 					? <SidebarOptions flipOptions={flipOptions} />
 					: <>
-						<h1>Manage</h1>
-						<p>Compositions</p>
-						<ul>
-							{createMap('/manage', manage.compositions)}
-						</ul>
-						<p>Composites</p>
-						<ul>
-							{createMap('/manage', manage.composites)}
-						</ul>
-						<h1>Assemble</h1>
-						<ul>
-							{createMap('/assemble', assemble.composites)}
-						</ul >
-						<h1>Workout</h1>
-						<ul>
-							{createMap('/workout', workout.workout)}
-						</ul>
-						<h1 className={ops.profile}>Social</h1>
-						<ul>
-							{createMap('/social', social.user)}
-							{createMap('/social', social.discover)}
-						</ul>
+						<div className={acc.accordion}>
+							<SectionTitle title="Manage" name="a" />
+							<div className={sectionClass('a')}>
+								<p>Compositions</p>
+								<ul>
+									{createMap('/manage', manage.compositions)}
+								</ul>
+								<p>Composites</p>
+								<ul>
+									{createMap('/manage', manage.composites)}
+								</ul>
+							</div>
+							<SectionTitle title="Assemble" name="b" />
+							<div className={sectionClass('b')}>
+								<ul>
+									{createMap('/assemble', assemble.composites)}
+								</ul>
+							</div> <SectionTitle title="Workout"
+								name="c" />
+							<div className={sectionClass('c')}>
+								<ul>
+									{createMap('/workout', workout.workout)}
+								</ul>
+							</div>
+							<SectionTitle title="Social" name="d" />
+							<div className={sectionClass('d')}>
+								<ul>
+									{createMap('/social', social.user)}
+									{createMap('/social', social.discover)}
+								</ul>
+							</div>
+						</div>
 					</>
 				}
 			</div>
