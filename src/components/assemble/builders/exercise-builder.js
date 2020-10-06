@@ -81,11 +81,9 @@ const ExerciseBuilder = () => {
 								onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 						</div>
 						<div className={ext.exercise_exntension}>
-							{/* {Object.keys(build[steps[activeStep].label.toLowerCase()]).length > 0 && <> */}
 							<p>Equipment: <span>{build.equipment.name}</span></p>
 							<p>Muscle: <span>{build.muscle.name}</span></p>
 							<p>Exercise: <span>{build.exercise.name}</span></p>
-							{/* </>} */}
 						</div>
 					</div>
 				</>}

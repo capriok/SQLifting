@@ -1,28 +1,11 @@
 @import "../../index.scss";
 
-.assemble_actions {
+.workout_actions {
 	@include flex;
-	button {
+	a:not(:last-child),
+	button:not(:last-child) {
 		margin-right: 10px;
 		cursor: pointer;
-	}
-	.select_group {
-		@include flex;
-		.select {
-			margin-right: 0;
-			border-top-right-radius: 0;
-			border-bottom-right-radius: 0;
-		}
-		.delete {
-			border-top-left-radius: 0;
-			border-bottom-left-radius: 0;
-		}
-	}
-	.delete_hover:hover {
-		background-color: rgb(175, 0, 0);
-	}
-	.active_button {
-		background-color: $app-secondary;
 	}
 	@include media("<=phone") {
 		width: 100%;

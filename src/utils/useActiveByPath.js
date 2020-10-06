@@ -40,7 +40,8 @@ const useActiveByPath = () => {
 			}
 			break;
 		case 'workout':
-			state = {
+			state = initialState.workout.active = {
+				name: 'Workouts'
 			}
 			break;
 		default:

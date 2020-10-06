@@ -34,6 +34,7 @@
 .assemble {
 	@include flex;
 	align-items: flex-start;
+	width: 100%;
 	.entities {
 		flex: 2;
 		@include flex;
@@ -104,7 +105,6 @@
 		padding-bottom: 20px;
 		margin-top: 10px;
 		border-radius: 5px;
-		border: $light-border;
 		box-shadow: $soft-shadow;
 		background-color: $app-primary;
 		.title {

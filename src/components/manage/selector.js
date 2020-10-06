@@ -18,7 +18,7 @@ const Selector = () => {
 	const notMobile = window.screen.width >= 420
 
 	return (
-		<div className={view.extension}>
+		<>
 			<p className={view.title}>Selection</p>
 			<div className={styles.selector}>
 				{notMobile
@@ -38,7 +38,7 @@ const Selector = () => {
 					: <p className={styles.disclaimer}>Select entites to delete</p>
 				}
 			</div>
-		</div >
+		</>
 	)
 }
 

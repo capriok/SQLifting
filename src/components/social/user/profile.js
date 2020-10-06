@@ -111,14 +111,12 @@ const Profile = ({
 				<footer>
 					<Button
 						text="Cancel"
-						size="xsm"
 						onClick={() => cancelChanges()} />
 					{confirming
 						? <div ref={ref}>
 							<Button
 								className={styles.warn}
 								text={submitting ? "Submitting" : "Confirm Changes"}
-								size="xsm"
 								onClick={() => save()}
 								disabled={submitting} />
 
@@ -126,7 +124,6 @@ const Profile = ({
 						: <Button
 							text="Save Changes"
 							name="save"
-							size="xsm"
 							onClick={() => setConfirming(true)}
 							disabled={submitting || isEmpty(changes)} />
 					}

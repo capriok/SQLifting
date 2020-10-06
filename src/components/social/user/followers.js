@@ -64,7 +64,7 @@ const Followers = ({
 			<section>
 				<div className={styles.followers_title}>
 					<h1>Followers</h1>
-					<Link to="profile"><Button text="◄ Back" size="xsm" /></Link>
+					<Link to="profile"><Button text="◄ Back" /></Link>
 				</div>
 				<div className={styles.followers}>
 					{followers.map((f, i) => (
@@ -81,29 +81,24 @@ const Followers = ({
 											<Button
 												className={styles.warn}
 												text="Confirm"
-												size="xsm"
 												onClick={() => unfollowOwn(f.uid)} />
 										</div>
 										: <Button
 											text="Remove"
-											size="xsm"
 											onClick={() => setConfirm(f.uid)} />
 									: !f.isFollowed
 										? <Button
 											text="Follow"
-											size="xsm"
 											onClick={() => follow(f.uid)} />
 										: confirming === f.uid
 											? <div ref={ref} id={f.uid}>
 												<Button
 													className={styles.warn}
 													text="Confirm"
-													size="xsm"
 													onClick={() => unfollow(f.uid)} />
 											</div>
 											: <Button
 												text="Unfollow"
-												size="xsm"
 												onClick={() => setConfirm(f.uid)} />
 							}
 						</div>

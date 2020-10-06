@@ -1,11 +1,6 @@
 @import "../../../index.scss";
 
 .user {
-	padding: 20px;
-	border: $light-border;
-	border-radius: 5px;
-	box-shadow: $soft-shadow;
-	background-color: $app-primary;
 	footer {
 		@include flex;
 		justify-content: flex-end;

@@ -1,9 +1,9 @@
 @import "../../index.scss";
 
 .manage {
-	width: 100%;
 	@include flex;
 	align-items: flex-start;
+	width: 100%;
 	.actionbar_gap {
 		display: none;
 	}
@@ -29,7 +29,6 @@
 				margin-right: 10px;
 				margin-bottom: 10px;
 				border-radius: 5px;
-				border: $light-border;
 				box-shadow: $soft-shadow;
 				background-color: $app-primary;
 				transition: 0.2s;

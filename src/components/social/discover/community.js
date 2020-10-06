@@ -9,8 +9,8 @@ const Community = () => {
 		<>
 			<div className={styles.community}>
 				<p>Highlighted daily workout streaks</p>
-				<p>Features user</p>
-				<p>Features workout</p>
+				<p>Featured user</p>
+				<p>Featured workout</p>
 				<p>In depth shared composites</p>
 				<p>In depth shared compositions</p>
 			</div>

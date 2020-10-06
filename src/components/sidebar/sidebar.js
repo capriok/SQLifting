@@ -64,9 +64,6 @@ const SidebarContent = ({ setSidebar }) => {
 			details: {
 				uid
 			}
-		},
-		social: {
-			active
 		}
 	}] = useStateValue()
 
@@ -93,7 +90,7 @@ const SidebarContent = ({ setSidebar }) => {
 			{ name: 'View profile', pathname: `/user/${uid}/profile` }
 		],
 		discover: [
-			{ name: 'Find people', pathname: '/discover' }
+			{ name: 'Discover', pathname: '/discover' }
 		]
 	}
 

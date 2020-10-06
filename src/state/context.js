@@ -45,8 +45,9 @@ const initialState = {
 		readyForNext: false,
 		build: {}
 	},
-	social: {
-		active: {}
+	workout: {
+		active: {},
+		preview: {}
 	}
 }
 

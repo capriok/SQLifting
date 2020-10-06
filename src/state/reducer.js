@@ -75,6 +75,19 @@ const stateReducer = (state, action) => {
 					build: {}
 				}
 			};
+		case "WORKOUT_ACTION":
+			return {
+				...state,
+				workout: action.workout
+			};
+		case "RESET_WORKOUT":
+			return {
+				...state,
+				workout: {
+					active: {},
+					preview: {}
+				}
+			};
 		default:
 			return state;
 	}

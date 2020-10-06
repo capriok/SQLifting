@@ -1,4 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 /*eslint no-extend-native: "off"*/
 import React from 'react';
@@ -9,8 +8,6 @@ import { StateProvider } from "./state/state";
 import App from './app';
 
 import './index.scss';
-import 'react-tippy/dist/tippy.css'
-import 'react-draggable-array/dist/index.css'
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);

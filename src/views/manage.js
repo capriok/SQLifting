@@ -69,16 +69,17 @@ const Manage = () => {
 							</div>
 						</div>
 					))}
-					{/* <div className={styles.entity_cont}><div className={styles.entity}><div><p>test</p></div></div></div> */}
 				</div>
-				{editor.state
-					? <Editor />
-					: selector.state
-						? <Selector />
-						: preview.state
-							? <Preview />
-							: <Compose />
-				}
+				<div className={styles.extension}>
+					{editor.state
+						? <Editor />
+						: selector.state
+							? <Selector />
+							: preview.state
+								? <Preview />
+								: <Compose />
+					}
+				</div>
 			</div>
 		</>
 	)

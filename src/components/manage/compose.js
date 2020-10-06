@@ -63,22 +63,16 @@ const Compose = () => {
 
 	return (
 		<>
-			<div className={view.extension}>
-				<p className={view.title}>Add {entity.slice(0, -1)}</p>
-				<div className={styles.compose}>
-					<form onSubmit={e => submit(e)}>
-						<Input
-							placeholder="Composition name"
-							value={value}
-							onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
-						<Button
-							className={styles.submit}
-							type="submit"
-							text="Submit"
-							size="xsm" />
-					</form>
-					{tipsOption && <p className={styles.tip}>{tip()}</p>}
-				</div>
+			<p className={view.title}>Add {entity.slice(0, -1)}</p>
+			<div className={styles.compose}>
+				<form onSubmit={e => submit(e)}>
+					<Input
+						placeholder="Composition name"
+						value={value}
+						onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
+					<Button className={styles.submit} text="Submit" />
+				</form>
+				{tipsOption && <p className={styles.tip}>{tip()}</p>}
 			</div>
 		</>
 	)

@@ -11,7 +11,7 @@ import styles from '../../../styles/social/discover/find-people.module.scss'
 
 import { Button } from 'godspeed'
 
-const FindPeople = ({ fetchPeople, people }) => {
+const FindPeople = ({ term, fetchPeople, people }) => {
 	const [{
 		user: {
 			details: {
@@ -61,42 +61,47 @@ const FindPeople = ({ fetchPeople, people }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{people.map((u, i) => (
-						<tr key={i}>
-							{u.uid !== uid && <>
-								<td><Link to={`/social/user/${u.uid}/profile`}>
-									<img className={styles.icon} src={u.icon !== null ? u.icon : nullIcon} alt="" />
-								</Link></td>
-								<td><Link to={`/social/user/${u.uid}/profile`}>
-									{u.username}
-								</Link></td>
-								<td><Link to={`/social/user/${u.uid}/profile`}>
-									{u.location || 'Unknown'
-									}</Link></td>
-								<td>
-									<div className={styles.actions}>
-										{!u.isFollowed
-											? <Button
-												text="Follow"
-												size="xsm"
-												onClick={() => followUser(u.uid)} />
-											: confirming === u.uid
-												? <div ref={ref} id={u.uid}>
-													<Button
-														className={styles.warn}
-														text="Confirm"
-														size="xsm"
-														onClick={() => unfollowUser(u.uid)} />
-												</div>
-												: <Button
-													text="Unfollow"
-													size="xsm"
-													onClick={() => setConfirm(u.uid)} />
-										}
-									</div>
-								</td>
+					{people.map((p, i) => (
+						<>
+							{p.uid !== uid && <>
+								<tr key={i}>
+									<td>
+										<Link to={`/social/user/${p.uid}/profile`}>
+											<img className={styles.icon} src={p.icon !== null ? p.icon : nullIcon} alt="" />
+										</Link>
+									</td>
+									<td>
+										<Link to={`/social/user/${p.uid}/profile`}>
+											{p.username}
+										</Link>
+									</td>
+									<td>
+										<Link to={`/social/user/${p.uid}/profile`}>
+											{p.location || 'Unknown'}
+										</Link>
+									</td>
+									<td>
+										<div className={styles.actions}>
+											{!p.isFollowed
+												? <Button
+													text="Follow"
+													onClick={() => followUser(p.uid)} />
+												: confirming === p.uid
+													? <div ref={ref} id={p.uid}>
+														<Button
+															className={styles.warn}
+															text="Confirm"
+															onClick={() => unfollowUser(p.uid)} />
+													</div>
+													: <Button
+														text="Unfollow"
+														onClick={() => setConfirm(p.uid)} />
+											}
+										</div>
+									</td>
+								</tr>
 							</>}
-						</tr>
+						</>
 					))}
 				</tbody>
 			</table>

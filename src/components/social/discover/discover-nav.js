@@ -15,14 +15,10 @@ const DiscoverNav = () => {
 			</Link>
 			<div className={styles.links}>
 				<Link to="/social/discover/community">
-					<Button text="Community"
-						size="xsm"
-						name="link" />
+					<Button text="Community" name="link" />
 				</Link>
 				<Link to="/social/discover/people">
-					<Button text="Find people"
-						size="xsm"
-					/>
+					<Button text="Find people" />
 				</Link>
 			</div>
 		</div>

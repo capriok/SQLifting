@@ -119,13 +119,11 @@ const UserNav = ({
 						: queryUID === uid
 							? <Button
 								text="Edit Profile"
-								size="xsm"
 								onClick={() => setEdit(true)}
 								disabled={editing} />
 							: !profile.isFollowed
 								? <Button
 									text="Follow"
-									size="xsm"
 									onClick={async () => follow(queryUID)}
 									disabled={editing} />
 								: confirming
@@ -133,13 +131,11 @@ const UserNav = ({
 										<Button
 											className={styles.warn}
 											text="Confirm"
-											size="xsm"
 											onClick={() => unfollow(queryUID)}
 											disabled={editing} />
 									</div>
 									: <Button
 										text="Unfollow"
-										size="xsm"
 										onClick={() => setConfirming(true)}
 										disabled={editing} />
 					}

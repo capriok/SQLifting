@@ -40,7 +40,6 @@ const ManageActions = () => {
 		<div className={styles.manage_actions}>
 			<Button
 				text="Edit"
-				size="xsm"
 				className={editor.state ? styles.active_button : null}
 				onClick={() => toggleEditor()}
 				disabled={isEmpty(preview.entity)}
@@ -48,7 +47,6 @@ const ManageActions = () => {
 			<div className={styles.select_group}>
 				<Button
 					text="Select"
-					size="xsm"
 					className={selector.state ? `${styles.active_button} ${styles.select}` : styles.select}
 					onClick={() => toggleSelector()}
 				/>
@@ -56,13 +54,11 @@ const ManageActions = () => {
 					? <div ref={ref}>
 						<Button
 							text="Confirm"
-							size="xsm"
 							className={`${styles.delete} ${styles.warn}`}
 							onClick={() => deleteSelection(selection, table)} />
 					</div>
 					: <Button
 						text="Delete"
-						size="xsm"
 						className={`${styles.delete}`}
 						onClick={() => setConfirming(true)}
 						disabled={isEmpty(selector.selection)} />

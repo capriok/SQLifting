@@ -1,11 +1,14 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect, useRef } from 'react'
+import React from 'react'
 import { Route } from 'react-router-dom'
 import { useStateValue } from '../state/state'
 
+import styles from '../styles/social/social.module.scss'
+
 import User from '../components/social/user/user'
 import Discover from '../components/social/discover/discover'
+
 
 const Social = () => {
 	const [{
@@ -17,7 +20,7 @@ const Social = () => {
 	},] = useStateValue()
 
 	return (
-		<>
+		<div className={styles.social}>
 			<Route path='/social/user' render={() => (
 				<>
 					<User />
@@ -28,7 +31,7 @@ const Social = () => {
 					<Discover />
 				</>
 			)} />
-		</>
+		</div>
 	)
 }
 

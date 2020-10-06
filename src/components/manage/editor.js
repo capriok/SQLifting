@@ -43,7 +43,7 @@ const Editor = () => {
 			})
 	}
 	return (
-		<div className={view.extension}>
+		<>
 			<p className={view.title}>{entity.name}</p>
 			<div className={styles.editor}>
 				<form onSubmit={e => submit(e)}>
@@ -51,15 +51,11 @@ const Editor = () => {
 						placeholder="Edit name"
 						value={value}
 						onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
-					<Button
-						className={styles.submit}
-						type="submit"
-						text="Submit"
-						size="xsm" />
+					<Button className={styles.submit} text="Submit" />
 				</form>
 				{tipsOption && <p className={styles.tip}>Change entity name</p>}
 			</div>
-		</div>
+		</>
 	)
 }
 
