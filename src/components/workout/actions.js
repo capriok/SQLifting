@@ -1,14 +1,14 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { isEmpty } from 'lodash'
 import { useStateValue } from '../../state/state'
+import useWorkoutActions from '../actionbar/useWorkoutActions'
 
 import styles from '../../styles/workout/actions.module.scss'
 
 import { Button } from 'godspeed'
-import useWorkoutActions from '../actionbar/useWorkoutActions'
 
 const WorkoutActions = () => {
 	const [{
@@ -18,22 +18,24 @@ const WorkoutActions = () => {
 		}
 	},] = useStateValue()
 
+	const history = useHistory()
+
 	const { setPrepare } = useWorkoutActions()
 
 	return (
 		<div className={styles.workout_actions}>
 			<>
-				<Link to="/workout">
-					<Button
-						text="Back"
-						disabled={isEmpty(prepare)} />
-				</Link>
-				<Link to={`/workout/${preview.entity && preview.entity.id}/prepare`}>
-					<Button
-						text="Prepare"
-						onClick={() => setPrepare(preview.entity)}
-						disabled={isEmpty(preview) || !isEmpty(prepare)} />
-				</Link>
+				<Button
+					text="Back"
+					onClick={() => history.push('/workout')}
+					disabled={isEmpty(prepare)} />
+				<Button
+					text="Prepare"
+					onClick={() => {
+						setPrepare(preview.entity)
+						history.push(`/workout/${preview.entity.id}/prepare`)
+					}}
+					disabled={isEmpty(preview) || !isEmpty(prepare)} />
 				<Button
 					text="Start Workout"
 					onClick={() => { }}

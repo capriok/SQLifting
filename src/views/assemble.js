@@ -1,6 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { Route, useParams } from 'react-router-dom'
 import { useStateValue } from '../state/state'
 import useAssembleActions from '../components/actionbar/useAssembleActions'
 
@@ -16,11 +17,12 @@ const Assemble = () => {
 		composites,
 		compositions,
 		assemble: {
-			active,
 			steps,
 			activeStep
 		}
 	},] = useStateValue()
+
+	const params = useParams()
 
 	const {
 		fullReset,
@@ -36,7 +38,7 @@ const Assemble = () => {
 
 	useEffect(() => {
 		setSteps()
-	}, [active.entity])
+	}, [params.entities])
 
 	return (
 		<>
@@ -45,14 +47,9 @@ const Assemble = () => {
 				<Stepper />
 			</div>
 			<div className={styles.assemble}>
-				{active.entity === 'excos'
-					? <ExerciseBuilder />
-					: active.entity === 'circs'
-						? <CircuitBuilder />
-						: active.entity === 'wocos'
-							? <WorkoutBuilder />
-							: <></>
-				}
+				<Route path='/assemble/composites/exercises' component={ExerciseBuilder} />
+				<Route path='/assemble/composites/circuits' component={CircuitBuilder} />
+				<Route path='/assemble/composites/workouts' component={WorkoutBuilder} />
 			</div>
 		</>
 	)

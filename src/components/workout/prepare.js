@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash'
 import React, { useState, useEffect } from 'react'
 import { useStateValue } from '../../state/state'
-
+import { useParams } from 'react-router-dom'
 import styles from '../../styles/workout/prepare.module.scss'
 
 const Prepare = () => {
@@ -13,13 +13,12 @@ const Prepare = () => {
 
 	const [workout, setWorkout] = useState({})
 
-	const queryid = parseInt(window.location.pathname.split('/')[2])
+	const ID = parseInt(useParams().id)
+
 	useEffect(() => {
-		if (wocos.length > 0) {
-			let woco = wocos.find(w => w.id === queryid)
-			setWorkout(woco)
-		}
-	}, [wocos])
+		let woco = wocos.find(w => w.id === ID)
+		setWorkout(woco)
+	}, [wocos, ID])
 
 	useEffect(() => {
 		!isEmpty(workout) && console.log('%cActive Workout', 'color: lightskyblue', { workout });
@@ -27,7 +26,12 @@ const Prepare = () => {
 
 	return (
 		<div className={styles.prepare}>
-			<h1>{workout.name}</h1>
+			{ workout
+				? <>
+					<h1>{workout.name}</h1>
+				</>
+				: <></>
+			}
 		</div>
 	)
 }

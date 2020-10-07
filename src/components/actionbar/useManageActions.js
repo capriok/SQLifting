@@ -11,7 +11,6 @@ const useManageActions = () => {
 		user: { details: { uid } },
 		manage,
 		manage: {
-			active,
 			preview,
 			editor,
 			selector,
@@ -22,6 +21,7 @@ const useManageActions = () => {
 	}, dispatch] = useStateValue()
 
 	const update = useUpdate()
+
 
 	// Set manage component to initial context state 
 	const fullReset = () => {
@@ -125,7 +125,9 @@ const useManageActions = () => {
 	}
 
 	// Iterate thru selection entities => remove them from DB
-	const deleteSelection = (selection, table) => {
+	const deleteSelection = (selection) => {
+		let group = selection[0].group
+		let table = selection[0].table
 		// Map ids into a string with ids comma seperated for sql query 
 		let selectionIds = [selection.map(sel => sel.id)].toString()
 		// Delete all ids from passed table by id
@@ -145,7 +147,7 @@ const useManageActions = () => {
 						// If selection entity has 0 circs => remove id from selectionIds
 						selection.forEach((sel, index) => {
 							if (sel.circs.length === 0) {
-								selectionIds = selectionIds.split(',').filter((sel, i) => i !== index).toString()
+								selectionIds = selectionIds.split(',').filter((_, i) => i !== index).toString()
 							}
 						})
 						// Only fire req to delete woco_circs if selectionIds has a value
@@ -158,7 +160,7 @@ const useManageActions = () => {
 						break;
 				}
 			})
-			.then(() => update(active.group, [active.entity]))
+			.then(() => update(group, [table + 's']))
 			.catch(e => console.log(e))
 	}
 

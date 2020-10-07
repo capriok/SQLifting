@@ -13,10 +13,6 @@ import { Button } from 'godspeed'
 const ManageActions = () => {
 	const [{
 		manage: {
-			active: {
-				group,
-				table
-			},
 			preview,
 			editor,
 			selector,
@@ -26,15 +22,14 @@ const ManageActions = () => {
 		}
 	}] = useStateValue()
 
+	const { toggleEditor, toggleSelector, deleteSelection } = useManageActions()
+
 	const [confirming, setConfirming] = useState(false)
 
 	const ref = useRef();
 	useOutsideClick(ref, () => {
 		if (confirming) setConfirming(false)
 	});
-
-
-	const { toggleEditor, toggleSelector, deleteSelection } = useManageActions()
 
 	return (
 		<div className={styles.manage_actions}>
@@ -55,7 +50,7 @@ const ManageActions = () => {
 						<Button
 							text="Confirm"
 							className={`${styles.delete} ${styles.warn}`}
-							onClick={() => deleteSelection(selection, table)} />
+							onClick={() => { deleteSelection(selection); setConfirming(false) }} />
 					</div>
 					: <Button
 						text="Delete"

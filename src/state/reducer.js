@@ -51,7 +51,6 @@ const stateReducer = (state, action) => {
 			return {
 				...state,
 				manage: {
-					active: {},
 					preview: {},
 					editor: {},
 					selector: {
@@ -68,7 +67,6 @@ const stateReducer = (state, action) => {
 			return {
 				...state,
 				assemble: {
-					active: {},
 					steps: [],
 					activeStep: 0,
 					activeEntities: [],

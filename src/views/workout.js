@@ -97,9 +97,11 @@ const Workout = () => {
 						}
 					</div>
 				</>)} />
-			<Route path='/workout/:queryid/prepare' render={() => (
-				<Prepare />
-			)} />
+			<Route path='/workout/:id/prepare' render={() => {
+				return (
+					<Prepare />
+				)
+			}} />
 		</div>
 	)
 }

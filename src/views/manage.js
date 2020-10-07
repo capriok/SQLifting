@@ -1,6 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useStateValue } from '../state/state'
 import useManageActions from '../components/actionbar/useManageActions'
 
@@ -14,24 +15,36 @@ import Compose from '../components/manage/compose'
 
 const Manage = () => {
 	const [{
+		compositions,
+		composites,
 		manage,
 		manage: {
-			active,
 			preview,
 			editor,
 			selector
 		}
 	}] = useStateValue()
+
+	const params = useParams()
+
 	const { fullReset, setPreview, addToSelection } = useManageActions()
 	const [entities, setEntities] = useState([])
+
+	const groups = { compositions, composites }
+
+	if (params.group === 'composites') {
+		if (params.entities === 'circuits') params.entities = 'circs'
+		if (params.entities === 'exercises') params.entities = 'excos'
+		if (params.entities === 'workouts') params.entities = 'wocos'
+	}
 
 	useEffect(() => {
 		fullReset()
 	}, [entities])
 
 	useEffect(() => {
-		setEntities(active.groupState[active.entity])
-	}, [active])
+		setEntities(groups[params.group][params.entities])
+	}, [params])
 
 	useEffect(() => {
 		return () => fullReset()

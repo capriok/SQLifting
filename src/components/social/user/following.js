@@ -11,7 +11,7 @@ import styles from '../../../styles/social/user/following.module.scss'
 import { Button } from 'godspeed'
 
 const Following = ({
-	queryUID,
+	params,
 	fetchFollowing,
 	followUser,
 	unfollowUser,
@@ -34,7 +34,7 @@ const Following = ({
 
 	useEffect(() => {
 		fetchFollowing()
-	}, [queryUID])
+	}, [params.uid])
 
 	useEffect(() => {
 		following.length > 0 && console.log('%cFollowing', 'color: lightskyblue', { following });
@@ -68,7 +68,7 @@ const Following = ({
 							</Link>
 							{f.uid === uid
 								? <></>
-								: queryUID === uid
+								: params.uid === uid
 									? confirming === f.uid
 										? <div ref={ref} id={f.uid}>
 											<Button

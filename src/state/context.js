@@ -30,7 +30,6 @@ const initialState = {
 		wocos: []
 	},
 	manage: {
-		active: {},
 		preview: {},
 		editor: {},
 		selector: {
@@ -38,7 +37,6 @@ const initialState = {
 		},
 	},
 	assemble: {
-		active: {},
 		steps: [],
 		activeStep: 0,
 		activeEntities: [],

@@ -2,11 +2,11 @@
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
 import { useStateValue } from '../../state/state'
+import useAssembleActions from '../actionbar/useAssembleActions'
 
 import styles from '../../styles/assemble/actions.module.scss'
 
 import { Button } from 'godspeed'
-import useAssembleActions from '../actionbar/useAssembleActions'
 
 const AssembleActions = () => {
 	const [{
@@ -18,11 +18,11 @@ const AssembleActions = () => {
 		}
 	},] = useStateValue()
 
+
 	const { incStep, decStep, resetSteps, submitBuild } = useAssembleActions()
 
 	return (
 		<div className={styles.assemble_actions}>
-			{/* <div className={styles.select_group}></div> */}
 			{activeStep === steps.length
 				? <>
 					<Button text="Reset" onClick={() => resetSteps()} />
