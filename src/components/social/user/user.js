@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, useParams } from 'react-router-dom'
 import { useStateValue } from '../../../state/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
 
@@ -27,7 +27,7 @@ const User = () => {
 		}
 	},] = useStateValue()
 
-	const queryUID = parseInt(window.location.pathname.split('/')[3])
+	const params = useParams()
 
 	const fileRef = useRef(null)
 	const [editing, setEdit] = useState(false)
@@ -41,7 +41,7 @@ const User = () => {
 
 
 	const fetchProfile = async () => {
-		await SQLiftingAcc.get(`/profile/${queryUID}/${uid}`)
+		await SQLiftingAcc.get(`/profile/${params.uid}/${uid}`)
 			.then(res => {
 				setProfile(res.data)
 			})
@@ -50,7 +50,7 @@ const User = () => {
 
 
 	const fetchFollowers = async () => {
-		await SQLiftingAcc.get(`/followers/${queryUID}/${uid}`)
+		await SQLiftingAcc.get(`/followers/${params.uid}/${uid}`)
 			.then((res) => {
 				setFollowers(res.data)
 			})
@@ -59,7 +59,7 @@ const User = () => {
 
 
 	const fetchFollowing = async () => {
-		await SQLiftingAcc.get(`/following/${queryUID}/${uid}`)
+		await SQLiftingAcc.get(`/following/${params.uid}/${uid}`)
 			.then((res) => {
 				setFollowing(res.data)
 			})
@@ -68,7 +68,7 @@ const User = () => {
 
 	useEffect(() => {
 		fetchProfile()
-	}, [queryUID])
+	}, [params.uid])
 
 	const followUser = async (UID) => {
 		await SQLiftingAcc.post(`/follow`, {
@@ -142,7 +142,7 @@ const User = () => {
 	}, [changes])
 
 	const props = {
-		queryUID, fileRef, fetchProfile, fetchFollowers, fetchFollowing,
+		params, fileRef, fetchProfile, fetchFollowers, fetchFollowing,
 		saveChanges, cancelChanges, followUser, unfollowUser, unfollowOwnUser,
 		profile, followers, following, editing, setEdit, changes, setChanges,
 		submitting, setSubmitting
@@ -152,17 +152,17 @@ const User = () => {
 		<div className={styles.user}>
 			<UserNav {...props} />
 			<main>
-				<Route path="/social/user/:quid/profile" render={() => (
+				<Route path="/social/user/:uid/profile" render={() => (
 					<>
 						<Profile {...props} />
 					</>
 				)} />
-				<Route path="/social/user/:quid/followers" render={() => (
+				<Route path="/social/user/:uid/followers" render={() => (
 					<>
 						<Followers {...props} />
 					</>
 				)} />
-				<Route path="/social/user/:quid/following" render={() => (
+				<Route path="/social/user/:uid/following" render={() => (
 					<>
 						<Following {...props} />
 					</>

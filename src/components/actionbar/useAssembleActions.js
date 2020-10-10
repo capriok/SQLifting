@@ -19,26 +19,27 @@ const useAssembleActions = () => {
 		},
 		assemble,
 		assemble: {
-			active,
 			steps,
 			activeStep,
 			build
 		}
 	}, dispatch] = useStateValue()
 
+	let entities = window.location.pathname.split('/')[3]
+
 	const update = useUpdate()
 
 	const stepSet = {
-		excos: [
+		exercises: [
 			{ name: 'Equipment', label: 'Equipment', entity: equipments },
 			{ name: 'Muscles', label: 'Muscle', entity: muscles },
 			{ name: 'Exercise', label: 'Exercise', entity: exercises }
 		],
-		circs: [
+		circuits: [
 			{ name: 'Movements', label: 'Movements', entity: movements },
 			{ name: 'Detail', label: 'Detail', entity: [] }
 		],
-		wocos: [
+		workouts: [
 			{ name: 'Exercises', label: 'Exercises', entity: excos },
 			{ name: 'Circuits', label: 'Circuits', entity: circs },
 			{ name: 'Detail', label: 'Detail', entity: [] }
@@ -61,20 +62,20 @@ const useAssembleActions = () => {
 
 	const setSteps = () => {
 		let buildProps
-		switch (active.entity) {
-			case 'excos':
+		switch (entities) {
+			case 'exercises':
 				buildProps = {
 					equipment: {},
 					muscle: {},
 					exercise: {},
 				}
 				break;
-			case 'circs':
+			case 'circuits':
 				buildProps = {
 					movements: []
 				}
 				break;
-			case 'wocos':
+			case 'workouts':
 				buildProps = {
 					exercises: [],
 					circuits: []
@@ -88,7 +89,7 @@ const useAssembleActions = () => {
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				steps: stepSet[active.entity],
+				steps: stepSet[entities],
 				activeStep: 0,
 				build: buildProps
 			}
@@ -121,18 +122,18 @@ const useAssembleActions = () => {
 		let bool
 		if (steps.length > 0) {
 			let current = steps[activeStep].label.toLowerCase()
-			switch (active.entity) {
-				case 'excos':
+			switch (entities) {
+				case 'exercises':
 					Object.keys(build[current]).length > 0
 						? bool = true
 						: bool = false
 					break;
-				case 'circs':
+				case 'circuits':
 					build.movements.length > 0 || current === 'detail'
 						? bool = true
 						: bool = false
 					break;
-				case 'wocos':
+				case 'workouts':
 					(build.hasOwnProperty(current) && build[current].length > 0)
 						|| current === 'detail'
 						|| current === 'circuits'
@@ -147,7 +148,7 @@ const useAssembleActions = () => {
 			type: 'ASSEMBLE_ACTION',
 			assemble: {
 				...assemble,
-				activeEntities: stepSet[active.entity][activeStep].entity,
+				activeEntities: stepSet[entities][activeStep].entity,
 				readyForNext: bool
 			}
 		})
@@ -155,9 +156,23 @@ const useAssembleActions = () => {
 
 	const submitBuild = () => {
 		console.log('%cSubmitted Build', 'color: lightskyblue;', build);
-		SQLifting.post(active.table, { build, uid })
+		let table
+		switch (entities) {
+			case 'exercises':
+				table = 'excos'
+				break;
+			case 'circuits':
+				table = 'circs'
+				break;
+			case 'workouts':
+				table = 'wocos'
+				break;
+			default:
+				break;
+		}
+		SQLifting.post(table, { build, uid })
 			.then(res => {
-				update('composites', [active.entity])
+				update('composites', [entities])
 				console.log('%cSuccessfully inserted', 'color: lightskyblue;');
 			})
 			.catch(err => console.log(err))

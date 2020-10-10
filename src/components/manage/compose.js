@@ -1,7 +1,8 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 /*eslint no-useless-escape: "off"*/
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { SQLifting } from '../../api/sqlifting'
 import { useStateValue } from '../../state/state'
 import useUpdate from '../../utils/useUpdate'
@@ -21,21 +22,18 @@ const Compose = () => {
 		},
 		options: {
 			tipsOption
-		},
-		manage: {
-			active: {
-				entity
-			}
 		}
 	}] = useStateValue()
 	const [value, setValue] = useState('')
 
 	const update = useUpdate()
 
-	if (entity === 'excos' || entity === 'circs' || entity === 'wocos') return <Preview />
+	const params = useParams()
+
+	if (params.entities === 'excos' || params.entities === 'circs' || params.entities === 'wocos') return <Preview />
 
 	const tip = () => {
-		switch (entity) {
+		switch (params.entities) {
 			case 'equipments':
 				return ('Equipments are used to assemble exercises')
 			case 'muscles':
@@ -51,19 +49,18 @@ const Compose = () => {
 
 	const submit = (e) => {
 		e.preventDefault()
-		let table = entity.slice(0, -1)
+		let table = params.entities.slice(0, -1)
 		if (!value) return
 		SQLifting.post('/composition', { table: table, name: value, uid: uid })
 			.then(() => {
-				update('compositions', [entity])
+				update('compositions', [params.entities])
 				setValue('')
 			})
 	}
 
-
 	return (
 		<>
-			<p className={view.title}>Add {entity.slice(0, -1)}</p>
+			<p className={view.title}>Add {params.entities.slice(0, -1)}</p>
 			<div className={styles.compose}>
 				<form onSubmit={e => submit(e)}>
 					<Input

@@ -21,19 +21,19 @@ const Keystone = () => {
 						<Greeting />
 					</>
 				)} />
-				<Route path="/manage" render={() => (
+				<Route path="/manage/:group/:entities" render={() => (
 					<>
 						<Actionbar />
 						<Manage />
 					</>
 				)} />
-				<Route path="/assemble" render={() => (
+				<Route path="/assemble/:group/:entities" render={() => (
 					<>
 						<Actionbar />
 						<Assemble />
 					</>
 				)} />
-				<Route path="/workout" render={() => (
+				<Route path="/workout/" render={() => (
 					<>
 						<Actionbar />
 						<Workout />
