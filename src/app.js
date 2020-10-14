@@ -18,16 +18,8 @@ function App() {
     user: {
       isAuthenticated
     },
-    compositions: {
-      equipments,
-      muscles,
-      exercises,
-      movements },
-    composites: {
-      excos,
-      wocos,
-      circs
-    }
+    compositions,
+    composites
   }] = useStateValue()
   const update = useUpdate()
 
@@ -42,13 +34,13 @@ function App() {
       console.log(`%c${message}`, 'color: lightskyblue', arg.length)
     }, 100)
   };
-  useEffect(() => { log('Equipment', equipments) }, [equipments])
-  useEffect(() => { log('Muscles', muscles) }, [muscles])
-  useEffect(() => { log('Exercises', exercises) }, [exercises])
-  useEffect(() => { log('Movements', movements) }, [movements])
-  useEffect(() => { log('Excos', excos) }, [excos])
-  useEffect(() => { log('Wocos', wocos) }, [wocos])
-  useEffect(() => { log('Circs', circs) }, [circs])
+  useEffect(() => { log('Equipment', compositions.equipments) }, [compositions.equipments])
+  useEffect(() => { log('Muscles', compositions.muscles) }, [compositions.muscles])
+  useEffect(() => { log('Exercises', compositions.exercises) }, [compositions.exercises])
+  useEffect(() => { log('Movements', compositions.movements) }, [compositions.movements])
+  useEffect(() => { log('Excos', composites.exercises) }, [composites.exercises])
+  useEffect(() => { log('Wocos', composites.circuits) }, [composites.circuits])
+  useEffect(() => { log('Circs', composites.workouts) }, [composites.workouts])
 
   return (
     <>

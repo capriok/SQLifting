@@ -59,6 +59,9 @@ const useUpdate = () => {
     requests.forEach(req => {
       SQLifting.get(`/${req}/${uid}`)
         .then(res => {
+          if (req === 'circs') req = 'circuits'
+          if (req === 'excos') req = 'exercises'
+          if (req === 'wocos') req = 'workouts'
           final = { ...final, [req]: res.data }
           console.log(`%c${req.capitalize()} returned`, 'color: lightskyblue', { [req]: res.data })
           count++

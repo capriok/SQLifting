@@ -42,22 +42,6 @@ const stateReducer = (state, action) => {
 				...state,
 				composites: action.composites
 			};
-		case "MANAGE_ACTION":
-			return {
-				...state,
-				manage: action.manage
-			};
-		case "RESET_MANAGE":
-			return {
-				...state,
-				manage: {
-					preview: {},
-					editor: {},
-					selector: {
-						selection: []
-					},
-				}
-			};
 		case "ASSEMBLE_ACTION":
 			return {
 				...state,

@@ -1,22 +1,12 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { useStateValue } from '../../state/state'
 
 import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/selector.module.scss'
 
-const Selector = () => {
-	const [{
-		manage: {
-			selector: {
-				selection
-			}
-		}
-	}] = useStateValue()
-
+const Selector = ({ selection }) => {
 	const notMobile = window.screen.width >= 420
-
 	return (
 		<>
 			<p className={view.title}>Selection</p>
@@ -25,13 +15,8 @@ const Selector = () => {
 					? <>
 						{selection.length <= 0
 							? <p className={styles.disclaimer}>Select entites to delete</p>
-							:
-							<ul>
-								{selection.map((entity, i) => (
-									<li key={i}>
-										<span>{entity.name}</span>
-									</li>
-								))}
+							: <ul>
+								{selection.map((entity, i) => <li key={i}><span>{entity.name}</span></li>)}
 							</ul>
 						}
 					</>

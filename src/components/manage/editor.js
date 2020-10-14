@@ -12,23 +12,11 @@ import styles from '../../styles/manage/editor.module.scss'
 import { Button, Input } from 'godspeed'
 
 
-const Editor = () => {
-	const [{
-		user: { details: { uid } },
-		options: {
-			tipsOption
-		},
-		manage: {
-			editor,
-			editor: {
-				group,
-				table,
-				entity
-			}
-		}
-	}] = useStateValue()
+const Editor = ({ entity }) => {
+	const [{ user, options }] = useStateValue()
+
 	useEffect(() => {
-		!isEmpty(entity) && console.log('%cEditing', 'color: lightskyblue', editor);
+		!isEmpty(entity) && console.log('%cEditing', 'color: lightskyblue', entity);
 	}, [])
 
 	const [value, setValue] = useState('')
@@ -36,9 +24,9 @@ const Editor = () => {
 
 	const submit = (e) => {
 		e.preventDefault()
-		SQLifting.post('/updateName', { table: table, name: value, id: entity.id, uid: uid })
+		SQLifting.post('/updateName', { table: entity.table, name: value, id: entity.id, uid: user.details.uid })
 			.then(() => {
-				update(group, [`${table}s`])
+				update(entity.group, [`${entity.table}s`])
 				setValue('')
 			})
 	}
@@ -53,7 +41,7 @@ const Editor = () => {
 						onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 					<Button className={styles.submit} text="Submit" />
 				</form>
-				{tipsOption && <p className={styles.tip}>Change entity name</p>}
+				{options.tipsOption && <p className={styles.tip}>Change entity name</p>}
 			</div>
 		</>
 	)

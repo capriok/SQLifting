@@ -11,26 +11,31 @@ import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/compose.module.scss'
 
 import { Button, Input } from 'godspeed'
-import Preview from './preview'
 
 const Compose = () => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		},
-		options: {
-			tipsOption
-		}
-	}] = useStateValue()
+	const [{ user, options }] = useStateValue()
+
 	const [value, setValue] = useState('')
 
 	const update = useUpdate()
 
 	const params = useParams()
 
-	if (params.entities === 'excos' || params.entities === 'circs' || params.entities === 'wocos') return <Preview />
+	if (params.group === 'composites') {
+		if (params.entities === 'exercises' ||
+			params.entities === 'circuits' ||
+			params.entities === 'workouts')
+			return (
+				<>
+					<div className={styles.preview}>
+						<p className={view.title}>Select an entity to preview</p>
+					</div>
+					{ params.entities !== 'workouts' && options.tipsOption &&
+						<center>{params.entities.capitalize()} are used to assemble Workouts</center>
+					}
+				</>
+			)
+	}
 
 	const tip = () => {
 		switch (params.entities) {
@@ -51,7 +56,7 @@ const Compose = () => {
 		e.preventDefault()
 		let table = params.entities.slice(0, -1)
 		if (!value) return
-		SQLifting.post('/composition', { table: table, name: value, uid: uid })
+		SQLifting.post('/composition', { table: table, name: value, uid: user.details.uid })
 			.then(() => {
 				update('compositions', [params.entities])
 				setValue('')
@@ -69,7 +74,7 @@ const Compose = () => {
 						onChange={e => setValue(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 					<Button className={styles.submit} text="Submit" />
 				</form>
-				{tipsOption && <p className={styles.tip}>{tip()}</p>}
+				{options.tipsOption && <p className={styles.tip}>{tip()}</p>}
 			</div>
 		</>
 	)

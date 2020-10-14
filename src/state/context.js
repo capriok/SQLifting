@@ -25,16 +25,9 @@ const initialState = {
 		movements: []
 	},
 	composites: {
-		circs: [],
-		excos: [],
-		wocos: []
-	},
-	manage: {
-		preview: {},
-		editor: {},
-		selector: {
-			selection: []
-		},
+		circuits: [],
+		exercises: [],
+		workouts: []
 	},
 	assemble: {
 		steps: [],
