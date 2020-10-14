@@ -2,23 +2,17 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
 import useOutsideClick from '../../../utils/useOutsideClick'
 
-import nullIcon from '../../../images/null-icon.png'
+import nullIcon from '../../../assets/null-icon.png'
 import styles from '../../../styles/social/discover/find-people.module.scss'
 
 import { Button } from 'godspeed'
 
-const FindPeople = ({ term, fetchPeople, people }) => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		}
-	},] = useStateValue()
+const FindPeople = ({ fetchPeople, people }) => {
+	const [{ user }] = useStateValue()
 
 	const [confirming, setConfirm] = useState()
 
@@ -28,18 +22,18 @@ const FindPeople = ({ term, fetchPeople, people }) => {
 	});
 
 
-	const followUser = async (UID) => {
+	async function followUser(UID) {
 		await SQLiftingAcc.post(`/follow`, {
-			follower_uid: uid,
+			follower_uid: user.details.uid,
 			following_uid: UID
 		})
 			.then(() => fetchPeople())
 			.catch(err => console.log(err))
 	}
 
-	const unfollowUser = async (UID) => {
+	async function unfollowUser(UID) {
 		await SQLiftingAcc.post(`/unfollow`, {
-			follower_uid: uid,
+			follower_uid: user.details.uid,
 			following_uid: UID
 		})
 			.then(() => {
@@ -62,9 +56,9 @@ const FindPeople = ({ term, fetchPeople, people }) => {
 				</thead>
 				<tbody>
 					{people.map((p, i) => (
-						<>
-							{p.uid !== uid && <>
-								<tr key={i}>
+						<React.Fragment key={i}>
+							{p.uid !== user.details.uid &&
+								<tr>
 									<td>
 										<Link to={`/social/user/${p.uid}/profile`}>
 											<img className={styles.icon} src={p.icon !== null ? p.icon : nullIcon} alt="" />
@@ -100,8 +94,8 @@ const FindPeople = ({ term, fetchPeople, people }) => {
 										</div>
 									</td>
 								</tr>
-							</>}
-						</>
+							}
+						</React.Fragment>
 					))}
 				</tbody>
 			</table>

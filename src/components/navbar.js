@@ -1,10 +1,10 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { useStateValue } from '../state/state'
+import { useStateValue } from '../global/state'
 
-import styles from '.././styles/general/navbar.module.scss'
-import logo from '../images/official_logo_bluesql.png'
+import styles from '.././styles/common/navbar.module.scss'
+import logo from '../assets/official_logo_bluesql.png'
 
 import { Navbar as Nav, NavLink } from 'godspeed'
 

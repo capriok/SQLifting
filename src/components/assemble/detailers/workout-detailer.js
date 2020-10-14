@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 
 import styles from '../../../styles/assemble/detailers/workout-detailer.module.scss'
 
@@ -53,35 +53,34 @@ const WorkoutDetailer = () => {
 						<h1>Workout details</h1>
 						<div className={styles.details}>
 							<h2>{build.exercises.length > 1 ? 'Exercises' : 'Exercise'}</h2>
-							{
-								build.exercises.map((exco, i) => (
-									<div className={styles.detail} key={i}>
-										<p>{exco.name}</p>
-										<div>
-											<Input
-												// onWheel={() => console.log('wheel')}
-												type="number"
-												min={0}
-												step={2}
-												placeholder="Sets"
-												onChange={e => setExerciseProp('sets', e.target.value, i)} />
-											<Input
-												// onWheel={() => console.log('wheel')}
-												type="number"
-												min={0}
-												step={2}
-												placeholder="Reps"
-												onChange={e => setExerciseProp('reps', e.target.value, i)} />
-											<Input
-												// onWheel={() => console.log('wheel')}
-												type="number"
-												min={0}
-												step={2}
-												placeholder="Weight"
-												onChange={e => setExerciseProp('weight', e.target.value, i)} />
-										</div>
+							{build.exercises.map((exco, i) => (
+								<div className={styles.detail} key={i}>
+									<p>{exco.name}</p>
+									<div>
+										<Input
+											// onWheel={() => console.log('wheel')}
+											type="number"
+											min={0}
+											step={2}
+											placeholder="Sets"
+											onChange={e => setExerciseProp('sets', e.target.value, i)} />
+										<Input
+											// onWheel={() => console.log('wheel')}
+											type="number"
+											min={0}
+											step={2}
+											placeholder="Reps"
+											onChange={e => setExerciseProp('reps', e.target.value, i)} />
+										<Input
+											// onWheel={() => console.log('wheel')}
+											type="number"
+											min={0}
+											step={2}
+											placeholder="Weight"
+											onChange={e => setExerciseProp('weight', e.target.value, i)} />
 									</div>
-								))}
+								</div>
+							))}
 						</div>
 						<div className={styles.details}>
 							{build.circuits.length === 0

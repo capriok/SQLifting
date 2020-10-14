@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
 import { Route } from 'react-router-dom'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
 
 import styles from '../../../styles/social/discover/discover.module.scss'
@@ -13,27 +13,21 @@ import Community from './community'
 import { Button, Input } from 'godspeed'
 
 const Discover = () => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		}
-	},] = useStateValue()
+	const [{ user }] = useStateValue()
 
 	const [term, setTerm] = useState('')
 	const [people, setPeople] = useState([])
 
-	const fetchPeople = () => {
-		SQLiftingAcc.get(`/users/${uid}`)
+	function fetchPeople() {
+		SQLiftingAcc.get(`/users/${user.details.uid}`)
 			.then(res => {
 				setPeople(res.data)
 			})
 			.catch(err => console.log(err))
 	}
 
-	const searchPeople = () => {
-		SQLiftingAcc.get(`/usersByTerm/${uid}/${term}`)
+	function searchPeople() {
+		SQLiftingAcc.get(`/usersByTerm/${user.details.uid}/${term}`)
 			.then(res => {
 				setPeople(res.data)
 			})
@@ -51,10 +45,10 @@ const Discover = () => {
 
 	useEffect(() => {
 		if (term.length === 1) return fetchPeople()
-		const to = setTimeout(() => {
-			searchPeople()
+		const timeout = setTimeout(() => {
+			term && searchPeople()
 		}, 500);
-		return () => clearTimeout(to)
+		return () => clearTimeout(timeout)
 	}, [term])
 
 	const props = {

@@ -2,11 +2,13 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useEffect } from 'react'
 import { Route, useParams } from 'react-router-dom'
-import { useStateValue } from '../state/state'
+import { useStateValue } from '../global/state'
 import useAssembleActions from '../components/actionbar/useAssembleActions'
 
 import styles from '../styles/assemble/assemble.module.scss'
 
+import ActionBar from '../components/actionbar/actionbar'
+import AssembleActions from '../components/assemble/actions'
 import Stepper from "../components/assemble/stepper";
 import ExerciseBuilder from '../components/assemble/builders/exercise-builder'
 import CircuitBuilder from '../components/assemble/builders/circuit-builder'
@@ -42,6 +44,9 @@ const Assemble = () => {
 
 	return (
 		<>
+			<ActionBar title={params.entities}>
+				<AssembleActions />
+			</ActionBar>
 			<div className={styles.stepper}>
 				<div className={styles.stepper_gap} />
 				<Stepper />

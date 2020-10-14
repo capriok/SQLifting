@@ -2,16 +2,16 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import useOutsideClick from '../../../utils/useOutsideClick'
 
-import nullIcon from '../../../images/null-icon.png'
+import nullIcon from '../../../assets/null-icon.png'
 import styles from '../../../styles/social/user/user-nav.module.scss'
 
 import { Button } from 'godspeed'
 
 const UserNav = ({
-	queryUID,
+	paramUID,
 	fileRef,
 	fetchFollowers,
 	followUser,
@@ -22,13 +22,7 @@ const UserNav = ({
 	setChanges,
 	setEdit
 }) => {
-	const [{
-		user: {
-			details: {
-				uid,
-			}
-		}
-	},] = useStateValue()
+	const [{ user }] = useStateValue()
 
 	const [confirming, setConfirming] = useState(false)
 
@@ -114,9 +108,9 @@ const UserNav = ({
 					<Link to="following">
 						<p>Following<span>{profile.following_count}</span></p>
 					</Link>
-					{window.location.pathname !== `/social/user/${queryUID}/profile` && queryUID === uid
+					{window.location.pathname !== `/social/user/${paramUID}/profile` && paramUID === user.details.uid
 						? <></>
-						: queryUID === uid
+						: paramUID === user.details.uid
 							? <Button
 								text="Edit Profile"
 								onClick={() => setEdit(true)}
@@ -124,14 +118,14 @@ const UserNav = ({
 							: !profile.isFollowed
 								? <Button
 									text="Follow"
-									onClick={async () => follow(queryUID)}
+									onClick={async () => follow(paramUID)}
 									disabled={editing} />
 								: confirming
 									? <div ref={ref}>
 										<Button
 											className={styles.warn}
 											text="Confirm"
-											onClick={() => unfollow(queryUID)}
+											onClick={() => unfollow(paramUID)}
 											disabled={editing} />
 									</div>
 									: <Button

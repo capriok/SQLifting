@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../global/state'
 
 import stepper from '../../styles/assemble/stepper.scss'
 

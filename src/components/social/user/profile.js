@@ -9,6 +9,7 @@ import { Button, Input } from 'godspeed'
 import { isEmpty } from 'lodash'
 
 const Profile = ({
+	paramUID,
 	cancelChanges,
 	saveChanges,
 	profile,
@@ -20,7 +21,7 @@ const Profile = ({
 }) => {
 
 	useEffect(() => {
-		Object.keys(profile.data).length > 0 && console.log('%cProfile', 'color: lightskyblue', { profile });
+		Object.keys(profile.data).length > 0 && console.log(`%cUser Profile (${paramUID})`, 'color: lightskyblue', { profile });
 	}, [profile])
 
 	const [confirming, setConfirming] = useState(false)

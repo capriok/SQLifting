@@ -2,9 +2,9 @@
 /*eslint no-unused-vars: "off"*/
 import { useEffect } from 'react'
 import Axios from 'axios'
-import { useStateValue } from '../state/state'
+import { useStateValue } from '../global/state'
 
-import placeholder from '../images/weather_placeholder.png'
+import placeholder from '../assets/weather_placeholder.png'
 
 // https://openweathermap.org/api/one-call-api
 

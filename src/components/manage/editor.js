@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react'
 import { isEmpty } from 'lodash'
 import { SQLifting } from '../../api/sqlifting'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../global/state'
 import useUpdate from '../../utils/useUpdate';
 
 import view from '../../styles/manage/manage.module.scss'

@@ -2,11 +2,11 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
 import { SQLiftingAcc } from '../api/sqlifting'
-import { useStateValue } from '../state/state'
+import { useStateValue } from '../global/state'
 
-import styles from '../styles/general/authbox.module.scss'
-import person from '../images/authbox_person.png'
-import lock from '../images/authbox_lock.png'
+import styles from '../styles/common/authbox.module.scss'
+import person from '../assets/authbox_person.png'
+import lock from '../assets/authbox_lock.png'
 
 import { Button, Input } from 'godspeed'
 

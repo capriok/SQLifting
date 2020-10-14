@@ -1,7 +1,7 @@
 import React from 'react'
 
 import view from '../../../styles/manage/manage.module.scss'
-import styles from '../../../styles/manage/preview.module.scss'
+import styles from '../../../styles/common/ext-preview.module.scss'
 
 const ExercisePreview = ({ entity }) => {
 	return (

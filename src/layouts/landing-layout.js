@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 import styles from './landing.module.scss'
 
-import landingBlur from '../images/landing_blur.jpg'
-import logo from '../images/official_logo.png'
-import assemble from '../images/landing_assemble.png'
-import manage from '../images/landing_manage.png'
-import workout from '../images/landing_workout.png'
+import landingBlur from '../assets/landing_blur.jpg'
+import logo from '../assets/official_logo.png'
+import assemble from '../assets/landing_assemble.png'
+import manage from '../assets/landing_manage.png'
+import workout from '../assets/landing_workout.png'
 
 const LandingLayout = () => {
 	return (

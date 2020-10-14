@@ -1,4 +1,4 @@
-const stateReducer = (state, action) => {
+const globalReducer = (state, action) => {
 	switch (action.type) {
 		case "AUTHORIZATION":
 			return {
@@ -75,4 +75,4 @@ const stateReducer = (state, action) => {
 	}
 }
 
-export default stateReducer
+export default globalReducer

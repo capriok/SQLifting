@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react'
 import { isEmpty } from 'lodash'
 import { SQLifting } from '../../api/sqlifting'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../global/state'
 import useOutsideClick from '../../utils/useOutsideClick'
 import useUpdate from '../../utils/useUpdate';
 

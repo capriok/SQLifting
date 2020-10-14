@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { useStateValue } from './state/state'
+import { useStateValue } from './global/state'
 import useUpdate from './utils/useUpdate';
 import useWeather from './utils/useWeather';
 
@@ -21,6 +21,7 @@ function App() {
     compositions,
     composites
   }] = useStateValue()
+
   const update = useUpdate()
 
   useEffect(() => {

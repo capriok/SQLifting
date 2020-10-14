@@ -3,11 +3,12 @@
 /*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
 import { uniqBy, remove } from 'lodash'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 
-import check from '../../../images/check_black.png'
+import check from '../../../assets/check_black.png'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
+import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/workout-extension.module.scss'
 
 import { Input } from 'godspeed';
@@ -91,8 +92,8 @@ const WorkoutBuilder = () => {
 	}
 
 	const activeEntity = entity => {
-		const idleClass = styles.entity
-		const activeClass = `${styles.entity} ${styles.active_entity}`
+		const idleClass = ent.entity
+		const activeClass = `${ent.entity} ${ent.active_entity}`
 		if (build[activeEntities[0].table] === undefined) return idleClass
 		let inBuild = build[activeEntities[0].table].id === entity.id
 		return inBuild ? activeClass : idleClass
@@ -103,9 +104,9 @@ const WorkoutBuilder = () => {
 			{build.hasOwnProperty('exercises') && build.hasOwnProperty('circuits') && <>
 				{activeStep < steps.length - 1
 					? <>
-						<div className={styles.entities}>
+						<div className={ent.entities}>
 							{activeEntities.map((entity, i) => (
-								<div key={i} className={styles.entity_cont}>
+								<div key={i} className={ent.entity_cont}>
 									<div className={activeEntity(entity)} onClick={() => addToWorkoutBuild(entity)}>
 										{build[steps[activeStep].label.toLowerCase()].some(s => s.id === entity.id) &&
 											<img src={check} alt="" />

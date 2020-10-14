@@ -4,7 +4,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { SQLifting } from '../../api/sqlifting'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../global/state'
 import useUpdate from '../../utils/useUpdate'
 
 import view from '../../styles/manage/manage.module.scss'

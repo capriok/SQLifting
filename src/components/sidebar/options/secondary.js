@@ -1,7 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import { BlockPicker } from 'react-color';
 import useOutsideClick from '../../../utils/useOutsideClick'
 

@@ -2,9 +2,9 @@
 /*eslint no-extend-native: "off"*/
 import React from 'react';
 import ReactDOM from 'react-dom';
-import initialState from './state/context'
-import stateReducer from './state/reducer'
-import { StateProvider } from "./state/state";
+import globalState from './global/context'
+import globalReducer from './global/reducer'
+import { GlobalProvider } from "./global/state";
 import App from './app';
 
 import './index.scss';
@@ -24,7 +24,7 @@ export default function Index() {
   `);
 
   if (process.env.NODE_ENV === 'production') console.log = () => { }
-  if (initialState.user.token) {
+  if (globalState.user.token) {
     if (process.env.NODE_ENV === 'development') {
       log('-------------------------TASKS-------------------------')
       log('- Think about more composition editing features')
@@ -34,15 +34,15 @@ export default function Index() {
       log('     JWT for routes involving account specific data')
     }
     log('-------------------------USER-------------------------')
-    log(`Logged in as ${initialState.user.details.username.capitalize()} (ID: ${initialState.user.details.uid})`);
+    log(`Logged in as ${globalState.user.details.username.capitalize()} (ID: ${globalState.user.details.uid})`);
     log('-------------------------DATA-------------------------')
   }
 
   return (
     <>
-      <StateProvider initialState={initialState} reducer={stateReducer}>
+      <GlobalProvider globalState={globalState} globalReducer={globalReducer}>
         <App />
-      </StateProvider>
+      </GlobalProvider>
     </>
   );
 }

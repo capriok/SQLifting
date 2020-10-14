@@ -1,13 +1,15 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
+/*eslint no-empty-pattern: "off"*/
+
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../global/state'
 
 import styles from '../../styles/sidebar/sidebar.module.scss'
 import acc from '../../styles/sidebar/accordian.module.scss'
 import ops from '../../styles/sidebar/options.module.scss'
-import gear from '../../images/gear.png'
+import gear from '../../assets/gear.png'
 
 import TipsOption from './options/tips'
 import BackgroundOption from './options/background'
@@ -20,20 +22,19 @@ const notMobile = window.screen.width >= 420
 const Sidebar = () => {
 	const [{
 		options: { sidebarOption },
-		components,
-		components: { sidebar }
+		components
 	}, dispatch] = useStateValue()
 
 
 	useEffect(() => { !notMobile && dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: false } }) }, [])
 
-	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
+	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !components.sidebar } })
 
 	if (notMobile) {
 		if (!sidebarOption) {
 			return (
 				<>
-					{(!sidebarOption && sidebar) &&
+					{(!sidebarOption && components.sidebar) &&
 						<SidebarContent setSidebar={() => flipSidebar()} />
 					}
 				</>
@@ -50,7 +51,7 @@ const Sidebar = () => {
 	} else {
 		return (
 			<>
-				{sidebar &&
+				{components.sidebar &&
 					<SidebarContent setSidebar={() => flipSidebar()} />
 				}
 			</>
@@ -59,13 +60,7 @@ const Sidebar = () => {
 }
 
 const SidebarContent = ({ setSidebar }) => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		}
-	}] = useStateValue()
+	const [{ user }] = useStateValue()
 
 	const [optionsOpen, setOptions] = useState(false)
 
@@ -87,7 +82,7 @@ const SidebarContent = ({ setSidebar }) => {
 			{ name: 'Go', pathname: '' }
 		],
 		user: [
-			{ name: 'View profile', pathname: `/user/${uid}/profile` }
+			{ name: 'View profile', pathname: `/user/${user.details.uid}/profile` }
 		],
 		discover: [
 			{ name: 'Discover', pathname: '/discover' }
@@ -208,7 +203,7 @@ const SidebarContent = ({ setSidebar }) => {
 }
 
 const SidebarOptions = ({ flipOptions }) => {
-	const [, dispatch] = useStateValue()
+	const [{ }, dispatch] = useStateValue()
 
 	const logoutActions = async () => {
 		await dispatch({ type: 'LOGOUT' })

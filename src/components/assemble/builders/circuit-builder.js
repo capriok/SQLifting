@@ -3,11 +3,12 @@
 /*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
 import { uniqBy, remove } from 'lodash'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 
-import check from '../../../images/check_black.png'
+import check from '../../../assets/check_black.png'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
+import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/circuit-extension.module.scss'
 
 import { Input } from 'godspeed';
@@ -84,10 +85,10 @@ const CircuitBuilder = () => {
 			{build.hasOwnProperty('movements') && <>
 				{activeStep < steps.length - 1
 					? <>
-						<div className={styles.entities}>
+						<div className={ent.entities}>
 							{activeEntities.map((entity, i) => (
-								<div key={i} className={styles.entity_cont}>
-									<div className={styles.entity} onClick={() => addToCircuitBuild(entity)}>
+								<div key={i} className={ent.entity_cont}>
+									<div className={ent.entity} onClick={() => addToCircuitBuild(entity)}>
 										{build.movements.some(s => s.id === entity.id) &&
 											<img src={check} alt="" />
 										}

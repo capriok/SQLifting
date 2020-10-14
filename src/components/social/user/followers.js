@@ -2,29 +2,23 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import useOutsideClick from '../../../utils/useOutsideClick'
 
-import nullIcon from '../../../images/null-icon.png'
+import nullIcon from '../../../assets/null-icon.png'
 import styles from '../../../styles/social/user/followers.module.scss'
 
 import { Button } from 'godspeed'
 
 const Followers = ({
-	params,
+	paramUID,
 	fetchFollowers,
 	followUser,
 	unfollowUser,
 	unfollowOwnUser,
 	followers
 }) => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		}
-	},] = useStateValue()
+	const [{ user }] = useStateValue()
 
 	const [confirming, setConfirm] = useState()
 
@@ -35,10 +29,10 @@ const Followers = ({
 
 	useEffect(() => {
 		fetchFollowers()
-	}, [params.uid])
+	}, [paramUID])
 
 	useEffect(() => {
-		followers.length > 0 && console.log('%cFollowers', 'color: lightskyblue', { followers });
+		followers.length > 0 && console.log(`%cUser Followers (${paramUID})`, 'color: lightskyblue', { followers });
 	}, [followers])
 
 	async function follow(uid) {
@@ -73,9 +67,9 @@ const Followers = ({
 								<img className={styles.icon} src={f.icon !== null ? f.icon : nullIcon} alt="" />
 								<span className={styles.username}>{f.username}</span>
 							</Link>
-							{f.uid === uid
+							{f.uid === user.details.uid
 								? <></>
-								: params.uid === uid
+								: paramUID === user.details.uid
 									? confirming === f.uid
 										? <div ref={ref} id={f.uid}>
 											<Button

@@ -1,9 +1,9 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import { useStateValue } from '../../state/state'
+import { useStateValue } from '../../global/state'
 import useWorkoutActions from '../actionbar/useWorkoutActions'
 
 import styles from '../../styles/workout/actions.module.scss'

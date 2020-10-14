@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import styles from '../../../styles/sidebar/options/toggle.module.scss'
 
 const Tips = () => {

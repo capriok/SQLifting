@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
 import { Route, useParams } from 'react-router-dom'
-import { useStateValue } from '../../../state/state'
+import { useStateValue } from '../../../global/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
 
 import styles from '../../../styles/social/user/user.module.scss'
@@ -19,15 +19,10 @@ const INIT_PROFILE = {
 }
 
 const User = () => {
-	const [{
-		user: {
-			details: {
-				uid
-			}
-		}
-	},] = useStateValue()
+	const [{ user }] = useStateValue()
 
 	const params = useParams()
+	const paramUID = parseInt(params.uid)
 
 	const fileRef = useRef(null)
 	const [editing, setEdit] = useState(false)
@@ -39,27 +34,24 @@ const User = () => {
 	const [followers, setFollowers] = useState([])
 	const [following, setFollowing] = useState([])
 
-
-	const fetchProfile = async () => {
-		await SQLiftingAcc.get(`/profile/${params.uid}/${uid}`)
+	async function fetchProfile() {
+		await SQLiftingAcc.get(`/profile/${paramUID}/${user.details.uid}`)
 			.then(res => {
 				setProfile(res.data)
 			})
 			.catch(err => console.log(err))
 	}
 
-
-	const fetchFollowers = async () => {
-		await SQLiftingAcc.get(`/followers/${params.uid}/${uid}`)
+	async function fetchFollowers() {
+		await SQLiftingAcc.get(`/followers/${paramUID}/${user.details.uid}`)
 			.then((res) => {
 				setFollowers(res.data)
 			})
 			.catch(err => console.log(err))
 	}
 
-
-	const fetchFollowing = async () => {
-		await SQLiftingAcc.get(`/following/${params.uid}/${uid}`)
+	async function fetchFollowing() {
+		await SQLiftingAcc.get(`/following/${paramUID}/${user.details.uid}`)
 			.then((res) => {
 				setFollowing(res.data)
 			})
@@ -68,44 +60,44 @@ const User = () => {
 
 	useEffect(() => {
 		fetchProfile()
-	}, [params.uid])
+	}, [paramUID])
 
-	const followUser = async (UID) => {
+	async function followUser(UID) {
 		await SQLiftingAcc.post(`/follow`, {
-			follower_uid: uid,
+			follower_uid: user.details.uid,
 			following_uid: UID
 		})
 			.then(() => fetchProfile())
 			.catch(err => console.log(err))
 	}
 
-	const unfollowUser = async (UID) => {
+	async function unfollowUser(UID) {
 		await SQLiftingAcc.post(`/unfollow`, {
-			follower_uid: uid,
+			follower_uid: user.details.uid,
 			following_uid: UID
 		})
 			.then(() => fetchProfile())
 			.catch(err => console.log(err))
 	}
 
-	const unfollowOwnUser = async (UID) => {
+	async function unfollowOwnUser(UID) {
 		await SQLiftingAcc.post(`/unfollowOwn`, {
 			follower_uid: UID,
-			following_uid: uid
+			following_uid: user.details.uid
 		})
 			.then(() => fetchProfile())
 			.catch(err => console.log(err))
 	}
 
-	const cancelChanges = () => {
+	function cancelChanges() {
 		setEdit(false)
 		setChanges({})
 	}
 
-	const saveChanges = () => {
+	function saveChanges() {
 		if (Object.keys(changes).length === 0) return
 		let formData = new FormData();
-		formData.append('uid', uid);
+		formData.append('uid', user.details.uid);
 		formData.append('icon', fileRef.current);
 		formData.append('status', changes.status);
 		formData.append('first_name', changes.first_name);
@@ -142,7 +134,7 @@ const User = () => {
 	}, [changes])
 
 	const props = {
-		params, fileRef, fetchProfile, fetchFollowers, fetchFollowing,
+		paramUID, fileRef, fetchProfile, fetchFollowers, fetchFollowing,
 		saveChanges, cancelChanges, followUser, unfollowUser, unfollowOwnUser,
 		profile, followers, following, editing, setEdit, changes, setChanges,
 		submitting, setSubmitting

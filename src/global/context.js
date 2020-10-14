@@ -1,4 +1,4 @@
-const initialState = {
+const globalState = {
 	user: {
 		isAuthenticated: false,
 		token: '',
@@ -45,14 +45,14 @@ const initialState = {
 let LStoken = localStorage.getItem('SQLifting-token')
 let LSuser = JSON.parse(localStorage.getItem('SQLifting-user'))
 if (LStoken && LSuser) {
-	initialState.user = {
+	globalState.user = {
 		isAuthenticated: true,
 		token: LStoken,
 		details: LSuser
 	}
 	let LSops = JSON.parse(localStorage.getItem('SQLifting-options'))
 	if (LSops) {
-		initialState.options = LSops
+		globalState.options = LSops
 		document.documentElement.style.setProperty('--app-background', LSops.backgroundOption)
 		document.documentElement.style.setProperty('--app-primary', LSops.primaryOption)
 		document.documentElement.style.setProperty('--app-secondary', LSops.secondaryOption)
@@ -60,10 +60,10 @@ if (LStoken && LSuser) {
 }
 let LScomponents = JSON.parse(localStorage.getItem('SQLifting-components'))
 if (LScomponents) {
-	initialState.components = {
-		...initialState.components,
+	globalState.components = {
+		...globalState.components,
 		sidebar: LScomponents.sidebar
 	}
 }
 
-export default initialState
+export default globalState

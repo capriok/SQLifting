@@ -2,10 +2,10 @@
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
 import Moment from 'react-moment';
-import { useStateValue } from '../state/state'
+import { useStateValue } from '../global/state'
 import useClock from '../utils/useClock';
 
-import styles from '../styles/general/greeting.module.scss'
+import styles from '../styles/common/greeting.module.scss'
 
 const Greeting = () => {
 	const [{ user }] = useStateValue()

@@ -3,7 +3,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import styles from '../styles/general/keystone.module.scss'
+import styles from '../styles/common/keystone.module.scss'
 
 import Greeting from '../views/greeting'
 import Actionbar from './actionbar/actionbar'
@@ -23,25 +23,22 @@ const Keystone = () => {
 				)} />
 				<Route path="/manage/:group/:entities" render={() => (
 					<>
-						{/* <Actionbar /> */}
 						<Manage />
 					</>
 				)} />
-				<Route path="/assemble" render={() => (
+				<Route path="/assemble/:group/:entities" render={() => (
 					<>
-						{/* <Actionbar /> */}
-						{/* <Assemble /> */}
+						<Assemble />
 					</>
 				)} />
 				<Route path="/workout/" render={() => (
 					<>
-						{/* <Actionbar /> */}
-						{/* <Workout /> */}
+						<Workout />
 					</>
 				)} />
 				<Route path='/social' render={() => (
 					<>
-						{/* <Social /> */}
+						<Social />
 					</>
 				)} />
 			</div>
