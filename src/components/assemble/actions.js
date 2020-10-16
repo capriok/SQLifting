@@ -8,39 +8,31 @@ import styles from '../../styles/assemble/actions.module.scss'
 
 import { Button } from 'godspeed'
 
-const AssembleActions = () => {
-	const [{
-		assemble: {
-			steps,
-			activeStep,
-			readyForNext,
-			build
-		}
-	},] = useStateValue()
+const AssembleActions = ({ state, dispatch }) => {
+	const { steps, activeStep, readyForNext, currentBuild } = state
 
-	const { incStep, decStep, resetSteps, submitBuild } = useAssembleActions()
+	const notReadyForNext = !readyForNext
+	const isFirstStep = activeStep === 0
+	const isLastStep = activeStep === steps.length - 1
+	const notLastStep = activeStep < steps.length - 1
+	const noBuildName = state[currentBuild] && !state[currentBuild].name
 
 	return (
 		<div className={styles.assemble_actions}>
-			{activeStep === steps.length
-				? <>
-					<Button text="Reset" onClick={() => resetSteps()} />
-				</>
-				: <>
-					<Button
-						text="Back"
-						disabled={activeStep === 0 || activeStep === steps.length}
-						onClick={() => activeStep > 0 && decStep()} />
-					<Button
-						text="Next"
-						disabled={activeStep === steps.length - 1 || activeStep === steps.length || !readyForNext}
-						onClick={() => incStep()} />
-					<Button
-						text="Submit"
-						disabled={activeStep < steps.length - 1 || !build.name || !readyForNext}
-						onClick={() => submitBuild()} />
-				</>
-			}
+			<>
+				<Button
+					text="Back"
+					disabled={isFirstStep}
+					onClick={() => dispatch({ type: 'DEC_ACTIVESTEP' })} />
+				<Button
+					text="Next"
+					disabled={isLastStep || notReadyForNext}
+					onClick={() => dispatch({ type: 'INC_ACTIVESTEP' })} />
+				<Button
+					text="Submit"
+					disabled={notLastStep || notReadyForNext || noBuildName}
+					onClick={() => { }} />
+			</>
 		</div>
 	)
 }

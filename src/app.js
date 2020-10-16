@@ -7,25 +7,19 @@ import useUpdate from './utils/useUpdate';
 import useWeather from './utils/useWeather';
 
 import LandingLayout from './layouts/landing-layout';
-import Authenticate from './components/authenticate'
+import Authenticate from './components/common/authenticate'
 import MainLayout from './layouts/main-layout'
-import Navbar from './components/navbar'
+import Navbar from './components/common/navbar'
 import Sidebar from './components/sidebar/sidebar';
-import Keystone from './components/keystone';
+import Keystone from './components/common/keystone';
 
 function App() {
-  const [{
-    user: {
-      isAuthenticated
-    },
-    compositions,
-    composites
-  }] = useStateValue()
+  const [{ user, compositions, composites }] = useStateValue()
 
   const update = useUpdate()
 
   useEffect(() => {
-    if (isAuthenticated) update('all')
+    if (user.isAuthenticated) update('all')
   }, [])
 
   useWeather()
@@ -46,7 +40,7 @@ function App() {
   return (
     <>
       <Router>
-        {!isAuthenticated
+        {!user.isAuthenticated
           ? <Route exact path='/' render={() => (
             <LandingLayout />
           )} />
@@ -61,7 +55,7 @@ function App() {
             </>
           )} />
         }
-        {!isAuthenticated && <>
+        {!user.isAuthenticated && <>
           <Route path='/login' render={() => (
             <Authenticate />
           )} />

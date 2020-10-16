@@ -1,7 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { useStateValue } from '../../global/state'
 
 import stepper from '../../styles/assemble/stepper.scss'
 
@@ -20,20 +19,14 @@ const useStyles = makeStyles(() => ({
 	CI: {}
 }))
 
-const Stepper = () => {
-	const [{
-		assemble: {
-			steps,
-			activeStep
-		}
-	}] = useStateValue()
+const Stepper = ({ state, dispatch }) => {
 
 	const cls = useStyles()
 
 	return (
 		<>
-			<MStepper className={cls.root} activeStep={activeStep} alternativeLabel>
-				{steps.map((step, i) => (
+			<MStepper className={cls.root} activeStep={state.activeStep} alternativeLabel>
+				{state.steps.map((step, i) => (
 					<Step key={i}>
 						<StepLabel StepIconProps={{
 							classes: { root: cls.icon, active: cls.AI, completed: cls.CI }

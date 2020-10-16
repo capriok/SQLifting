@@ -12,11 +12,11 @@ import styles from '../../styles/manage/editor.module.scss'
 import { Button, Input } from 'godspeed'
 
 
-const Editor = ({ entity }) => {
+const Editor = ({ preview }) => {
 	const [{ user, options }] = useStateValue()
 
 	useEffect(() => {
-		!isEmpty(entity) && console.log('%cEditing', 'color: lightskyblue', entity);
+		!isEmpty(preview) && console.log('%cEditing', 'color: lightskyblue', preview);
 	}, [])
 
 	const [value, setValue] = useState('')
@@ -24,15 +24,15 @@ const Editor = ({ entity }) => {
 
 	const submit = (e) => {
 		e.preventDefault()
-		SQLifting.post('/updateName', { table: entity.table, name: value, id: entity.id, uid: user.details.uid })
+		SQLifting.post('/updateName', { table: preview.table, name: value, id: preview.id, uid: user.details.uid })
 			.then(() => {
-				update(entity.group, [`${entity.table}s`])
+				update(preview.group, [`${preview.table}s`])
 				setValue('')
 			})
 	}
 	return (
 		<>
-			<p className={view.title}>{entity.name}</p>
+			<p className={view.title}>{preview.name}</p>
 			<div className={styles.editor}>
 				<form onSubmit={e => submit(e)}>
 					<Input

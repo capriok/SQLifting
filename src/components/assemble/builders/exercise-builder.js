@@ -2,92 +2,65 @@
 /*eslint no-unused-vars: "off"*/
 /*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
-import { useStateValue } from '../../../global/state'
 
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/exercise-extension.module.scss'
 import { Input } from 'godspeed';
 
-const ExerciseBuilder = () => {
-	const [{
-		assemble,
-		assemble: {
-			activeEntities,
-			build
-		}
-	}, dispatch] = useStateValue()
+const ExerciseBuilder = ({ state, dispatch }) => {
+	const { steps, activeStep, entities, exerciseBuild: build } = state
 
 	const [name, setName] = useState('')
 
 	useEffect(() => {
-		dispatch({
-			type: 'ASSEMBLE_ACTION',
-			assemble: {
-				...assemble,
-				build: {
-					...build,
-					name: name
-				}
-			}
-		})
+		return dispatch({ type: 'RESET_BUILDER' })
+	}, [])
+
+	useEffect(() => {
+		dispatch({ type: 'EXERCISE_NAME', name: name })
 	}, [name])
 
-	const addToExerciseBuild = (entity) => {
-		dispatch({
-			type: 'ASSEMBLE_ACTION',
-			assemble: {
-				...assemble,
-				readyForNext: true,
-				build: {
-					...build,
-					[activeEntities[0].table]: entity
-				}
-			}
-		})
+	const addToBuild = (entity) => {
+		dispatch({ type: 'ALTER_EX_BUILD', entity })
 	}
 
 	const activeEntity = entity => {
-		const idleClass = ent.entity
-		const activeClass = `${ent.entity} ${ent.active_entity}`
-		if (build[activeEntities[0].table] === undefined) return idleClass
-		let inBuild = build[activeEntities[0].table].id === entity.id
-		return inBuild ? activeClass : idleClass
+		if (build[steps[activeStep].name] === undefined) return ent.entity
+		return build[steps[activeStep].name].id === entity.id
+			? `${ent.entity} ${ent.active_entity}`
+			: ent.entity
 	}
 
 	return (
 		<>
-			{build.hasOwnProperty('equipment') &&
-				build.hasOwnProperty('muscle') &&
-				build.hasOwnProperty('exercise') && <>
-					<div className={ent.entities}>
-						{activeEntities.map((entity, i) => (
-							<div key={i} className={ent.entity_cont}>
-								<div
-									className={activeEntity(entity)}
-									onClick={() => addToExerciseBuild(entity)}>
-									<div><p>{entity.name}</p></div>
-								</div>
-							</div>
-						))}
-					</div>
-					<div className={styles.extension}>
-						{build.name
-							? <p className={styles.title}>{build.name}</p>
-							: <p className={styles.name_placeholder}>Build name</p>}
-						<div className={styles.name_input}>
-							<Input
-								placeholder="Give it a name"
-								value={name}
-								onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
-						</div>
-						<div className={ext.exercise_exntension}>
-							<p>Equipment: <span>{build.equipment.name}</span></p>
-							<p>Muscle: <span>{build.muscle.name}</span></p>
-							<p>Exercise: <span>{build.exercise.name}</span></p>
+			<div className={ent.entities}>
+				{entities.map((entity, i) => (
+					<div key={i} className={ent.entity_cont}>
+						<div
+							className={activeEntity(entity)}
+							onClick={() => addToBuild(entity)}>
+							<div><p>{entity.name}</p></div>
 						</div>
 					</div>
-				</>}
+				))}
+			</div>
+			<div className={styles.extension}>
+				{build.name
+					? <p className={styles.title}>{build.name}</p>
+					: <p className={styles.name_placeholder}>Build name</p>}
+				<div className={styles.name_input}>
+					<Input
+						placeholder="Give it a name"
+						value={name}
+						onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
+				</div>
+				<div className={ext.exercise_exntension}>
+					<p>Equipment: <span>{build.equipment.name}</span></p>
+					<p>Muscle: <span>{build.muscle.name}</span></p>
+					<p>Exercise: <span>{build.exercise.name}</span></p>
+				</div>
+			</div>
 		</>
 	)
 }

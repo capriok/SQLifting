@@ -2,7 +2,7 @@
 /*eslint no-unused-vars: "off"*/
 import { isEmpty, remove, uniq } from 'lodash'
 
-export const initialState = {
+export const manageState = {
 	ext: {
 		preview: false,
 		select: false,
@@ -17,7 +17,7 @@ export function manageReducer(state, action) {
 		case 'CLEAR_EXT':
 			return {
 				...state,
-				ext: { ...initialState.ext }
+				ext: { ...manageState.ext }
 			}
 		case 'TOGGLE_PREVIEW':
 			return {
@@ -48,13 +48,13 @@ export function manageReducer(state, action) {
 			return state.ext.select
 				? {
 					...state,
-					ext: { ...initialState.ext },
+					ext: { ...manageState.ext },
 					selection: []
 				}
 				: {
 					...state,
 					ext: {
-						...initialState.ext,
+						...manageState.ext,
 						select: true
 					},
 					preview: {}

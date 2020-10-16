@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash'
 import { useParams } from 'react-router-dom'
 import { useStateValue } from '../global/state'
 
-import { initialState, manageReducer } from '../components/manage/state/manage-reducer'
+import { manageState, manageReducer } from '../components/manage/state/manage-reducer'
 
 import styles from '../styles/manage/manage.module.scss'
 import ent from '../styles/common/entities.module.scss'
@@ -18,10 +18,9 @@ import Compose from '../components/manage/compose'
 import Actionbar from '../components/actionbar/actionbar'
 import ManageActions from '../components/manage/actions'
 
-const Manage = () => {
+const Manage = ({ params }) => {
 	const [globalState] = useStateValue()
-	const [state, dispatch] = useReducer(manageReducer, initialState);
-	const params = useParams()
+	const [state, dispatch] = useReducer(manageReducer, manageState);
 	const [entities, setEntities] = useState([])
 
 	useEffect(() => {
@@ -45,10 +44,12 @@ const Manage = () => {
 				: ent.entity
 	}
 
+	const props = { state, dispatch, preview: state.preview, selection: state.selection }
+
 	return (
 		<>
 			<Actionbar title={params.entities}>
-				<ManageActions state={state} dispatch={dispatch} />
+				<ManageActions {...props} />
 			</Actionbar>
 			<div className={styles.manage}>
 				<div className={ent.entities}>
@@ -66,9 +67,9 @@ const Manage = () => {
 				</div>
 				<div className={styles.extension}>
 					{Object.keys(state.ext).every(k => state.ext[k] === false) && <Compose />}
-					{state.ext.preview && <Preview entity={state.preview} />}
-					{state.ext.edit && <Editor entity={state.preview} />}
-					{state.ext.select && <Selector selection={state.selection} />}
+					{state.ext.preview && <Preview {...props} />}
+					{state.ext.edit && <Editor {...props} />}
+					{state.ext.select && <Selector {...props} />}
 				</div>
 			</div>
 		</>

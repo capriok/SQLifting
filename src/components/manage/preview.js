@@ -8,23 +8,23 @@ import ExercisePreview from '../manage/previews/exercise-preview'
 import CircuitPreview from '../manage/previews/circuit-preview'
 import WorkoutPreview from '../manage/previews/workout-preview'
 
-const Preview = ({ entity }) => {
+const Preview = ({ preview }) => {
 
 	useEffect(() => {
-		(entity && !isEmpty(entity)) && console.log('%cPreviewing', 'color: lightskyblue', entity);
-	}, [entity])
+		(preview && !isEmpty(preview)) && console.log('%cPreviewing', 'color: lightskyblue', preview);
+	}, [preview])
 
-	switch (entity && entity.group) {
+	switch (preview && preview.group) {
 		case 'compositions':
-			return <CompositionPreview entity={entity} />
+			return <CompositionPreview preview={preview} />
 		case 'composites':
-			switch (entity.table) {
+			switch (preview.table) {
 				case 'exco':
-					return <ExercisePreview entity={entity} />
+					return <ExercisePreview preview={preview} />
 				case 'circ':
-					return <CircuitPreview entity={entity} />
+					return <CircuitPreview preview={preview} />
 				case 'woco':
-					return <WorkoutPreview entity={entity} />
+					return <WorkoutPreview preview={preview} />
 				default:
 					break;
 			}

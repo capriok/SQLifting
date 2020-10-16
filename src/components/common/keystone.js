@@ -3,14 +3,13 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import styles from '../styles/common/keystone.module.scss'
+import styles from '../../styles/common/keystone.module.scss'
 
-import Greeting from '../views/greeting'
-import Actionbar from './actionbar/actionbar'
-import Manage from '../views/manage'
-import Assemble from '../views/assemble'
-import Workout from '../views/workout'
-import Social from '../views/social'
+import Greeting from '../../views/greeting'
+import Manage from '../../views/manage'
+import Assemble from '../../views/assemble'
+import Workout from '../../views/workout'
+import Social from '../../views/social'
 
 const Keystone = () => {
 	return (
@@ -21,14 +20,14 @@ const Keystone = () => {
 						<Greeting />
 					</>
 				)} />
-				<Route path="/manage/:group/:entities" render={() => (
+				<Route path="/manage/:group/:entities" render={(props) => (
 					<>
-						<Manage />
+						<Manage params={props.match.params} />
 					</>
 				)} />
-				<Route path="/assemble/:group/:entities" render={() => (
+				<Route path="/assemble/composites/:entities" render={(props) => (
 					<>
-						<Assemble />
+						<Assemble params={props.match.params} />
 					</>
 				)} />
 				<Route path="/workout/" render={() => (
