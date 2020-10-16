@@ -2,10 +2,12 @@
 /*eslint no-unused-vars: "off"*/
 /*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
+import { isEmpty } from 'lodash';
 
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/exercise-extension.module.scss'
+
 import { Input } from 'godspeed';
 
 const ExerciseBuilder = ({ state, dispatch }) => {
@@ -18,19 +20,31 @@ const ExerciseBuilder = ({ state, dispatch }) => {
 	}, [])
 
 	useEffect(() => {
-		dispatch({ type: 'EXERCISE_NAME', name: name })
+		dispatch({ type: 'BUILD_NAME', name: name })
 	}, [name])
 
-	const addToBuild = (entity) => {
+	useEffect(() => {
+		steps.length > 0 && checkStep()
+	}, [activeStep])
+
+	function checkStep() {
+		if (!isEmpty(build[steps[activeStep].name])) {
+			dispatch({ type: 'IS_READY' })
+		}
+	}
+
+	function addToBuild(entity) {
 		dispatch({ type: 'ALTER_EX_BUILD', entity })
 	}
 
-	const activeEntity = entity => {
+	function activeEntity(entity) {
 		if (build[steps[activeStep].name] === undefined) return ent.entity
 		return build[steps[activeStep].name].id === entity.id
 			? `${ent.entity} ${ent.active_entity}`
 			: ent.entity
 	}
+
+
 
 	return (
 		<>

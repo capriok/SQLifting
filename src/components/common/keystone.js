@@ -10,6 +10,7 @@ import Manage from '../../views/manage'
 import Assemble from '../../views/assemble'
 import Workout from '../../views/workout'
 import Social from '../../views/social'
+import NotFound from './not-found'
 
 const Keystone = () => {
 	return (
@@ -40,9 +41,13 @@ const Keystone = () => {
 						<Social />
 					</>
 				)} />
+				<Route path='/404' render={() => (
+					<>
+						<NotFound />
+					</>
+				)} />
 			</div>
 		</>
-
 	)
 }
 

@@ -1,9 +1,7 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect, useReducer } from 'react'
-import { Route, useParams } from 'react-router-dom'
+import React, { useEffect, useReducer } from 'react'
 import { useStateValue } from '../global/state'
-import useAssembleActions from '../components/actionbar/useAssembleActions'
 
 import styles from '../styles/assemble/assemble.module.scss'
 
@@ -13,6 +11,7 @@ import Stepper from "../components/assemble/stepper";
 import ExerciseBuilder from '../components/assemble/builders/exercise-builder'
 import CircuitBuilder from '../components/assemble/builders/circuit-builder'
 import WorkoutBuilder from '../components/assemble/builders/workout-builder'
+import { intersection } from 'lodash'
 
 const assembleState = {
 	steps: [],
@@ -43,6 +42,11 @@ function assembleReducer(state, action) {
 			return {
 				...assembleState
 			}
+		case 'IS_READY':
+			return {
+				...state,
+				readyForNext: true
+			}
 		case 'SET_STEPS':
 			return {
 				...state,
@@ -66,31 +70,14 @@ function assembleReducer(state, action) {
 				activeStep: state.activeStep - 1,
 				readyForNext: true
 			}
-		case 'EXERCISE_NAME':
+		case 'BUILD_NAME':
 			return {
 				...state,
-				exerciseBuild: {
-					...state.exerciseBuild,
+				[state.currentBuild]: {
+					...state[state.currentBuild],
 					name: action.name
 				}
 			}
-		case 'CIRCUIT_NAME':
-			return {
-				...state,
-				circuitBuild: {
-					...state.circuitBuild,
-					name: action.name
-				}
-			}
-		case 'WORKOUT_NAME':
-			return {
-				...state,
-				workoutBuild: {
-					...state.workoutBuild,
-					name: action.name
-				}
-			}
-
 		case 'ALTER_EX_BUILD':
 			return {
 				...state,

@@ -2,7 +2,6 @@
 /*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useReducer } from 'react'
 import { isEmpty } from 'lodash'
-import { useParams } from 'react-router-dom'
 import { useStateValue } from '../global/state'
 
 import { manageState, manageReducer } from '../components/manage/state/manage-reducer'

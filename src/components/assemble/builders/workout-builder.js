@@ -24,19 +24,10 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 	}, [])
 
 	useEffect(() => {
-		// dispatch({
-		// 	type: 'ASSEMBLE_ACTION',
-		// 	assemble: {
-		// 		...assemble,
-		// 		build: {
-		// 			...build,
-		// 			name: name
-		// 		}
-		// 	}
-		// })
+		dispatch({ type: 'BUILD_NAME', name: name })
 	}, [name])
 
-	const addToWorkoutBuild = (entity) => {
+	function addToBuild(entity) {
 		// switch (entity.table) {
 		// 	case 'exco':
 		// 		entity.sets = 0
@@ -103,7 +94,7 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 					<div className={ent.entities}>
 						{entities.map((entity, i) => (
 							<div key={i} className={ent.entity_cont}>
-								<div className={activeEntity(entity)} onClick={() => addToWorkoutBuild(entity)}>
+								<div className={activeEntity(entity)} onClick={() => addToBuild(entity)}>
 									{build[steps[activeStep].label.toLowerCase()].some(s => s.id === entity.id) &&
 										<img src={check} alt="" />
 									}
