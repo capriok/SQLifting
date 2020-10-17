@@ -28,17 +28,6 @@ const globalState = {
 		circuits: [],
 		exercises: [],
 		workouts: []
-	},
-	assemble: {
-		steps: [],
-		activeStep: 0,
-		activeEntities: [],
-		readyForNext: false,
-		build: {}
-	},
-	workout: {
-		active: {},
-		preview: {}
 	}
 }
 

@@ -37,7 +37,7 @@ const Compose = () => {
 			)
 	}
 
-	const tip = () => {
+	function tip() {
 		switch (params.entities) {
 			case 'equipments':
 				return ('Equipments are used to assemble exercises')
@@ -52,7 +52,7 @@ const Compose = () => {
 		}
 	}
 
-	const submit = (e) => {
+	function submit(e) {
 		e.preventDefault()
 		let table = params.entities.slice(0, -1)
 		if (!value) return

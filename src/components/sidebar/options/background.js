@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
 import { useStateValue } from '../../../global/state'
 import { BlockPicker } from 'react-color';
@@ -8,10 +6,7 @@ import useOutsideClick from '../../../utils/useOutsideClick'
 import styles from '../../../styles/sidebar/options/picker.module.scss'
 
 const Background = () => {
-	const [{
-		options,
-		options: { backgroundOption }
-	}, dispatch] = useStateValue()
+	const [{ options }, dispatch] = useStateValue()
 	const [picker, setPicker] = useState(false)
 
 	const ref = useRef();
@@ -27,7 +22,7 @@ const Background = () => {
 		'#e6e6e6',
 	]
 
-	const set = (color) => {
+	function set(color) {
 		let newOptions = {
 			...options,
 			backgroundOption: color
@@ -41,12 +36,12 @@ const Background = () => {
 		<>
 			<li className={styles.li}>
 				<p>Background color</p>
-				<span style={{ backgroundColor: backgroundOption }} onClick={() => setPicker(!picker)} />
+				<span style={{ backgroundColor: options.backgroundOption }} onClick={() => setPicker(!picker)} />
 			</li>
 			{picker &&
 				<div className={styles.picker} ref={ref}>
 					<BlockPicker
-						color={backgroundOption}
+						color={options.backgroundOption}
 						colors={defaultColors}
 						onChangeComplete={color => set(color.hex)}
 					/>

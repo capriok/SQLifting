@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useState } from 'react'
 import { SQLiftingAcc } from '../../api/sqlifting'
 import { useStateValue } from '../../global/state'
@@ -18,7 +16,7 @@ const Authenticate = () => {
     username: '', password: ''
   })
 
-  const postUser = () => {
+  function postUser() {
     SQLiftingAcc.post('/user', {
       username: form.username,
       password: form.password
@@ -36,7 +34,7 @@ const Authenticate = () => {
       })
   }
 
-  const getUser = () => {
+  function getUser() {
     SQLiftingAcc.get('/user', {
       params: {
         username: form.username,
@@ -63,7 +61,7 @@ const Authenticate = () => {
       })
   }
 
-  const formSubmit = e => {
+  function formSubmit(e) {
     e.preventDefault()
     if (form.username && form.password) {
       if (!register) {

@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React from 'react'
 
 import stepper from '../../styles/assemble/stepper.scss'
@@ -19,7 +17,7 @@ const useStyles = makeStyles(() => ({
 	CI: {}
 }))
 
-const Stepper = ({ state, dispatch }) => {
+const Stepper = ({ state }) => {
 
 	const cls = useStyles()
 

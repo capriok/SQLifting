@@ -1,26 +1,13 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { isEmpty } from 'lodash'
-import { useStateValue } from '../../global/state'
-import useWorkoutActions from '../actionbar/useWorkoutActions'
 
 import styles from '../../styles/workout/actions.module.scss'
 
 import { Button } from 'godspeed'
 
 const WorkoutActions = () => {
-	const [{
-		workout: {
-			preview,
-			prepare
-		}
-	},] = useStateValue()
 
 	const history = useHistory()
-
-	const { setPrepare } = useWorkoutActions()
 
 	return (
 		<div className={styles.workout_actions}>
@@ -28,18 +15,17 @@ const WorkoutActions = () => {
 				<Button
 					text="Back"
 					onClick={() => history.push('/workout')}
-					disabled={isEmpty(prepare)} />
+					disabled={false} />
 				<Button
 					text="Prepare"
 					onClick={() => {
-						setPrepare(preview.entity)
-						history.push(`/workout/${preview.entity.id}/prepare`)
+						// history.push(`/workout/${preview.entity.id}/prepare`)
 					}}
-					disabled={isEmpty(preview) || !isEmpty(prepare)} />
+					disabled={false} />
 				<Button
 					text="Start Workout"
 					onClick={() => { }}
-					disabled={isEmpty(prepare)} />
+					disabled={false} />
 			</>
 		</div>
 	)

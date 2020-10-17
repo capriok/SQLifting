@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React from 'react'
 import { useStateValue } from '../../global/state'
 
@@ -11,23 +9,19 @@ import { Navbar as Nav, NavLink } from 'godspeed'
 const notMobile = window.screen.width >= 420
 
 const Navbar = () => {
-	const [{
-		options: { sidebarOption, accentOption },
-		components,
-		components: { sidebar } },
-		dispatch] = useStateValue()
+	const [{ options, components }, dispatch] = useStateValue()
 
-	const flipSidebar = () => {
-		dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !sidebar } })
-		localStorage.setItem('SQLifting-components', JSON.stringify({ sidebar: !sidebar }))
+	function flipSidebar() {
+		dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !components.sidebar } })
+		localStorage.setItem('SQLifting-components', JSON.stringify({ sidebar: !components.sidebar }))
 	}
 
 	return (
 		<>
 			<Nav className={styles.navbar} title="SQLifting" to="/">
-				{!sidebarOption && notMobile
+				{!options.sidebarOption && notMobile
 					? <NavLink
-						hover={accentOption}
+						hover={options.accentOption}
 						onClick={() => flipSidebar()}>
 						☰
 				 </NavLink>
@@ -35,7 +29,7 @@ const Navbar = () => {
 				}
 				<NavLink
 					className={styles.mobile_button}
-					style={!notMobile && sidebar ? { backgroundColor: accentOption } : {}}
+					style={!notMobile && components.sidebar ? { backgroundColor: options.accentOption } : {}}
 					hover="steelblue"
 					onClick={() => flipSidebar()}>
 					☰

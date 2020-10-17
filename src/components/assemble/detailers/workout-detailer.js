@@ -1,5 +1,4 @@
 import React from 'react'
-import { useStateValue } from '../../../global/state'
 
 import styles from '../../../styles/assemble/detailers/workout-detailer.module.scss'
 

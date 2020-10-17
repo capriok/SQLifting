@@ -3,7 +3,6 @@
 import React, { useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { useStateValue } from '../global/state'
-import useWorkoutActions from '../components/actionbar/useWorkoutActions'
 
 import styles from '../styles/workout/workout.module.scss'
 import Prepare from '../components/workout/prepare'
@@ -12,28 +11,13 @@ import Actionbar from '../components/actionbar/actionbar'
 
 import WorkoutActions from '../components/workout/actions'
 
-const Workout = () => {
-	const [{
-		composites,
-		workout: {
-			preview: {
-				entity
-			}
-		}
-	},] = useStateValue()
+const Workout = ({ entity }) => {
+	const [{ composites }] = useStateValue()
 
-	useEffect(() => {
-		return () => fullReset()
-	}, [])
-
-	const { fullReset, setPreview } = useWorkoutActions()
-
-	const entityClass = (id) => {
-		if (entity && id === entity.id) {
-			return `${styles.entity} ${styles.active_entity}`
-		} else {
-			return `${styles.entity}`
-		}
+	function entityClass(id) {
+		return entity && id === entity.id
+			? `${styles.entity} ${styles.active_entity}`
+			: `${styles.entity}`
 	}
 
 	return (
@@ -50,7 +34,8 @@ const Workout = () => {
 								<div key={i} className={styles.entity_cont}>
 									<div
 										className={entityClass(entity.id)}
-										onClick={() => { setPreview(entity) }}>
+									// onClick={() => { setPreview(entity) }}
+									>
 										<div><p>{entity.name}</p></div>
 									</div>
 								</div>

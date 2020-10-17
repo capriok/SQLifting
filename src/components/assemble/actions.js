@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
 import useOutsideClick from '../../utils/useOutsideClick'
 

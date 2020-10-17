@@ -1,5 +1,4 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useRef } from 'react'
 import { Route, useParams } from 'react-router-dom'
 import { useStateValue } from '../../../global/state'

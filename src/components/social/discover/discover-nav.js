@@ -1,7 +1,5 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import styles from '../../../styles/social/discover/discover-nav.module.scss'
 

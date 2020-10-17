@@ -22,7 +22,7 @@ const Editor = ({ preview }) => {
 	const [value, setValue] = useState('')
 	const update = useUpdate()
 
-	const submit = (e) => {
+	function submit(e) {
 		e.preventDefault()
 		SQLifting.post('/updateName', { table: preview.table, name: value, id: preview.id, uid: user.details.uid })
 			.then(() => {

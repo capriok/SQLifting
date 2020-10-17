@@ -5,8 +5,6 @@ import styles from '../../styles/common/ext-preview.module.scss'
 
 const WorkoutPreview = ({ entity }) => {
 
-	console.log(entity);
-
 	return (
 		<>
 			<div className={styles.preview}>

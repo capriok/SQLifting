@@ -1,9 +1,8 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
 /*eslint no-useless-escape: "off"*/
+/*eslint no-mixed-operators: "off"*/
 import React, { useState, useEffect } from 'react'
-import { uniqBy, remove } from 'lodash'
-import { useStateValue } from '../../../global/state'
 
 import check from '../../../assets/check_black.png'
 
@@ -38,7 +37,7 @@ const WorkoutBuilder = (props) => {
 	}, [activeStep, build])
 
 	function checkStep() {
-		if (buildReady && build[buildProp].length >= 3) {
+		if (build['exercises'].length >= 3) {
 			dispatch({ type: 'READY', state: true })
 		}
 		if (activeStep === steps.length - 1) {
@@ -58,15 +57,6 @@ const WorkoutBuilder = (props) => {
 		})
 	}
 
-	const activeEntity = entity => {
-		return ent.entity
-		// const idleClass = ent.entity
-		// const activeClass = `${ent.entity} ${ent.active_entity}`
-		// if (build[activeEntities[0].table] === undefined) return idleClass
-		// let inBuild = build[activeEntities[0].table].id === entity.id
-		// return inBuild ? activeClass : idleClass
-	}
-
 	return (
 		<>
 			{activeStep < steps.length - 1
@@ -74,7 +64,7 @@ const WorkoutBuilder = (props) => {
 					<div className={ent.entities}>
 						{entities.map((entity, i) => (
 							<div key={i} className={ent.entity_cont}>
-								<div className={activeEntity(entity)} onClick={() => addToBuild(entity)}>
+								<div className={ent.entity} onClick={() => addToBuild(entity)}>
 									{buildReady && build[buildProp].some(s => s.id === entity.id)
 										&& <img src={check} alt="" />
 									}

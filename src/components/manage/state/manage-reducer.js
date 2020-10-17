@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import { isEmpty, remove, uniq } from 'lodash'
 
 export const manageState = {
@@ -63,7 +61,10 @@ export function manageReducer(state, action) {
 				...state,
 				selection:
 					state.selection.some(s => s.id === action.entity.id)
-						? remove([...state.selection, action.entity], s => s.id !== action.entity.id)
+						? remove(
+							[...state.selection, action.entity],
+							s => s.id !== action.entity.id
+						)
 						: uniq([...state.selection, action.entity])
 			}
 		case 'RESET_SELECTION':

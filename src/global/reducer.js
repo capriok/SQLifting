@@ -42,34 +42,6 @@ const globalReducer = (state, action) => {
 				...state,
 				composites: action.composites
 			};
-		case "ASSEMBLE_ACTION":
-			return {
-				...state,
-				assemble: action.assemble
-			};
-		case "RESET_ASSEMBLE":
-			return {
-				...state,
-				assemble: {
-					steps: [],
-					activeStep: 0,
-					activeEntities: [],
-					build: {}
-				}
-			};
-		case "WORKOUT_ACTION":
-			return {
-				...state,
-				workout: action.workout
-			};
-		case "RESET_WORKOUT":
-			return {
-				...state,
-				workout: {
-					active: {},
-					preview: {}
-				}
-			};
 		default:
 			return state;
 	}

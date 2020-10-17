@@ -2,8 +2,6 @@
 /*eslint no-unused-vars: "off"*/
 /*eslint no-useless-escape: "off"*/
 import React, { useState, useEffect } from 'react'
-import { uniqBy, remove } from 'lodash'
-import { useStateValue } from '../../../global/state'
 
 import check from '../../../assets/check_black.png'
 

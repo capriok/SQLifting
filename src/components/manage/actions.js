@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useState, useRef } from 'react'
 import { isEmpty } from 'lodash'
 import { SQLifting } from '../../api/sqlifting'
@@ -23,32 +21,26 @@ const ManageActions = ({ state, dispatch }) => {
 		if (confirming) setConfirming(false)
 	});
 
-	const deleteSelection = () => {
+	function deleteSelection() {
 		let group = state.selection[0].group
 		let table = state.selection[0].table
-		// Map ids into a string with ids comma seperated for sql query 
 		let selectionIds = [state.selection.map(sel => sel.id)].toString()
-		// Delete all ids from passed table by id
 		SQLifting.post('/byId', { table, ids: selectionIds, uid: user.details.uid })
 			.then(async () => {
 				console.log('Delete Success!')
-				// If table is circ or woco ==> delete its deps from relation tables by id
 				switch (table) {
 					case 'circ':
 						SQLifting.post(`/circ_movs`, { ids: selectionIds, })
 							.then(() => { }).catch(err => console.log(err))
 						break;
 					case 'woco':
-						// we know there will be woco_excos => delete them
 						SQLifting.post(`/woco_excos`, { ids: selectionIds })
 							.then(() => { }).catch(err => console.log(err))
-						// If selection entity has 0 circs => remove id from selectionIds
 						state.selection.forEach((sel, index) => {
 							if (sel.circs.length === 0) {
 								selectionIds = selectionIds.split(',').filter((_, i) => i !== index).toString()
 							}
 						})
-						// Only fire req to delete woco_circs if selectionIds has a value
 						if (selectionIds) {
 							SQLifting.post(`/woco_circs`, { ids: selectionIds })
 								.then(() => { }).catch(err => console.log(err))

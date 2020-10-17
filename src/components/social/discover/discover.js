@@ -1,6 +1,5 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Route } from 'react-router-dom'
 import { useStateValue } from '../../../global/state'
 import { SQLiftingAcc } from '../../../api/sqlifting'
@@ -10,7 +9,7 @@ import styles from '../../../styles/social/discover/discover.module.scss'
 import DiscoverNav from './discover-nav'
 import FindPeople from './find-people'
 import Community from './community'
-import { Button, Input } from 'godspeed'
+import { Input } from 'godspeed'
 
 const Discover = () => {
 	const [{ user }] = useStateValue()

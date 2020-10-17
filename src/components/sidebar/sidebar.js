@@ -1,7 +1,4 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
-/*eslint no-empty-pattern: "off"*/
-
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../../global/state'
@@ -25,10 +22,19 @@ const Sidebar = () => {
 		components
 	}, dispatch] = useStateValue()
 
+	useEffect(() => {
+		!notMobile && dispatch({
+			type: 'COMPONENT_ACTION',
+			components: { ...components, sidebar: false }
+		})
+	}, [])
 
-	useEffect(() => { !notMobile && dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: false } }) }, [])
-
-	const flipSidebar = () => dispatch({ type: 'COMPONENT_ACTION', components: { ...components, sidebar: !components.sidebar } })
+	function flipSidebar() {
+		dispatch({
+			type: 'COMPONENT_ACTION',
+			components: { ...components, sidebar: !components.sidebar }
+		})
+	}
 
 	if (notMobile) {
 		if (!sidebarOption) {
@@ -110,26 +116,29 @@ const SidebarContent = ({ setSidebar }) => {
 
 	const activePath = '/' + window.location.pathname.split('/').filter((_, i) => i !== 0).join('/')
 
-	const activeLI = pathname => {
+	function activeLI(pathname) {
 		return pathname === activePath ? styles.active_li : null
 	}
 
-	const createMap = (srcPath, src) => (
-		src.map((op, i) => (
-			<Link key={i} to={srcPath + src[i].pathname} onClick={setSidebar}>
-				<li className={activeLI(srcPath + src[i].pathname)}>{op.name}</li>
-			</Link>
-		))
-	)
-
+	function createMap(srcPath, src) {
+		return (
+			src.map((op, i) => (
+				<Link key={i} to={srcPath + src[i].pathname} onClick={setSidebar}>
+					<li className={activeLI(srcPath + src[i].pathname)}>{op.name}</li>
+				</Link>
+			))
+		)
+	}
 
 	let LSsettings = JSON.parse(localStorage.getItem('SQLifting-settings'))
-	const [acrd, setAcrd] = React.useState(LSsettings || {
+
+	const [acrd, setAcrd] = useState(LSsettings || {
 		a: false,
 		b: false,
 		c: false,
 		d: false,
-	});
+	})
+
 	function set(name) {
 		let newAcrd = { ...acrd }
 		newAcrd[name] = !newAcrd[name]
@@ -137,15 +146,17 @@ const SidebarContent = ({ setSidebar }) => {
 		localStorage.setItem('SQLifting-settings', JSON.stringify(newAcrd))
 	}
 
-	const SectionTitle = ({ title, name }) => (
-		<h1
-			className={`${acc.title} ${acrd[name] && acc.open}`}
-			onClick={() => set(name)}>
-			{title}
-		</h1>
-	)
+	function SectionTitle({ title, name }) {
+		return (
+			<h1
+				className={`${acc.title} ${acrd[name] && acc.open}`}
+				onClick={() => set(name)}>
+				{title}
+			</h1>
+		)
+	}
 
-	const sectionClass = (name) => {
+	function sectionClass(name) {
 		return `${acc.item} ${!acrd[name] && acc.collapsed}`
 	}
 
@@ -203,9 +214,9 @@ const SidebarContent = ({ setSidebar }) => {
 }
 
 const SidebarOptions = ({ flipOptions }) => {
-	const [{ }, dispatch] = useStateValue()
+	const [, dispatch] = useStateValue()
 
-	const logoutActions = async () => {
+	async function logoutActions() {
 		await dispatch({ type: 'LOGOUT' })
 		localStorage.removeItem('SQLifting-token')
 		localStorage.removeItem('SQLifting-user')

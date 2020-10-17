@@ -3,20 +3,16 @@ import { useStateValue } from '../../../global/state'
 import styles from '../../../styles/sidebar/options/toggle.module.scss'
 
 const Sidebar = ({ flipOtions }) => {
-	const [{
-		options,
-		options: { sidebarOption },
-		components: { sidebar }
-	}, dispatch] = useStateValue()
+	const [{ options, components }, dispatch] = useStateValue()
 
-	const set = () => {
+	function set() {
 		let newOptions = {
 			...options,
-			sidebarOption: !sidebarOption
+			sidebarOption: !options.sidebarOption
 		}
 		localStorage.setItem('SQLifting-options', JSON.stringify(newOptions))
 		dispatch({ type: 'OPTION_ACTION', options: newOptions })
-		!sidebar && flipOtions()
+		!components.sidebar && flipOtions()
 	}
 
 	return (
@@ -25,7 +21,7 @@ const Sidebar = ({ flipOtions }) => {
 			<label className={styles.switch}>
 				<input
 					type="checkbox"
-					checked={sidebarOption}
+					checked={options.sidebarOption}
 					onChange={() => set()}
 				/>
 				<span />

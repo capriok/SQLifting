@@ -13,7 +13,7 @@ const useUpdate = () => {
     compositions
   }, dispatch] = useStateValue()
 
-  const update = (type, requests) => {
+  function update(type, requests) {
     const missingRequests = typeof requests !== 'object' && (type === 'compositions' || type === 'compositions')
     if (type === undefined) return console.log('Expecting a type')
     if (missingRequests) return console.log('Expecting requests array')
@@ -33,7 +33,7 @@ const useUpdate = () => {
     }
   }
 
-  const updateCompositions = (requests) => {
+  function updateCompositions(requests) {
     let final = {}
     let count = 0
     requests.forEach(req => {
@@ -53,7 +53,7 @@ const useUpdate = () => {
     });
   }
 
-  const updateComposites = (requests) => {
+  function updateComposites(requests) {
     let final = {}
     let count = 0
     requests.forEach(req => {
