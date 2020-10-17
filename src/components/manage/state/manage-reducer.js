@@ -14,10 +14,9 @@ export const manageState = {
 
 export function manageReducer(state, action) {
 	switch (action.type) {
-		case 'CLEAR_EXT':
+		case 'RESET':
 			return {
-				...state,
-				ext: { ...manageState.ext }
+				...manageState,
 			}
 		case 'TOGGLE_PREVIEW':
 			return {

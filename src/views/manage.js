@@ -22,9 +22,11 @@ const Manage = ({ params }) => {
 	const [state, dispatch] = useReducer(manageReducer, manageState);
 	const [entities, setEntities] = useState([])
 
+	useEffect(() => { }, [])
+
 	useEffect(() => {
 		setEntities(globalState[params.group][params.entities])
-		dispatch({ type: 'CLEAR_EXT' })
+		return () => { dispatch({ type: 'RESET' }) }
 	}, [params])
 
 	function set(entity) {

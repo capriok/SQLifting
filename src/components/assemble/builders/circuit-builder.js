@@ -14,58 +14,42 @@ import ext from '../../../styles/assemble/extensions/circuit-extension.module.sc
 import { Input } from 'godspeed';
 import CircuitDetailer from '../detailers/circuit-detailer'
 
-const CircuitBuilder = ({ state, dispatch }) => {
-	const { activeStep, steps, entities, circuitBuild: build } = state
+const CircuitBuilder = (props) => {
+	const { steps, activeStep, entities, circuitBuild: build } = props.state
+	const dispatch = props.dispatch
 
 	const [name, setName] = useState('')
 
 	useEffect(() => {
-		return dispatch({ type: 'RESET_BUILDER' })
+		return dispatch({ type: 'RESET' })
 	}, [])
 
 	useEffect(() => {
 		dispatch({ type: 'BUILD_NAME', name: name })
-
 	}, [name])
 
-	function addToBuild(entity) {
-		entity.durationValue = 0
-		entity.durationType = 'Reps'
-		let updatedBuild = []
-		// bool determines whether or not the Next button is disabled
-		let bool
-		if (build.movements.length > 0) {
-			// if build has > 0 movements => spread movements and add entity
-			updatedBuild = [...build.movements, entity]
-			if (build.movements.some(s => s.id === entity.id)) {
-				// If entity is already in build => remove it
-				updatedBuild = remove(updatedBuild, s => s.id !== entity.id)
-				if (build.movements.length === 1) {
-					// if build has 1 movement => bool = false
-					bool = false
-				} else {
-					bool = true
-				}
-			} else {
-				// Add selected entity to build and make sure its unique by id
-				updatedBuild = uniqBy(updatedBuild, 'id')
-				bool = true
-			}
-		} else {
-			// if build has < 1 movements => only add entity
-			updatedBuild = [entity]
-			bool = true
+	useEffect(() => {
+		steps.length > 0 && checkStep()
+	}, [activeStep, build])
+
+	function checkStep() {
+		if (build.movements.length >= 3) {
+			dispatch({ type: 'READY', state: true })
 		}
-		// dispatch({
-		// 	type: 'ASSEMBLE_ACTION',
-		// 	assemble: {
-		// 		...assemble,
-		// 		readyForNext: bool,
-		// 		build: {
-		// 			movements: updatedBuild
-		// 		}
-		// 	}
-		// })
+		if (activeStep === steps.length - 1) {
+			dispatch({ type: 'READY', state: true })
+		}
+	}
+
+	function addToBuild(entity) {
+		dispatch({
+			type: 'ALTER_CI_BUILD',
+			entity: {
+				...entity,
+				durationValue: 0,
+				durationType: 'Reps'
+			}
+		})
 	}
 
 	return (
@@ -86,7 +70,7 @@ const CircuitBuilder = ({ state, dispatch }) => {
 					</div>
 				</>
 				: <>
-					<CircuitDetailer />
+					<CircuitDetailer {...props} />
 				</>
 			}
 			<div className={styles.extension}>

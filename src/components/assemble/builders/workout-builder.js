@@ -14,18 +14,36 @@ import ext from '../../../styles/assemble/extensions/workout-extension.module.sc
 import { Input } from 'godspeed';
 import WorkoutDetailer from '../detailers/workout-detailer'
 
-const WorkoutBuilder = ({ state, dispatch }) => {
-	const { steps, activeStep, entities, workoutBuild: build } = state
+const WorkoutBuilder = (props) => {
+	const { steps, activeStep, entities, workoutBuild: build } = props.state
+	const dispatch = props.dispatch
 
 	const [name, setName] = useState('')
 
+	// Needed to ensure dispatch finished while component mounts
+	const buildReady = steps.length > 0 && steps[activeStep].name === 'exercises'
+	const buildProp = steps.length > 0 && steps[activeStep].name
+
 	useEffect(() => {
-		return dispatch({ type: 'RESET_BUILDER' })
+		return dispatch({ type: 'RESET' })
 	}, [])
 
 	useEffect(() => {
 		dispatch({ type: 'BUILD_NAME', name: name })
 	}, [name])
+
+	useEffect(() => {
+		steps.length > 0 && checkStep()
+	}, [activeStep, build])
+
+	function checkStep() {
+		if (buildReady && buildProp.length >= 3) {
+			dispatch({ type: 'READY', state: true })
+		}
+		if (activeStep === steps.length - 1) {
+			dispatch({ type: 'READY', state: true })
+		}
+	}
 
 	function addToBuild(entity) {
 		// switch (entity.table) {
@@ -76,6 +94,15 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 		// 		}
 		// 	}
 		// })
+		dispatch({
+			type: 'ALTER_WO_BUILD',
+			entity: {
+				...entity,
+				sets: 0,
+				reps: 0,
+				weight: 0
+			}
+		})
 	}
 
 	const activeEntity = entity => {
@@ -95,8 +122,8 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 						{entities.map((entity, i) => (
 							<div key={i} className={ent.entity_cont}>
 								<div className={activeEntity(entity)} onClick={() => addToBuild(entity)}>
-									{build[steps[activeStep].label.toLowerCase()].some(s => s.id === entity.id) &&
-										<img src={check} alt="" />
+									{buildReady && build[buildProp].some(s => s.id === entity.id)
+										&& <img src={check} alt="" />
 									}
 									<div><p>{entity.name}</p></div>
 								</div>
@@ -105,7 +132,7 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 					</div>
 				</>
 				: <>
-					<WorkoutDetailer />
+					<WorkoutDetailer {...props} />
 				</>}
 			<div className={styles.extension}>
 				{build.name
@@ -119,16 +146,16 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 						onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 				</div>
 				<div className={ext.workout_exntension}>
-					{/* {build.exercises.length > 0 && <>
+					{build.exercises.length > 0 && <>
 						<p>Exercises</p>
 						<ul>
-							{build.exercises.map((exco, i) => (
+							{build.exercises.map((ex, i) => (
 								<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
-									<span>{exco.name}</span>
+									<span>{ex.name}</span>
 									{activeStep === 2 && <div>
-										<span>{exco.sets} Sets</span>
-										<span>{exco.reps} Reps</span>
-										<span>{exco.weight} lbs</span>
+										<span>{ex.sets} Sets</span>
+										<span>{ex.reps} Reps</span>
+										<span>{ex.weight} lbs</span>
 									</div>}
 								</li>
 							))}
@@ -137,16 +164,16 @@ const WorkoutBuilder = ({ state, dispatch }) => {
 					{build.circuits.length > 0 && <>
 						<p>Circuits</p>
 						<ul>
-							{build.circuits.map((exco, i) => (
+							{build.circuits.map((ci, i) => (
 								<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
-									<span>{exco.name}</span>
+									<span>{ci.name}</span>
 									{activeStep === 2 && <div>
-										<span>{exco.sets} Sets</span>
+										<span>{ci.sets} Sets</span>
 									</div>}
 								</li>
 							))}
-						</ul> */}
-					{/* </>} */}
+						</ul>
+					</>}
 				</div>
 			</div>
 		</>

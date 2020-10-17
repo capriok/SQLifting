@@ -11,7 +11,7 @@ import Stepper from "../components/assemble/stepper";
 import ExerciseBuilder from '../components/assemble/builders/exercise-builder'
 import CircuitBuilder from '../components/assemble/builders/circuit-builder'
 import WorkoutBuilder from '../components/assemble/builders/workout-builder'
-import { intersection } from 'lodash'
+import { intersection, remove, uniq } from 'lodash'
 
 const assembleState = {
 	steps: [],
@@ -32,20 +32,20 @@ const assembleState = {
 	workoutBuild: {
 		name: '',
 		exercises: [],
-		movements: [],
+		circuits: [],
 	}
 }
 
 function assembleReducer(state, action) {
 	switch (action.type) {
-		case 'RESET_BUILDER':
+		case 'RESET':
 			return {
 				...assembleState
 			}
-		case 'IS_READY':
+		case 'READY':
 			return {
 				...state,
-				readyForNext: true
+				readyForNext: action.state
 			}
 		case 'SET_STEPS':
 			return {
@@ -71,6 +71,7 @@ function assembleReducer(state, action) {
 				readyForNext: true
 			}
 		case 'BUILD_NAME':
+			if (state.currentBuild === '') return { ...state }
 			return {
 				...state,
 				[state.currentBuild]: {
@@ -79,23 +80,62 @@ function assembleReducer(state, action) {
 				}
 			}
 		case 'ALTER_EX_BUILD':
+			const EXbuildProp = state.steps[state.activeStep].name
 			return {
 				...state,
 				readyForNext: true,
 				exerciseBuild: {
 					...state.exerciseBuild,
-					[state.steps[state.activeStep].name]: action.entity
+					[EXbuildProp]: action.entity
 				}
 			}
 		case 'ALTER_CI_BUILD':
 			return {
 				...state,
-
+				readyForNext: action.state,
+				circuitBuild: {
+					...state.circuitBuild,
+					movements: state.circuitBuild.movements.some(m => m.id === action.entity.id)
+						? remove([...state.circuitBuild.movements, action.entity], m => m.id !== action.entity.id)
+						: uniq([...state.circuitBuild.movements, action.entity])
+				}
 			}
-		case 'ALTER_WO_BUILD':
+		case 'DETAIL_CI_BUILD':
 			return {
 				...state,
-
+				circuitBuild: {
+					...state.circuitBuild,
+					movements: state.circuitBuild.movements.map((mov, i) =>
+						i === action.index
+							? { ...mov, ...action.detail }
+							: mov
+					)
+				}
+			}
+		case 'ALTER_WO_BUILD':
+			const WObuildProp = state.steps[state.activeStep].name
+			return {
+				...state,
+				readyForNext: action.state,
+				workoutBuild: {
+					...state.workoutBuild,
+					[WObuildProp]:
+						state.workoutBuild[WObuildProp].some(x => x.id === action.entity.id)
+							? remove([...state.workoutBuild[WObuildProp], action.entity], x => x.id !== action.entity.id)
+							: uniq([...state.workoutBuild[WObuildProp], action.entity])
+				}
+			}
+		case 'DETAIL_WO_BUILD':
+			return {
+				...state,
+				workoutBuild: {
+					...state.workoutBuild,
+					[WObuildProp]: state.workoutBuild.movements.map((mov, i) =>
+						i === action.index
+							? { ...mov, ...action.detail }
+							: mov
+					)
+				}
 			}
 		default:
 			console.error('Invalid Action Type');
@@ -104,10 +144,7 @@ function assembleReducer(state, action) {
 }
 
 const Assemble = ({ params }) => {
-	const [{
-		composites,
-		compositions,
-	},] = useStateValue()
+	const [{ composites, compositions }] = useStateValue()
 
 	const [state, dispatch] = useReducer(assembleReducer, assembleState)
 
@@ -134,6 +171,7 @@ const Assemble = ({ params }) => {
 			steps: steps[params.entities],
 			currentBuild: `${params.entities.slice(0, -1)}Build`
 		})
+		return () => { dispatch({ type: 'RESET' }) }
 	}, [compositions, composites, params])
 
 	useEffect(() => {

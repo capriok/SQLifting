@@ -16,7 +16,7 @@ const ExerciseBuilder = ({ state, dispatch }) => {
 	const [name, setName] = useState('')
 
 	useEffect(() => {
-		return dispatch({ type: 'RESET_BUILDER' })
+		return dispatch({ type: 'RESET' })
 	}, [])
 
 	useEffect(() => {
@@ -29,7 +29,7 @@ const ExerciseBuilder = ({ state, dispatch }) => {
 
 	function checkStep() {
 		if (!isEmpty(build[steps[activeStep].name])) {
-			dispatch({ type: 'IS_READY' })
+			dispatch({ type: 'READY', state: true })
 		}
 	}
 
@@ -43,8 +43,6 @@ const ExerciseBuilder = ({ state, dispatch }) => {
 			? `${ent.entity} ${ent.active_entity}`
 			: ent.entity
 	}
-
-
 
 	return (
 		<>
