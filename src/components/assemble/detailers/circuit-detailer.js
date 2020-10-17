@@ -9,7 +9,7 @@ const CircuitDetailer = ({ state, dispatch }) => {
 
 	const { circuitBuild: build } = state
 
-	const setDurationValue = (val, i) => {
+	function setDurationValue(val, i) {
 		if (val === '') val = 0
 		dispatch({
 			type: 'DETAIL_CI_BUILD',
@@ -18,7 +18,7 @@ const CircuitDetailer = ({ state, dispatch }) => {
 		})
 	}
 
-	const setDurationType = (val, i) => {
+	function setDurationType(val, i) {
 		dispatch({
 			type: 'DETAIL_CI_BUILD',
 			detail: { durationType: val },

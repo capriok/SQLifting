@@ -130,13 +130,14 @@ function assembleReducer(state, action) {
 				...state,
 				workoutBuild: {
 					...state.workoutBuild,
-					[WObuildProp]: state.workoutBuild.movements.map((mov, i) =>
+					[action.prop]: state.workoutBuild[action.prop].map((x, i) =>
 						i === action.index
-							? { ...mov, ...action.detail }
-							: mov
+							? { ...x, ...action.detail }
+							: x
 					)
 				}
 			}
+
 		default:
 			console.error('Invalid Action Type');
 			break;
