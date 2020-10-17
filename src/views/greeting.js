@@ -1,5 +1,3 @@
-/*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React from 'react'
 import Moment from 'react-moment';
 import { useStateValue } from '../global/state'

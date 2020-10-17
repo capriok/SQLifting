@@ -1,5 +1,4 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect, useReducer } from 'react'
 import { isEmpty } from 'lodash'
 import { useStateValue } from '../global/state'

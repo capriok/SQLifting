@@ -1,5 +1,4 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-/*eslint no-unused-vars: "off"*/
 import React, { useEffect, useReducer } from 'react'
 import { useStateValue } from '../global/state'
 import { assembleState, assembleReducer } from '../components/assemble/state/assemble-reducer'
