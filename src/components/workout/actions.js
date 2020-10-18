@@ -4,10 +4,15 @@ import { useHistory } from 'react-router-dom'
 import styles from '../../styles/workout/actions.module.scss'
 
 import { Button } from 'godspeed'
+import { isEmpty } from 'lodash'
 
-const WorkoutActions = () => {
+const WorkoutActions = ({ state, dispatch }) => {
+
+	const { preview } = state
 
 	const history = useHistory()
+
+	const atIndex = history.location.pathname === '/workout'
 
 	return (
 		<div className={styles.workout_actions}>
@@ -15,17 +20,17 @@ const WorkoutActions = () => {
 				<Button
 					text="Back"
 					onClick={() => history.push('/workout')}
-					disabled={false} />
+					disabled={atIndex} />
 				<Button
 					text="Prepare"
 					onClick={() => {
-						// history.push(`/workout/${preview.entity.id}/prepare`)
+						history.push(`/workout/${preview.id}/prepare`)
 					}}
-					disabled={false} />
+					disabled={isEmpty(preview) || !atIndex} />
 				<Button
 					text="Start Workout"
 					onClick={() => { }}
-					disabled={false} />
+					disabled={atIndex} />
 			</>
 		</div>
 	)

@@ -10,7 +10,7 @@ const WorkoutPreview = ({ preview }) => {
 				<p className={view.title}>{preview.name}</p>
 				<p className={styles.dep}>Exercises</p>
 				<ul>
-					{preview.excos.map((dep, i) => (
+					{preview.exercises.map((dep, i) => (
 						<div key={i}>
 							<li className={styles.detail}>{dep.name}</li>
 							<ul>
@@ -22,10 +22,10 @@ const WorkoutPreview = ({ preview }) => {
 					))}
 				</ul>
 				<p className={styles.dep}>Circuits</p>
-				{preview.circs.length > 0
+				{preview.circuits.length > 0
 					? <>
 						<ul>
-							{preview.circs.map((dep, i) => {
+							{preview.circuits.map((dep, i) => {
 								return (
 									<div key={i}>
 										<li className={styles.detail}>

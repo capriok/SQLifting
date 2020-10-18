@@ -10,4 +10,49 @@
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $app-primary;
+	.workout_title {
+		width: 100%;
+		text-align: center;
+		padding-bottom: 20px;
+		margin-bottom: 0px;
+		border-bottom: 2px solid $app-secondary;
+	}
+	.entities {
+		width: 100%;
+		.entities_title {
+			padding: 20px;
+			margin: 20px -20px;
+			border: $light-border;
+			background-color: $app-primary;
+			filter: brightness(93%);
+		}
+		.dragging {
+			background-color: lightgrey;
+		}
+		.entity {
+			user-select: none;
+			@include flex;
+			justify-content: space-between;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border-bottom: 2px solid lightgrey;
+			.entity_title {
+				flex: 1;
+				font-size: 1.1rem;
+			}
+			.details {
+				margin-right: 40px;
+				text-align: right;
+			}
+			.handle {
+				padding: 20px;
+				cursor: pointer;
+				font-size: 1.2rem;
+				border-radius: 5px;
+				&:active {
+					cursor: grabbing;
+				}
+			}
+		}
+	}
 }

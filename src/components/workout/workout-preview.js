@@ -3,15 +3,14 @@ import React from 'react'
 import view from '../../styles/workout/workout.module.scss'
 import styles from '../../styles/common/ext-preview.module.scss'
 
-const WorkoutPreview = ({ entity }) => {
-
+const WorkoutPreview = ({ preview }) => {
 	return (
 		<>
 			<div className={styles.preview}>
-				<p className={view.title}>{entity.name}</p>
+				<p className={view.title}>{preview.name}</p>
 				<p className={styles.dep}>Exercises</p>
 				<ul>
-					{entity.excos.map((dep, i) => (
+					{preview.exercises.map((dep, i) => (
 						<div key={i}>
 							<li className={styles.detail}>{dep.name}</li>
 							<ul>
@@ -23,10 +22,10 @@ const WorkoutPreview = ({ entity }) => {
 					))}
 				</ul>
 				<p className={styles.dep}>Circuits</p>
-				{entity.circs.length > 0
+				{preview.circuits.length > 0
 					? <>
 						<ul>
-							{entity.circs.map((dep, i) => {
+							{preview.circuits.map((dep, i) => {
 								return (
 									<div key={i}>
 										<li className={styles.detail}>
