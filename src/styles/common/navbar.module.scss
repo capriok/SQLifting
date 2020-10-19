@@ -47,15 +47,3 @@
 		}
 	}
 }
-
-.navbar_gap {
-	z-index: 10;
-	position: fixed;
-	top: 60px;
-	width: 100vw;
-	height: 10px;
-	background-color: $app-background;
-	@include media("<=phone") {
-		display: none;
-	}
-}

@@ -35,7 +35,6 @@ const Navbar = () => {
 					☰
 					 </NavLink>
 			</Nav>
-			<div className={styles.navbar_gap} />
 		</>
 	)
 }

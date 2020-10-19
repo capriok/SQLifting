@@ -53,7 +53,6 @@ const Manage = ({ params }) => {
 			</Actionbar>
 			<div className={styles.manage}>
 				<div className={ent.entities}>
-					<div className={styles.actionbar_gap} />
 					{entities.map((entity, i) => (
 						<div key={i} className={ent.entity_cont}>
 							<div className={entityClass(entity.id)} onClick={() => set(entity)}>

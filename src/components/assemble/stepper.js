@@ -1,5 +1,6 @@
 import React from 'react'
 
+import styles from '../../styles/assemble/assemble.module.scss'
 import stepper from '../../styles/assemble/stepper.scss'
 
 import { makeStyles, Stepper as MStepper, Step, StepLabel } from '@material-ui/core';
@@ -22,7 +23,7 @@ const Stepper = ({ state }) => {
 	const cls = useStyles()
 
 	return (
-		<>
+		<div className={styles.stepper}>
 			<MStepper className={cls.root} activeStep={state.activeStep} alternativeLabel>
 				{state.steps.map((step, i) => (
 					<Step key={i}>
@@ -34,7 +35,7 @@ const Stepper = ({ state }) => {
 					</Step>
 				))}
 			</MStepper>
-		</>
+		</div>
 	)
 }
 

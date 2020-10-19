@@ -1,21 +1,24 @@
 @import "../../index.scss";
 
-.stepper {
+.stepper_wrapper {
 	z-index: 50;
 	position: sticky;
-	top: 140px;
-	margin-top: 10px;
-	border-radius: 5px;
-	border: $light-border;
-	box-shadow: $soft-shadow;
-	background-color: $app-primary;
-	@include media("<=phone") {
-		border-top: none;
-		border-radius: 0px;
-		border-top-left-radius: 0px;
-		border-top-right-radius: 0px;
-		margin-top: 0px;
-		top: 50px;
+	top: 130px;
+	padding-top: 10px;
+	background-color: $app-background;
+	.stepper {
+		border-radius: 5px;
+		border: $light-border;
+		box-shadow: $soft-shadow;
+		background-color: $app-primary;
+		@include media("<=phone") {
+			border-top: none;
+			border-radius: 0px;
+			border-top-left-radius: 0px;
+			border-top-right-radius: 0px;
+			margin-top: 0px;
+			top: 50px;
+		}
 	}
 }
 

@@ -6,7 +6,6 @@
 	@include media("<=tablet") {
 		flex: 3;
 	}
-
 	@include media("<=phone") {
 		flex: 1;
 		width: 90%;

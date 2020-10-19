@@ -54,8 +54,7 @@ const Assemble = ({ params }) => {
 			<ActionBar title={params.entities}>
 				<AssembleActions {...props} />
 			</ActionBar>
-			<div className={styles.stepper}>
-				<div className={styles.stepper_gap} />
+			<div className={styles.stepper_wrapper}>
 				<Stepper {...props} />
 			</div>
 			<div className={styles.assemble}>

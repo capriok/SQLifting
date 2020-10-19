@@ -5,13 +5,14 @@
 	cursor: default;
 	user-select: none;
 	position: sticky;
-	top: $top;
+	top: 70px;
 	flex: 2;
 	display: flex;
 	width: 100%;
 	flex-direction: column;
 	max-width: 300px;
 	min-width: 300px;
+	margin-top: 10px;
 	padding-bottom: 10px;
 	border: $light-border;
 	border-radius: 5px;
