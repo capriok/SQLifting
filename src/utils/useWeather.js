@@ -23,6 +23,7 @@ const useWeather = () => {
 			Axios.get(ENDPOINT)
 				.then(res => {
 					const results = {
+						loading: false,
 						timezone: res.data.timezone.split('/')[1],
 						temperature: Math.ceil(res.data.current.temp),
 						humidity: res.data.current.humidity,
@@ -50,10 +51,11 @@ const useWeather = () => {
 			dispatch({
 				type: 'WEATHER_ACTION',
 				weather: {
+					loading: true,
 					timezone: 'Unknown',
 					temperature: 0,
 					humidity: 0,
-					description: 'no weather data',
+					description: '',
 					icon: placeholder
 				}
 			})
@@ -63,13 +65,8 @@ const useWeather = () => {
 			if (window.location.pathname !== '/') return
 			getWeather()
 		}, 300000)
-		const thirtyMinute = setInterval(() => {
-			if (window.location.pathname !== '/') return
-			getWeather()
-		}, 1500000)
 		return () => {
 			clearInterval(fiveMinute)
-			clearInterval(thirtyMinute)
 		}
 	}, [])
 

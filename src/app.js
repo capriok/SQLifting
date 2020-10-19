@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { useStateValue } from './global/state'
 import useUpdate from './utils/useUpdate';
-import useWeather from './utils/useWeather';
 
 import LandingLayout from './layouts/landing-layout';
 import Authenticate from './components/common/authenticate'
@@ -21,8 +20,6 @@ function App() {
   useEffect(() => {
     if (user.isAuthenticated) update('all')
   }, [])
-
-  useWeather()
 
   const log = (message, arg) => {
     arg.length > 0 && setTimeout(() => {
