@@ -19,7 +19,7 @@ export const assembleState = {
 	workoutBuild: {
 		name: '',
 		exercises: [],
-		circuits: [],
+		circuit: [],
 	}
 }
 
@@ -115,7 +115,9 @@ export function assembleReducer(state, action) {
 								[...state.workoutBuild[WObuildProp], action.entity],
 								x => x.id !== action.entity.id
 							)
-							: uniq([...state.workoutBuild[WObuildProp], action.entity])
+							: WObuildProp !== 'circuit'
+								? uniq([...state.workoutBuild[WObuildProp], action.entity])
+								: [action.entity]
 				}
 			}
 		case 'DETAIL_WO_BUILD':

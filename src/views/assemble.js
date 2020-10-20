@@ -25,12 +25,12 @@ const Assemble = ({ params }) => {
 		],
 		circuits: [
 			{ name: 'movements', label: 'Movements', entity: compositions.movements },
-			{ name: 'Detail', label: 'Detail', entity: [] }
+			{ name: 'detail', label: 'Detail', entity: [] }
 		],
 		workouts: [
 			{ name: 'exercises', label: 'Exercises', entity: composites.exercises },
-			{ name: 'circuits', label: 'Circuits', entity: composites.circuits },
-			{ name: 'Detail', label: 'Detail', entity: [] }
+			{ name: 'circuit', label: 'Circuit', entity: composites.circuits },
+			{ name: 'detail', label: 'Detail', entity: [] }
 		]
 	}
 

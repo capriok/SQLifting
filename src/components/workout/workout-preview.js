@@ -21,11 +21,11 @@ const WorkoutPreview = ({ preview }) => {
 						</div>
 					))}
 				</ul>
-				<p className={styles.dep}>Circuits</p>
-				{preview.circuits.length > 0
+				<p className={styles.dep}>Circuit</p>
+				{preview.circuit.length > 0
 					? <>
 						<ul>
-							{preview.circuits.map((dep, i) => {
+							{preview.circuit.map((dep, i) => {
 								return (
 									<div key={i}>
 										<li className={styles.detail}>

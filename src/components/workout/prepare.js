@@ -11,8 +11,6 @@ const Prepare = ({ params }) => {
 	const [{ composites }] = useStateValue()
 
 	const [workout, setWorkout] = useState({})
-	const [workoutEXs, setWorkoutEXs] = useState({})
-	const [workoutCIs, setWorkoutCIs] = useState({})
 
 	const INIT_DRAG = {
 		dragging: false,
@@ -20,7 +18,6 @@ const Prepare = ({ params }) => {
 		over: null
 	}
 	const [EXdrag, setEXdrag] = useState(INIT_DRAG)
-
 	const [CIdrag, setCIdrag] = useState(INIT_DRAG)
 
 	useEffect(() => {
@@ -37,23 +34,38 @@ const Prepare = ({ params }) => {
 		e.dataTransfer.setData('text/html', e.target.parentNode)
 	}
 
-	function onDragOver(index, setter, obj, arr) {
-		if (!obj.dragging) return
-		setter({ ...obj, over: workout[arr][index] })
-		if (obj.current === obj.over) return
-		let newArr = workout[arr].filter(item => item !== obj.current)
-		newArr.splice(index, 0, obj.current)
-		setWorkout({ ...workout, [arr]: newArr })
+	function onEXDragOver(index) {
+		if (!EXdrag.dragging) return
+		setEXdrag({ ...EXdrag, over: workout.exercises[index] })
+		if (EXdrag.current === EXdrag.over) return
+		let newArr = workout.exercises.filter(item => item !== EXdrag.current)
+		newArr.splice(index, 0, EXdrag.current)
+		setWorkout({ ...workout, exercises: newArr })
+	}
+
+	function onCIDragOver(index) {
+		if (!CIdrag.dragging) return
+		setCIdrag({ ...CIdrag, over: workout.circuit[0].deps[index] })
+		if (CIdrag.current === CIdrag.over) return
+		let newArr = workout.circuit[0].deps.filter(item => item !== CIdrag.current)
+		newArr.splice(index, 0, CIdrag.current)
+		setWorkout({ ...workout, circuit: [{ ...workout.circuit[0], deps: newArr }] })
 	}
 
 	function onDragEnd(setter) {
 		setter(INIT_DRAG)
 	}
 
-	function entClass(obj, ent) {
-		return obj.current.id === ent.id && obj.current.name === ent.name
-			? `${styles.entity} ${styles.dragging}`
-			: styles.entity
+	function exClass(id) {
+		return EXdrag.current.id === id
+			? `${styles.ex_entity} ${styles.dragging}`
+			: styles.ex_entity
+	}
+
+	function ciClass(id) {
+		return CIdrag.current.id === id
+			? styles.dragging
+			: null
 	}
 
 	if (isEmpty(workout)) return <></>
@@ -68,14 +80,14 @@ const Prepare = ({ params }) => {
 						{workout.exercises.map((ent, i) => (
 							<div
 								key={i}
-								className={entClass(EXdrag, ent)}
-								onDragOver={() => onDragOver(i, setEXdrag, EXdrag, 'exercises')}>
+								className={exClass(ent.id)}
+								onDragOver={() => onEXDragOver(i)}>
 								<div className={styles.entity_main}>
 									<p>{ent.name}</p>
 									<ul>
 										<li>Equipment: <span>{ent.deps.equipment}</span></li>
-										<li>Muscle: <span>{ent.deps.muscle}</span></li>
 										<li>Exercise: <span>{ent.deps.exercise}</span></li>
+										<li>Muscle: <span>{ent.deps.muscle}</span></li>
 									</ul>
 								</div>
 								<div className={styles.details}>
@@ -93,31 +105,30 @@ const Prepare = ({ params }) => {
 							</div>
 						))}
 					</div>
-					{workout.circuits.length > 0 &&
+					{workout.circuit.length > 0 &&
 						<div className={styles.entities} draggable={false}>
-							<h2 className={styles.entities_title}>Circuits</h2>
-							{workout.circuits.map((ent, i) => (
-								<div
-									key={i}
-									className={entClass(CIdrag, ent)}
-									onDragOver={() => onDragOver(i, setCIdrag, CIdrag, 'circuits')}>
+							<h2 className={styles.entities_title}>Circuit</h2>
+							{workout.circuit.map((ent, i) => (
+								<div key={i} className={styles.ci_entity}>
 									<div className={styles.entity_main}>
-										<p>{ent.name}</p>
-										{ent.deps.map((dep, i) => (
-											<ul key={i}>
-												<li>{dep.name}: <span>{dep.duration}</span></li>
-											</ul>
-										))}
-									</div>
-									<div className={styles.details}>
-										<div>{ent.sets} {ent.sets === 1 ? 'Set' : 'Sets'}</div>
-									</div>
-									<div
-										className={styles.handle}
-										draggable={true}
-										onDragStart={e => onDragStart(e, i, setCIdrag, CIdrag, workout.circuits)}
-										onDragEnd={() => onDragEnd(setCIdrag)}>
-										☰
+										<p>{ent.name} <span>{ent.sets} {ent.sets === 1 ? 'Set' : 'Sets'}</span> </p>
+										<ul className={styles.dep_ul}>
+											{ent.deps.map((dep, i) => (
+												<li
+													key={i}
+													className={ciClass(dep.id)}
+													onDragOver={() => onCIDragOver(i)}>
+													<p>{dep.name}: <span>{dep.duration}</span></p>
+													<div
+														className={styles.handle}
+														draggable={true}
+														onDragStart={e => onDragStart(e, i, setCIdrag, CIdrag, workout.circuit[0].deps)}
+														onDragEnd={() => onDragEnd(setCIdrag)}>
+														☰
+													</div>
+												</li>
+											))}
+										</ul>
 									</div>
 								</div>
 							))}

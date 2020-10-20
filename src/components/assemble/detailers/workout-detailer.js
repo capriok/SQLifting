@@ -55,13 +55,13 @@ const WorkoutDetailer = ({ state, dispatch }) => {
 						))}
 					</div>
 					<div className={styles.details}>
-						{build.circuits.length === 0
+						{build.circuit.length === 0
 							? <></>
-							: build.circuits.length > 1
+							: build.circuit.length > 1
 								? <h2>Circuits</h2>
 								: <h2>Circuit</h2>
 						}
-						{build.circuits.map((circ, i) => (
+						{build.circuit.map((circ, i) => (
 							<div className={styles.detail} key={i}>
 								<p>{circ.name}</p>
 								<div>
@@ -71,7 +71,7 @@ const WorkoutDetailer = ({ state, dispatch }) => {
 										min={0}
 										step={2}
 										placeholder="Sets"
-										onChange={e => setDetailByProp('circuits', 'sets', e.target.value, i)} />
+										onChange={e => setDetailByProp('circuit', 'sets', e.target.value, i)} />
 								</div>
 							</div>
 						))}

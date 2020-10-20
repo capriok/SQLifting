@@ -21,7 +21,7 @@ const WorkoutBuilder = (props) => {
 
 	// Needed to ensure dispatch finished while component mounts
 	const buildReady = steps.length > 0 && steps[activeStep].name === 'exercises'
-		|| steps.length > 0 && steps[activeStep].name === 'circuits'
+		|| steps.length > 0 && steps[activeStep].name === 'circuit'
 	const buildProp = steps.length > 0 && steps[activeStep].name
 
 	useEffect(() => {
@@ -85,7 +85,7 @@ const WorkoutBuilder = (props) => {
 				<div className={styles.name_input}>
 					<Input
 						placeholder="Give it a name"
-						value={name}
+						value={build.name}
 						onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 				</div>
 				<div className={ext.workout_exntension}>
@@ -104,10 +104,10 @@ const WorkoutBuilder = (props) => {
 							))}
 						</ul>
 					</>}
-					{build.circuits.length > 0 && <>
-						<p>Circuits</p>
+					{build.circuit.length > 0 && <>
+						<p>Circuit</p>
 						<ul>
-							{build.circuits.map((ci, i) => (
+							{build.circuit.map((ci, i) => (
 								<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
 									<span>{ci.name}</span>
 									{activeStep === 2 && <div>

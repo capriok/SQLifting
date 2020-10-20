@@ -79,7 +79,7 @@ const CircuitBuilder = (props) => {
 				<div className={styles.name_input}>
 					<Input
 						placeholder="Give it a name"
-						value={name}
+						value={build.name}
 						onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
 				</div>
 				<div className={ext.circuit_exntension}>
