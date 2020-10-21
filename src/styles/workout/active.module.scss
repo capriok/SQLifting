@@ -1,0 +1,150 @@
+@import "../../index.scss";
+
+.active {
+	@include flex;
+	align-items: flex-start;
+	width: 100%;
+	margin-top: 10px;
+	.workout {
+		flex: 2;
+		@include flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		margin: 0 10px 20px 0;
+		padding: 20px;
+		border-radius: 5px;
+		box-shadow: $soft-shadow;
+		background-color: $app-primary;
+		.workout_title {
+			width: 100%;
+			text-align: center;
+			padding-bottom: 20px;
+			margin: 0px;
+			border-bottom: 2px solid $app-secondary;
+		}
+		.entities {
+			width: 100%;
+			.entities_title {
+				padding: 20px;
+				margin: 20px -20px;
+				margin-top: 0;
+				border: $light-border;
+				background-color: $app-primary;
+				filter: brightness(93%);
+			}
+			.ex_entity {
+				user-select: none;
+				@include flex;
+				justify-content: space-between;
+				padding: 10px 0px;
+				border-bottom: 2px solid lightgrey;
+				.entity_main {
+					flex: 1;
+					p {
+						font-size: 1.1rem;
+						margin: 0;
+					}
+					ul {
+						margin: 5px 0 5px 10px;
+						padding: 0 0 0 10px;
+						li {
+							cursor: default;
+							span {
+								color: $app-secondary;
+								font-size: 0.9rem;
+								margin-left: 2px;
+							}
+						}
+					}
+				}
+				.details {
+					margin-right: 40px;
+					text-align: right;
+				}
+			}
+			.ci_entity {
+				user-select: none;
+				@include flex;
+				justify-content: space-between;
+				.entity_main {
+					flex: 1;
+					p {
+						@include flex;
+						justify-content: space-between;
+						font-size: 1.1rem;
+						margin: 0;
+						margin-bottom: 10px;
+					}
+					ul {
+						margin: 5px 0;
+						padding: 0;
+						li {
+							cursor: default;
+							@include flex;
+							justify-content: space-between;
+							padding: 10px;
+							border-bottom: 2px solid lightgrey;
+							p {
+								margin: 0;
+								margin-left: 10px;
+								span {
+									color: $app-secondary;
+									font-size: 0.9rem;
+									margin-left: 2px;
+								}
+							}
+						}
+					}
+				}
+				.details {
+					margin-right: 40px;
+					text-align: right;
+				}
+			}
+			&:nth-child(2) .entities_title {
+				margin-top: 20px;
+			}
+		}
+	}
+	.extension {
+		z-index: 10;
+		flex: 1.5;
+		position: sticky;
+		top: 140px;
+		width: 100%;
+		min-width: 275px;
+		padding: 10px;
+		padding-bottom: 20px;
+		border-radius: 5px;
+		box-shadow: $soft-shadow;
+		background-color: $app-primary;
+		.timer {
+			text-align: center;
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+			font-weight: 400;
+		}
+		.tab_group {
+			width: 100%;
+			@include flex;
+			button {
+				width: 100%;
+				border-radius: 0;
+				cursor: default;
+			}
+			button:first-child {
+				border-top-left-radius: 5px;
+				border-bottom-left-radius: 5px;
+			}
+			button:last-child {
+				border-top-right-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}
+			.inactive_tab {
+				cursor: pointer;
+				background-color: lightgrey;
+			}
+		}
+	}
+}

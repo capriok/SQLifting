@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash'
 import { useStateValue } from '../../global/state'
 import styles from '../../styles/workout/prepare.module.scss'
 
-const Prepare = ({ params }) => {
+const Prepare = ({ dispatch, params }) => {
 	const paramID = parseInt(params.id)
 
 	const [{ composites }] = useStateValue()
@@ -54,6 +54,7 @@ const Prepare = ({ params }) => {
 
 	function onDragEnd(setter) {
 		setter(INIT_DRAG)
+		dispatch({ type: 'SET_PREVIEW', entity: workout })
 	}
 
 	function exClass(id) {

@@ -3,41 +3,19 @@
 import React, { useEffect, useReducer } from 'react'
 import { Route, useHistory } from 'react-router-dom'
 import { useStateValue } from '../global/state'
-// import { workoutState, workoutReducer } from '../components/workout/state/workout-reducer'
-import { uniq, remove, isEmpty } from 'lodash'
+import { workoutState, workoutReducer } from '../components/workout/state/workout-reducer'
+import { isEmpty } from 'lodash'
 
 import styles from '../styles/workout/workout.module.scss'
 import ent from '../styles/common/entities.module.scss'
 
-import Prepare from '../components/workout/prepare'
-import WorkoutPreview from '../components/workout/workout-preview'
 import Actionbar from '../components/actionbar/actionbar'
-
 import WorkoutActions from '../components/workout/actions'
+import WorkoutPreview from '../components/workout/workout-preview'
+import Prepare from '../components/workout/prepare'
+import Active from '../components/workout/active'
 
 const Workout = () => {
-
-	const workoutState = {
-		preview: {}
-	}
-
-	function workoutReducer(state, action) {
-		switch (action.type) {
-			case 'RESET':
-				return {
-					...workoutState
-				}
-			case 'SET_PREVIEW':
-				return {
-					...state,
-					preview: action.entity
-				}
-			default:
-				console.error('Invalid Action Type')
-				break;
-		}
-	}
-
 	const [{ composites }] = useStateValue()
 
 	const [state, dispatch] = useReducer(workoutReducer, workoutState)
@@ -47,7 +25,8 @@ const Workout = () => {
 	const { preview } = state
 
 	useEffect(() => {
-		dispatch({ type: 'RESET' })
+		history.location.pathname === '/workout'
+			&& dispatch({ type: 'RESET' })
 	}, [history.location.pathname])
 
 	function setPreview(entity) {
@@ -95,7 +74,10 @@ const Workout = () => {
 						</div>
 					</>)} />
 				<Route path='/workout/:id/prepare' render={(props) => (
-					<Prepare params={props.match.params} />
+					<Prepare dispatch={dispatch} params={props.match.params} />
+				)} />
+				<Route path='/workout/active' render={() => (
+					<Active state={state} />
 				)} />
 			</div>
 		</>

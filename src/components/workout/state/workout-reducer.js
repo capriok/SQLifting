@@ -6,7 +6,6 @@ export const workoutState = {
 }
 
 export function workoutReducer(state, action) {
-	console.log('ACTION', action);
 	switch (action.type) {
 		case 'RESET':
 			return {

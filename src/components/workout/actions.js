@@ -6,7 +6,7 @@ import styles from '../../styles/workout/actions.module.scss'
 import { Button } from 'godspeed'
 import { isEmpty } from 'lodash'
 
-const WorkoutActions = ({ state, dispatch }) => {
+const WorkoutActions = ({ state }) => {
 
 	const { preview } = state
 
@@ -29,7 +29,7 @@ const WorkoutActions = ({ state, dispatch }) => {
 					disabled={isEmpty(preview) || !atIndex} />
 				<Button
 					text="Start Workout"
-					onClick={() => { }}
+					onClick={() => history.push(`/workout/active`)}
 					disabled={atIndex} />
 			</>
 		</div>
