@@ -31,12 +31,10 @@ const CircuitBuilder = (props) => {
 	}, [activeStep, build])
 
 	function checkStep() {
-		if (build.movements.length >= 3) {
-			dispatch({ type: 'READY', state: true })
-		}
-		if (activeStep === steps.length - 1) {
-			dispatch({ type: 'READY', state: true })
-		}
+		build.movements.length >= 3
+			&& dispatch({ type: 'READY', state: true })
+		activeStep === steps.length - 1
+			&& dispatch({ type: 'READY', state: true })
 	}
 
 	function addToBuild(entity) {

@@ -86,8 +86,8 @@ const Prepare = ({ params }) => {
 									<p>{ent.name}</p>
 									<ul>
 										<li>Equipment: <span>{ent.deps.equipment}</span></li>
-										<li>Exercise: <span>{ent.deps.exercise}</span></li>
 										<li>Muscle: <span>{ent.deps.muscle}</span></li>
+										<li>Exercise: <span>{ent.deps.exercise}</span></li>
 									</ul>
 								</div>
 								<div className={styles.details}>

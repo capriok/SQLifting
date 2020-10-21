@@ -4,6 +4,8 @@
 import React, { useState, useEffect } from 'react'
 import { isEmpty } from 'lodash';
 
+import check from '../../../assets/check_black.png'
+
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/exercise-extension.module.scss'
@@ -28,20 +30,12 @@ const ExerciseBuilder = ({ state, dispatch }) => {
 	}, [activeStep])
 
 	function checkStep() {
-		if (!isEmpty(build[steps[activeStep].name])) {
-			dispatch({ type: 'READY', state: true })
-		}
+		!isEmpty(build[steps[activeStep].name])
+			&& dispatch({ type: 'READY', state: true })
 	}
 
 	function addToBuild(entity) {
 		dispatch({ type: 'ALTER_EX_BUILD', entity })
-	}
-
-	function activeEntity(entity) {
-		if (build[steps[activeStep].name] === undefined) return ent.entity
-		return build[steps[activeStep].name].id === entity.id
-			? `${ent.entity} ${ent.active_entity}`
-			: ent.entity
 	}
 
 	return (
@@ -50,9 +44,12 @@ const ExerciseBuilder = ({ state, dispatch }) => {
 				{entities.map((entity, i) => (
 					<div key={i} className={ent.entity_cont}>
 						<div
-							className={activeEntity(entity)}
+							className={ent.entity}
 							onClick={() => addToBuild(entity)}>
 							<div><p>{entity.name}</p></div>
+							{build[steps[activeStep].name].id === entity.id &&
+								<img src={check} alt="" />
+							}
 						</div>
 					</div>
 				))}
