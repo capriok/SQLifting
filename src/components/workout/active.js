@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { isEmpty } from 'lodash'
 
 import styles from '../../styles/workout/active.module.scss'
+import ext from '../../styles/workout/active-ext.module.scss'
 
 import Timer from './timer'
 import { Button } from 'godspeed'
@@ -76,15 +77,15 @@ const Active = ({ state }) => {
 					</center>
 				}
 			</div>
-			<div className={styles.extension}>
+			<div className={ext.extension}>
 				<Timer />
-				<div className={styles.tab_group}>
+				<div className={ext.tab_group}>
 					<Button
-						className={!tab.exercises && styles.inactive_tab}
+						className={tab.exercises && ext.active_tab}
 						text="Exercises"
 						onClick={() => setTab({ ...tab, exercises: true, circuit: false })} />
 					<Button
-						className={!tab.circuit && styles.inactive_tab}
+						className={tab.circuit && ext.active_tab}
 						text="Circuit"
 						onClick={() => setTab({ ...tab, exercises: false, circuit: true })} />
 				</div>

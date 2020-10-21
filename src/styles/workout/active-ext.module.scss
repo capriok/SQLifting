@@ -1,0 +1,36 @@
+@import "../../index.scss";
+
+.extension {
+	z-index: 10;
+	flex: 1.5;
+	position: sticky;
+	top: 140px;
+	width: 100%;
+	min-width: 275px;
+	padding: 10px;
+	padding-bottom: 20px;
+	border-radius: 5px;
+	box-shadow: $soft-shadow;
+	background-color: $app-primary;
+	.tab_group {
+		width: 100%;
+		@include flex;
+		button {
+			width: 100%;
+			border-radius: 0;
+			cursor: pointer;
+		}
+		button:first-child {
+			border-top-left-radius: 5px;
+			border-bottom-left-radius: 5px;
+		}
+		button:last-child {
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
+		}
+		.active_tab {
+			cursor: default;
+			background-color: $app-secondary;
+		}
+	}
+}

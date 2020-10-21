@@ -107,44 +107,4 @@
 			}
 		}
 	}
-	.extension {
-		z-index: 10;
-		flex: 1.5;
-		position: sticky;
-		top: 140px;
-		width: 100%;
-		min-width: 275px;
-		padding: 10px;
-		padding-bottom: 20px;
-		border-radius: 5px;
-		box-shadow: $soft-shadow;
-		background-color: $app-primary;
-		.timer {
-			text-align: center;
-			padding-bottom: 10px;
-			border-bottom: 2px solid $app-secondary;
-			font-weight: 400;
-		}
-		.tab_group {
-			width: 100%;
-			@include flex;
-			button {
-				width: 100%;
-				border-radius: 0;
-				cursor: default;
-			}
-			button:first-child {
-				border-top-left-radius: 5px;
-				border-bottom-left-radius: 5px;
-			}
-			button:last-child {
-				border-top-right-radius: 5px;
-				border-bottom-right-radius: 5px;
-			}
-			.inactive_tab {
-				cursor: pointer;
-				background-color: lightgrey;
-			}
-		}
-	}
 }

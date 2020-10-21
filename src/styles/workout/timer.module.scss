@@ -1,4 +1,11 @@
 @import "../../index.scss";
 
 .timer {
+	width: 100%;
+	text-align: center;
+	font-size: 3rem;
+	padding-bottom: 20px;
+	margin: 40px 0;
+	border-bottom: 2px solid $app-secondary;
+	font-weight: 400;
 }

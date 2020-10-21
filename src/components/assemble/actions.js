@@ -19,7 +19,7 @@ const AssembleActions = ({ state, dispatch }) => {
 	const ref = useRef();
 	useOutsideClick(ref, () => {
 		if (confirming) setConfirming(false)
-	});
+	})
 
 	const notReadyForNext = !readyForNext
 	const isFirstStep = activeStep === 0
@@ -62,18 +62,17 @@ const AssembleActions = ({ state, dispatch }) => {
 					text="Next"
 					disabled={isLastStep || notReadyForNext}
 					onClick={() => dispatch({ type: 'INC_ACTIVESTEP' })} />
-				{
-					confirming
-						? <div ref={ref}>
-							<Button
-								text="Confirm"
-								className={styles.warn}
-								onClick={() => { submitBuild(); setConfirming(false) }} />
-						</div>
-						: <Button
-							text="Submit"
-							onClick={() => setConfirming(true)}
-							disabled={notLastStep || notReadyForNext || noBuildName} />
+				{confirming
+					? <div ref={ref}>
+						<Button
+							text="Confirm"
+							className={styles.warn}
+							onClick={() => { submitBuild(); setConfirming(false) }} />
+					</div>
+					: <Button
+						text="Submit"
+						onClick={() => setConfirming(true)}
+						disabled={notLastStep || notReadyForNext || noBuildName} />
 				}
 			</>
 		</div>

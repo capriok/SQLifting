@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
+import useOutsideClick from '../../utils/useOutsideClick'
 
 import styles from '../../styles/workout/actions.module.scss'
 
@@ -13,14 +14,30 @@ const WorkoutActions = ({ state }) => {
 	const history = useHistory()
 
 	const atIndex = history.location.pathname === '/workout'
+	const isActive = history.location.pathname === '/workout/active'
+
+	const [confirming, setConfirming] = useState(false)
+
+	const ref = useRef();
+	useOutsideClick(ref, () => {
+		if (confirming) setConfirming(false)
+	})
 
 	return (
 		<div className={styles.workout_actions}>
 			<>
-				<Button
-					text="Back"
-					onClick={() => history.push('/workout')}
-					disabled={atIndex} />
+				{confirming
+					? <div ref={ref} style={{ marginRight: '10px' }}>
+						<Button
+							text="Are you sure?"
+							className={styles.warn}
+							onClick={() => { history.push('/workout'); setConfirming(false) }} />
+					</div>
+					: <Button
+						text={isActive ? 'End Workout' : 'Back'}
+						onClick={() => { setConfirming(true) }}
+						disabled={atIndex} />
+				}
 				<Button
 					text="Prepare"
 					onClick={() => {
@@ -30,7 +47,7 @@ const WorkoutActions = ({ state }) => {
 				<Button
 					text="Start Workout"
 					onClick={() => history.push(`/workout/active`)}
-					disabled={atIndex} />
+					disabled={atIndex || isActive} />
 			</>
 		</div>
 	)
