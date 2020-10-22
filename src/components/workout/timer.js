@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import styles from '../../styles/workout/timer.module.scss'
 
 const Timer = () => {
-	const INIT_TIMER = { min: 0, sec: 58, on: false }
+	const INIT_TIMER = { min: 0, sec: 0, on: false }
 
 	const [timer, setTimer] = useState(INIT_TIMER)
 
@@ -28,17 +28,6 @@ const Timer = () => {
 			clearTimeout(timeout);
 		}
 	}, [timer.clock, timer.min, timer.sec, timer.on])
-
-	useEffect(() => {
-		let min = timer.min
-		if (min === 0) return
-		if (min <= 1) return
-		let count = 0
-		let chimer = setInterval(() => {
-			count++
-			if (count === min - 1) clearInterval(chimer)
-		}, 750);
-	}, [timer.min])
 
 	return (
 		<>

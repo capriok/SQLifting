@@ -32,7 +32,7 @@ const Active = ({ state }) => {
 					? <>
 						{tab.exercises &&
 							<div className={styles.entities}>
-								<h2 className={styles.entities_title}>Exercises</h2>
+								<h1 className={styles.entities_title}>Exercises</h1>
 								{workout.exercises.map((ent, i) => (
 									<div key={i} className={styles.ex_entity}>
 										<div className={styles.entity_main}>
@@ -54,16 +54,14 @@ const Active = ({ state }) => {
 						}
 						{tab.circuit && workout.circuit.length > 0 &&
 							<div className={styles.entities}>
-								<h2 className={styles.entities_title}>Circuit</h2>
+								<h1 className={styles.entities_title}>Circuit</h1>
 								{workout.circuit.map((ent, i) => (
 									<div key={i} className={styles.ci_entity}>
 										<div className={styles.entity_main}>
 											<p>{ent.name} <span>{ent.sets} {ent.sets === 1 ? 'Set' : 'Sets'}</span> </p>
 											<ul className={styles.dep_ul}>
 												{ent.deps.map((dep, i) => (
-													<li key={i}>
-														<p>{dep.name}: <span>{dep.duration}</span></p>
-													</li>
+													<li key={i}>{dep.name}: <span>{dep.duration}</span></li>
 												))}
 											</ul>
 										</div>

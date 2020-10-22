@@ -26,6 +26,7 @@
 		.entities {
 			width: 100%;
 			.entities_title {
+				font-size: 1.8rem;
 				padding: 20px;
 				margin: 20px -20px;
 				margin-top: 0;
@@ -33,77 +34,68 @@
 				background-color: $app-primary;
 				filter: brightness(93%);
 			}
-			.ex_entity {
-				user-select: none;
-				@include flex;
-				justify-content: space-between;
-				padding: 10px 0px;
-				border-bottom: 2px solid lightgrey;
-				.entity_main {
-					flex: 1;
-					p {
+			&:nth-child(2) .entities_title {
+				margin-top: 20px;
+			}
+			.entity_main {
+				flex: 1;
+				p {
+					font-size: 1.3rem;
+					margin: 0;
+					margin-bottom: 10px;
+				}
+				ul {
+					margin: 5px 0 5px 10px;
+					padding: 0 0 0 10px;
+					li {
 						font-size: 1.1rem;
-						margin: 0;
-					}
-					ul {
-						margin: 5px 0 5px 10px;
-						padding: 0 0 0 10px;
-						li {
-							cursor: default;
-							span {
-								color: $app-secondary;
-								font-size: 0.9rem;
-								margin-left: 2px;
-							}
+						cursor: default;
+						margin-top: 5px;
+						span {
+							font-size: 1rem;
+							color: $app-secondary;
 						}
 					}
 				}
-				.details {
-					margin-right: 40px;
-					text-align: right;
+			}
+			.details {
+				margin-right: 20px;
+				text-align: right;
+				font-size: 1.1rem;
+			}
+			.ex_entity {
+				@include flex;
+				justify-content: space-between;
+				padding: 15px 0px;
+				border-bottom: 2px solid lightgrey;
+				ul {
+					margin: 5px 0 5px 10px;
+					padding: 0 0 0 10px;
+					li {
+						margin-top: 5px;
+					}
 				}
 			}
 			.ci_entity {
-				user-select: none;
 				@include flex;
 				justify-content: space-between;
-				.entity_main {
-					flex: 1;
-					p {
-						@include flex;
-						justify-content: space-between;
-						font-size: 1.1rem;
-						margin: 0;
-						margin-bottom: 10px;
-					}
-					ul {
-						margin: 5px 0;
-						padding: 0;
-						li {
-							cursor: default;
-							@include flex;
-							justify-content: space-between;
-							padding: 10px;
-							border-bottom: 2px solid lightgrey;
-							p {
-								margin: 0;
-								margin-left: 10px;
-								span {
-									color: $app-secondary;
-									font-size: 0.9rem;
-									margin-left: 2px;
-								}
-							}
+				p {
+					@include flex;
+					justify-content: space-between;
+					font-size: 1.3rem;
+				}
+				ul {
+					margin: 5px 0;
+					padding: 0;
+					li {
+						text-align: center;
+						padding: 10px;
+						border-bottom: 2px solid lightgrey;
+						span {
+							place-items: 5px;
 						}
 					}
 				}
-				.details {
-					margin-right: 40px;
-					text-align: right;
-				}
-			}
-			&:nth-child(2) .entities_title {
-				margin-top: 20px;
 			}
 		}
 	}
