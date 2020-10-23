@@ -181,7 +181,7 @@ const SidebarContent = ({ setSidebar }) => {
 								<ul>
 									{createMap('/manage', manage.compositions)}
 								</ul>
-								<p>Composites</p>
+								<p>Assembled</p>
 								<ul>
 									{createMap('/manage', manage.composites)}
 								</ul>
@@ -228,7 +228,7 @@ const SidebarOptions = ({ flipOptions }) => {
 			<h1>Options</h1>
 			<ul>
 				<BackgroundOption />
-				<PrimaryOption />
+				{/* <PrimaryOption /> */}
 				<SecondaryOption />
 				<TipsOption />
 				{notMobile && <SidebarOption flipOptions={flipOptions} />}

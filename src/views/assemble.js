@@ -1,5 +1,5 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
-import React, { useEffect, useReducer } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { useStateValue } from '../global/state'
 import { assembleState, assembleReducer } from '../components/assemble/state/assemble-reducer'
 
@@ -16,6 +16,8 @@ const Assemble = ({ params }) => {
 	const [{ composites, compositions }] = useStateValue()
 
 	const [state, dispatch] = useReducer(assembleReducer, assembleState)
+
+	const [success, setSuccess] = useState(false)
 
 	const steps = {
 		exercises: [
@@ -35,6 +37,13 @@ const Assemble = ({ params }) => {
 	}
 
 	useEffect(() => {
+		const resetTimer = setTimeout(() => {
+			setSuccess(false)
+		}, 4000)
+		return () => clearTimeout(resetTimer)
+	}, [success])
+
+	useEffect(() => {
 		dispatch({
 			type: 'SET_STEPS',
 			steps: steps[params.entities],
@@ -47,7 +56,7 @@ const Assemble = ({ params }) => {
 		state.steps.length > 0 && dispatch({ type: 'SET_ENTITIES' })
 	}, [state.steps, state.activeStep])
 
-	const props = { state, dispatch }
+	const props = { state, dispatch, success, setSuccess }
 
 	return (
 		<>

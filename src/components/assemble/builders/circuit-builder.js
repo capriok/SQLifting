@@ -8,6 +8,7 @@ import check from '../../../assets/check_black.png'
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/circuit-extension.module.scss'
+import ss from '../../../styles/common/submit-success.module.scss'
 
 import { Input } from 'godspeed';
 import CircuitDetailer from '../detailers/circuit-detailer'
@@ -15,6 +16,7 @@ import CircuitDetailer from '../detailers/circuit-detailer'
 const CircuitBuilder = (props) => {
 	const { steps, activeStep, entities, circuitBuild: build } = props.state
 	const dispatch = props.dispatch
+	const success = props.success
 
 	const [name, setName] = useState('')
 
@@ -70,31 +72,35 @@ const CircuitBuilder = (props) => {
 				</>
 			}
 			<div className={styles.extension}>
-				{build.name
-					? <p className={styles.title}>{build.name}</p>
-					: <p className={styles.name_placeholder}>Build name</p>
-				}
-				<div className={styles.name_input}>
-					<Input
-						placeholder="Give it a name"
-						value={build.name}
-						onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
-				</div>
-				<div className={ext.circuit_exntension}>
-					{build.movements.length > 0 && <>
-						<p>Movements</p>
-						<ul>
-							{build.movements.map((mov, i) => (
-								<li key={i} className={activeStep === 1 ? ext.li_bb : null}>
-									<span>{mov.name}</span>
-									{activeStep === 1 &&
-										<span>{mov.durationValue} {mov.durationType}</span>
-									}
-								</li>
-							))}
-						</ul>
+				{success
+					? <h1 className={ss.assemble_submit_success}>Build Successful</h1>
+					: <>
+						{build.name
+							? <p className={styles.title}>{build.name}</p>
+							: <p className={styles.name_placeholder}>Build name</p>
+						}
+						<div className={styles.name_input}>
+							<Input
+								placeholder="Give it a name"
+								value={build.name}
+								onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
+						</div>
+						<div className={ext.circuit_exntension}>
+							{build.movements.length > 0 && <>
+								<p>Movements</p>
+								<ul>
+									{build.movements.map((mov, i) => (
+										<li key={i} className={activeStep === 1 ? ext.li_bb : null}>
+											<span>{mov.name}</span>
+											{activeStep === 1 &&
+												<span>{mov.durationValue} {mov.durationType}</span>
+											}
+										</li>
+									))}
+								</ul>
+							</>}
+						</div>
 					</>}
-				</div>
 			</div>
 		</>
 	)

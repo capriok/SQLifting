@@ -9,6 +9,7 @@ import check from '../../../assets/check_black.png'
 import styles from '../../../styles/assemble/assemble.module.scss'
 import ent from '../../../styles/common/entities.module.scss'
 import ext from '../../../styles/assemble/extensions/workout-extension.module.scss'
+import ss from '../../../styles/common/submit-success.module.scss'
 
 import { Input } from 'godspeed';
 import WorkoutDetailer from '../detailers/workout-detailer'
@@ -16,6 +17,7 @@ import WorkoutDetailer from '../detailers/workout-detailer'
 const WorkoutBuilder = (props) => {
 	const { steps, activeStep, entities, workoutBuild: build } = props.state
 	const dispatch = props.dispatch
+	const success = props.success
 
 	const [name, setName] = useState('')
 
@@ -76,46 +78,50 @@ const WorkoutBuilder = (props) => {
 					<WorkoutDetailer {...props} />
 				</>}
 			<div className={styles.extension}>
-				{build.name
-					? <p className={styles.title}>{build.name}</p>
-					: <p className={styles.name_placeholder}>Build name</p>
-				}
-				<div className={styles.name_input}>
-					<Input
-						placeholder="Give it a name"
-						value={build.name}
-						onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
-				</div>
-				<div className={ext.workout_exntension}>
-					{build.exercises.length > 0 && <>
-						<p>Exercises</p>
-						<ul>
-							{build.exercises.map((ex, i) => (
-								<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
-									<span>{ex.name}</span>
-									{activeStep === 2 && <div>
-										<span>{ex.sets} Sets</span>
-										<span>{ex.reps} Reps</span>
-										<span>{ex.weight} lbs</span>
-									</div>}
-								</li>
-							))}
-						</ul>
+				{success
+					? <h1 className={ss.assemble_submit_success}>Build Successful</h1>
+					: <>
+						{build.name
+							? <p className={styles.title}>{build.name}</p>
+							: <p className={styles.name_placeholder}>Build name</p>
+						}
+						<div className={styles.name_input}>
+							<Input
+								placeholder="Give it a name"
+								value={build.name}
+								onChange={e => setName(e.target.value.replace(/[^a-zA-Z&(\)\[\]\{\}\,\'\"\-+]+/ig, ''))} />
+						</div>
+						<div className={ext.workout_exntension}>
+							{build.exercises.length > 0 && <>
+								<p>Exercises</p>
+								<ul>
+									{build.exercises.map((ex, i) => (
+										<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
+											<span>{ex.name}</span>
+											{activeStep === 2 && <div>
+												<span>{ex.sets} Sets</span>
+												<span>{ex.reps} Reps</span>
+												<span>{ex.weight} lbs</span>
+											</div>}
+										</li>
+									))}
+								</ul>
+							</>}
+							{build.circuit.length > 0 && <>
+								<p>Circuit</p>
+								<ul>
+									{build.circuit.map((ci, i) => (
+										<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
+											<span>{ci.name}</span>
+											{activeStep === 2 && <div>
+												<span>{ci.sets} Sets</span>
+											</div>}
+										</li>
+									))}
+								</ul>
+							</>}
+						</div>
 					</>}
-					{build.circuit.length > 0 && <>
-						<p>Circuit</p>
-						<ul>
-							{build.circuit.map((ci, i) => (
-								<li key={i} className={activeStep === 2 ? ext.li_bb : null}>
-									<span>{ci.name}</span>
-									{activeStep === 2 && <div>
-										<span>{ci.sets} Sets</span>
-									</div>}
-								</li>
-							))}
-						</ul>
-					</>}
-				</div>
 			</div>
 		</>
 	)

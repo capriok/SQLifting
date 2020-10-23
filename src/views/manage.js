@@ -20,8 +20,13 @@ const Manage = ({ params }) => {
 	const [globalState] = useStateValue()
 	const [state, dispatch] = useReducer(manageReducer, manageState);
 	const [entities, setEntities] = useState([])
+	const [success, setSuccess] = useState(false)
 
-	useEffect(() => { }, [])
+	useEffect(() => {
+		setTimeout(() => {
+			setSuccess(false)
+		}, 3000);
+	}, [success])
 
 	useEffect(() => {
 		setEntities(globalState[params.group][params.entities])
@@ -44,7 +49,11 @@ const Manage = ({ params }) => {
 				: ent.entity
 	}
 
-	const props = { state, dispatch, preview: state.preview, selection: state.selection }
+	const props = {
+		state, dispatch,
+		preview: state.preview, selection: state.selection,
+		success, setSuccess
+	}
 
 	return (
 		<>
@@ -65,7 +74,7 @@ const Manage = ({ params }) => {
 					))}
 				</div>
 				<div className={styles.extension}>
-					{Object.keys(state.ext).every(k => state.ext[k] === false) && <Compose />}
+					{Object.keys(state.ext).every(k => state.ext[k] === false) && <Compose {...props} />}
 					{state.ext.preview && <Preview {...props} />}
 					{state.ext.edit && <Editor {...props} />}
 					{state.ext.select && <Selector {...props} />}

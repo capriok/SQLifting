@@ -40,7 +40,7 @@ const Secondary = () => {
 	return (
 		<>
 			<li className={styles.li}>
-				<p>Secondary color</p>
+				<p>Accent color</p>
 				<span style={{ backgroundColor: options.secondaryOption }} onClick={() => setPicker(!picker)} />
 			</li>
 			{picker &&

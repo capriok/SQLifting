@@ -8,7 +8,7 @@ import styles from '../../styles/assemble/actions.module.scss'
 
 import { Button } from 'godspeed'
 
-const AssembleActions = ({ state, dispatch }) => {
+const AssembleActions = ({ state, dispatch, setSuccess }) => {
 	const [{ user }] = useStateValue()
 	const update = useUpdate()
 	const { steps, activeStep, readyForNext, currentBuild } = state
@@ -44,7 +44,8 @@ const AssembleActions = ({ state, dispatch }) => {
 				break;
 		}
 		SQLifting.post(table, { build, uid: user.details.uid })
-			.then(res => {
+			.then(() => {
+				setSuccess(true)
 				update('composites', [table + 's'])
 				console.log('%cSuccessfully inserted', 'color: lightskyblue;');
 			})

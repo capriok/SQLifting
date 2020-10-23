@@ -9,10 +9,13 @@ import useUpdate from '../../utils/useUpdate'
 
 import view from '../../styles/manage/manage.module.scss'
 import styles from '../../styles/manage/compose.module.scss'
+import ss from '../../styles/common/submit-success.module.scss'
 
 import { Button, Input } from 'godspeed'
 
-const Compose = () => {
+const Compose = (props) => {
+	const { success, setSuccess } = props
+
 	const [{ user, options }] = useStateValue()
 
 	const [value, setValue] = useState('')
@@ -58,6 +61,7 @@ const Compose = () => {
 		if (!value) return
 		SQLifting.post('/composition', { table: table, name: value, uid: user.details.uid })
 			.then(() => {
+				setSuccess(true)
 				update('compositions', [params.entities])
 				setValue('')
 			})
@@ -65,7 +69,10 @@ const Compose = () => {
 
 	return (
 		<>
-			<p className={view.title}>Add {params.entities.slice(0, -1)}</p>
+			{success
+				? <h1 className={ss.manage_submit_success}>Success</h1>
+				: <p className={view.title}>Add {params.entities.slice(0, -1)}</p>
+			}
 			<div className={styles.compose}>
 				<form onSubmit={e => submit(e)}>
 					<Input
