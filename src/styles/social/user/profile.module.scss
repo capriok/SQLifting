@@ -4,11 +4,15 @@
 	@include flex;
 	justify-content: space-between;
 	margin: 0 20px;
+	@include media("<=phone") {
+		h1 {
+			display: none;
+		}
+	}
 }
 .profile {
 	@include flex;
 	align-items: stretch;
-
 	.stats,
 	.account {
 		flex: 1;
@@ -58,6 +62,17 @@
 			padding: 4px;
 			width: 100%;
 			border: 1px solid grey;
+		}
+	}
+	@include media("<=phone") {
+		flex-direction: column;
+		padding: 0;
+		.account {
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+		}
+		.stats {
+			order: 1;
 		}
 	}
 }

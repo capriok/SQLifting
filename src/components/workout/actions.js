@@ -38,16 +38,18 @@ const WorkoutActions = ({ state }) => {
 						onClick={() => { setConfirming(true) }}
 						disabled={atIndex} />
 				}
-				<Button
-					text="Prepare"
-					onClick={() => {
-						history.push(`/workout/${preview.id}/prepare`)
-					}}
-					disabled={isEmpty(preview) || !atIndex} />
-				<Button
-					text="Start Workout"
-					onClick={() => history.push(`/workout/active`)}
-					disabled={atIndex || isActive} />
+				<div>
+					<Button
+						text="Prepare"
+						onClick={() => {
+							history.push(`/workout/${preview.id}/prepare`)
+						}}
+						disabled={isEmpty(preview) || !atIndex} />
+					<Button
+						text="Start Workout"
+						onClick={() => history.push(`/workout/active`)}
+						disabled={atIndex || isActive} />
+				</div>
 			</>
 		</div>
 	)

@@ -8,4 +8,8 @@
 	margin: 40px 0;
 	border-bottom: 2px solid $app-secondary;
 	font-weight: 400;
+	@include media("<=phone") {
+		font-size: 3rem;
+		margin: 20px 0;
+	}
 }

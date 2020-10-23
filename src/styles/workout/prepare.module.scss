@@ -59,6 +59,9 @@
 			.details {
 				margin-right: 40px;
 				text-align: right;
+				@include media("<=phone") {
+					margin-right: 4px;
+				}
 			}
 		}
 		.ci_entity {
@@ -108,6 +111,26 @@
 			border-radius: 5px;
 			&:active {
 				cursor: grabbing;
+			}
+			@include media("<=phone") {
+				display: none;
+			}
+		}
+	}
+	@include media("<=phone") {
+		.entities {
+			.ex_entity,
+			.ci_entity {
+				padding: 10px 0;
+			}
+			.ci_entity {
+				.entity_main {
+					ul {
+						li {
+							padding: 10px 0;
+						}
+					}
+				}
 			}
 		}
 	}

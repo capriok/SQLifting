@@ -23,9 +23,10 @@ const Manage = ({ params }) => {
 	const [success, setSuccess] = useState(false)
 
 	useEffect(() => {
-		setTimeout(() => {
+		const reset = setTimeout(() => {
 			setSuccess(false)
 		}, 3000);
+		return () => clearTimeout(reset)
 	}, [success])
 
 	useEffect(() => {

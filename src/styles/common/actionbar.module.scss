@@ -29,16 +29,20 @@
 			}
 		}
 		@include media("<=phone") {
-			height: 50px;
-			max-height: 50px;
-			top: 0px;
-			padding: 0 10px;
 			border-radius: 0;
 			box-shadow: none;
 			border-bottom: none;
-			h1 {
-				display: none;
-			}
+		}
+	}
+	@include media("<=phone") {
+		position: stick;
+		top: 40px;
+		max-height: 50px;
+		width: 100vw;
+		padding: 0;
+		margin-bottom: 10px;
+		h1 {
+			display: none;
 		}
 	}
 }

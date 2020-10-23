@@ -15,11 +15,11 @@ const Social = () => {
 					<User />
 				</>
 			)} />
-			<Route path='/social/discover' render={() => (
+			{/* <Route path='/social/discover' render={() => (
 				<>
 					<Discover />
 				</>
-			)} />
+			)} /> */}
 		</div>
 	)
 }

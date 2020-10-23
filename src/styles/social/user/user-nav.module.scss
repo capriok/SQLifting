@@ -102,17 +102,46 @@
 		.cont {
 			@include flex;
 			justify-content: flex-end;
-			a {
-				color: black;
-				margin-right: 45px;
-				p {
+			.counts {
+				@include flex;
+				a {
+					color: black;
+					margin-right: 45px;
+					p {
+						@include flex;
+						flex-direction: column;
+						margin-top: 20px;
+						margin-bottom: 20px;
+						span {
+							margin-top: 10px;
+							font-size: 1.1rem;
+						}
+					}
+				}
+			}
+		}
+	}
+	@include media("<=phone") {
+		flex-direction: column;
+		padding: 0;
+		.left {
+			justify-content: center;
+			order: 1;
+			margin-bottom: 40px;
+			.icon_cont {
+				margin-left: 20px;
+			}
+		}
+		.right {
+			padding: 0 20px;
+			padding-bottom: 10px;
+			.cont {
+				justify-content: space-between;
+				.counts {
 					@include flex;
-					flex-direction: column;
-					margin-top: 20px;
-					margin-bottom: 20px;
-					span {
-						margin-top: 10px;
-						font-size: 1.1rem;
+					order: 2;
+					a {
+						margin-right: 25px;
 					}
 				}
 			}

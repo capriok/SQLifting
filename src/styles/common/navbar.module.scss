@@ -32,8 +32,9 @@
 	}
 	@include media("<=phone") {
 		z-index: 100;
-		position: relative;
-		height: 50px;
+		position: sticky;
+		top: 0;
+		height: 40px;
 		box-shadow: none;
 		width: 100vw;
 		.mobile_button {
@@ -43,7 +44,7 @@
 			display: none;
 		}
 		a {
-			font-size: 2rem;
+			font-size: 1.6rem;
 		}
 	}
 }

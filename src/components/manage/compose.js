@@ -57,8 +57,9 @@ const Compose = (props) => {
 
 	function submit(e) {
 		e.preventDefault()
-		let table = params.entities.slice(0, -1)
 		if (!value) return
+		let table = params.entities.slice(0, -1)
+		setSuccess(false)
 		SQLifting.post('/composition', { table: table, name: value, uid: user.details.uid })
 			.then(() => {
 				setSuccess(true)

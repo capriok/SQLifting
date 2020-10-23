@@ -26,7 +26,9 @@
 		border-top: none;
 		position: fixed;
 		top: 0;
+		width: 100vw;
 		height: 100vh;
+		margin-top: 0;
 		.message {
 			margin-top: 20px;
 			font-size: 1.8rem;

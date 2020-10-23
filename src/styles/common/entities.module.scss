@@ -36,6 +36,10 @@
 					text-overflow: ellipsis;
 					white-space: nowrap;
 					overflow: hidden;
+					@include media("<=phone") {
+						font-size: 0.9rem;
+						width: 80%;
+					}
 				}
 			}
 			img {
@@ -50,11 +54,22 @@
 				color: white;
 				background-color: $app-secondary;
 			}
+			@include media("<=phone") {
+				margin-right: 0;
+			}
 		}
 		.active_entity {
 			background-color: $app-secondary;
 			color: white;
 			transition: 0.2s;
 		}
+		@include media("<=phone") {
+			padding: 5px;
+		}
+	}
+	@include media("<=phone") {
+		width: 100%;
+		align-: stretch;
+		order: 1;
 	}
 }

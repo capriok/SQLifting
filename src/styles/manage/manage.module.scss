@@ -56,51 +56,26 @@
 				margin-top: 0;
 			}
 		}
-		.entities {
-			order: 1;
-			width: 100%;
-			margin-top: 0;
-			.entity_cont {
-				min-width: 100%;
-				max-width: 100%;
-				.entity {
-					margin-right: 0;
-				}
-			}
-		}
 	}
 	@include media("<=phone") {
 		.extension {
-			border-radius: 0;
-			width: 100%;
-			top: 50px;
+			position: sticky;
+			top: 100px;
+			width: 100vw;
 			padding-top: 0;
 			margin-top: 0;
-			max-height: 240px;
+			max-height: 300px;
 			overflow-y: scroll;
+			border-radius: 0;
 			border-top: none;
 			.title {
 				position: sticky;
-				top: 0;
 				margin: 0;
 				margin-bottom: 5px;
 				background-color: $app-primary;
 			}
 			&::-webkit-scrollbar {
 				width: 0;
-			}
-		}
-		.entities {
-			order: 1;
-			width: 100%;
-			margin: 0;
-			.entity_cont {
-				min-width: 100%;
-				max-width: 100%;
-				.entity {
-					border-radius: 0;
-					margin-right: 0;
-				}
 			}
 		}
 	}

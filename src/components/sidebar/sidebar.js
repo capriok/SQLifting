@@ -1,4 +1,5 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
+/*eslint no-unused-vars: "off"*/
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useStateValue } from '../../global/state'
@@ -202,7 +203,7 @@ const SidebarContent = ({ setSidebar }) => {
 							<div className={sectionClass('d')}>
 								<ul>
 									{createMap('/social', social.user)}
-									{createMap('/social', social.discover)}
+									{/* {createMap('/social', social.discover)} */}
 								</ul>
 							</div>
 						</div>

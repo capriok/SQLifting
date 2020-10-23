@@ -72,7 +72,8 @@ const Workout = () => {
 								</div>
 							}
 						</div>
-					</>)} />
+					</>
+				)} />
 				<Route path='/workout/:id/prepare' render={(props) => (
 					<Prepare dispatch={dispatch} params={props.match.params} />
 				)} />

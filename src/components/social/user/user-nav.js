@@ -100,12 +100,14 @@ const UserNav = ({
 			</div>
 			<div className={styles.right}>
 				<div className={styles.cont}>
-					<Link to="followers">
-						<p>Followers<span>{profile.follower_count}</span></p>
-					</Link>
-					<Link to="following">
-						<p>Following<span>{profile.following_count}</span></p>
-					</Link>
+					<div className={styles.counts}>
+						<Link to="followers">
+							<p>Followers<span>{profile.follower_count}</span></p>
+						</Link>
+						<Link to="following">
+							<p>Following<span>{profile.following_count}</span></p>
+						</Link>
+					</div>
 					{window.location.pathname !== `/social/user/${paramUID}/profile` && paramUID === user.details.uid
 						? <></>
 						: paramUID === user.details.uid

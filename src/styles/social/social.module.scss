@@ -8,4 +8,7 @@
 	border-radius: 5px;
 	box-shadow: $soft-shadow;
 	background-color: $app-primary;
+	@include media("<=phone") {
+		margin-top: 0;
+	}
 }
