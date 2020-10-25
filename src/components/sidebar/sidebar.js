@@ -70,7 +70,7 @@ const Sidebar = () => {
 const SidebarContent = ({ setSidebar }) => {
 	const [{ user, options }] = useStateValue()
 
-	const [optionsOpen, setOptions] = useState(true)
+	const [optionsOpen, setOptions] = useState(false)
 
 	const flipOptions = () => setOptions(!optionsOpen)
 
