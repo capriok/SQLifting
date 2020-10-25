@@ -15,7 +15,7 @@
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
 	box-shadow: $soft-shadow;
-	background-color: $app-primary;
+	background-color: $app-primary !important;
 	* {
 		color: black;
 	}
