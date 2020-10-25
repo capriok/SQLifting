@@ -121,6 +121,27 @@
 			}
 		}
 	}
+	@include media("<=tablet") {
+		flex-direction: column;
+		.left {
+			order: 1;
+		}
+		.cont {
+			width: 100%;
+			justify-content: space-between;
+			margin-bottom: 20px;
+			.action {
+				margin-right: auto;
+			}
+			.counts {
+				@include flex;
+				order: 2;
+				a {
+					margin-right: 0;
+				}
+			}
+		}
+	}
 	@include media("<=phone") {
 		flex-direction: column;
 		padding: 0;

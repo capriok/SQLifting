@@ -53,12 +53,9 @@ const Workout = () => {
 				<Route exact path='/workout' render={() => (
 					<>
 						<div className={ent.entities}>
-							<div className={styles.actionbar_gap} />
 							{composites.workouts.map((entity, i) => (
 								<div key={i} className={ent.entity_cont}>
-									<div
-										className={entityClass(entity.id)}
-										onClick={() => setPreview(entity)}>
+									<div className={entityClass(entity.id)} onClick={() => setPreview(entity)}>
 										<div><p>{entity.name}</p></div>
 									</div>
 								</div>

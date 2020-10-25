@@ -2,7 +2,8 @@ import React from 'react'
 import { useStateValue } from '../../global/state'
 
 import styles from '../../styles/common/navbar.module.scss'
-import logo from '../../assets/official_logo_bluesql.png'
+// import logo from '../../assets/official_logo_bluesql.png'
+import logo from '../../assets/sql_dolphin.png'
 
 import { Navbar as Nav, NavLink } from 'godspeed'
 

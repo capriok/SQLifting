@@ -57,6 +57,19 @@
 			transition: 0.2s;
 		}
 	}
+	@include media("<=tablet") {
+		order: 1;
+		width: 100%;
+		.entity_cont {
+			flex: 1;
+			width: 100%;
+			min-width: 100%;
+			max-width: 100%;
+			.entity {
+				margin-right: 0;
+			}
+		}
+	}
 	@include media("<=phone") {
 		width: 100%;
 		align-: stretch;

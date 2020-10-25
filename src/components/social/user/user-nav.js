@@ -108,31 +108,33 @@ const UserNav = ({
 							<p>Following<span>{profile.following_count}</span></p>
 						</Link>
 					</div>
-					{window.location.pathname !== `/social/user/${paramUID}/profile` && paramUID === user.details.uid
-						? <></>
-						: paramUID === user.details.uid
-							? <Button
-								text="Edit Profile"
-								onClick={() => setEdit(true)}
-								disabled={editing} />
-							: !profile.isFollowed
+					<div className={styles.action}>
+						{window.location.pathname !== `/social/user/${paramUID}/profile` && paramUID === user.details.uid
+							? <></>
+							: paramUID === user.details.uid
 								? <Button
-									text="Follow"
-									onClick={async () => follow(paramUID)}
+									text="Edit Profile"
+									onClick={() => setEdit(true)}
 									disabled={editing} />
-								: confirming
-									? <div ref={ref}>
-										<Button
-											className={styles.warn}
-											text="Confirm"
-											onClick={() => unfollow(paramUID)}
-											disabled={editing} />
-									</div>
-									: <Button
-										text="Unfollow"
-										onClick={() => setConfirming(true)}
+								: !profile.isFollowed
+									? <Button
+										text="Follow"
+										onClick={async () => follow(paramUID)}
 										disabled={editing} />
-					}
+									: confirming
+										? <div ref={ref}>
+											<Button
+												className={styles.warn}
+												text="Confirm"
+												onClick={() => unfollow(paramUID)}
+												disabled={editing} />
+										</div>
+										: <Button
+											text="Unfollow"
+											onClick={() => setConfirming(true)}
+											disabled={editing} />
+						}
+					</div>
 				</div>
 			</div>
 		</div>

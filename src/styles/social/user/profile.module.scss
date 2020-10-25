@@ -64,6 +64,17 @@
 			border: 1px solid grey;
 		}
 	}
+	@include media("<=tablet") {
+		flex-direction: column;
+		padding: 0;
+		.account {
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+		}
+		.stats {
+			order: 1;
+		}
+	}
 	@include media("<=phone") {
 		flex-direction: column;
 		padding: 0;

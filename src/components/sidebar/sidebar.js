@@ -11,9 +11,10 @@ import gear from '../../assets/gear.png'
 
 import TipsOption from './options/tips'
 import BackgroundOption from './options/background'
-import PrimaryOption from './options/primary'
+// import PrimaryOption from './options/primary'
 import SecondaryOption from './options/secondary'
 import SidebarOption from './options/sidebar'
+import MultipleDrops from './options/multiple-drops'
 
 const notMobile = window.screen.width >= 420
 
@@ -67,9 +68,9 @@ const Sidebar = () => {
 }
 
 const SidebarContent = ({ setSidebar }) => {
-	const [{ user }] = useStateValue()
+	const [{ user, options }] = useStateValue()
 
-	const [optionsOpen, setOptions] = useState(false)
+	const [optionsOpen, setOptions] = useState(true)
 
 	const flipOptions = () => setOptions(!optionsOpen)
 
@@ -141,10 +142,14 @@ const SidebarContent = ({ setSidebar }) => {
 	})
 
 	function set(name) {
-		let newAcrd = { ...acrd }
-		newAcrd[name] = !newAcrd[name]
-		setAcrd(newAcrd)
-		localStorage.setItem('SQLifting-settings', JSON.stringify(newAcrd))
+		console.log();
+		let isSame = Object.keys(acrd).includes(name)
+		let active = acrd[name] === true
+		let newAcrdOne = { [name]: isSame && active ? false : true }
+		let newAcrdMultiple = { ...acrd }
+		newAcrdMultiple[name] = !newAcrdMultiple[name]
+		setAcrd(options.dropsOption ? newAcrdMultiple : newAcrdOne)
+		localStorage.setItem('SQLifting-settings', JSON.stringify(options.dropsOption ? newAcrdMultiple : newAcrdOne))
 	}
 
 	function SectionTitle({ title, name }) {
@@ -173,7 +178,7 @@ const SidebarContent = ({ setSidebar }) => {
 					/>
 				</div>
 				{optionsOpen
-					? <SidebarOptions flipOptions={flipOptions} />
+					? <SidebarOptions flipOptions={flipOptions} setAcrd={setAcrd} />
 					: <>
 						<div className={acc.accordion}>
 							<SectionTitle title="Manage" name="a" />
@@ -214,7 +219,7 @@ const SidebarContent = ({ setSidebar }) => {
 	)
 }
 
-const SidebarOptions = ({ flipOptions }) => {
+const SidebarOptions = ({ flipOptions, setAcrd }) => {
 	const [, dispatch] = useStateValue()
 
 	async function logoutActions() {
@@ -227,12 +232,20 @@ const SidebarOptions = ({ flipOptions }) => {
 	return (
 		<div className={ops.options}>
 			<h1>Options</h1>
+			<p>Appearance</p>
 			<ul>
 				<BackgroundOption />
 				{/* <PrimaryOption /> */}
 				<SecondaryOption />
+			</ul>
+			<p>Application</p>
+			<ul>
 				<TipsOption />
+			</ul>
+			<p>Sidebar</p>
+			<ul>
 				{notMobile && <SidebarOption flipOptions={flipOptions} />}
+				<MultipleDrops setAcrd={setAcrd} />
 			</ul>
 			<h1 className={ops.logout} onClick={() => logoutActions()}>Logout</h1>
 		</div>

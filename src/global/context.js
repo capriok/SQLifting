@@ -13,7 +13,8 @@ const globalState = {
 		primaryOption: '#f0f0f0',
 		secondaryOption: '#206fa3',
 		tipsOption: true,
-		sidebarOption: true
+		sidebarOption: true,
+		dropsOption: false
 	},
 	components: {
 		sidebar: true
