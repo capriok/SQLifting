@@ -1,0 +1,14 @@
+@import "../../../index.scss";
+
+.user {
+	footer {
+		@include flex;
+		justify-content: flex-end;
+		button {
+			margin-left: 10px;
+		}
+		button[name="save"] {
+			background-color: rgb(0, 117, 0);
+		}
+	}
+}

@@ -1,0 +1,23 @@
+@import "../../index.scss";
+
+.not_found {
+	user-select: none;
+	position: relative;
+	@include flex;
+	flex-direction: column;
+	height: 500px;
+	border-radius: 5px;
+	box-shadow: $soft-shadow;
+	background-color: $app-primary;
+	h1 {
+		z-index: 2;
+		font-size: 2rem;
+	}
+	img {
+		z-index: 1;
+		position: absolute;
+		right: 5%;
+		bottom: 0;
+		width: 200px;
+	}
+}

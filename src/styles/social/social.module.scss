@@ -1,0 +1,14 @@
+@import "../../index.scss";
+
+.social {
+	overflow: hidden;
+	padding: 20px;
+	margin-top: 10px;
+	border: $light-border;
+	border-radius: 5px;
+	box-shadow: $soft-shadow;
+	background-color: $app-primary;
+	@include media("<=phone") {
+		margin-top: 0;
+	}
+}

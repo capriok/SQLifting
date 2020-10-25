@@ -1,0 +1,37 @@
+@import "../../../index.scss";
+
+.workout_exntension {
+	p:first-child {
+		margin-top: 20px;
+	}
+	p {
+		margin-bottom: 0;
+		margin-top: 5px;
+	}
+	ul {
+		margin: 0;
+		padding: 3px 0 3px 15px;
+		li {
+			cursor: default;
+			@include flex;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+	}
+	.li_bb {
+		padding: 5px 0px;
+		border-bottom: 2px solid lightgrey;
+	}
+	span {
+		color: $app-secondary;
+		font-size: 0.9rem;
+		margin-left: 2px;
+	}
+	div {
+		@include flex;
+		width: 75px;
+		margin-right: 5px;
+		align-items: flex-start;
+		flex-direction: column;
+	}
+}

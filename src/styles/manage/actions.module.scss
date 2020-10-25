@@ -1,0 +1,42 @@
+@import "../../index.scss";
+
+.manage_actions {
+	@include flex;
+	button {
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	.select_group {
+		@include flex;
+		button {
+			min-width: 90px;
+		}
+		.select {
+			margin-right: 0;
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		.delete {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+	}
+	.active_button {
+		background-color: $app-secondary;
+	}
+
+	@include media("<=tablet") {
+		width: 100%;
+		justify-content: space-between;
+		button {
+			margin: 0;
+		}
+	}
+	@include media("<=phone") {
+		width: 100%;
+		justify-content: space-between;
+		button {
+			margin: 0;
+		}
+	}
+}

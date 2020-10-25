@@ -1,0 +1,17 @@
+@import "../../index.scss";
+
+.workout_actions {
+	@include flex;
+	a:not(:last-child),
+	button:not(:last-child) {
+		margin-right: 10px;
+		cursor: pointer;
+	}
+	@include media("<=phone") {
+		width: 100%;
+		justify-content: space-between;
+		button {
+			margin: 0;
+		}
+	}
+}

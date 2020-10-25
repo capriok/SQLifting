@@ -1,0 +1,89 @@
+@import "../../../index.scss";
+
+.profile_title {
+	@include flex;
+	justify-content: space-between;
+	margin: 0 20px;
+	@include media("<=phone") {
+		h1 {
+			display: none;
+		}
+	}
+}
+.profile {
+	@include flex;
+	align-items: stretch;
+	.stats,
+	.account {
+		flex: 1;
+		ul {
+			width: 100%;
+			padding: 0 20px;
+			li {
+				cursor: default;
+				@include flex;
+				justify-content: space-between;
+				padding-bottom: 7px;
+				margin-bottom: 10px;
+				margin-left: 5px;
+				border-bottom: 2px solid lightgrey;
+				p,
+				span {
+					margin: 0;
+				}
+				span {
+					flex: 1;
+					text-align: left;
+				}
+			}
+		}
+	}
+	.stats {
+		ul {
+			width: 100%;
+			li {
+				p {
+					flex: 3;
+				}
+			}
+		}
+	}
+	.account {
+		ul {
+			width: 100%;
+			li {
+				p {
+					flex: 1;
+				}
+			}
+		}
+		input {
+			flex: 1;
+			padding: 4px;
+			width: 100%;
+			border: 1px solid grey;
+		}
+	}
+	@include media("<=tablet") {
+		flex-direction: column;
+		padding: 0;
+		.account {
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+		}
+		.stats {
+			order: 1;
+		}
+	}
+	@include media("<=phone") {
+		flex-direction: column;
+		padding: 0;
+		.account {
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+		}
+		.stats {
+			order: 1;
+		}
+	}
+}

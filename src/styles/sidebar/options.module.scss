@@ -1,0 +1,53 @@
+@import "../../index.scss";
+
+.options {
+	flex: 1;
+	@include flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+	height: 100%;
+	h1 {
+		background-color: $app-primary;
+		margin-bottom: 5px;
+		filter: brightness(95%);
+	}
+	ul {
+		width: 100%;
+		padding-bottom: 10px;
+		margin: 0;
+		margin: 5px 5px 10px 0;
+		p {
+			padding-left: 0;
+			padding: 10px 0 5px 20px;
+		}
+		li {
+			cursor: default;
+			@include flex;
+			justify-content: space-between;
+			padding-right: 20px;
+			p {
+				padding: 0;
+			}
+			&:last-child {
+				padding-bottom: 0;
+			}
+		}
+	}
+
+	.logout {
+		@include flex;
+		cursor: pointer;
+		text-align: center;
+		font-size: 1.2rem;
+		letter-spacing: 0.5px;
+		padding: 5px 0;
+		margin-top: auto;
+		transition: 0.2s;
+		&:hover {
+			transition: 0.2s;
+			color: white;
+			background-color: $app-secondary;
+		}
+	}
+}

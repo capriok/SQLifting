@@ -1,0 +1,42 @@
+@import "../../index.scss";
+
+.manage_submit_success {
+	width: 100%;
+	text-align: center;
+	margin-bottom: 30px;
+	animation: roll 3.2s infinite;
+}
+
+.assemble_submit_success {
+	width: 100%;
+	text-align: center;
+	padding-top: 10px;
+	animation: roll 4.2s infinite;
+}
+
+@keyframes roll {
+	0% {
+		color: black;
+		opacity: 1;
+	}
+	20% {
+		color: steelblue;
+		opacity: 1;
+	}
+	40% {
+		color: maroon;
+		opacity: 1;
+	}
+	60% {
+		color: goldenrod;
+		opacity: 1;
+	}
+	80% {
+		color: cadetblue;
+		opacity: 1;
+	}
+	100% {
+		color: darkgreen;
+		opacity: 0;
+	}
+}

@@ -1,0 +1,19 @@
+@import "../../../index.scss";
+
+.exercise_exntension {
+	p:first-child {
+		margin-top: 20px;
+	}
+	p {
+		margin-bottom: 0;
+		margin-top: 5px;
+		padding-bottom: 5px;
+		border-bottom: 2px solid lightgrey;
+		span {
+			color: $app-secondary;
+			font-size: 0.9rem;
+		}
+	}
+	@include media("<=phone") {
+	}
+}

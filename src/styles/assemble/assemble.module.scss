@@ -1,0 +1,112 @@
+@import "../../index.scss";
+
+.stepper_wrapper {
+	z-index: 50;
+	position: sticky;
+	top: 130px;
+	padding-top: 10px;
+	background-color: $app-background;
+	.stepper {
+		border-radius: 5px;
+		border: $light-border;
+		box-shadow: $soft-shadow;
+		background-color: $app-primary;
+		@include media("<=phone") {
+			box-shadow: none;
+			border-top: none;
+			border-radius: 0px;
+			border: none;
+		}
+	}
+	@include media("<=phone") {
+		border-top: none;
+		border-radius: 0px;
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+		margin-top: 0px;
+		padding-top: 0px;
+		top: 0px;
+	}
+}
+
+.assemble {
+	@include flex;
+	align-items: flex-start;
+	width: 100%;
+	.extension {
+		z-index: 10;
+		flex: 1;
+		position: sticky;
+		top: 260px;
+		width: 100%;
+		min-width: 275px;
+		padding: 10px;
+		padding-bottom: 20px;
+		margin-top: 10px;
+		border-radius: 5px;
+		box-shadow: $soft-shadow;
+		background-color: $app-primary;
+		.title {
+			text-align: center;
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+			font-weight: 400;
+			font-size: 1.2rem;
+		}
+		.name_placeholder {
+			user-select: none;
+			text-align: center;
+			color: rgb(95, 95, 95);
+			height: 36px;
+			font-size: 1.2rem;
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+		}
+		.name_input {
+			@include flex;
+			width: 100%;
+			@include flex;
+			input {
+				flex: 1;
+				width: 100%;
+				border: $light-border;
+			}
+		}
+	}
+
+	@include media("<=tablet") {
+		flex-direction: column;
+		.extension {
+			.title {
+				margin-top: 0;
+			}
+		}
+	}
+	@include media("<=phone") {
+		.extension {
+			position: unset;
+			top: unset;
+			border-radius: 0;
+			width: 100vw;
+			top: 155px;
+			padding-top: 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			overflow-y: scroll;
+			border-top: none;
+			.title {
+				position: sticky;
+				top: 0;
+				margin: 0;
+				margin-bottom: 5px;
+				background-color: $app-primary;
+			}
+			.name_placeholder {
+				margin-top: 0;
+			}
+			&::-webkit-scrollbar {
+				width: 0;
+			}
+		}
+	}
+}

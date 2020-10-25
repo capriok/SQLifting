@@ -1,0 +1,82 @@
+@import "../../index.scss";
+
+.workout {
+	@include flex;
+	align-items: flex-start;
+	width: 100%;
+	.extension {
+		z-index: 10;
+		flex: 1;
+		position: sticky;
+		top: 140px;
+		width: 100%;
+		min-width: 275px;
+		padding: 10px;
+		padding-bottom: 20px;
+		margin-top: 10px;
+		border-radius: 5px;
+		border: $light-border;
+		// box-shadow: $soft-shadow;
+		background-color: $app-primary;
+		.title {
+			text-align: center;
+			padding-bottom: 10px;
+			border-bottom: 2px solid $app-secondary;
+			font-weight: 400;
+			font-size: 1.2rem;
+		}
+		ul {
+			margin: 0;
+			padding: 3px 0 3px 15px;
+			li {
+				cursor: default;
+			}
+			div:not(:last-child) {
+				border-bottom: 2px solid lightgrey;
+			}
+		}
+		span {
+			color: $app-secondary;
+			font-size: 0.9rem;
+			margin-left: 2px;
+		}
+		.dep {
+			font-weight: 400;
+			font-size: 1.1rem;
+			padding: 10px 20px;
+			margin: -10px;
+			margin-top: 10px;
+			margin-bottom: 5px;
+			border: unset;
+			border-top: $light-border;
+			border-bottom: $light-border;
+			background-color: rgb(235, 235, 235);
+		}
+		.detail {
+			margin: 0;
+			font-weight: 400;
+			margin-top: 5px;
+		}
+	}
+	@include media("<=tablet") {
+		flex-direction: column;
+		.extension {
+			.title {
+				margin-top: 0;
+			}
+		}
+	}
+	@include media("<=phone") {
+		.extension {
+			top: 0;
+			margin-top: 0;
+			margin: 0;
+			border: none;
+			max-height: 300px;
+			overflow-x: scroll;
+			&::-webkit-scrollbar {
+				width: 0;
+			}
+		}
+	}
+}

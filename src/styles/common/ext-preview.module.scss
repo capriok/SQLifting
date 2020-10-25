@@ -1,0 +1,36 @@
+@import "../../index.scss";
+
+.preview {
+	ul {
+		margin: 0;
+		padding: 3px 0 3px 15px;
+		li {
+			cursor: default;
+		}
+		div:not(:last-child) {
+			border-bottom: 2px solid lightgrey;
+		}
+	}
+	span {
+		color: $app-secondary;
+		font-size: 0.9rem;
+		margin-left: 2px;
+	}
+	.dep {
+		font-weight: 400;
+		font-size: 1.1rem;
+		padding: 10px 20px;
+		margin: -10px;
+		margin-top: 10px;
+		margin-bottom: 5px;
+		border: unset;
+		border-top: $light-border;
+		border-bottom: $light-border;
+		background-color: rgb(235, 235, 235);
+	}
+	.detail {
+		margin: 0;
+		font-weight: 400;
+		margin-top: 5px;
+	}
+}

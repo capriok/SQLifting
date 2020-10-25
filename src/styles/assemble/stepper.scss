@@ -1,0 +1,13 @@
+@import "../../index.scss";
+
+$stepperBackgroundColor: transparent;
+$stepperInactiveColor: $app-background;
+$stepperActiveColor: $app-secondary;
+$stepperCompletedColor: black;
+
+:export {
+	backgroundColor: $stepperBackgroundColor;
+	stepperActiveColor: $stepperActiveColor;
+	stepperInactiveColor: $stepperInactiveColor;
+	stepperCompletedColor: $stepperCompletedColor;
+}

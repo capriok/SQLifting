@@ -1,0 +1,28 @@
+@import "../../../index.scss";
+
+.discover {
+	section {
+		padding: 0;
+		@include flex;
+		justify-content: flex-start;
+		.main {
+			flex: 1;
+		}
+		.community {
+			flex: 1;
+		}
+		.find_people {
+			flex: 1;
+			.title {
+				@include flex;
+				justify-content: space-between;
+				width: 100%;
+				input {
+					margin-right: 10px;
+					border-radius: 5px;
+					border: $light-border;
+				}
+			}
+		}
+	}
+}

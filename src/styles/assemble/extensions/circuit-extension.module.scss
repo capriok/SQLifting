@@ -1,0 +1,30 @@
+@import "../../../index.scss";
+
+.circuit_exntension {
+	p:first-child {
+		margin-top: 20px;
+	}
+	p {
+		margin-bottom: 0;
+		margin-top: 5px;
+	}
+	ul {
+		margin: 0;
+		padding: 3px 0 3px 15px;
+		li {
+			@include flex;
+			justify-content: space-between;
+			margin-right: 5px;
+			cursor: default;
+		}
+	}
+	.li_bb {
+		padding: 5px 0px;
+		border-bottom: 2px solid lightgrey;
+	}
+	span {
+		color: $app-secondary;
+		font-size: 0.9rem;
+		margin-left: 2px;
+	}
+}

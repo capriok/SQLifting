@@ -1,0 +1,62 @@
+@import "../../../index.scss";
+
+.people {
+	@include flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	padding: 20px;
+	thead,
+	tbody {
+		width: 100%;
+		tr {
+			@include flex;
+			justify-content: space-between;
+			align-items: stretch;
+			img {
+				width: 30px;
+			}
+			th,
+			td {
+				@include flex;
+				justify-content: flex-start;
+				width: 100%;
+				text-transform: capitalize;
+				a {
+					@include flex;
+					justify-content: flex-start;
+					color: black;
+					cursor: pointer;
+					width: 100%;
+					height: 100%;
+				}
+			}
+			button {
+				min-width: 100px;
+			}
+			th:first-child,
+			td:first-child {
+				max-width: 100px;
+			}
+			th:last-child,
+			td:last-child {
+				justify-content: center;
+				max-width: 100px;
+			}
+		}
+	}
+	tbody tr,
+	thead tr {
+		border-bottom: 2px solid lightgrey;
+		padding-bottom: 7px;
+		margin-bottom: 10px;
+	}
+	tbody tr:not(:first-child) {
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	thead tr {
+		border-bottom: 2px solid $app-secondary;
+	}
+}

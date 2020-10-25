@@ -1,0 +1,159 @@
+@import "../../index.scss";
+
+.greeting {
+	user-select: none;
+	@include flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	min-height: 600px;
+	margin-top: 10px;
+	border-radius: 5px;
+	border: $light-border;
+	box-shadow: $soft-shadow;
+	background-color: $app-primary;
+	.message {
+		font-size: 2.5rem;
+		margin-top: 0;
+		margin-bottom: 30px;
+	}
+	* {
+		font-family: "Baloo Tamma 2", cursive;
+		font-weight: 300;
+	}
+
+	@include media("<=phone") {
+		border-top: none;
+		position: fixed;
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		margin-top: 0;
+		.message {
+			margin-top: 20px;
+			font-size: 1.8rem;
+		}
+	}
+}
+
+.weather {
+	@include flex;
+	flex-direction: column;
+	.top,
+	.bottom {
+		@include flex;
+		flex: 100%;
+	}
+	.description {
+		font-size: 1.8rem;
+		margin: 0px;
+	}
+	.bottom {
+		margin: 20px;
+		margin-bottom: 30px;
+	}
+	.temperature,
+	.humidity {
+		text-align: center;
+		min-width: 200px;
+		p {
+			margin: 0px;
+			font-size: 1.3rem;
+		}
+		h1 {
+			@include flex;
+			justify-items: self-start;
+			margin: 10px;
+			.symbol {
+				color: black;
+				font-size: 1.3rem;
+				padding-bottom: 10px;
+			}
+		}
+		.loader {
+			margin-top: 5px;
+			margin-bottom: 25px;
+		}
+	}
+	.icon {
+		@include flex;
+		img {
+			width: 100px;
+			min-height: 100px;
+			filter: drop-shadow(-2px 2px 5px rgba(0, 0, 0, 0.3)) hue-rotate(180deg);
+		}
+	}
+	@include media("<=desktop") {
+		.temperature,
+		.humidity {
+			min-width: 150px;
+		}
+	}
+	@include media("<=phone") {
+		.top {
+			.description {
+				font-size: 1.5rem;
+			}
+		}
+		.bottom {
+			flex-wrap: wrap;
+			width: 100vw;
+			.icon {
+				order: -1;
+				width: 100vw;
+				margin-bottom: 10px;
+			}
+			.temperature {
+				margin-left: 30px;
+			}
+			.humidity {
+				margin-right: 30px;
+			}
+			.temperature,
+			.humidity {
+				flex: 1;
+				min-width: unset;
+				h1 {
+					font-size: 1.5rem;
+				}
+				p {
+					margin: 0px;
+					font-size: 1.3rem;
+				}
+				.symbol {
+					font-size: 0.9rem;
+				}
+			}
+		}
+	}
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Tamma+2&display=swap");
+.clock {
+	color: black;
+	width: fit-content;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+	padding: 10px 0;
+	min-width: 600px;
+	.time,
+	.date {
+		text-align: center;
+		margin: 0;
+	}
+	.time {
+		font-size: 2.5rem;
+		padding-bottom: 10px;
+		margin-top: 20px;
+	}
+	.date {
+		font-size: 1.8rem;
+		margin: 10px;
+	}
+	@include media("<=desktop") {
+		min-width: 400px;
+	}
+	@include media("<=phone") {
+		display: none;
+	}
+}

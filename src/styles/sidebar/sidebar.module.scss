@@ -1,0 +1,94 @@
+@import "../../index.scss";
+
+.sidebar {
+	z-index: 500;
+	cursor: default;
+	user-select: none;
+	position: sticky;
+	top: 70px;
+	flex: 2;
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	max-width: 300px;
+	min-width: 300px;
+	margin-top: 10px;
+	padding-bottom: 10px;
+	border: $light-border;
+	border-radius: 5px;
+	box-shadow: $soft-shadow;
+	background-color: $app-primary;
+	.head {
+		@include flex;
+		justify-content: space-between;
+		padding: 10px;
+		.gear,
+		.close {
+			cursor: pointer;
+			width: 18px;
+		}
+		.close {
+			display: none;
+		}
+	}
+	h1 {
+		font-size: 1.3rem;
+		font-family: Roboto;
+		margin-bottom: 0;
+		padding: 10px 20px;
+		margin-top: 0;
+		border-top: $light-border;
+		border-bottom: $light-border;
+		background-color: $app-primary;
+		filter: brightness(93%);
+		@include flex;
+		justify-content: space-between;
+	}
+	.h_content {
+		display: none;
+	}
+	p {
+		font-size: 1.05rem;
+		padding: 10px 0 5px 20px;
+		margin: 0;
+	}
+	ul {
+		padding-right: 0;
+		padding-left: 25px;
+		margin: 0;
+		margin: 10px 5px;
+		margin-left: 0;
+		width: fit-content;
+		li {
+			cursor: pointer;
+			color: black;
+			padding: 0;
+			padding-bottom: 10px;
+			padding-left: 10px;
+			text-decoration: none;
+			border-left: 2px solid $app-secondary;
+			transition: 0.1s;
+		}
+		:last-child li {
+			padding-bottom: 0;
+		}
+		.active_li {
+			transition: 0.1s;
+			padding-left: 20px;
+		}
+	}
+	@include media("<=phone") {
+		position: absolute;
+		top: 30px;
+		left: 0;
+		width: 100vw;
+		min-height: calc(100vh - 40px);
+		max-width: unset;
+		overflow-y: scroll;
+		.head {
+			.close {
+				display: inline;
+			}
+		}
+	}
+}
