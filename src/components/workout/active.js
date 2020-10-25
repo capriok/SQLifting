@@ -77,16 +77,18 @@ const Active = ({ state }) => {
 			</div>
 			<div className={ext.extension}>
 				<Timer />
-				<div className={ext.tab_group}>
-					<Button
-						className={tab.exercises && ext.active_tab}
-						text="Exercises"
-						onClick={() => setTab({ ...tab, exercises: true, circuit: false })} />
-					<Button
-						className={tab.circuit && ext.active_tab}
-						text="Circuit"
-						onClick={() => setTab({ ...tab, exercises: false, circuit: true })} />
-				</div>
+				{workout.circuit.length > 0 &&
+					<div className={ext.tab_group}>
+						<Button
+							className={tab.exercises && ext.active_tab}
+							text="Exercises"
+							onClick={() => setTab({ ...tab, exercises: true, circuit: false })} />
+						<Button
+							className={tab.circuit && ext.active_tab}
+							text="Circuit"
+							onClick={() => setTab({ ...tab, exercises: false, circuit: true })} />
+					</div>
+				}
 			</div>
 		</div>
 	)

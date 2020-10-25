@@ -99,10 +99,9 @@
 	}
 	@include media("<=tablet") {
 		flex-direction: column;
-		.extension {
-			.title {
-				margin-top: 0;
-			}
+		.workout {
+			order: 1;
+			margin-top: 10px;
 		}
 	}
 	@include media("<=phone") {

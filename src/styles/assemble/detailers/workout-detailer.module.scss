@@ -46,11 +46,18 @@
 			}
 		}
 	}
+	@include media("<=tablet") {
+		width: 100%;
+		.detailer_cont {
+			flex: 1;
+			width: 100%;
+			margin-right: 0;
+		}
+	}
 	@include media("<=phone") {
 		width: 100vw;
 		order: 1;
 		.detailer_cont {
-			margin-right: 0;
 			.details {
 				.detail {
 					width: 100%;

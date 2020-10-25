@@ -67,13 +67,9 @@
 		}
 	}
 	@include media("<=tablet") {
-		order: 1;
 		width: 100%;
+		order: 1;
 		.entity_cont {
-			flex: 1;
-			width: 100%;
-			min-width: 100%;
-			max-width: 100%;
 			.entity {
 				margin-right: 0;
 			}
