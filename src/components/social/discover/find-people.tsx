@@ -9,14 +9,19 @@ import styles from '../../../styles/social/discover/find-people.module.scss'
 
 import { Button } from 'godspeed'
 
-const FindPeople = ({ fetchPeople, people }) => {
+interface Props {
+	fetchPeople: () => void
+	people: any
+}
+
+const FindPeople: React.FC<Props> = ({ fetchPeople, people }) => {
 	const [{ user }] = useStateValue()
 
-	const [confirming, setConfirm] = useState()
+	const [confirming, setConfirm] = useState<any>(null)
 
-	const ref = useRef();
+	const ref: any = useRef()
 	useOutsideClick(ref, () => {
-		if (confirming === parseInt(ref.current.id)) setConfirm()
+		if (confirming === parseInt(ref.current.id)) setConfirm(null)
 	});
 
 
@@ -35,7 +40,7 @@ const FindPeople = ({ fetchPeople, people }) => {
 			following_uid: UID
 		})
 			.then(() => {
-				setConfirm()
+				setConfirm(null)
 				fetchPeople()
 			})
 			.catch(err => console.log(err))
@@ -59,7 +64,7 @@ const FindPeople = ({ fetchPeople, people }) => {
 								<tr>
 									<td>
 										<Link to={`/social/user/${p.uid}/profile`}>
-											<img className={styles.icon} src={p.icon !== null ? p.icon : nullIcon} alt="" />
+											<img className={styles.icon} src={p.icon !== '' ? p.icon : nullIcon} alt="" />
 										</Link>
 									</td>
 									<td>

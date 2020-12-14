@@ -8,7 +8,20 @@ import styles from '../../../styles/social/user/user-nav.module.scss'
 
 import { Button } from 'godspeed'
 
-const UserNav = ({
+interface Props {
+	paramUID: number
+	fileRef: any
+	fetchFollowers: () => void
+	followUser: (uid: number) => void
+	unfollowUser: (uid: number) => void
+	profile: any
+	editing: boolean
+	setEdit: React.Dispatch<boolean>
+	changes: any
+	setChanges: React.Dispatch<any>
+}
+
+const UserNav: React.FC<Props> = ({
 	paramUID,
 	fileRef,
 	fetchFollowers,
@@ -24,14 +37,14 @@ const UserNav = ({
 
 	const [confirming, setConfirming] = useState(false)
 
-	const ref = useRef();
+	const ref: any = useRef()
 	useOutsideClick(ref, () => {
 		if (confirming) setConfirming(false)
 	});
 
 	const changeIcon = (e) => {
-		let reader = new FileReader();
-		const file = e.target.files[0];
+		let reader = new FileReader()
+		const file = e.target.files[0]
 		if (file) {
 			reader.onloadend = () => {
 				setChanges({
@@ -85,8 +98,8 @@ const UserNav = ({
 					<h1>{profile.username}</h1>
 					{editing
 						? <><textarea
-							rows="4"
-							maxLength="120"
+							rows={4}
+							maxLength={120}
 							placeholder={profile.status}
 							onChange={e => setChanges({ ...changes, status: e.target.value })} />
 							<p className={styles.area_details}>

@@ -5,63 +5,65 @@ import { useStateValue } from '../../../global/state'
 import useOutsideClick from '../../../utils/useOutsideClick'
 
 import nullIcon from '../../../assets/null-icon.png'
-import styles from '../../../styles/social/user/followers.module.scss'
+import styles from '../../../styles/social/user/following.module.scss'
 
 import { Button } from 'godspeed'
 
-const Followers = ({
+interface Props {
+	paramUID: number
+	fetchFollowing: () => void
+	followUser: (uid: number) => void
+	unfollowUser: (uid: number) => void
+	following: any
+
+}
+
+const Following: React.FC<Props> = ({
 	paramUID,
-	fetchFollowers,
+	fetchFollowing,
 	followUser,
 	unfollowUser,
-	unfollowOwnUser,
-	followers
+	following
 }) => {
 	const [{ user }] = useStateValue()
 
-	const [confirming, setConfirm] = useState()
+	const [confirming, setConfirm] = useState(null)
 
-	const ref = useRef();
+	const ref: any = useRef()
 	useOutsideClick(ref, () => {
-		if (confirming === parseInt(ref.current.id)) setConfirm()
+		if (confirming === parseInt(ref.current.id)) setConfirm(null)
 	});
 
 	useEffect(() => {
-		fetchFollowers()
+		fetchFollowing()
 	}, [paramUID])
 
 	useEffect(() => {
-		followers.length > 0 && console.log(`%cUser Followers (${paramUID})`, 'color: lightskyblue', { followers });
-	}, [followers])
+		following.length > 0 && console.log(`%cUser Following (${paramUID})`, 'color: lightskyblue', { following });
+	}, [following])
 
 	async function follow(uid) {
 		await followUser(uid)
-		setConfirm()
-		fetchFollowers()
+		setConfirm(null)
+		fetchFollowing()
 	}
 
 	async function unfollow(uid) {
 		await unfollowUser(uid)
-		setConfirm()
-		fetchFollowers()
-	}
-
-	async function unfollowOwn(uid) {
-		await unfollowOwnUser(uid)
-		setConfirm()
-		fetchFollowers()
+		setConfirm(null)
+		fetchFollowing()
 	}
 
 	return (
 		<>
 			<section>
-				<div className={styles.followers_title}>
-					<h1>Followers</h1>
-					<Link to="profile"><Button text="◄ Back" /></Link>
+				<div className={styles.following_title}>
+					<h1>Following</h1>
+					<Link to={`profile`}><Button text="◄ Back" /></Link>
 				</div>
-				<div className={styles.followers}>
-					{followers.map((f, i) => (
-						<div key={i} className={styles.follower}>
+				<div className={styles.following}>
+					{following.map((f, i) => (
+						<div key={i} className={styles.followee}>
 							<Link to={`/social/user/${f.uid}/profile`}>
 								<img className={styles.icon} src={f.icon !== null ? f.icon : nullIcon} alt="" />
 								<span className={styles.username}>{f.username}</span>
@@ -74,10 +76,10 @@ const Followers = ({
 											<Button
 												className={styles.warn}
 												text="Confirm"
-												onClick={() => unfollowOwn(f.uid)} />
+												onClick={() => unfollow(f.uid)} />
 										</div>
 										: <Button
-											text="Remove"
+											text="Unfollow"
 											onClick={() => setConfirm(f.uid)} />
 									: !f.isFollowed
 										? <Button
@@ -102,4 +104,4 @@ const Followers = ({
 	)
 }
 
-export default Followers
+export default Following

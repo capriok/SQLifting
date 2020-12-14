@@ -1,5 +1,6 @@
 /*eslint react-hooks/exhaustive-deps: "off"*/
 /*eslint no-unused-vars: "off"*/
+/*eslint @typescript-eslint/no-unused-vars: "off"*/
 import React from 'react'
 import { Route } from 'react-router-dom'
 
@@ -8,7 +9,7 @@ import styles from '../styles/social/social.module.scss'
 import User from '../components/social/user/user'
 import Discover from '../components/social/discover/discover'
 
-const Social = () => {
+const Social: React.FC = () => {
 	return (
 		<div className={styles.social}>
 			<Route path='/social/user/:uid' render={() => (

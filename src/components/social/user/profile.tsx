@@ -7,7 +7,19 @@ import styles from '../../../styles/social/user/profile.module.scss'
 import { Button, Input } from 'godspeed'
 import { isEmpty } from 'lodash'
 
-const Profile = ({
+interface Props {
+	paramUID: number
+	cancelChanges: () => void
+	saveChanges: () => void
+	profile: any
+	editing: boolean
+	changes: any
+	setChanges: React.Dispatch<any>
+	submitting: boolean
+	setSubmitting: React.Dispatch<boolean>
+}
+
+const Profile: React.FC<Props> = ({
 	paramUID,
 	cancelChanges,
 	saveChanges,
@@ -25,7 +37,7 @@ const Profile = ({
 
 	const [confirming, setConfirming] = useState(false)
 
-	const ref = useRef();
+	const ref: any = useRef()
 	useOutsideClick(ref, () => {
 		if (confirming) setConfirming(false)
 	});

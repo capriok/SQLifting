@@ -11,11 +11,11 @@ import FindPeople from './find-people'
 import Community from './community'
 import { Input } from 'godspeed'
 
-const Discover = () => {
+const Discover: React.FC = () => {
 	const [{ user }] = useStateValue()
 
-	const [term, setTerm] = useState('')
-	const [people, setPeople] = useState([])
+	const [term, setTerm] = useState<string>('')
+	const [people, setPeople] = useState<any>([])
 
 	function fetchPeople() {
 		SQLiftingAcc.get(`/users/${user.details.uid}`)

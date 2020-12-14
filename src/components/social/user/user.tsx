@@ -17,21 +17,21 @@ const INIT_PROFILE = {
 	following: []
 }
 
-const User = () => {
+const User: React.FC = () => {
 	const [{ user }] = useStateValue()
 
 	const params = useParams()
 	const paramUID = parseInt(params.uid)
 
-	const fileRef = useRef(null)
-	const [editing, setEdit] = useState(false)
-	const [changes, setChanges] = useState({})
+	const fileRef: any = useRef(null)
+	const [editing, setEdit] = useState<boolean>(false)
+	const [changes, setChanges] = useState<any>({})
 
-	const [submitting, setSubmitting] = useState(false)
+	const [submitting, setSubmitting] = useState<boolean>(false)
 
-	const [profile, setProfile] = useState(INIT_PROFILE)
-	const [followers, setFollowers] = useState([])
-	const [following, setFollowing] = useState([])
+	const [profile, setProfile] = useState<any>(INIT_PROFILE)
+	const [followers, setFollowers] = useState<any>([])
+	const [following, setFollowing] = useState<any>([])
 
 	async function fetchProfile() {
 		await SQLiftingAcc.get(`/profile/${paramUID}/${user.details.uid}`)
@@ -61,7 +61,7 @@ const User = () => {
 		fetchProfile()
 	}, [paramUID])
 
-	async function followUser(UID) {
+	async function followUser(UID: number) {
 		await SQLiftingAcc.post(`/follow`, {
 			follower_uid: user.details.uid,
 			following_uid: UID
@@ -70,7 +70,7 @@ const User = () => {
 			.catch(err => console.log(err))
 	}
 
-	async function unfollowUser(UID) {
+	async function unfollowUser(UID: number) {
 		await SQLiftingAcc.post(`/unfollow`, {
 			follower_uid: user.details.uid,
 			following_uid: UID
@@ -79,7 +79,7 @@ const User = () => {
 			.catch(err => console.log(err))
 	}
 
-	async function unfollowOwnUser(UID) {
+	async function unfollowOwnUser(UID: number) {
 		await SQLiftingAcc.post(`/unfollowOwn`, {
 			follower_uid: UID,
 			following_uid: user.details.uid

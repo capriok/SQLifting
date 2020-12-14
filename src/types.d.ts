@@ -1,9 +1,8 @@
+declare module '*.scss';
+
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type FormEvent = React.ChangeEvent<HTMLFormElement>
 type Reducer<S, A> = (prevState: S, action: A) => S
-
-type SuccessState = boolean
-type SetSuccessState = React.Dispatch<SuccessState>
 
 interface GlobalState {
 	user: User
@@ -107,6 +106,8 @@ interface WorkoutState {
 	preview: any
 }
 
+type SuccessState = boolean
+type SetSuccessState = React.Dispatch<SuccessState>
 
 type SetAcrd = React.Dispatch<Acrd>
 
@@ -125,5 +126,3 @@ interface OptionsProps {
 	flipOptions: () => void
 	setAcrd: SetAcrd
 }
-
-declare module '*.scss';

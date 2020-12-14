@@ -5,7 +5,7 @@ import styles from '../../../styles/social/discover/discover-nav.module.scss'
 
 import { Button } from 'godspeed'
 
-const DiscoverNav = () => {
+const DiscoverNav: React.FC = () => {
 	return (
 		<div className={styles.nav}>
 			<Link to="/social/discover">
