@@ -1,7 +1,5 @@
 declare module '*.scss';
 
-type InputEvent = React.ChangeEvent<HTMLInputElement>
-type FormEvent = React.ChangeEvent<HTMLFormElement>
 type Reducer<S, A> = (prevState: S, action: A) => S
 
 interface GlobalState {
@@ -19,7 +17,7 @@ interface ReducerAction {
 
 interface ContextProps {
 	state: GlobalState
-	dispatch: Dispatch<ReducerAction>
+	dispatch: React.Dispatch<ReducerAction>
 }
 
 interface User {
@@ -57,16 +55,16 @@ interface AppOptions {
 }
 
 interface Compositions {
-	equipments: Array
-	muscles: Array
-	exercises: Array
-	movements: Array
+	equipments: any[]
+	muscles: any[]
+	exercises: any[]
+	movements: any[]
 }
 
 interface Composites {
-	circuits: Array
-	exercises: Array
-	workouts: Array
+	circuits: any[]
+	exercises: any[]
+	workouts: any[]
 }
 
 interface ManageState {
@@ -76,13 +74,13 @@ interface ManageState {
 		edit: boolean
 	}
 	preview: any,
-	selection: Array
+	selection: any[]
 }
 
 interface AssembleState {
-	steps: Array
+	steps: any[]
 	activeStep: number
-	entities: Array
+	entities: any[]
 	readyForNext: boolean
 	currentBuild: string
 	exerciseBuild: {
@@ -93,12 +91,12 @@ interface AssembleState {
 	},
 	circuitBuild: {
 		name: string,
-		movements: Array
+		movements: any[]
 	},
 	workoutBuild: {
 		name: string
-		exercises: Array,
-		circuit: Array
+		exercises: any[]
+		circuit: any[]
 	}
 }
 
