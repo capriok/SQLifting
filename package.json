@@ -12,7 +12,7 @@
     "include-media": "^1.4.9",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.14.0",
     "react-color": "^2.18.1",
     "react-dom": "^16.14.0",
